@@ -1,0 +1,88 @@
+# 站点基础配置
+base_url = "https://ilikexff.cn"    # 站点基础URL（必须配置）
+title = "慕予博客"                      # 站点标题
+description = "简单是效率的灵魂"            # 站点描述
+default_language = "zh"             # 默认语言（用于订阅源）
+theme = "neovim-theme"              # 使用的主题名称
+output_dir = "public"               # 输出目录（默认public）
+preserve_dotfiles_in_output = false # 是否保留输出目录中的点文件
+
+# 编译选项
+compile_sass = true  # 是否编译Sass文件
+minify_html = false  # 是否压缩HTML输出
+ignored_content = [] # 忽略的内容文件匹配规则
+ignored_static = []  # 忽略的静态文件匹配规则
+
+# 订阅源配置
+generate_feeds = true                       # 是否生成订阅源
+exclude_paginated_pages_in_sitemap = "none" # 站点地图排除分页规则
+feed_filenames = ["atom.xml"]               # 订阅源文件名
+hard_link_static = false                    # 是否对静态文件使用硬链接
+
+# SEO配置
+generate_sitemap = true    # 是否生成sitemap.xml
+generate_robots_txt = true # 是否生成robots.txt
+
+# Markdown渲染配置
+[markdown]
+highlight_code = true                 # 是否启用代码高亮
+error_on_missing_highlight = false    # 缺失高亮语言是否报错
+extra_syntaxes_and_themes = []        # 额外语法高亮目录
+highlight_theme = "base16-ocean-dark" # 代码高亮主题
+render_emoji = false                  # 是否转换表情符号
+external_links_class = ""             # 外部链接CSS类名
+external_links_target_blank = false   # 外部链接是否新窗口打开
+external_links_no_follow = false      # 是否添加nofollow
+external_links_no_referrer = false    # 是否添加noreferrer
+smart_punctuation = true              # 是否启用智能标点
+definition_list = true                # 是否启用定义列表
+lazy_async_image = true               # 是否启用图片懒加载
+bottom_footnotes = true               # 脚注显示位置
+insert_anchor_links = "none"          # 标题锚点链接位置
+
+# 链接检查配置
+[link_checker]
+skip_prefixes = ["http://[2001:db8::]/"]        # 跳过的链接前缀
+skip_anchor_prefixes = ["https://caniuse.com/"] # 跳过的锚点前缀
+internal_level = "error"                        # 内部链接错误级别
+external_level = "error"                        # 外部链接错误级别
+
+# 分类配置
+taxonomies = [] # 分类法配置（如标签）
+
+# 搜索配置
+[search]
+include_title = true                    # 是否包含标题
+include_description = false             # 是否包含描述
+include_date = false                    # 是否包含日期
+include_path = false                    # 是否包含路径
+include_content = true                  # 是否包含内容
+index_format = "elasticlunr_javascript" # 搜索索引格式
+
+# 多语言配置
+[translations] # 默认语言翻译
+[languages] # 多语言配置
+
+# 自定义数据（可通过config.extra访问）
+[extra]
+# 示例：author = "作者名"
+######################
+# Mandatory settings #
+######################
+
+# set the name of the blog
+blog_name = "慕予博客"
+
+#####################
+# Optional settings #
+#####################
+
+# set the background image u want
+background-image = "assets/background.jpg"
+
+# this parameter allow you to configure specific init functions/shortcuts and commands
+# the value has to be the path of you're config.js file
+config_js = "config.js"
+
+# allow you to include custom css into u're blog
+custom_css = "style.css"
