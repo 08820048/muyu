@@ -1,3 +1,4 @@
+# 根据 Zola 官方文档设置的 GitHub Pages 部署工作流
 name: Build and Deploy Zola Site
 
 on:
@@ -7,21 +8,15 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+    if: github.ref == 'refs/heads/main'
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
-          submodules: true
-          fetch-depth: 0
+          submodules: true  # 获取子模块
+          fetch-depth: 0    # 获取所有历史记录
 
-      - name: Install Zola
-        run: |
-          curl -sL https://github.com/getzola/zola/releases/download/v0.17.2/zola-v0.17.2-x86_64-unknown-linux-gnu.tar.gz | tar xz
-          chmod +x zola
-          sudo mv zola /usr/local/bin
-
+      # 预处理 Markdown 文件，解决宏定义问题
       - name: Preprocess Markdown files
         run: |
           find content -name "*.md" -type f -exec sed -i \
@@ -32,11 +27,11 @@ jobs:
             -e 's/%}/% }/g' \
             {} \;
 
-      - name: Build Zola site
-        run: zola build
-
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: public
-          branch: gh-pages
+      # 使用 Zola 官方推荐的部署 Action
+      - name: Build and Deploy
+        uses: shalzz/zola-deploy-action@master
+        env:
+          # 部署到 gh-pages 分支
+          PAGES_BRANCH: gh-pages
+          # 使用自动生成的 token
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
