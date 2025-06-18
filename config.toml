@@ -1,5 +1,5 @@
 # 站点基础配置
-base_url = "https://ilikexff.cn"    # 站点基础URL（必须配置）
+base_url = "https://muyu-git-main-08820048s-projects.vercel.app"    # 站点基础URL（必须配置）
 title = "慕予博客"                      # 站点标题
 description = "简单是效率的灵魂"            # 站点描述
 default_language = "zh"             # 默认语言（用于订阅源）
