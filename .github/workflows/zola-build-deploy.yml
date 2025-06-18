@@ -9,12 +9,21 @@ jobs:
   build:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: write  # 需要写权限来推送到 gh-pages 分支
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           submodules: true  # 获取子模块
           fetch-depth: 0    # 获取所有历史记录
+
+      # 安装 Zola
+      - name: Install Zola
+        run: |
+          curl -sL https://github.com/getzola/zola/releases/download/v0.17.2/zola-v0.17.2-x86_64-unknown-linux-gnu.tar.gz | tar xz
+          chmod +x zola
+          sudo mv zola /usr/local/bin
 
       # 预处理 Markdown 文件，解决宏定义问题
       - name: Preprocess Markdown files
@@ -27,11 +36,13 @@ jobs:
             -e 's/%}/% }/g' \
             {} \;
 
-      # 使用 Zola 官方推荐的部署 Action
-      - name: Build and Deploy
-        uses: shalzz/zola-deploy-action@master
-        env:
-          # 部署到 gh-pages 分支
-          PAGES_BRANCH: gh-pages
-          # 使用自动生成的 token
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # 手动构建 Zola 站点
+      - name: Build Zola site
+        run: zola build
+
+      # 部署到 GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: public
+          branch: gh-pages
