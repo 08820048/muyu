@@ -3,22 +3,24 @@ name: Build and Deploy Zola Site
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
         with:
           submodules: true
+          fetch-depth: 0
 
       - name: Install Zola
         run: |
           curl -sL https://github.com/getzola/zola/releases/download/v0.17.2/zola-v0.17.2-x86_64-unknown-linux-gnu.tar.gz | tar xz
           chmod +x zola
-          mv zola /usr/local/bin
+          sudo mv zola /usr/local/bin
 
       - name: Preprocess Markdown files
         run: |
@@ -28,16 +30,13 @@ jobs:
             -e 's/}}/} }/g' \
             -e 's/{%/{ %/g' \
             -e 's/%}/% }/g' \
-          {} \;
+            {} \;
 
       - name: Build Zola site
         run: zola build
 
-      - name: Deploy to Vercel
-        uses: amondnet/vercel-action@v20
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          working-directory: ./public
-          vercel-args: '--prod'
+          folder: public
+          branch: gh-pages
