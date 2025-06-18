@@ -85,7 +85,7 @@ date = 2025-06-17
 
 > 命令
 
-```shell
+```bash
 select 1
 ```
 
@@ -95,7 +95,7 @@ select 1
 >
 > 命令
 >
-> ```shell
+> ```bash
 > flushdb
 > ```
 
@@ -107,7 +107,7 @@ select 1
 >
 > 示例：存储键为text-count，值为1的字符串。
 >
-> ```shell
+> ```bash
 > set test:count 1
 > ```
 
@@ -117,13 +117,13 @@ select 1
 >
 > 示例：取到 ``key``为 ``test:count``的 ``value``。
 >
-> ```shell
+> ```bash
 > get test:count
 > ```
 >
 > 返回:
 >
-> ```shell
+> ```bash
 > "1"
 > ```
 
@@ -133,7 +133,7 @@ select 1
 >
 > 示例:将如上字符串**加一、减一**。
 >
-> ```shell
+> ```bash
 > #加一
 > incr test:count
 > #返回
@@ -157,7 +157,7 @@ select 1
 >
 > 示例：存于一个id为1,用户名为 ``Tisox``的用户数据，名为【test-user】。
 >
-> ```shell
+> ```bash
 > # 存入用户id
 > hset test:user id 1
 > #提示：表示操作成功的提示
@@ -175,7 +175,7 @@ select 1
 >
 > 示例：对上述存入的test-user信息进行读取。
 >
-> ```shell
+> ```bash
 > #取id
 > hget test:user id
 > #返回
@@ -199,7 +199,7 @@ select 1
 
 > 从左边存入：101 102 103
 >
-> ```shell
+> ```bash
 > # 从左边存入101 102 103
 > lpush test:ids 101 102 103
 > # 提示
@@ -214,7 +214,7 @@ select 1
 
 > 列表支持不同的方式进行查看
 >
-> ```shell
+> ```bash
 > # 按索引查看
 > lindex test:ids 0
 > # 返回
@@ -234,7 +234,7 @@ select 1
 
 > 由于列表的特性，其取值也可以看作是队列或者栈的出队、出栈等操作。
 >
-> ```shell
+> ```bash
 > # 从右侧弹出一个值
 > lpop test:ids
 > #返回
@@ -254,7 +254,7 @@ select 1
 
 > 往集合中存入一个key为test-language ，值为 ``Java``,``C++``,``Python``的数据。
 >
-> ```shell
+> ```bash
 > # 存入
 > add  test:language Java C++ Python
 > # 提示
@@ -277,7 +277,7 @@ select 1
 
 > 查看集合中的元素
 >
-> ```shell
+> ```bash
 > # 查看当前集合中的剩余元素
 > smembers test:language
 > # 返回
@@ -294,7 +294,7 @@ select 1
 
 > 添加学生数据
 >
-> ```shell
+> ```bash
 > # 添加学生以及其分数
 > zadd test:students 10 aaa 20 bbb 30 ccc 40 ddd 50 eee
 > # 提示
@@ -325,7 +325,7 @@ select 1
 
 > 字面意思，这些命令针对全局生效。
 
-```shell
+```bash
 # keys *
 keys *
 # 返回
@@ -365,14 +365,14 @@ expire test:students 10
 
 以下是一些用来管理 `key`的常用命令：这里只作一个列举，不会全部进行演示。
 
-```shell
+```bash
 # 选择库
 select index
 ```
 
 > index为redis库的索引，共有0-15个索引16个库，默认启用第一个库，索引为0。
 
-```shell
+```bash
 # 查看全部的key
 keys *
 # 通过通配符进行匹配查看
@@ -382,41 +382,41 @@ keys my*
 
 > 注意，如果数据量很大的情况下，一般不建议直接使用 `keys*`进行查看，该操作的时间复杂度是O(N)，的，数据量太大可能会导致阻塞崩溃。
 
-```shell
+```bash
 # 查看当前库中有多少key
 dbsize
 ```
 
-```shell
+```bash
 # 清理库中的key
 flushdb
 ```
 
 > 这是一个危险且强大的命令，如果使用不当，可能造成将所有的key全部删除，是不可逆的操作，在使用时应该三思。
 
-```shell
+```bash
 # 查看key的数据类型
 type key
 ```
 
-```shell
+```bash
 # 判断某个key是否存在
 exists key
 ```
 
-```shell
+```bash
 # 随机返回一个key
 randomkey
 ```
 
-```shell
+```bash
 # 给key重命名
 rename key newkey
 ```
 
 > 建议在使用时结合 `nx`参数使用。
 
-```shell
+```bash
 # 删除一个或者多个key
 del key1 key2 .....
 # 或者
@@ -425,7 +425,7 @@ unlink key1 key2 ....
 
 > `del`带阻塞，`unlink`则没有。
 
-```shell
+```bash
 # 渐进式遍历key
 # 基础用法，跟一个整数作为游标，表示从何处开始遍历
 scan 0
@@ -441,7 +441,7 @@ scan 0 match counter* count 10
 >
 > 这个工具存在于 `/usr/bin/redisbenmark`。
 
-```shell
+```bash
 # redisbenchmark的使用命令
 redis-benchmark -c 5 -n 100 -r 1000 -a reids密码
 ```
@@ -512,13 +512,13 @@ redis-benchmark -c 5 -n 100 -r 1000 -a reids密码
 
 在前面有提到过一个命令：
 
-```shell
+```bash
 type key
 ```
 
 这是用来查看某个key的数据类型，这里的类型即指的是上面诸如 `String,hash,set....`。而不能查看他们对应源码实现上所用的数据编码。可以通过下面的命令查看：
 
-```shell
+```bash
 object encoding key
 ```
 
@@ -543,7 +543,7 @@ object encoding key
 
 > 简单动态字符串(SDS)，是 `Simple Dynamic String`的缩写，是 `Redis`内部自定义实现的一种数据类型。在 `Redis`数据库内部，包含字符串的键值对在底层都是由 `SDS`实现的，它还被用于缓冲区的实现，如 `AOF`缓冲区、客户端的输入缓冲区。
 
-```shell
+```bash
 set text "hello world"
 rpush names "john" "lucy" "tony"
 sadd users "liubei" "guanyu" "zhangfei"
@@ -1234,7 +1234,7 @@ typedef struct redisObject {
 
 - 可以在 `redis`配置文件中通过下面的配置修改上述的触发条件。
 
-  ```shell
+  ```bash
   hash-max-ziplist-value
   hash-max-ziplist-entries
   ```
@@ -1252,7 +1252,7 @@ typedef struct redisObject {
 
 > 同样可以在 `redis`配置文件中通过下面的配置修改上述的触发条件
 
-```shell
+```bash
 hash-max-ziplist-value
 hash-max-ziplist-entries
 ```
@@ -2354,7 +2354,7 @@ public class RedisTests {
 
 #### 配置选项
 
-```shell
+```bash
 save<seconds> <changes>
 ```
 
@@ -2419,7 +2419,7 @@ save<seconds> <changes>
 
 再查看dumpp.rdb:
 
-```shell
+```bash
 od -c dump.rdb
 ```
 
@@ -2478,7 +2478,7 @@ AOF(Append Only File)，解决了数据持久化的实时性，是目前redis持
 
 AOF默认不开启，需要修改配置项来启用它：
 
-```shell
+```bash
 appendonly yes # 启用AOF
 appendfilename "appendonly.aof" # 设置文件名
 ```
@@ -2518,7 +2518,7 @@ AOF以文本协议格式写入命令，这种格式在前面的内容中提到�
 
 - 重启服务
 
-  ```shell
+  ```bash
   redis-server /root/6379/redis.conf
   ```
 
@@ -2559,13 +2559,13 @@ AOF以文本协议格式写入命令，这种格式在前面的内容中提到�
 
 - 手动触发
 
-```shell
+```bash
 BGREWRITEAOF
 ```
 
 - 自动触发
 
-```shell
+```bash
 # 设置触发AOF重写所需的最小文件体积，即当AOF文件体积达到该值时，触发AOF重写；
 auto-aof-rewrite-min-size <value>
 # 设置AOF重写所需的文件增长比例，即当AOF文件体积比上次重写后的体积增长一倍时，触发AOF重写；

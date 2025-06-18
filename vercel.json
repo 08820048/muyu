@@ -1,9 +1,12 @@
 {
   "framework": null,
   "installCommand": "curl -sSOL https://github.com/getzola/zola/releases/download/v0.17.2/zola-v0.17.2-x86_64-unknown-linux-gnu.tar.gz && tar -xzf zola-v0.17.2-x86_64-unknown-linux-gnu.tar.gz && chmod +x zola",
-  "buildCommand": "./zola build",
+  "buildCommand": "ls -la content && ./zola build --trace",
   "outputDirectory": "public",
   "git": {
     "submodules": true
+  },
+  "env": {
+    "RUST_BACKTRACE": "1"
   }
 }
