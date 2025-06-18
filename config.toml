@@ -15,7 +15,6 @@ ignored_static = []  # 忽略的静态文件匹配规则
 
 # 订阅源配置
 generate_feeds = true                       # 是否生成订阅源
-exclude_paginated_pages_in_sitemap = "none" # 站点地图排除分页规则
 feed_filenames = ["atom.xml"]               # 订阅源文件名
 hard_link_static = false                    # 是否对静态文件使用硬链接
 
@@ -51,13 +50,7 @@ external_level = "error"                        # 外部链接错误级别
 taxonomies = [] # 分类法配置（如标签）
 
 # 搜索配置
-[search]
-include_title = true                    # 是否包含标题
-include_description = false             # 是否包含描述
-include_date = false                    # 是否包含日期
-include_path = false                    # 是否包含路径
-include_content = true                  # 是否包含内容
-index_format = "elasticlunr_javascript" # 搜索索引格式
+build_search_index = true               # 是否构建搜索索引
 
 # 多语言配置
 [translations] # 默认语言翻译
