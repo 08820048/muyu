@@ -1,5 +1,6 @@
 {
-  "buildCommand": "echo 'Current directory:' && pwd && echo 'Directory listing:' && ls -la && echo 'Theme directory:' && ls -la themes/ && echo 'Theme content:' && ls -la themes/neovim-theme/ && curl -sSOL https://github.com/getzola/zola/releases/download/v0.17.2/zola-v0.17.2-x86_64-unknown-linux-gnu.tar.gz && tar -xzf zola-v0.17.2-x86_64-unknown-linux-gnu.tar.gz && chmod +x zola && rm -rf public && ./zola build --root .",
+  "installCommand": "curl -sSOL https://github.com/getzola/zola/releases/download/v0.17.2/zola-v0.17.2-x86_64-unknown-linux-gnu.tar.gz && tar -xzf zola-v0.17.2-x86_64-unknown-linux-gnu.tar.gz && chmod +x zola && echo 'Listing project files:' && find . -type f | grep -v 'node_modules' | sort",
+  "buildCommand": "echo 'Verifying theme directory:' && ls -la themes/neovim-theme/ || mkdir -p themes/neovim-theme/ && cp -r templates/* themes/neovim-theme/templates/ && ./zola build",
   "outputDirectory": "public",
   "framework": null
 }
