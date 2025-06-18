@@ -1,7 +1,7 @@
 {
   "framework": null,
-  "installCommand": "curl -sSOL https://github.com/getzola/zola/releases/download/v0.17.2/zola-v0.17.2-x86_64-unknown-linux-gnu.tar.gz && tar -xzf zola-v0.17.2-x86_64-unknown-linux-gnu.tar.gz && chmod +x zola",
-  "buildCommand": "echo '#!/bin/bash' > escape.sh && echo 'for file in content/*.md; do' >> escape.sh && echo '  sed -i -e \"s/{{/{{\\/* /g\" -e \"s/}}/*/\\}} /g\" -e \"s/{%/{%\\/* /g\" -e \"s/%}/*\\/\\%} /g\" \"$file\"' >> escape.sh && echo 'done' >> escape.sh && chmod +x escape.sh && ./escape.sh && ./zola build",
+  "installCommand": "curl -sSOL https://github.com/getzola/zola/releases/download/v0.17.2/zola-v0.17.2-x86_64-unknown-linux-gnu.tar.gz && tar -xzf zola-v0.17.2-x86_64-unknown-linux-gnu.tar.gz && chmod +x zola && echo '#!/bin/bash' > escape.sh && echo 'for file in content/*.md; do' >> escape.sh && echo '  sed -i -e \"s/{{/{{\\/* /g\" -e \"s/}}/*/\\}} /g\" -e \"s/{%/{%\\/* /g\" -e \"s/%}/*\\/\\%} /g\" \"$file\"' >> escape.sh && echo 'done' >> escape.sh && chmod +x escape.sh",
+  "buildCommand": "./escape.sh && ./zola build",
   "outputDirectory": "public",
   "git": {
     "submodules": true
