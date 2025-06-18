@@ -1,6 +1,7 @@
 +++
-title="SSM框架实现短信验证码功能集成"
-date = 2025-06-17
+title = "SSM框架实现集成短信验证码功能"
+slug = "ssm-框架实现集成短信验证码功能"
+date = 2023-06-15
 +++
 
 ### 更新日志
@@ -20,7 +21,7 @@ date = 2025-06-17
 
 > 在开始敲代码之前，你需要准备一下。
 
-- [容联云](https://www.yuntongxun.com/?ly=baidu-pz-p&qd=cpc&cp=ppc&xl=ds&kw=12006270)平台账号一个。
+- [容联云](https://www.yuntongxun.com/?ly=baidu-pz-p&qd=cpc&xl=ds&kw=12006270)平台账号一个。
 - 可以正常收发短信的手机一台。
 - 一台可用的计算机。
 - 怎么说也得会一点Java吧【本文以SSM项目集成为例】。

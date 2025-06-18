@@ -1,6 +1,7 @@
 +++
-title="Java函数式编程"
-date = 2025-06-17
+title = "Java函数式编程"
+slug = "java-函数式编程"
+date = 2023-06-15
 +++
 
 ## 1.概述
@@ -36,7 +37,7 @@ date = 2025-06-17
 
 ### 2.4 基本语法格式
 
-```java
+```
 (参数列表)->{代码}
 ```
 
@@ -48,7 +49,7 @@ date = 2025-06-17
 
 > 启动线程
 
-```java
+```
 //原始写法
 new Thread(new Runnable() {
     @Override
@@ -64,7 +65,7 @@ new Thread(() -> System.out.println("惟有热爱,可抵岁月漫长!")).start()
 
 > 现有方法定义如下，其中`IntBinaryOperator`是一个接口。先使用匿名内部类的写法调用该方法。
 
-```java
+```
 //方法定义
 private int calculateNum(IntBinaryOperator operator) {
     int a = 10;
@@ -87,7 +88,7 @@ calculateNum((left,right)->left + right);
 
 > 现有方法定义如下，其中`IntPredicate`是一个接口。先使用匿名内部类的写法调用该方法。
 
-```java
+```
 //方法定义
 public static void printNum(IntPredicate predicate){
     int[] arr = {1,2,3,4,5,6,7,8,9,10};
@@ -112,7 +113,7 @@ printNum(value->value % 2 == 0);
 
 > 现有方法定义如下，其中`Function`是一个接口。先使用匿名内部类的写法调用该方法。
 
-```java
+```
 //方法定义
 public static <R> R typeConver(Function<String,R> function){
     String str = "1235";
@@ -136,7 +137,7 @@ System.out.println(res);
 
 > 现有方法定义如下，其中`IntConsumer`是一个接口。先使用匿名内部类的写法调用该方法。
 
-```java
+```
 //方法定义
 public static void foreachArr(IntConsumer consumer){
     int[] arr = {1,2,3,4,5,6,7,8,9,10};
@@ -167,7 +168,7 @@ foreachArr(value-> System.out.println(value + 10));
 
 - maven依赖
 
-```xml
+```
 <dependencies>
     <dependency>
         <groupId>org.projectlombok</groupId>
@@ -179,7 +180,7 @@ foreachArr(value-> System.out.println(value + 10));
 
 - 两个实体类
 
-```java
+```
 package com.waer.security.demo.pojo;
 
 import lombok.AllArgsConstructor;
@@ -257,7 +258,7 @@ public class Book {
 
 - 初始化数据
 
-```java
+```
 private static List<Author> getAuthors() {
     /*数据初始化*/
     Author author = new Author(1L,"蒙多",33,"一个从菜刀中明悟哲理的祖安人",null);
@@ -301,7 +302,7 @@ private static List<Author> getAuthors() {
 
 #### 3.2.2实现
 
-```java
+```
 /*需求：打印所有年龄小于18的作家名字，需要对数据去重处理*/
 List<Author> authors = getAuthors();
 authors
@@ -326,7 +327,7 @@ authors
 
 > 集合转stream：`集合对象.stream()`
 
-```java
+```
 /*单列集合转Stream*/
 List<Author> authorList = getAuthors();
 Stream<Author> stream = authorList.stream();
@@ -363,7 +364,7 @@ Stream<Map.Entry<String, Integer>> stream3 = map.entrySet().stream();
 
 > 打印所有姓名长度大于1的作家的姓名.
 
-```java
+```
 List<Author> authors = getAuthors();
 authors
     .stream()

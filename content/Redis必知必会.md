@@ -1,7 +1,7 @@
 +++
 title = "Redis必知必会"
-description = "关于 Redis 的语法、命令使用以及持久化等内容的详细介绍。"
-date = 2022-10-06
+slug = "redis-必知必会"
+date = 2023-06-15
 +++
 
 

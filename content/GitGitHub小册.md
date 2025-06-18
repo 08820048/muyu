@@ -1,6 +1,7 @@
 +++
-title="Github 修炼小册"
-date = 2025-06-17
+title = "GitGitHub小册"
+slug = "githithub-小册"
+date = 2023-06-15
 +++
 
 ### 更新日志：
@@ -786,7 +787,7 @@ git br
 
 提PR可以在仓库内，也可以跨用户仓库。
 
-> 好，现在我们从组员的 work 仓库 main 分支给组长的 work 仓库 main分支提一个 PR。
+> 好，现在我们从组员的 work 仓库 main 分支给组长的 work 仓库 main 分支提一个 PR。
 
 ![](https://b3logfile.com/file/2022/08/solo-fetchupload-12563276839743572653-c835fe90.png)
 

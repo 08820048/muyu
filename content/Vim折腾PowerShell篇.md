@@ -1,6 +1,7 @@
 
 +++
-title="Vim折腾之 PowerShell篇"
+title = "Vim折腾之 PowerShell篇"
+slug = "vim-tiao-tou-powershell-pian"
 date = 2025-06-17
 +++
 

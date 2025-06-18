@@ -1,7 +1,7 @@
 +++
 title = "8款让你开发起飞的IntellijIDEA插件"
-description = "本文介绍了8款提升IntelliJ IDEA开发效率的必备插件，涵盖代码补全、快捷键提示、主题美化等多个方面。"
-date = 2025-06-18
+slug = "8-款让你开发起飞的-intellijidea-插件"
+date = 2023-06-15
 +++
 
 

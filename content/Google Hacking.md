@@ -1,6 +1,7 @@
 +++
-title="Google Hacking"
-date = 2025-06-17
+title = "Google Hacking"
+slug = "google-hacking"
+date = 2023-06-15
 +++
 
 ## 更新日志：

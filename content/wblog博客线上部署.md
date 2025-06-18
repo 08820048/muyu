@@ -1,8 +1,8 @@
 
 +++
-title = "SpringBoot博客部署"
-description = "本文详细介绍了如何将基于SpringBoot的博客项目部署到线上服务器，涵盖环境准备、数据库配置、JAR包部署、域名解析及HTTPS加密访问等内容。"
-date = 2025-06-18
+title = "wblog博客线上部署"
+slug = "wblog-博客线上部署"
+date = 2023-06-15
 +++
 
 

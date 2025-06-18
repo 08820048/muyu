@@ -1,4 +1,0 @@
-User-agent: *
-Disallow:
-Allow: /
-Sitemap: https://muyu-git-main-08820048s-projects.vercel.app/sitemap.xml
