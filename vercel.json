@@ -1,7 +1,7 @@
 {
   "framework": null,
   "installCommand": "curl -sSOL https://github.com/getzola/zola/releases/download/v0.17.2/zola-v0.17.2-x86_64-unknown-linux-gnu.tar.gz && tar -xzf zola-v0.17.2-x86_64-unknown-linux-gnu.tar.gz && chmod +x zola",
-  "buildCommand": "ls -la content && ./zola build --trace",
+  "buildCommand": "ls -la content && grep -r 'fs' content/Java函数式编程.md && cat content/Java函数式编程.md | grep -A 5 -B 5 'fs' && ./zola build",
   "outputDirectory": "public",
   "git": {
     "submodules": true
