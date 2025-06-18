@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>慕予博客</title>
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"
+    integrity="sha256-WCzAhd2P6gRJF9Hv3oOOd+hFJi/QJbv+Azn4CGB8gfY=" crossorigin="anonymous" defer></script>
+  <script src="/js/index.js" defer></script>
+  <script src="/js/prompt.js" defer></script>
+  <script src="/js/keyboard.js" defer></script>
+  <script src="/js/tab.js" defer></script>
+  <script src="/js/commands.js" defer></script>
+  <script src="/js/config.js" defer></script><script src="/config.js"></script><link rel="stylesheet" href="/css/base.css"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="/css/page.css"></head><body onkeydown='exec(event)' style='background-image: url("/assets/background.jpg");'><main>
+      <div class="files" id="files" tabindex="0">
+<ul>
+
+  <li class="file">
+    <span><a href='https://muyu-git-main-08820048s-projects.vercel.app/gitgithubxiao-ce/'
+      tabindex="-2">  Github 修炼小册</a></span>
+  </li><li class="file">
+    <span><a href='https://muyu-git-main-08820048s-projects.vercel.app/google-hacking/'
+      tabindex="-3">  Google Hacking</a></span>
+  </li><li class="file">
+    <span><a href='https://muyu-git-main-08820048s-projects.vercel.app/javahan-shu-shi-bian-cheng/'
+      tabindex="-4">  Java函数式编程</a></span>
+  </li><li class="file">
+    <span><a href='https://muyu-git-main-08820048s-projects.vercel.app/javaji-he-yuan-ma-qian-xi/'
+      tabindex="-5">  Java集合源码浅析</a></span>
+  </li><li class="file">
+    <span><a href='https://muyu-git-main-08820048s-projects.vercel.app/ssmkuang-jia-shi-xian-ji-cheng-duan-xin-yan-zheng-ma-gong-neng/'
+      tabindex="-6">  SSM框架实现短信验证码功能集成</a></span>
+  </li><li class="file">
+    <span><a class="selected"href='https://muyu-git-main-08820048s-projects.vercel.app/springsecurity/'
+      tabindex="-7">  Spring Security</a></span>
+  </li><li class="file">
+    <span><a href='https://muyu-git-main-08820048s-projects.vercel.app/vimzhe-teng-powershellpian/'
+      tabindex="-8">  Vim折腾之 PowerShell篇</a></span>
+  </li><li class="file">
+    <span><a href='https://muyu-git-main-08820048s-projects.vercel.app/ti-wen-de-zhi-hui-zhuan-zai/'
+      tabindex="-9">  提问的智慧</a></span>
+  </li><li class="file">
+    <span><a href='https://muyu-git-main-08820048s-projects.vercel.app/xiao-lu-gong-ju-markdown/'
+      tabindex="-10">  效率工具 Markdown 快速入门</a></span>
+  </li><li class="file">
+    <span><a href='https://muyu-git-main-08820048s-projects.vercel.app/readme/'
+      tabindex="-11">  说明文档</a></span>
+  </li>
+</ul>
+</div>
+      <div class="viewer page" id="viewer" tabindex="0">
+        <div class="tab">
+<div class="file-manager" onclick='document.getElementById("files").classList.toggle("open"); document.getElementById("content").classList.toggle("close")'> </div>
+<ul id="tabs">
+</ul>
+
+
+</div>
+        <div class="content" id="content">
+        </div>
+      </div>
+      <div class="prompt" id="terminal"><input
+    type="text"
+    id="setter"
+    onkeydown="writeit(this, event);moveIt(this.value.length, event)"
+    onchange="writeit(this, event)"
+    onkeyup="writeit(this, event)"
+    onkeypress="writeit(this, event);"
+    >
+<label for="setter" id="writer"> </label><b class="cursor" id="cursor"></b></div>
+    </main>
+  </body>
+
+</html>
