@@ -147,6 +147,11 @@ main {
     height: calc(100% - 58px);
     overflow: clip;
 
+    // 移除焦点时的蓝色边框
+    &:focus {
+      outline: none;
+    }
+
     .content {
       text-wrap: balance;
       padding-left: 20px;
@@ -315,6 +320,11 @@ main {
     -ms-overflow-style: none;
     padding-left: 10px;
     padding-top: 15px;
+
+    // 移除焦点时的蓝色边框
+    &:focus {
+      outline: none;
+    }
 
     ul:not(:empty) {
       padding-left: 0.2em;
