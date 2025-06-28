@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>慕予博客</title>
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"
+    integrity="sha256-WCzAhd2P6gRJF9Hv3oOOd+hFJi/QJbv+Azn4CGB8gfY=" crossorigin="anonymous" defer></script>
+  <script src="/js/index.js" defer></script>
+  <script src="/js/prompt.js" defer></script>
+  <script src="/js/keyboard.js" defer></script>
+  <script src="/js/tab.js" defer></script>
+  <script src="/js/commands.js" defer></script>
+  <script src="/js/config.js" defer></script><script src="/config.js"></script><link rel="stylesheet" href="/css/base.css"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="/css/page.css"></head><body onkeydown='exec(event)' style='background-image: url("/assets/background.jpg");'><main>
+      <div class="files" id="files" tabindex="0">
+<ul>
+
+  <li class="file">
+    <span><a href='https://ilikexff.cn/8-kuan-rang-ni-kai-fa-qi-fei-de-intellijidea-cha-jian/'
+      tabindex="-2">  8款让你开发起飞的IntellijIDEA插件</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/aop-jie-mi-qie-mian-bian-cheng-de-zong-he-zhi-nan/'
+      tabindex="-3">  AOP揭秘：切面编程的综合指南</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/c-you-xi-kai-fa-ji-chu-mei-ju-pian-yi-wu-fan-wei-mei-ju/'
+      tabindex="-4">  C++游戏开发基础-枚举篇一：无范围枚举</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/c-you-xi-kai-fa-ji-chu-std-optional/'
+      tabindex="-5">  C++游戏开发基础-深入解析std::optional</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/c-you-xi-kai-fa-ji-chu-shen-ru-jie-xi-thiszhi-zhen-de-ying-yong-yu-ji-qiao/'
+      tabindex="-6">  C++游戏开发基础-深入解析this指针的应用与技巧</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/c-you-xi-kai-fa-ji-chu-fu-zhi-gou-zao-han-shu/'
+      tabindex="-7">  C++游戏开发基础-深入解析复制构造函数</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/c-you-xi-kai-fa-ji-chu-lei-mo-ban-he-can-shu-tui-dao-zhi-nan/'
+      tabindex="-8">  C++游戏开发基础-类模版和参数推导指南</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/dockerbi-zhi-bi-hui/'
+      tabindex="-9">  Docker必知必会</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/githithub-xiao-ce/'
+      tabindex="-10">  GitGitHub小册</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/google-hacking/'
+      tabindex="-11">  Google Hacking</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/googleguan-fang-ti-shi-gong-cheng-bai-pi-shu-zhong-wen-yi-ben/'
+      tabindex="-12">  Google官方《提示工程白皮书（中文译本）》</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/idea-dai-ma-bu-quan-ti-shi-gong-neng-xiao-shi-de-ji-chong-jie-jue-fang-an-re-geng-ban/'
+      tabindex="-13">  IDEA代码补全&amp;提示功能消失的几种解决方案(热更版)</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/idea-chen-jin-shi-bian-cheng-ti-yan/'
+      tabindex="-14">  IDEA沉浸式编程体验</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/java-han-shu-shi-bian-cheng/'
+      tabindex="-15">  Java函数式编程</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/java-ji-he-yuan-ma-qian-xi/'
+      tabindex="-16">  Java集合源码浅析</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/mysql-shi-wu-te-xing-yu-ge-chi-ji-bie-xiang-jie/'
+      tabindex="-17">  MySQL_事务特性与隔离级别详解</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/ocao-zuo-fu-shi-xian-mei-ju-de-shu-ru-shu-chu/'
+      tabindex="-18">  O操作符,实现枚举的输入输出</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/prdsuan-fa-ting-shuo-ni-xiang-ping-yun-qi-chou-yi-ke-rong-yao-shui-jing/'
+      tabindex="-19">  PRD算法：听说你想凭运气抽一颗荣耀水晶?</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/picgo-pei-zhi-ge-chong-tu-chuang/'
+      tabindex="-20">  PicGo配置各种图床</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/redis-bi-zhi-bi-hui/'
+      tabindex="-21">  Redis必知必会</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/rust-zhong-de-move-yu-yi-sui-bi/'
+      tabindex="-22">  Rust中的move语义随笔</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/ssm-kuang-jia-shi-xian-ji-cheng-duan-xin-yan-zheng-ma-gong-neng/'
+      tabindex="-23">  SSM框架实现集成短信验证码功能</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/slf4jyu-logbackshi-yong-zhi-nan-ji-yu-gradle/'
+      tabindex="-24">  Slf4j与Logback实用指南(基于Gradle)</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/spring-security5-xdao-spring-security6-xde-qian-yi/'
+      tabindex="-25">  Spring Security5.x到Spring Security6.x的迁移</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/springboot-webkai-fa-jing-jie/'
+      tabindex="-26">  SpringBoot Web开发精解</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/springsecurity/'
+      tabindex="-27">  SpringSecurity</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/unity6xia-jia-zhong-guo-qu-tuan-jie-yin-qing-jie-bang-zhe-shi-fen-lie-huan-shi-ben-di-hua-de-kai-shi/'
+      tabindex="-28">  Unity6下架中国区，团结引擎接棒：这是分裂，还是本地化的开始？</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/vim-cong-0-dao-1-da-zao-quan-yu-yan-zhi-chi-de-mo-neng-bian-ji-qi-yu-fa-pian/'
+      tabindex="-29">  Vim从0到1打造全语言支持的万能编辑器-语法篇</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/vim-tiao-tou-powershell-pian/'
+      tabindex="-30">  Vim折腾之 PowerShell篇</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/c-you-xi-kai-fa-ji-chu-di-zhi-chuan-di-xiang-jie/'
+      tabindex="-31">  [C++游戏开发基础]:地址传递详解</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/c-you-xi-kai-fa-ji-chu-yin-yong-fan-hui-he-di-zhi-fan-hui/'
+      tabindex="-32">  [C++游戏开发基础]:引用返回和地址返回</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/c-you-xi-kai-fa-ji-chu-zhi-zhen-he-const/'
+      tabindex="-33">  [C++游戏开发基础]:指针和const</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/c-you-xi-kai-fa-ji-chu-shu-ju-feng-zhuang-yin-cang-de-hao-chu/'
+      tabindex="-34">  [C++游戏开发基础]:数据封装(隐藏)的好处</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/c-you-xi-kai-fa-ji-chu-gou-zao-han-shu-qian-xi-8000zi/'
+      tabindex="-35">  [C++游戏开发基础]:构造函数浅析(8000字)</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/c-you-xi-kai-fa-ji-chu-li-jie-kong-zhi-zhen/'
+      tabindex="-36">  [C++游戏开发基础]:理解空指针</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/c-you-xi-kai-fa-ji-chu-lei-zhong-de-fang-wen-han-shu/'
+      tabindex="-37">  [C++游戏开发基础]:类中的访问函数</a></span>
+  </li><li class="file">
+    <span><a class="selected"href='https://ilikexff.cn/c-you-xi-kai-fa-ji-chu-zhi-zhen-de-ji-ben-gai-nian-li-jie/'
+      tabindex="-38">  [C++游戏开发基础]指针的基本概念理解</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/fanatical-wu-yue-feng-kuang-te-hui-wei-ni-de-steam-ku-jia-dian-liao/'
+      tabindex="-39">  _Fanatical 五月疯狂特惠：为你的 Steam 库加点料！</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/rust-kai-yuan-mi-ma-gong-ju-xpwd-zhong-wen-ban-bian-geng-ri-zhi/'
+      tabindex="-40">  _Rust开源密码工具xpwd中文版变更日志</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/readme/'
+      tabindex="-41">  readme</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/wblog-bo-ke-xian-shang-bu-shu/'
+      tabindex="-42">  wblog博客线上部署</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/shang-gu-shen-qi-vim-su-cheng-bei-wang-lu/'
+      tabindex="-43">  上古神器_Vim速成备忘录</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/mian-fei-ji-huo-quan-ban-ben-typora-zui-xin-ban-wei-li/'
+      tabindex="-44">  免费激活全版本Typora，最新版为例</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/guan-yu-lombokxian-wei-ren-zhi-de-ji-ge-qi-ji-yin-qiao/'
+      tabindex="-45">  关于Lombok鲜为人知的几个奇技淫巧</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/guan-yu-jie-kou-xian-liu-de-yi-ci-jian-dan-shi-jian/'
+      tabindex="-46">  关于接口限流的一次简单实践</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/tu-jie-er-jin-zhi/'
+      tabindex="-47">  图解二进制</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/ru-he-xie-de-yi-shou-you-ya-gui-fan-de-springboot-jie-kou/'
+      tabindex="-48">  如何写得一手优雅规范的SpringBoot 接口？</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/kai-fa-bi-hui-xi-lie-jwtqian-tan/'
+      tabindex="-49">  开发必会系列_JWT浅谈</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/ji-qiao-jiu-shi-xiao-lu-chatgpt-diao-jiao-zhi-bei/'
+      tabindex="-50">  技巧就是效率，ChatGPT调教指北</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/ti-sheng-intellij-kai-fa-xiao-lu-zhe-kuan-dai-ma-tu-ding-cha-jian-codepins-zhi-de-yi-shi/'
+      tabindex="-51">  提升 IntelliJ 开发效率？这款代码图钉插件 CodePins 值得一试</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/ti-wen-de-zhi-hui-zhuan-zai/'
+      tabindex="-52">  提问的智慧转载</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/xiao-lu-gong-ju-markdown/'
+      tabindex="-53">  效率工具Markdown</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/wu-wei-bing-fa-rust-sheng-ming-zhou-qi-qian-tan/'
+      tabindex="-54">  无畏并发_Rust 生命周期浅谈</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/you-xi-kai-fa-yu-de-bei-sai-er-qu-xian-gan-shou-si-hua-de-shu-xue-zhi-mei/'
+      tabindex="-55">  游戏开发与的贝塞尔曲线_感受丝滑的数学之美</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/you-xi-kai-fa-bi-bei-gao-xiao-de-aabb-qiu-ti-he-obb-peng-zhuang-jian-ce-suan-fa/'
+      tabindex="-56">  游戏开发必备：高效的 AABB、球体和 OBB 碰撞检测算法</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/you-xi-suan-fa-ji-chu-a-xun-lu-suan-fa-chi-xu-wei-hu/'
+      tabindex="-57">  游戏算法基础-深入解析A*寻路算法</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/du-li-you-xi-kai-fa-zhe-gong-ju-xiang-2025jing-xuan-tui-jian-yu-shi-yong-zhi-nan/'
+      tabindex="-58">  独立游戏开发者工具箱：2025精选推荐与实用指南</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/xu-huan-yin-qing-you-xi-kai-fa-xi-lie-zhuan-ti-guan-fang-bian-ma-biao-zhun-huo-gui-yue/'
+      tabindex="-59">  虚幻引擎游戏开发系列专题-官方编码标准或规约</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/xiang-jie-she-ji-mo-shi-dan-li-de-jin-hua-zhi-lu/'
+      tabindex="-60">  详解设计模式_单例的进化之路</a></span>
+  </li><li class="file">
+    <span><a href='https://ilikexff.cn/xie-e-de-fei-chang-liang-quan-ju-bian-liang/'
+      tabindex="-61">  邪恶的非常量全局变量</a></span>
+  </li>
+</ul>
+</div>
+      <div class="viewer page" id="viewer" tabindex="0">
+        <div class="tab">
+<div class="file-manager" onclick='document.getElementById("files").classList.toggle("open"); document.getElementById("content").classList.toggle("close")'> </div>
+<ul id="tabs">
+</ul>
+
+
+</div>
+        <div class="content" id="content"><p>对于学习<code>C++</code>的人来说,指针是一个绕不过去有比较难以理解的点,特别将它揪出来单独学习。</p>
+<p>考虑下面代码,这是一个简单的变量声明;</p>
+<pre data-lang="cpp" style="background-color:#2b303b;color:#c0c5ce;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#b48ead;">char</span><span> x {}; </span><span style="color:#65737e;">// char 占用一个字节内存
+</span></code></pre>
+<p>对于上面的代码,简单理解就是当该代码被执行时,程序会将一块内存从 <code>RAM</code> 分配给这个对象。为了举例说明，假设变量 x 被分配到了内存地址 100。每当我们在表达式或语句中使用变量 x 时，程序将访问内存地址 100 处存储的值。</p>
+<p>关于变量的好处是,我们不必担心分配了哪些特定的内存地址或需要多少字节来存储对象的值,只需要通过其给定的标识符来引用变量即可,编译器会将此名称转换为适当分配的内存地址。并负责所有的地址管理。</p>
+<p>对于引用，这一点也是成立的：</p>
+<pre data-lang="cpp" style="background-color:#2b303b;color:#c0c5ce;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#b48ead;">int </span><span style="color:#8fa1b3;">main</span><span>()
+</span><span>{
+</span><span>    </span><span style="color:#b48ead;">char </span><span style="color:#bf616a;">x </span><span>{}; </span><span style="color:#65737e;">// 假设这被分配了内存地址 140
+</span><span>    </span><span style="color:#b48ead;">char</span><span>&amp; </span><span style="color:#bf616a;">ref </span><span>{ x }; </span><span style="color:#65737e;">// ref 是 x 的左值引用（当与类型一起使用时，&amp; 表示左值引用）
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">return </span><span style="color:#d08770;">0</span><span>;
+</span><span>}
+</span></code></pre>
+<p>因为<code>ref</code>充当<code>x</code>的别名，因此每当我们使用<code>ref</code>时，该程序将转到内存地址<code>100</code>以访问该值。同样，编译器会自己管理地址信息,我们不需要操心。</p>
+<hr />
+<h2 id="qu-di-zhi-fu">取地址符(&amp;)</h2>
+<p>默认情况下,变量使用的内存地址并不会暴露给我们,但是可以使用取地址符&amp;来实现饭绘其内存地址。用法很简单:</p>
+<pre data-lang="cpp" style="background-color:#2b303b;color:#c0c5ce;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#b48ead;">#include </span><span>&lt;</span><span style="color:#a3be8c;">iostream</span><span>&gt;
+</span><span>
+</span><span style="color:#b48ead;">int </span><span style="color:#8fa1b3;">main</span><span>()
+</span><span>{
+</span><span>    </span><span style="color:#b48ead;">int </span><span style="color:#bf616a;">x</span><span>{ </span><span style="color:#d08770;">5 </span><span>};  </span><span style="color:#65737e;">// 定义一个整型变量 x，并初始化为 5
+</span><span>    std::cout &lt;&lt; x &lt;&lt; &#39;</span><span style="color:#96b5b4;">\n</span><span>&#39;;  </span><span style="color:#65737e;">// 打印变量 x 的值 (5)
+</span><span>    std::cout &lt;&lt; &amp;x &lt;&lt; &#39;</span><span style="color:#96b5b4;">\n</span><span>&#39;; </span><span style="color:#65737e;">// 打印变量 x 的内存地址
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">return </span><span style="color:#d08770;">0</span><span>;
+</span><span>}
+</span></code></pre>
+<p>下面是在我电脑上的输出:</p>
+<p><img src="https://images.waer.ltd/notes/202502181934802.png" alt="image-20250218193337467" loading="lazy" decoding="async" /></p>
+<p>内存地址通常打印出来是十六进制的值,对于使用多个字节内存的对象，取地址操作符（&amp;）将返回对象所使用的第一个字节的内存地址。（如一个数组、结构体、类等）使用 &amp; 操作时，它将返回该对象的第一个字节的内存地址。</p>
+<p>由于&amp;符号在<code>c++</code>中的使用很多,因此具有不同的含义,具体需要工具实际使用上下文去判断;</p>
+<blockquote>
+<ul>
+<li>当 &amp; 跟随在类型名后面时，它表示一个左值引用： <code>int&amp; ref</code>;</li>
+<li>当在表达式中的单一上下文中使用时，它表示一个地址： <code>std::cout &lt;&lt; &amp;x</code> 。</li>
+<li>当在多个表达式中进行运算使用时,它表示位运算符:<code>std::cout &lt;&lt; x &amp; y</code>;</li>
+</ul>
+</blockquote>
+<hr />
+<h2 id="">解引用操作符（*）</h2>
+<p>当我们拥有一个地址,便可以使用解引用操作符来访问存储在这个地址上的值;</p>
+<pre data-lang="cpp" style="background-color:#2b303b;color:#c0c5ce;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#b48ead;">#include </span><span>&lt;</span><span style="color:#a3be8c;">iostream</span><span>&gt;
+</span><span>
+</span><span style="color:#b48ead;">int </span><span style="color:#8fa1b3;">main</span><span>()
+</span><span>{
+</span><span>    </span><span style="color:#b48ead;">int </span><span style="color:#bf616a;">x</span><span>{ </span><span style="color:#d08770;">5 </span><span>};
+</span><span>    std::cout &lt;&lt; x &lt;&lt; &#39;</span><span style="color:#96b5b4;">\n</span><span>&#39;;  </span><span style="color:#65737e;">// 打印变量 x 的值
+</span><span>    std::cout &lt;&lt; &amp;x &lt;&lt; &#39;</span><span style="color:#96b5b4;">\n</span><span>&#39;; </span><span style="color:#65737e;">// 打印变量 x 的内存地址
+</span><span>
+</span><span>    std::cout &lt;&lt; *(&amp;x) &lt;&lt; &#39;</span><span style="color:#96b5b4;">\n</span><span>&#39;; </span><span style="color:#65737e;">// 打印变量 x 的内存地址处的值（括号不是必需的，但有助于提高可读性）
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">return </span><span style="color:#d08770;">0</span><span>;
+</span><span>}
+</span></code></pre>
+<p><img src="https://images.waer.ltd/notes/202502182018707.png" alt="image-20250218201820622" loading="lazy" decoding="async" /></p>
+<blockquote>
+<p>取地址符&amp;和解引用符*可以作为一个一对反相操作来使用,一个获取地址,一个获取地址所在的值;</p>
+</blockquote>
+<p>但是有没有一种可能,我们获取到某个变量的内存地址,然后通过解引用再去获取这个地址的值似乎有些多余了, 毕竟,如果要获取这个值,为什么不直接用变量来访问呢?所以,接下来该谈论指针了。</p>
+<hr />
+<h2 id="-1">指针</h2>
+<p>指针是将内存地址作为其值的对象。指针是一个对象，它保存一个内存地址（通常是另一个变量的地址）作为其值。这使得我们可以存储其他对象的地址，并在稍后使用该地址。</p>
+<blockquote>
+<p>⚠️我们这里谈论的指针是指原始指针,关于智能指针的内容会在后面的文章中学习。</p>
+</blockquote>
+<p>指定指针的类型（例如 int*）称为 <strong>指针类型</strong>。就像引用类型是使用 <strong>&amp;</strong> 字符声明，指针类型是使用 ***** 字符声明：</p>
+<pre data-lang="cpp" style="background-color:#2b303b;color:#c0c5ce;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#b48ead;">int</span><span>;  </span><span style="color:#65737e;">// 一个普通的 int 类型
+</span><span style="color:#b48ead;">int</span><span>&amp;; </span><span style="color:#65737e;">// 一个 int 值的左值引用
+</span><span style="color:#b48ead;">int</span><span>*; </span><span style="color:#65737e;">// 一个指向 int 值的指针（保存一个整数值的地址）
+</span></code></pre>
+<p>创建一个指针变量:</p>
+<pre data-lang="cpp" style="background-color:#2b303b;color:#c0c5ce;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#b48ead;">int </span><span style="color:#8fa1b3;">main</span><span>()
+</span><span>{
+</span><span>    </span><span style="color:#b48ead;">int </span><span style="color:#bf616a;">x </span><span>{ </span><span style="color:#d08770;">5 </span><span>};    </span><span style="color:#65737e;">// 普通变量
+</span><span>    </span><span style="color:#b48ead;">int</span><span>&amp; </span><span style="color:#bf616a;">ref </span><span>{ x }; </span><span style="color:#65737e;">// 一个整数的引用（绑定到 x）
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">int</span><span>* ptr;       </span><span style="color:#65737e;">// 一个指向整数的指针
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">return </span><span style="color:#d08770;">0</span><span>;
+</span><span>}
+</span></code></pre>
+<blockquote>
+<p>声明指针类型时,最佳的实践是将星号放在类型名称的旁边。</p>
+</blockquote>
+<p>尽管通常不建议在同一行声明多个变量，但如果你这么做，必须将星号（*）与每个变量一起使用。</p>
+<pre data-lang="cpp" style="background-color:#2b303b;color:#c0c5ce;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#b48ead;">int</span><span>* ptr1, ptr2;   </span><span style="color:#65737e;">// 错误：ptr1 是指向 int 的指针，但 ptr2 只是一个普通的 int!
+</span><span style="color:#b48ead;">int</span><span>* ptr3, *ptr4;  </span><span style="color:#65737e;">// 正确：ptr3 和 ptr4 都是指向 int 的指针
+</span></code></pre>
+<h3 id="-2">指针的初始化</h3>
+<p>像普通的变量一样,默认情况下的指针不会初始化。尚未初始化的指针又称为野指针。指针与普通变量一样，如果没有明确初始化，它们会包含随机的内存地址，这些地址通常是垃圾值。这个垃圾值指向未知的位置，尝试解引用一个野指针将导致程序崩溃或行为不可预测。</p>
+<pre data-lang="cpp" style="background-color:#2b303b;color:#c0c5ce;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#b48ead;">int </span><span style="color:#8fa1b3;">main</span><span>()
+</span><span>{
+</span><span>    </span><span style="color:#b48ead;">int </span><span style="color:#bf616a;">x</span><span>{ </span><span style="color:#d08770;">5 </span><span>};
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">int</span><span>* ptr;        </span><span style="color:#65737e;">// 一个未初始化的指针（保存一个垃圾地址）
+</span><span>    </span><span style="color:#b48ead;">int</span><span>* </span><span style="color:#bf616a;">ptr2</span><span>{};     </span><span style="color:#65737e;">// 一个空指针
+</span><span>    </span><span style="color:#b48ead;">int</span><span>* </span><span style="color:#bf616a;">ptr3</span><span>{ &amp;x }; </span><span style="color:#65737e;">// 一个通过变量 x 的地址初始化的指针
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">return </span><span style="color:#d08770;">0</span><span>;
+</span><span>}
+</span></code></pre>
+<p>因为指针保存的是地址，所以当我们初始化或赋值给一个指针时，赋的值必须是一个地址。通常，指针用于保存另一个变量的地址（我们可以使用取地址操作符 &amp; 来获取这个地址）。</p>
+<p>一旦指针保存了另一个对象的地址，我们就可以使用解引用操作符 * 来访问该地址中的值。例如：</p>
+<pre data-lang="cpp" style="background-color:#2b303b;color:#c0c5ce;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#b48ead;">#include </span><span>&lt;</span><span style="color:#a3be8c;">iostream</span><span>&gt;
+</span><span>
+</span><span style="color:#b48ead;">int </span><span style="color:#8fa1b3;">main</span><span>()
+</span><span>{
+</span><span>    </span><span style="color:#b48ead;">int </span><span style="color:#bf616a;">x</span><span>{ </span><span style="color:#d08770;">5 </span><span>};
+</span><span>    std::cout &lt;&lt; x &lt;&lt; &#39;</span><span style="color:#96b5b4;">\n</span><span>&#39;; </span><span style="color:#65737e;">// 打印变量 x 的值
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">int</span><span>* </span><span style="color:#bf616a;">ptr</span><span>{ &amp;x }; </span><span style="color:#65737e;">// ptr 保存 x 的地址
+</span><span>    std::cout &lt;&lt; *ptr &lt;&lt; &#39;</span><span style="color:#96b5b4;">\n</span><span>&#39;; </span><span style="color:#65737e;">// 使用解引用操作符打印 ptr 保存的地址处的值（即 x 的值）
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">return </span><span style="color:#d08770;">0</span><span>;
+</span><span>}
+</span></code></pre>
+<p>就像引用的类型必须与被引用的对象类型匹配一样，指针的类型也必须与被指向对象的类型匹配：</p>
+<pre data-lang="cpp" style="background-color:#2b303b;color:#c0c5ce;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#b48ead;">#include </span><span>&lt;</span><span style="color:#a3be8c;">iostream</span><span>&gt;
+</span><span>
+</span><span style="color:#b48ead;">int </span><span style="color:#8fa1b3;">main</span><span>() {
+</span><span>    </span><span style="color:#b48ead;">int</span><span> x = </span><span style="color:#d08770;">10</span><span>;       </span><span style="color:#65737e;">// 一个整数变量 x
+</span><span>    </span><span style="color:#b48ead;">double</span><span> y = </span><span style="color:#d08770;">20.5</span><span>;  </span><span style="color:#65737e;">// 一个双精度浮点数变量 y
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">int</span><span>* ptr1 = &amp;x;   </span><span style="color:#65737e;">// 正确：ptr1 是指向 int 类型的指针，指向 x
+</span><span>    </span><span style="color:#b48ead;">double</span><span>* ptr2 = &amp;y; </span><span style="color:#65737e;">// 正确：ptr2 是指向 double 类型的指针，指向 y
+</span><span>
+</span><span>    </span><span style="color:#65737e;">// 错误：试图将 int 类型的指针指向 double 类型的变量
+</span><span>    </span><span style="color:#65737e;">// int* ptr3 = &amp;y;  // 错误：类型不匹配
+</span><span>
+</span><span>    </span><span style="color:#65737e;">// 错误：试图将 double 类型的指针指向 int 类型的变量
+</span><span>    </span><span style="color:#65737e;">// double* ptr4 = &amp;x; // 错误：类型不匹配
+</span><span>
+</span><span>    std::cout &lt;&lt; *ptr1 &lt;&lt; &#39;</span><span style="color:#96b5b4;">\n</span><span>&#39;;  </span><span style="color:#65737e;">// 输出 ptr1 解引用后的值，即 x 的值
+</span><span>    std::cout &lt;&lt; *ptr2 &lt;&lt; &#39;</span><span style="color:#96b5b4;">\n</span><span>&#39;;  </span><span style="color:#65737e;">// 输出 ptr2 解引用后的值，即 y 的值
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">return </span><span style="color:#d08770;">0</span><span>;
+</span><span>}
+</span></code></pre>
+<p>另外,禁止使用字面值来初始化指针。</p>
+<pre data-lang="cpp" style="background-color:#2b303b;color:#c0c5ce;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#b48ead;">int</span><span>* </span><span style="color:#bf616a;">ptr</span><span>{ </span><span style="color:#d08770;">5 </span><span>}; </span><span style="color:#65737e;">// 不可以
+</span><span style="color:#b48ead;">int</span><span>* </span><span style="color:#bf616a;">ptr</span><span>{ </span><span style="color:#d08770;">0x0012FF7C </span><span>}; </span><span style="color:#65737e;">// 不可以，0x0012FF7C 被当作一个整数字面值处理
+</span></code></pre>
+<hr />
+<h3 id="-3">指针的赋值</h3>
+<p>我们可以通过两种方式使用指针赋值：</p>
+<p>​	1.	<strong>改变指针指向的对象</strong>（通过给指针赋一个新的地址）</p>
+<p>​	2.	<strong>改变指针指向的值</strong>（通过给解引用的指针赋一个新值）</p>
+<p>首先，让我们来看一个例子，展示如何改变指针指向不同的对象：</p>
+<pre data-lang="cpp" style="background-color:#2b303b;color:#c0c5ce;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#b48ead;">#include </span><span>&lt;</span><span style="color:#a3be8c;">iostream</span><span>&gt;
+</span><span>
+</span><span style="color:#b48ead;">int </span><span style="color:#8fa1b3;">main</span><span>()
+</span><span>{
+</span><span>    </span><span style="color:#b48ead;">int </span><span style="color:#bf616a;">x</span><span>{ </span><span style="color:#d08770;">5 </span><span>};
+</span><span>    </span><span style="color:#b48ead;">int</span><span>* </span><span style="color:#bf616a;">ptr</span><span>{ &amp;x }; </span><span style="color:#65737e;">// ptr 初始化为指向 x
+</span><span>
+</span><span>    std::cout &lt;&lt; *ptr &lt;&lt; &#39;</span><span style="color:#96b5b4;">\n</span><span>&#39;; </span><span style="color:#65737e;">// 打印指针指向地址的值（即 x 的值）
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">int </span><span style="color:#bf616a;">y</span><span>{ </span><span style="color:#d08770;">6 </span><span>};
+</span><span>    ptr = &amp;y; </span><span style="color:#65737e;">// 将 ptr 改为指向 y
+</span><span>
+</span><span>    std::cout &lt;&lt; *ptr &lt;&lt; &#39;</span><span style="color:#96b5b4;">\n</span><span>&#39;; </span><span style="color:#65737e;">// 打印指针指向地址的值（即 y 的值）
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">return </span><span style="color:#d08770;">0</span><span>;
+</span><span>}
+</span></code></pre>
+<p>在上面的例子中，我们定义了指针 <code>ptr</code>，并用 x 的地址初始化它，然后通过解引用指针打印指针指向的值（即 5）。接着，我们使用赋值操作符将 <code>ptr</code> 保存的地址更改为 y 的地址。然后我们再次解引用指针打印指针指向的值（现在是 6）。</p>
+<p>现在让我们看看如何使用指针来改变指向对象的值：</p>
+<pre data-lang="cpp" style="background-color:#2b303b;color:#c0c5ce;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#b48ead;">#include </span><span>&lt;</span><span style="color:#a3be8c;">iostream</span><span>&gt;
+</span><span>
+</span><span style="color:#b48ead;">int </span><span style="color:#8fa1b3;">main</span><span>()
+</span><span>{
+</span><span>    </span><span style="color:#b48ead;">int </span><span style="color:#bf616a;">x</span><span>{ </span><span style="color:#d08770;">5 </span><span>};
+</span><span>    </span><span style="color:#b48ead;">int</span><span>* </span><span style="color:#bf616a;">ptr</span><span>{ &amp;x }; </span><span style="color:#65737e;">// 使用 x 的地址初始化 ptr
+</span><span>
+</span><span>    std::cout &lt;&lt; x &lt;&lt; &#39;</span><span style="color:#96b5b4;">\n</span><span>&#39;;    </span><span style="color:#65737e;">// 打印 x 的值
+</span><span>    std::cout &lt;&lt; *ptr &lt;&lt; &#39;</span><span style="color:#96b5b4;">\n</span><span>&#39;; </span><span style="color:#65737e;">// 打印 ptr 指向地址的值（即 x 的地址）
+</span><span>
+</span><span>    *ptr = </span><span style="color:#d08770;">6</span><span>; </span><span style="color:#65737e;">// 将 ptr 指向地址的对象（x）的值修改为 6（注意这里是解引用 ptr）
+</span><span>
+</span><span>    std::cout &lt;&lt; x &lt;&lt; &#39;</span><span style="color:#96b5b4;">\n</span><span>&#39;;    </span><span style="color:#65737e;">// 打印修改后的 x 的值
+</span><span>    std::cout &lt;&lt; *ptr &lt;&lt; &#39;</span><span style="color:#96b5b4;">\n</span><span>&#39;; </span><span style="color:#65737e;">// 打印 ptr 指向地址的值（即 x 的地址）
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">return </span><span style="color:#d08770;">0</span><span>;
+</span><span>}
+</span></code></pre>
+<blockquote>
+<p>5</p>
+<p>5</p>
+<p>6</p>
+<p>6</p>
+</blockquote>
+<p>在这个例子中，我们定义了指针 <code>ptr</code>，并用 <code>x</code> 的地址初始化它，然后打印 <code>x</code> 和 <code>*ptr</code> 的值（都是 5）。由于 <code>*ptr</code> 返回一个左值，我们可以在赋值语句的左侧使用它，正如我们所做的那样，通过 <code>*ptr = 6</code>; 来改变 <code>ptr</code> 指向的值（将 x 的值改为 6）。接着我们再次打印 x 和 <code>*ptr</code> 的值，以展示值已经按预期更新。</p>
+<p>指针和左值引用的行为类似。考虑以下程序：</p>
+<pre data-lang="cpp" style="background-color:#2b303b;color:#c0c5ce;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#b48ead;">#include </span><span>&lt;</span><span style="color:#a3be8c;">iostream</span><span>&gt;
+</span><span>
+</span><span style="color:#b48ead;">int </span><span style="color:#8fa1b3;">main</span><span>()
+</span><span>{
+</span><span>    </span><span style="color:#b48ead;">int </span><span style="color:#bf616a;">x</span><span>{ </span><span style="color:#d08770;">5 </span><span>};
+</span><span>    </span><span style="color:#b48ead;">int</span><span>&amp; </span><span style="color:#bf616a;">ref</span><span>{ x };  </span><span style="color:#65737e;">// 引用绑定到 x
+</span><span>    </span><span style="color:#b48ead;">int</span><span>* </span><span style="color:#bf616a;">ptr</span><span>{ &amp;x }; </span><span style="color:#65737e;">// 指针指向 x
+</span><span>
+</span><span>    std::cout &lt;&lt; x &lt;&lt; &#39;</span><span style="color:#96b5b4;">\n</span><span>&#39;;     </span><span style="color:#65737e;">// 打印 x 的值
+</span><span>    std::cout &lt;&lt; ref &lt;&lt; &#39;</span><span style="color:#96b5b4;">\n</span><span>&#39;;   </span><span style="color:#65737e;">// 打印 ref 的值
+</span><span>    std::cout &lt;&lt; *ptr &lt;&lt; &#39;</span><span style="color:#96b5b4;">\n</span><span>&#39;;  </span><span style="color:#65737e;">// 打印 ptr 指向的值（即 x 的值）
+</span><span>
+</span><span>    ref = </span><span style="color:#d08770;">6</span><span>;  </span><span style="color:#65737e;">// 修改 ref 所指向的值
+</span><span>    std::cout &lt;&lt; x &lt;&lt; &#39;</span><span style="color:#96b5b4;">\n</span><span>&#39;;     </span><span style="color:#65737e;">// 打印修改后的 x 的值（6）
+</span><span>    std::cout &lt;&lt; ref &lt;&lt; &#39;</span><span style="color:#96b5b4;">\n</span><span>&#39;;   </span><span style="color:#65737e;">// 打印修改后的 ref 的值（6）
+</span><span>    std::cout &lt;&lt; *ptr &lt;&lt; &#39;</span><span style="color:#96b5b4;">\n</span><span>&#39;;  </span><span style="color:#65737e;">// 打印 ptr 指向的值（6）
+</span><span>
+</span><span>    *ptr = </span><span style="color:#d08770;">7</span><span>; </span><span style="color:#65737e;">// 修改 ptr 指向的值
+</span><span>    std::cout &lt;&lt; x &lt;&lt; &#39;</span><span style="color:#96b5b4;">\n</span><span>&#39;;     </span><span style="color:#65737e;">// 打印修改后的 x 的值（7）
+</span><span>    std::cout &lt;&lt; ref &lt;&lt; &#39;</span><span style="color:#96b5b4;">\n</span><span>&#39;;   </span><span style="color:#65737e;">// 打印修改后的 ref 的值（7）
+</span><span>    std::cout &lt;&lt; *ptr &lt;&lt; &#39;</span><span style="color:#96b5b4;">\n</span><span>&#39;;  </span><span style="color:#65737e;">// 打印修改后的 ptr 指向的值（7）
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">return </span><span style="color:#d08770;">0</span><span>;
+</span><span>}
+</span></code></pre>
+<p>因此，指针和引用都提供了一种间接访问另一个对象的方式。它们的主要区别在于，指针需要显式地获取要指向的地址，并且必须显式地解引用指针来获取值。而引用则是隐式地进行地址获取和解引用。</p>
+<p>这里还有一些值得提到的指针和引用之间的其他差异：</p>
+<p>​	•	<strong>引用必须初始化</strong>，而<strong>指针不要求初始化</strong>（但最好初始化）。</p>
+<p>​	•	<strong>引用不是对象</strong>，而<strong>指针是对象</strong>。</p>
+<p>​	•	<strong>引用不能重新绑定</strong>（不能改变引用指向其他对象），而<strong>指针可以改变它们指向的对象</strong>。</p>
+<p>​	•	<strong>引用必须始终绑定到一个对象</strong>，而<strong>指针可以指向空</strong></p>
+<hr />
+<h3 id="-4">地址运算符返回指针</h3>
+<p>值得注意的是，地址运算符（&amp;）并不会将其操作数的地址作为字面值返回（因为 C++ 不支持地址字面值）。相反，它返回一个指向操作数的指针（该指针的值是操作数的地址）。换句话说，给定变量 int x，&amp;x 返回一个 int*，它保存着 x 的地址。</p>
+<pre data-lang="cpp" style="background-color:#2b303b;color:#c0c5ce;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#b48ead;">#include </span><span>&lt;</span><span style="color:#a3be8c;">iostream</span><span>&gt;
+</span><span style="color:#b48ead;">#include </span><span>&lt;</span><span style="color:#a3be8c;">typeinfo</span><span>&gt;
+</span><span>
+</span><span style="color:#b48ead;">int </span><span style="color:#8fa1b3;">main</span><span>()
+</span><span>{
+</span><span>    </span><span style="color:#b48ead;">int </span><span style="color:#bf616a;">x</span><span>{ </span><span style="color:#d08770;">4 </span><span>};
+</span><span>    std::cout &lt;&lt; typeid(x).</span><span style="color:#bf616a;">name</span><span>() &lt;&lt; &#39;</span><span style="color:#96b5b4;">\n</span><span>&#39;;  </span><span style="color:#65737e;">// 打印 x 的类型
+</span><span>    std::cout &lt;&lt; typeid(&amp;x).</span><span style="color:#bf616a;">name</span><span>() &lt;&lt; &#39;</span><span style="color:#96b5b4;">\n</span><span>&#39;; </span><span style="color:#65737e;">// 打印 &amp;x 的类型
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">return </span><span style="color:#d08770;">0</span><span>;
+</span><span>}
+</span></code></pre>
+<blockquote>
+<p>int</p>
+<p>int*</p>
+</blockquote>
+<p>使用 GCC 时，输出结果为 i（表示 int）和 pi（表示指向 int 的指针）。由于 typeid().name() 的结果依赖于编译器，因此你的编译器可能会打印不同的内容，但它们的含义是相同的。</p>
+<hr />
+<h3 id="-5">指针大小</h3>
+<p>指针的大小取决于可执行文件所编译的架构——<code>32</code>位的可执行文件使用<code>32</code>位的内存地址——因此，在32位机器上，指针的大小是<code>32</code>位（即4字节）。而在<code>64</code>位的可执行文件中，指针的大小将是<code>64</code>位（即<code>8</code>字节）。</p>
+<p>请注意，这一点与指针所指向的对象的大小无关：</p>
+<pre data-lang="cpp" style="background-color:#2b303b;color:#c0c5ce;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#b48ead;">#include </span><span>&lt;</span><span style="color:#a3be8c;">iostream</span><span>&gt;
+</span><span>
+</span><span style="color:#b48ead;">int </span><span style="color:#8fa1b3;">main</span><span>() </span><span style="color:#65737e;">// 假设为32位应用程序
+</span><span>{
+</span><span>    </span><span style="color:#b48ead;">char</span><span>* </span><span style="color:#bf616a;">chPtr</span><span>{};        </span><span style="color:#65737e;">// char 类型通常占 1 字节
+</span><span>    </span><span style="color:#b48ead;">int</span><span>* </span><span style="color:#bf616a;">iPtr</span><span>{};          </span><span style="color:#65737e;">// int 类型通常占 4 字节
+</span><span>    </span><span style="color:#b48ead;">long double</span><span>* </span><span style="color:#bf616a;">ldPtr</span><span>{}; </span><span style="color:#65737e;">// long double 类型通常占 8 或 12 字节
+</span><span>
+</span><span>    std::cout &lt;&lt; sizeof(chPtr) &lt;&lt; &#39;</span><span style="color:#96b5b4;">\n</span><span>&#39;; </span><span style="color:#65737e;">// 打印指针的大小，输出为 4
+</span><span>    std::cout &lt;&lt; sizeof(iPtr) &lt;&lt; &#39;</span><span style="color:#96b5b4;">\n</span><span>&#39;;  </span><span style="color:#65737e;">// 打印指针的大小，输出为 4
+</span><span>    std::cout &lt;&lt; sizeof(ldPtr) &lt;&lt; &#39;</span><span style="color:#96b5b4;">\n</span><span>&#39;; </span><span style="color:#65737e;">// 打印指针的大小，输出为 4
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">return </span><span style="color:#d08770;">0</span><span>;
+</span><span>}
+</span></code></pre>
+<p>指针的大小总是相同的。这是因为指针只是一个内存地址，而访问存储器地址所需的位数是恒定的。</p>
+<hr />
+<h3 id="-6">悬空指针</h3>
+<p>和悬空引用类似，悬空指针是一个持有已失效对象地址的指针（例如，因为对象已经被销毁）。</p>
+<p>解引用一个悬空指针（例如，为了打印指针指向的值）将导致未定义的行为，因为你正在尝试访问一个已不再有效的对象。</p>
+<pre data-lang="cpp" style="background-color:#2b303b;color:#c0c5ce;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#b48ead;">#include </span><span>&lt;</span><span style="color:#a3be8c;">iostream</span><span>&gt;
+</span><span>
+</span><span style="color:#b48ead;">int </span><span style="color:#8fa1b3;">main</span><span>()
+</span><span>{
+</span><span>    </span><span style="color:#b48ead;">int </span><span style="color:#bf616a;">x</span><span>{ </span><span style="color:#d08770;">5 </span><span>};
+</span><span>    </span><span style="color:#b48ead;">int</span><span>* </span><span style="color:#bf616a;">ptr</span><span>{ &amp;x };
+</span><span>
+</span><span>    std::cout &lt;&lt; *ptr &lt;&lt; &#39;</span><span style="color:#96b5b4;">\n</span><span>&#39;; </span><span style="color:#65737e;">// 有效：打印 x 的值 5
+</span><span>
+</span><span>    {
+</span><span>        </span><span style="color:#b48ead;">int </span><span style="color:#bf616a;">y</span><span>{ </span><span style="color:#d08770;">6 </span><span>};
+</span><span>        ptr = &amp;y; </span><span style="color:#65737e;">// ptr 现在指向 y
+</span><span>
+</span><span>        std::cout &lt;&lt; *ptr &lt;&lt; &#39;</span><span style="color:#96b5b4;">\n</span><span>&#39;; </span><span style="color:#65737e;">// 有效：打印 y 的值 6
+</span><span>    } </span><span style="color:#65737e;">// y 离开作用域，ptr 现在是悬空指针
+</span><span>
+</span><span>    std::cout &lt;&lt; *ptr &lt;&lt; &#39;</span><span style="color:#96b5b4;">\n</span><span>&#39;; </span><span style="color:#65737e;">// 未定义行为：解引用悬空指针，尝试访问已销毁的对象
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">return </span><span style="color:#d08770;">0</span><span>;
+</span><span>}
+</span></code></pre>
+<p>​	<strong>初始状态</strong>：指针 <code>ptr</code> 被初始化为指向变量<code> x</code>。然后，解引用 <code>ptr</code> 输出了 <code>x</code> 的值<code> 5</code>，这是有效的操作。</p>
+<p>​	<strong>进入新的作用域</strong>：在新的作用域中，<code>y</code> 被创建并初始化为<code> 6</code>。然后，指针<code> ptr</code> 被重新赋值为指向 <code>y</code>。此时，解引用 <code>ptr</code> 输出了这是有效的操作。</p>
+<p>​	<strong>离开作用域</strong>：变量 <code>y</code> 离开了作用域，<code>ptr</code> 指向的内存地址现在不再有效，指针变为悬空指针。</p>
+<p>​	<strong>解引用悬空指针</strong>：最后，我们尝试解引用悬空指针 <code>ptr</code>，这会导致未定义的行为，因为 <code>ptr</code> 指向的对象已经不再有效。</p>
+<blockquote>
+<p>感谢阅读!</p>
+</blockquote>
+
+        </div>
+      </div>
+      <div class="prompt" id="terminal"><input
+    type="text"
+    id="setter"
+    onkeydown="writeit(this, event);moveIt(this.value.length, event)"
+    onchange="writeit(this, event)"
+    onkeyup="writeit(this, event)"
+    onkeypress="writeit(this, event);"
+    >
+<label for="setter" id="writer"> </label><b class="cursor" id="cursor"></b></div>
+      <footer class="footer">
+        <div class="footer-content">
+          <p class="icp-info">
+            <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">黔ICP备2021010295号</a>
+          </p>
+        </div>
+      </footer>
+    </main>
+  </body>
+
+</html>
