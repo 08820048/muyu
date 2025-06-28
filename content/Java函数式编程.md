@@ -2,6 +2,8 @@
 title = "Java函数式编程"
 slug = "java-函数式编程"
 date = 2023-06-15
+tags = ["Java", "函数式编程", "编程范式"]
+categories = ["Java开发"]
 +++
 
 ## 1.概述

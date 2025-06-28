@@ -43,15 +43,38 @@ code {
     max-width: 100% !important;
 }
 
-/* 响应式优化 */
+/* 主要内容区域优化 */
+.main-content {
+    max-width: 100% !important;
+}
+
+/* 文章页面特殊优化 */
+article {
+    max-width: 100% !important;
+}
+
+/* 响应式优化 - 更宽的容器 */
+@media (min-width: 768px) {
+    .container {
+        max-width: 95% !important;
+        padding: 0 2rem !important;
+    }
+}
+
 @media (min-width: 1200px) {
     .container {
-        max-width: 1140px !important;
+        max-width: 1200px !important;
     }
 }
 
 @media (min-width: 1400px) {
     .container {
-        max-width: 1320px !important;
+        max-width: 1400px !important;
+    }
+}
+
+@media (min-width: 1600px) {
+    .container {
+        max-width: 1500px !important;
     }
 }

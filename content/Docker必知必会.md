@@ -6,6 +6,7 @@
 title = "Docker必知必会"
 date = 2023-02-04
 tags = ["Docker", "容器化技术", "运维"]
+categories = ["运维技术"]
 description = "全面介绍 Docker 的安装、常用命令、镜像与容器管理、Dockerfile 编写、网络配置、Compose 编排以及 Portainer 管理工具等内容。"
 +++
 

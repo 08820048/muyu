@@ -2,6 +2,8 @@
 title = "SpringBoot Web开发精解"
 slug = "springboot-web开发精解"
 date = 2023-06-15
+tags = ["SpringBoot", "Web开发", "Spring MVC"]
+categories = ["Java开发"]
 +++
 
 ## SpringMVC基础回顾
