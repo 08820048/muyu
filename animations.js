@@ -15,25 +15,35 @@
 
     // 页面跳转过渡动画
     function initPageTransitions() {
-        // 为所有内部链接添加过渡效果
+        // 为所有内部链接添加过渡效果（但排除某些特殊链接）
         const internalLinks = document.querySelectorAll('a[href^="/"], a[href^="./"], a[href^="../"]');
-        
+
         internalLinks.forEach(link => {
             link.addEventListener('click', function(e) {
                 const href = this.getAttribute('href');
-                
-                // 跳过锚点链接和外部链接
-                if (href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto:')) {
+
+                // 跳过锚点链接、外部链接、搜索结果链接等
+                if (href.startsWith('#') ||
+                    href.startsWith('http') ||
+                    href.startsWith('mailto:') ||
+                    this.closest('.search-results') ||
+                    this.hasAttribute('target') ||
+                    e.ctrlKey || e.metaKey || e.shiftKey) {
+                    return;
+                }
+
+                // 只对导航链接应用过渡动画，不影响文章链接
+                if (!this.closest('.navbar') && !this.closest('.pagination')) {
                     return;
                 }
 
                 e.preventDefault();
-                
+
                 // 添加页面退出动画
                 document.body.style.transition = 'opacity 0.3s ease-out, transform 0.3s ease-out';
                 document.body.style.opacity = '0';
                 document.body.style.transform = 'translateY(-20px)';
-                
+
                 // 延迟跳转
                 setTimeout(() => {
                     window.location.href = href;
