@@ -126,6 +126,97 @@ code {
 }
 
 /* ========================================
+   文章详情页面 - 更宽的容器（只针对单篇文章详情）
+   ======================================== */
+
+/* 只有当页面没有 .blog-listing 时才应用（即文章详情页面） */
+#item:not(:has(.blog-listing)) .card {
+    padding: 40px 48px !important;
+    margin: 24px 0 !important;
+    max-width: 100% !important;
+}
+
+/* 文章详情页面的容器 */
+#body-wrapper:not(:has(.blog-listing)) .container {
+    max-width: 1400px !important;
+    padding: 0 24px !important;
+}
+
+/* 文章详情页面的内容列 */
+#item:not(:has(.blog-listing)) {
+    max-width: 100% !important;
+    flex: 1 1 100% !important;
+}
+
+/* 文章标题优化 - 只在详情页 */
+#item:not(:has(.blog-listing)) .card .card-header h1,
+#item:not(:has(.blog-listing)) .card .card-header .title {
+    font-size: 2.5rem !important;
+    line-height: 1.2 !important;
+    margin-bottom: 32px !important;
+}
+
+/* 文章正文内容优化 - 只在详情页 */
+#item:not(:has(.blog-listing)) .card .card-body .content,
+#item:not(:has(.blog-listing)) .card .card-body article {
+    line-height: 1.7 !important;
+    font-size: 1.1rem !important;
+    max-width: 100% !important;
+}
+
+/* 代码块优化 - 只在详情页 */
+#item:not(:has(.blog-listing)) .card pre {
+    padding: 20px !important;
+    margin: 24px 0 !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+}
+
+/* 图片和表格优化 - 只在详情页 */
+#item:not(:has(.blog-listing)) .card img {
+    max-width: 100% !important;
+    height: auto !important;
+    border-radius: var(--tg-radius) !important;
+}
+
+#item:not(:has(.blog-listing)) .card table {
+    width: 100% !important;
+    margin: 24px 0 !important;
+}
+
+/* 超宽屏优化 - 只在详情页 */
+@media (min-width: 1600px) {
+    #body-wrapper:not(:has(.blog-listing)) .container {
+        max-width: 1600px !important;
+    }
+
+    #item:not(:has(.blog-listing)) .card {
+        padding: 48px 64px !important;
+    }
+}
+
+/* 移动端优化 - 只在详情页 */
+@media (max-width: 768px) {
+    #body-wrapper:not(:has(.blog-listing)) .container {
+        padding: 0 16px !important;
+    }
+
+    #item:not(:has(.blog-listing)) .card {
+        padding: 24px 20px !important;
+    }
+
+    #item:not(:has(.blog-listing)) .card .card-header h1,
+    #item:not(:has(.blog-listing)) .card .card-header .title {
+        font-size: 2rem !important;
+    }
+
+    #item:not(:has(.blog-listing)) .card .card-body .content,
+    #item:not(:has(.blog-listing)) .card .card-body article {
+        font-size: 1rem !important;
+    }
+}
+
+/* ========================================
    Header 和导航 - Telegram 风格美化
    ======================================== */
 
