@@ -201,13 +201,13 @@
           </div>
         </div><!--./col-6-->
         {% if not full %}
-        <div class="column col-3 col-sm-5" style="flex-direction: column-reverse;display: flex;">
+        <div class="column col-3 col-sm-5" style="display: flex; justify-content: flex-end; align-items: center;">
           {% if show_read_more_btn %}
-          <div style="flex-direction: column-reverse;display: flex;">
+          <div style="text-align: right; width: 100%;">
             <a class="read-more btn btn-sm" href="{{ page.permalink }}">{{ config.extra.read_more_prompt }} →</a>
           </div>
           {% else %}
-          <div style="flex-direction: column-reverse;display: flex;">
+          <div style="text-align: right; width: 100%;">
             <a class="read-more btn btn-sm" href="{{ page.permalink }}">{{ config.extra.read_post_prompt }} →</a>
           </div>
           {% endif -%}
