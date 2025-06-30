@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="zh" data-theme="light" dir="ltr">
+  <head>
+    <title>[C++游戏开发基础]:引用返回和地址返回 - 慕予博客</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="详细分析C++中引用返回和地址返回的区别、使用场景及在游戏开发中的性能考量"/>
+
+    <meta property="og:title" content="慕予博客 -&nbsp;[C++游戏开发基础]:引用返回和地址返回" />
+    <meta property="og:type" content="website"/><meta property="og:url" content="https:&#x2F;&#x2F;ilikexff.cn&#x2F;c-you-xi-kai-fa-ji-chu-yin-yong-fan-hui-he-di-zhi-fan-hui&#x2F;"/><meta property="og:description" content="详细分析C++中引用返回和地址返回的区别、使用场景及在游戏开发中的性能考量"/>
+
+
+    <meta name="twitter:card" content="summary">
+
+
+    <link rel="stylesheet" href="https://ilikexff.cn/spectre/spectre.css">
+    <link rel="stylesheet" href="https://ilikexff.cn/theme.css"><link rel="stylesheet" href="https://ilikexff.cn/custom.css">
+    
+
+        
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script>
+        function doRenderMath() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false},
+                {left: "\\begin{equation}", right: "\\end{equation}", display: true},
+                {left: "\\begin{align}", right: "\\end{align}", display: true},
+                {left: "\\begin{alignat}", right: "\\end{alignat}", display: true},
+                {left: "\\begin{gather}", right: "\\end{gather}", display: true},
+                {left: "\\begin{CD}", right: "\\end{CD}", display: true},
+                {left: "\\[", right: "\\]", display: true}
+                ]
+            });
+        }
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+        onload="doRenderMath()"></script>
+
+      </head>
+  <body id="top" class="sticky-footer"><div id="page-wrapper">
+<header id="header" class="section">
+  <section class="container grid-xl">
+    <nav class="navbar">
+      <section class="navbar-section">
+        
+<a class="site-logo" href="https:&#x2F;&#x2F;ilikexff.cn">
+  
+  <div class="col-mx-auto">
+    <figure style="margin: 8px">
+      <img class="img-responsive"
+           style="max-height: 45px"
+           alt="frontmatter image"
+           src="https://ilikexff.cn/./logo.svg">
+    </figure>
+  </div>
+  
+</a>
+
+      </section><!-- ./home button -->
+
+      <section class="navbar-center hide-md"></section>
+
+      <section class="navbar-section">
+        <nav class="dropmenu animated hide-md">
+
+<ul><li>
+        <a href="https://ilikexff.cn/tags">标签</a>
+    </li><li>
+        <a href="https://ilikexff.cn/categories">分类</a>
+    </li><li>
+        <a href="https://ilikexff.cn/about">关于</a>
+    </li></ul>
+
+
+          </nav>
+      </section><!-- ./desktop-menu -->
+    </nav>
+  </section><!-- ./container -->
+</header>
+
+
+<div class="mobile-menu">
+  <div class="button_container" id="toggle" onclick="openOverlay()">
+    <span class="top"></span>
+    <span class="middle"></span>
+    <span class="bottom"></span>
+  </div>
+</div><!--./mobile-menu-->
+
+
+<section id="start"><section id="body-wrapper" class="section">
+          <section class="container grid-xl">
+<div id="breadcrumbs" itemtype="http://schema.org/BreadcrumbList" class="hide-sm">
+  
+    
+    <span><a href="https:&#x2F;&#x2F;ilikexff.cn&#x2F;">Home</a></span>
+  
+    <span><a href="https:&#x2F;&#x2F;ilikexff.cn&#x2F;c-you-xi-kai-fa-ji-chu-yin-yong-fan-hui-he-di-zhi-fan-hui&#x2F;">[C++游戏开发基础]:引用返回和地址返回</a></span>
+</div>
+<div class="columns">
+              <div id="item" class="column col-8 col-md-12 extra-spacing">
+<div class="card">
+  
+
+    <div class="card-header">
+      <div class="card-title" style="margin-top: .25rem;"><div>
+          <h1 class="post-title">[C++游戏开发基础]:引用返回和地址返回</h1>
+          
+    <div class="post-meta" style="display: inline-flex">
+        <span class="blog-date" style="display: inline-flex;">
+          <i class="gg-calendar" style="margin-right: 5px;"></i><time datetime="2025.06.19">
+          2025.06.19
+          </time></span><span class="post-author" style="margin-left: 5px; display: inline-flex;">
+          - 
+    慕予
+        </span></div>
+
+        </div></div>
+    </div><!--./card-header-->
+
+    <div class="card-body">
+      
+        <p>在之前的文章中已经提到过,当使用按值传递时会创建参数的一个副本到函数中。对于基本类型（复制成本较低），这是可以的。但对于类类型（如 <code>std::string</code> ），复制通常成本较高。我们可以通过使用（const）引用传递（或按地址传递）来避免进行昂贵的复制。</p>
+<p>这篇文章主要介绍一些在关于使用引用返回和地址返回的基础知识。</p>
+<p>下面是一个使用引用返回的程序:</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">string</span><span>&gt;
+</span><span>
+</span><span style="color:#859900;">const</span><span> std::string</span><span style="color:#859900;">&amp; </span><span style="color:#b58900;">getProgramName</span><span style="color:#657b83;">() </span><span style="color:#586e75;">// 返回一个常量引用
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">static const</span><span> std::string </span><span style="color:#b58900;">s_programName </span><span style="color:#657b83;">{ </span><span>&quot;</span><span style="color:#2aa198;">Calculator</span><span>&quot; </span><span style="color:#657b83;">}</span><span>; </span><span style="color:#586e75;">// 具有静态存储期，在程序结束时销毁
+</span><span>
+</span><span>    </span><span style="color:#859900;">return</span><span> s_programName;
+</span><span style="color:#657b83;">}
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    std::cout </span><span style="color:#657b83;">&lt;&lt; </span><span>&quot;</span><span style="color:#2aa198;">This program is named </span><span>&quot; </span><span style="color:#657b83;">&lt;&lt; </span><span style="color:#b58900;">getProgramName</span><span style="color:#657b83;">()</span><span>;
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<hr />
+<h2 id="fan-hui-yin-yong-de-dui-xiang-bi-xu-zai-han-shu-fan-hui-hou-cun-zai">返回引用的对象必须在函数返回后存在<a class="zola-anchor" href="#fan-hui-yin-yong-de-dui-xiang-bi-xu-zai-han-shu-fan-hui-hou-cun-zai" aria-label="Anchor link for: fan-hui-yin-yong-de-dui-xiang-bi-xu-zai-han-shu-fan-hui-hou-cun-zai">🔗</a></h2>
+<p>使用引用返回有一个重要的注意事项:程序员必须确保被引用的对象在返回引用的函数之后仍然存在,否则将会出现返回的引用悬空的情况(引用一个已被销毁的对象),使用该引用会导致为定义行为。 </p>
+<p>在上面的程序中,因为 <code>s_programName</code> 使用了<code>static</code>关键字修饰,具有静态持续时间，它的生命周期 <code>s_programName</code> 将存在到程序结束。当 <code>main()</code> 访问返回的引用时，它实际上是在访问 <code>s_programName</code> ，这是可以的，因为 <code>s_programName</code> 不会在之后被销毁。</p>
+<p>现在让我们修改上述程序，以展示当我们的函数返回一个悬垂引用时会发生什么：</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">string</span><span>&gt;
+</span><span>
+</span><span style="color:#859900;">const</span><span> std::string</span><span style="color:#859900;">&amp; </span><span style="color:#b58900;">getProgramName</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">const</span><span> std::string </span><span style="color:#b58900;">programName </span><span style="color:#657b83;">{ </span><span>&quot;</span><span style="color:#2aa198;">Calculator</span><span>&quot; </span><span style="color:#657b83;">}</span><span>; </span><span style="color:#586e75;">// 现在是一个非静态局部变量，在函数结束时销毁
+</span><span>
+</span><span>    </span><span style="color:#859900;">return</span><span> programName;
+</span><span style="color:#657b83;">}
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    std::cout </span><span style="color:#657b83;">&lt;&lt; </span><span>&quot;</span><span style="color:#2aa198;">这个程序的名称是 </span><span>&quot; </span><span style="color:#657b83;">&lt;&lt; </span><span style="color:#b58900;">getProgramName</span><span style="color:#657b83;">()</span><span>; </span><span style="color:#586e75;">// 未定义行为
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>程序的结果未定义。当 <code>getProgramName()</code> 返回时，返回一个绑定到局部变量 <code>programName</code> 的引用。然后，因为 <code>programName</code> 是一个具有自动持续时间的局部变量，所以在函数结束时销毁 <code>programName</code> 。这意味着返回的引用现在是悬垂的，在 <code>main()</code> 函数中使用 <code>programName</code> 会导致未定义的行为。</p>
+<blockquote>
+<p>对象通过引用返回时必须超出返回引用的函数的作用域,否则将会产生悬空引用。不要通过引用返回非静态的局部变量或者临时变量。</p>
+</blockquote>
+<hr />
+<h2 id="lin-shi-dui-xiang-de-sheng-ming-zhou-qi-yan-chang-lifetime-extension-ji-zhi-bu-neng-kua-yue-han-shu-bian-jie-sheng-xiao">临时对象的生命周期延长（lifetime extension）机制，不能跨越函数边界生效。<a class="zola-anchor" href="#lin-shi-dui-xiang-de-sheng-ming-zhou-qi-yan-chang-lifetime-extension-ji-zhi-bu-neng-kua-yue-han-shu-bian-jie-sheng-xiao" aria-label="Anchor link for: lin-shi-dui-xiang-de-sheng-ming-zhou-qi-yan-chang-lifetime-extension-ji-zhi-bu-neng-kua-yue-han-shu-bian-jie-sheng-xiao">🔗</a></h2>
+<p><strong>临时对象:</strong></p>
+<ul>
+<li>临时对象是在表达式求值过程中创建的，但没有名字的对象。</li>
+<li>例如，<code>std::string(&quot;Hello&quot;)</code> 会创建一个临时的 <code>std::string</code> 对象。</li>
+</ul>
+<p><strong>lifetime extension:</strong></p>
+<ul>
+<li>在某些特定情况下,C++编译器会延长临时对象的生命周期,以避免悬空引用;</li>
+</ul>
+<p>考虑下面这个返回临时变量的引用的例子:</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span>
+</span><span style="color:#859900;">const </span><span style="color:#268bd2;">int</span><span style="color:#859900;">&amp; </span><span style="color:#b58900;">returnByConstReference</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">5</span><span>; </span><span style="color:#586e75;">// 返回临时对象的常量引用
+</span><span style="color:#657b83;">}
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">const </span><span style="color:#268bd2;">int</span><span style="color:#859900;">&amp; </span><span style="color:#b58900;">ref </span><span style="color:#657b83;">{ </span><span style="color:#b58900;">returnByConstReference</span><span style="color:#657b83;">() }</span><span>;
+</span><span>
+</span><span>    std::cout </span><span style="color:#657b83;">&lt;&lt;</span><span> ref; </span><span style="color:#586e75;">// 未定义行为
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>在上述程序中， <code>returnByConstReference()</code> 返回一个整型字面量，但函数的返回类型是 <code>const int&amp;</code> 。这导致创建并返回一个绑定到包含值 5 的临时对象的临时引用。</p>
+<p>由于 <code>returnByConstReference()</code> 返回的是临时对象的引用，而临时对象在函数返回后立即被销毁，因此 <code>ref</code> 变成了一个悬空引用（dangling reference）。</p>
+<blockquote>
+<p>当你在一个函数内部创建一个临时对象，并返回该临时对象的引用时，这个引用在函数外部使用时，其引用的对象可能已经被销毁，从而导致未定义行为。</p>
+</blockquote>
+<p>所谓的函数边界指的是函数的开始和结束。在函数内部创建的局部变量和临时对象，在函数结束时通常会被销毁。换句话说,如果你在一个函数中创建了一个临时对象，并返回了对它的引用，那么不要期望这个引用在函数外部仍然有效。因为临时对象的生命周期在函数结束时就结束了。</p>
+<hr />
+<h2 id="bu-yao-tong-guo-yin-yong-fan-hui-fei-constjing-tai-ju-bu-bian-liang">不要通过引用返回非<code>const</code>静态局部变量<a class="zola-anchor" href="#bu-yao-tong-guo-yin-yong-fan-hui-fei-constjing-tai-ju-bu-bian-liang" aria-label="Anchor link for: bu-yao-tong-guo-yin-yong-fan-hui-fei-constjing-tai-ju-bu-bian-liang">🔗</a></h2>
+<p>在第一个实例中,通过引用返回一个 const 静态局部变量，以简单的方式说明通过引用返回的机制。然而，通过引用返回非 const 静态局部变量相当不规范，通常应避免。</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">string</span><span>&gt;
+</span><span>
+</span><span style="color:#859900;">const </span><span style="color:#268bd2;">int</span><span style="color:#859900;">&amp; </span><span style="color:#b58900;">getNextId</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">static </span><span style="color:#268bd2;">int </span><span style="color:#b58900;">s_x</span><span style="color:#657b83;">{ </span><span style="color:#6c71c4;">0 </span><span style="color:#657b83;">}</span><span>; </span><span style="color:#586e75;">// 注意：变量是非 const 的
+</span><span>    </span><span style="color:#657b83;">++</span><span>s_x; </span><span style="color:#586e75;">// 生成下一个 id
+</span><span>    </span><span style="color:#859900;">return</span><span> s_x; </span><span style="color:#586e75;">// 并返回它的引用
+</span><span style="color:#657b83;">}
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">const </span><span style="color:#268bd2;">int</span><span style="color:#859900;">&amp; </span><span style="color:#b58900;">id1 </span><span style="color:#657b83;">{ </span><span style="color:#b58900;">getNextId</span><span style="color:#657b83;">() }</span><span>; </span><span style="color:#586e75;">// id1 是一个引用
+</span><span>    </span><span style="color:#859900;">const </span><span style="color:#268bd2;">int</span><span style="color:#859900;">&amp; </span><span style="color:#b58900;">id2 </span><span style="color:#657b83;">{ </span><span style="color:#b58900;">getNextId</span><span style="color:#657b83;">() }</span><span>; </span><span style="color:#586e75;">// id2 是一个引用
+</span><span>
+</span><span>    std::cout </span><span style="color:#657b83;">&lt;&lt;</span><span> id1 </span><span style="color:#657b83;">&lt;&lt;</span><span> id2 </span><span style="color:#657b83;">&lt;&lt; </span><span>&#39;</span><span style="color:#dc322f;">\n</span><span>&#39;;
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<blockquote>
+<p>22</p>
+</blockquote>
+<p>程序之后后打印22,这是因为id1和id2引用的是同一个对象静态变量 <code>s_x</code> ），所以当任何内容（例如 <code>getNextId()</code> ）修改该值时，所有引用现在都访问的是修改后的值。</p>
+<p>此示例可以通过将 <code>id1</code> 和 <code>id2</code> 设置为普通变量（而不是引用）来修复，这样它们将保存返回值的副本而不是 <code>s_x</code> 的引用。</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">string</span><span>&gt;
+</span><span>
+</span><span style="color:#859900;">const </span><span style="color:#268bd2;">int</span><span style="color:#859900;">&amp; </span><span style="color:#b58900;">getNextId</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">static </span><span style="color:#268bd2;">int </span><span style="color:#b58900;">s_x</span><span style="color:#657b83;">{ </span><span style="color:#6c71c4;">0 </span><span style="color:#657b83;">}</span><span>;
+</span><span>    </span><span style="color:#657b83;">++</span><span>s_x;
+</span><span>    </span><span style="color:#859900;">return</span><span> s_x;
+</span><span style="color:#657b83;">}
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">const </span><span style="color:#268bd2;">int </span><span style="color:#b58900;">id1 </span><span style="color:#657b83;">{ </span><span style="color:#b58900;">getNextId</span><span style="color:#657b83;">() }</span><span>; </span><span style="color:#586e75;">// id1 现在是一个普通变量，并接收 getNextId() 通过引用返回的值的拷贝
+</span><span>    </span><span style="color:#859900;">const </span><span style="color:#268bd2;">int </span><span style="color:#b58900;">id2 </span><span style="color:#657b83;">{ </span><span style="color:#b58900;">getNextId</span><span style="color:#657b83;">() }</span><span>; </span><span style="color:#586e75;">// id1 现在是一个普通变量，并接收 getNextId() 通过引用返回的值的拷贝
+</span><span>
+</span><span>    std::cout </span><span style="color:#657b83;">&lt;&lt;</span><span> id1 </span><span style="color:#657b83;">&lt;&lt;</span><span> id2 </span><span style="color:#657b83;">&lt;&lt; </span><span>&#39;</span><span style="color:#dc322f;">\n</span><span>&#39;;
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>在上面的示例中， <code>getNextId()</code> 返回一个引用，但 <code>id1</code> 和 <code>id2</code> 是非引用变量。在这种情况下，返回的引用的值被复制到普通变量中。因此，这个程序打印：</p>
+<blockquote>
+<p>12</p>
+</blockquote>
+<hr />
+<h2 id="tong-guo-yin-yong-fan-hui-yin-yong-can-shu">通过引用返回引用参数<a class="zola-anchor" href="#tong-guo-yin-yong-fan-hui-yin-yong-can-shu" aria-label="Anchor link for: tong-guo-yin-yong-fan-hui-yin-yong-can-shu">🔗</a></h2>
+<p>如果一个参数是通过引用传递给函数的，那么安全地通过引用返回该参数是没什么问题的,但是为了将一个参数传递给函数，该参数必须在调用者的作用域中存在。</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">string</span><span>&gt;
+</span><span>
+</span><span style="color:#586e75;">// 接受两个 std::string 对象，返回按字母顺序排列时较小的那个
+</span><span style="color:#859900;">const</span><span> std::string</span><span style="color:#859900;">&amp; </span><span style="color:#b58900;">firstAlphabetical</span><span style="color:#657b83;">(</span><span style="color:#859900;">const</span><span> std::string</span><span style="color:#859900;">&amp; </span><span style="color:#268bd2;">a</span><span>, </span><span style="color:#859900;">const</span><span> std::string</span><span style="color:#859900;">&amp; </span><span style="color:#268bd2;">b</span><span style="color:#657b83;">)
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#657b83;">(</span><span>a </span><span style="color:#657b83;">&lt;</span><span> b</span><span style="color:#657b83;">) </span><span style="color:#859900;">?</span><span> a </span><span style="color:#859900;">:</span><span> b; </span><span style="color:#586e75;">// 使用 operator&lt; 进行字典序比较，确定哪个字符串在前
+</span><span style="color:#657b83;">}
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    std::string </span><span style="color:#b58900;">hello </span><span style="color:#657b83;">{ </span><span>&quot;</span><span style="color:#2aa198;">Hello</span><span>&quot; </span><span style="color:#657b83;">}</span><span>;
+</span><span>    std::string </span><span style="color:#b58900;">world </span><span style="color:#657b83;">{ </span><span>&quot;</span><span style="color:#2aa198;">World</span><span>&quot; </span><span style="color:#657b83;">}</span><span>;
+</span><span>
+</span><span>    std::cout </span><span style="color:#657b83;">&lt;&lt; </span><span style="color:#b58900;">firstAlphabetical</span><span style="color:#657b83;">(</span><span>hello, world</span><span style="color:#657b83;">) &lt;&lt; </span><span>&#39;</span><span style="color:#dc322f;">\n</span><span>&#39;; </span><span style="color:#586e75;">// 输出按字母顺序排列时较小的字符串
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<blockquote>
+<p>Hello</p>
+</blockquote>
+<p>如果我们使用按值传递和按值返回，我们将为 std::string 创建多达 3 个副本（每个参数一个，返回值一个）。通过使用按引用传递/按引用返回，我们可以避免这些副本。</p>
+<hr />
+<h2 id="ke-yi-jiang-tong-guo-const-yin-yong-chuan-di-de-you-zhi-yi-const-yin-yong-fan-hui">可以将通过 const 引用传递的右值以 const 引用返回。<a class="zola-anchor" href="#ke-yi-jiang-tong-guo-const-yin-yong-chuan-di-de-you-zhi-yi-const-yin-yong-fan-hui" aria-label="Anchor link for: ke-yi-jiang-tong-guo-const-yin-yong-chuan-di-de-you-zhi-yi-const-yin-yong-fan-hui">🔗</a></h2>
+<p>当一个 const 引用的参数是一个 rvalue 时，仍然可以通过 const 引用返回该参数。这是因为右值直到它们被创建的表达式结束才会被销毁。</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">string</span><span>&gt;
+</span><span>
+</span><span>std::string </span><span style="color:#b58900;">getHello</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">return </span><span>&quot;</span><span style="color:#2aa198;">Hello</span><span>&quot;;
+</span><span style="color:#657b83;">}
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">const</span><span> std::string </span><span style="color:#b58900;">s</span><span style="color:#657b83;">{ </span><span style="color:#b58900;">getHello</span><span style="color:#657b83;">() }</span><span>;
+</span><span>
+</span><span>    std::cout </span><span style="color:#657b83;">&lt;&lt;</span><span> s;
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>在这种情况下， <code>getHello()</code> 返回一个 <code>std::string</code> 的值，这是一个右值。然后使用这个右值来初始化 <code>s</code> 。在初始化 <code>s</code> 之后右值被销毁。</p>
+<hr />
+<h2 id="diao-yong-zhe-tong-guo-yin-yong-xiu-gai-zhi">调用者通过引用修改值<a class="zola-anchor" href="#diao-yong-zhe-tong-guo-yin-yong-xiu-gai-zhi" aria-label="Anchor link for: diao-yong-zhe-tong-guo-yin-yong-xiu-gai-zhi">🔗</a></h2>
+<p>当一个参数通过非const引用传递给函数时,函数可以使用该引用来修改参数的值。同样,当从函数返回一个非const引用时,调用者可以使用该引用来修改返回的值。</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span>
+</span><span style="color:#268bd2;">int</span><span style="color:#859900;">&amp; </span><span style="color:#b58900;">max </span><span style="color:#657b83;">(</span><span style="color:#268bd2;">int</span><span style="color:#859900;">&amp; </span><span style="color:#268bd2;">a</span><span>,</span><span style="color:#268bd2;">int</span><span style="color:#859900;">&amp; </span><span style="color:#268bd2;">b</span><span style="color:#657b83;">)
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#657b83;">(</span><span>a </span><span style="color:#657b83;">&gt;</span><span> b</span><span style="color:#657b83;">) </span><span style="color:#859900;">?</span><span> a </span><span style="color:#859900;">:</span><span> b;
+</span><span style="color:#657b83;">}
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#268bd2;">int </span><span style="color:#b58900;">a</span><span style="color:#657b83;">{ </span><span style="color:#6c71c4;">4 </span><span style="color:#657b83;">}</span><span>;
+</span><span>    </span><span style="color:#268bd2;">int </span><span style="color:#b58900;">b</span><span style="color:#657b83;">{ </span><span style="color:#6c71c4;">10 </span><span style="color:#657b83;">}</span><span>;
+</span><span>
+</span><span>    </span><span style="color:#b58900;">max</span><span style="color:#657b83;">(</span><span>a, b</span><span style="color:#657b83;">) = </span><span style="color:#6c71c4;">7</span><span>; 
+</span><span>
+</span><span>    std::cout </span><span style="color:#657b83;">&lt;&lt;</span><span> a </span><span style="color:#657b83;">&lt;&lt;</span><span> b </span><span style="color:#657b83;">&lt;&lt; </span><span>&#39;</span><span style="color:#dc322f;">\n</span><span>&#39;;
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>函数最后将会打印:4 7</p>
+<hr />
+<h2 id="fan-hui-di-zhi">返回地址<a class="zola-anchor" href="#fan-hui-di-zhi" aria-label="Anchor link for: fan-hui-di-zhi">🔗</a></h2>
+<p>地址返回几乎与引用返回相同，只是返回的是对象的指针而不是对象的引用。返回地址的方式与通过引用返回有相同的注意事项——通过地址返回的对象必须比返回地址的函数的作用域长，否则调用者将收到一个悬空指针。</p>
+<p>地址返回比引用返回的主要优势是，如果没有有效的对象返回，我们可以让函数返回 <code>nullptr</code> 。例如，假设我们有一个学生列表，我们想要在列表中搜索。如果我们找到了我们正在寻找的学生，我们可以返回一个指向表示匹配学生的对象的指针。如果没有找到匹配的学生，我们可以返回 <code>nullptr</code> 来表示未找到匹配的学生对象。</p>
+<blockquote>
+<p>感谢阅读,欢迎指正!</p>
+</blockquote>
+
+      
+    </div><!--./card-body-->
+
+    <div class="card-footer">
+      <div class="columns">
+        <div class="column col-9 col-sm-7">
+          <div class="taxonomies text-left">
+            
+
+    
+          </div>
+        </div><!--./col-6-->
+        
+        </div><!--./columns-->
+    </div><!--./card-footer-->
+</div><!--./card-->
+</div>
+              <div id="sidebar" class="column col-4 col-md-12">
+                <div class="sidebar-content">
+                  
+                  
+<div class="sidebar-widget">
+  <div class="tile">
+    <div class="tile-icon">
+      <figure class="avatar avatar-xl">
+        <img src="https://ilikexff.cn/avatar.png" alt="author avatar image">
+      </figure>
+    </div>
+    <div class="tile-content">
+      <p class="tile-title" style="font-weight: 600;">慕予</p>
+      <p class="tile-subtitle">热爱编程，专注于技术分享和学习</p>
+    </div>
+</div><!--./tile-->
+</div>
+
+                  
+                  
+<div class="sidebar-widget">
+  欢迎来到<strong>慕予博客</strong>！这里分享技术文章和编程心得。
+</div><!-- end text widget -->
+
+                  
+
+                  </div><!--./sidebar-content-->
+              </div>
+            </div>
+            
+          </section>
+        </section></section>
+<section class="container grid-xl">
+<ul class="pagination paginator">
+  
+  
+</ul>
+</section>
+</div><!-- ./page-wrapper -->
+
+    
+<div class="mobile-container">
+        <div class="overlay" id="overlay">
+            <div style="padding: 1rem;">
+              
+<a class="site-logo" href="https:&#x2F;&#x2F;ilikexff.cn">
+  
+  <div class="col-mx-auto">
+    <figure style="margin: 8px">
+      <img class="img-responsive"
+           style="max-height: 45px"
+           alt="frontmatter image"
+           src="https://ilikexff.cn/./logo.svg">
+    </figure>
+  </div>
+  
+</a>
+
+            </div>
+            <nav class="overlay-menu">
+              
+
+<ul class="tree treemenu treemenu-root"><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/tags">标签</a>
+    </li><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/categories">分类</a>
+    </li><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/about">关于</a>
+    </li></ul>
+
+
+              </nav>
+        </div>
+    </div>
+
+<script type="text/javascript">
+  var overlay = document.getElementById('overlay');
+  var toggle = document.getElementById('toggle');
+
+  function openOverlay(){
+      // Open overlay
+      if (overlay.classList.contains("open")) {
+          overlay.classList.remove("open");
+      }
+      else {
+          overlay.classList.add("open");
+      }
+
+      // Button transition
+      if (toggle.classList.contains("active")) {
+          toggle.classList.remove("active");
+      }
+      else {
+          toggle.classList.add("active");
+      }
+    }
+</script>
+
+<section id="footer" class="bg-gray">
+  <div class="container grid-xl">
+    
+
+
+    <div class="columns">
+      
+      <div class="column col-6 col-lg-12 col-mx-auto" style="text-align: center;">
+        简单是效率的灵魂 | 黔ICP备2021010295号
+      </div>
+      
+      <div class="column col-6 col-lg-12 col-mx-auto" style="text-align: center;">
+        Made by <a href="https://github.com/gicrisf/">gicrisf</a> -
+        <strong>Zhuia</strong>&nbsp;<a href="https://github.com/gicrisf/zhuia">source code</a>
+        is licensed under <a href="http://opensource.org/licenses/mit-license.php" target="_blank">MIT</a>.
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

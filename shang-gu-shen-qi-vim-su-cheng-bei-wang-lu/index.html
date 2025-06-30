@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="zh" data-theme="light" dir="ltr">
+  <head>
+    <title>上古神器_Vim速成备忘录 - 慕予博客</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="简单是效率的灵魂"/>
+
+    <meta property="og:title" content="慕予博客 -&nbsp;上古神器_Vim速成备忘录" />
+    <meta property="og:type" content="website"/><meta property="og:url" content="https:&#x2F;&#x2F;ilikexff.cn&#x2F;shang-gu-shen-qi-vim-su-cheng-bei-wang-lu&#x2F;"/><meta property="og:description" content="简单是效率的灵魂"/>
+
+
+    <meta name="twitter:card" content="summary">
+
+
+    <link rel="stylesheet" href="https://ilikexff.cn/spectre/spectre.css">
+    <link rel="stylesheet" href="https://ilikexff.cn/theme.css"><link rel="stylesheet" href="https://ilikexff.cn/custom.css">
+    
+
+        
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script>
+        function doRenderMath() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false},
+                {left: "\\begin{equation}", right: "\\end{equation}", display: true},
+                {left: "\\begin{align}", right: "\\end{align}", display: true},
+                {left: "\\begin{alignat}", right: "\\end{alignat}", display: true},
+                {left: "\\begin{gather}", right: "\\end{gather}", display: true},
+                {left: "\\begin{CD}", right: "\\end{CD}", display: true},
+                {left: "\\[", right: "\\]", display: true}
+                ]
+            });
+        }
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+        onload="doRenderMath()"></script>
+
+      </head>
+  <body id="top" class="sticky-footer"><div id="page-wrapper">
+<header id="header" class="section">
+  <section class="container grid-xl">
+    <nav class="navbar">
+      <section class="navbar-section">
+        
+<a class="site-logo" href="https:&#x2F;&#x2F;ilikexff.cn">
+  
+  <div class="col-mx-auto">
+    <figure style="margin: 8px">
+      <img class="img-responsive"
+           style="max-height: 45px"
+           alt="frontmatter image"
+           src="https://ilikexff.cn/./logo.svg">
+    </figure>
+  </div>
+  
+</a>
+
+      </section><!-- ./home button -->
+
+      <section class="navbar-center hide-md"></section>
+
+      <section class="navbar-section">
+        <nav class="dropmenu animated hide-md">
+
+<ul><li>
+        <a href="https://ilikexff.cn/tags">标签</a>
+    </li><li>
+        <a href="https://ilikexff.cn/categories">分类</a>
+    </li><li>
+        <a href="https://ilikexff.cn/about">关于</a>
+    </li></ul>
+
+
+          </nav>
+      </section><!-- ./desktop-menu -->
+    </nav>
+  </section><!-- ./container -->
+</header>
+
+
+<div class="mobile-menu">
+  <div class="button_container" id="toggle" onclick="openOverlay()">
+    <span class="top"></span>
+    <span class="middle"></span>
+    <span class="bottom"></span>
+  </div>
+</div><!--./mobile-menu-->
+
+
+<section id="start"><section id="body-wrapper" class="section">
+          <section class="container grid-xl">
+<div id="breadcrumbs" itemtype="http://schema.org/BreadcrumbList" class="hide-sm">
+  
+    
+    <span><a href="https:&#x2F;&#x2F;ilikexff.cn&#x2F;">Home</a></span>
+  
+    <span><a href="https:&#x2F;&#x2F;ilikexff.cn&#x2F;shang-gu-shen-qi-vim-su-cheng-bei-wang-lu&#x2F;">上古神器_Vim速成备忘录</a></span>
+</div>
+<div class="columns">
+              <div id="item" class="column col-8 col-md-12 extra-spacing">
+<div class="card">
+  
+
+    <div class="card-header">
+      <div class="card-title" style="margin-top: .25rem;"><div>
+          <h1 class="post-title">上古神器_Vim速成备忘录</h1>
+          
+    <div class="post-meta" style="display: inline-flex">
+        <span class="blog-date" style="display: inline-flex;">
+          <i class="gg-calendar" style="margin-right: 5px;"></i><time datetime="2025.05.13">
+          2025.05.13
+          </time></span><span class="post-author" style="margin-left: 5px; display: inline-flex;">
+          - 
+    慕予
+        </span></div>
+
+        </div></div>
+    </div><!--./card-header-->
+
+    <div class="card-body">
+      
+        <p>三种常用模式的切换</p>
+<ul>
+<li>vim启动属于普通模式，按ESC或Ctrl+[即可进入普通模式，</li>
+<li>普通模式中按i（插入）或a（附加）进入插入模式，编辑结束后</li>
+</ul>
+<p><strong>进入vim</strong></p>
+<ul>
+<li>如果直接输入vim也可以打开vim编辑器，但是不会打开任何内容</li>
+<li>输入如下命令，可以打开用vim模式打开后门指定的文件，如果该文件不存在会自动创建为new file</li>
+</ul>
+<pre style="background-color:#002b36;color:#839496;"><code><span>vim test.txt
+</span></code></pre>
+<ul>
+<li>输入如下命令，同样可以打开相应的文件</li>
+</ul>
+<pre style="background-color:#002b36;color:#839496;"><code><span>:e&lt;filepath&gt;
+</span></code></pre>
+<p><strong>插入模式</strong></p>
+<p>在ESC之后进入普通模式，该模式下，可以通过如下按键控制光标的移动插入</p>
+<table><thead><tr><th>命令</th><th>说明</th></tr></thead><tbody>
+<tr><td><code>i</code></td><td>在当前光标处进行编辑</td></tr>
+<tr><td><code>I</code></td><td>在行首插入</td></tr>
+<tr><td><code>A</code></td><td>在行末插入</td></tr>
+<tr><td><code>a</code></td><td>在光标后插入编辑</td></tr>
+<tr><td><code>o</code></td><td>在当前行后插入一个新行</td></tr>
+<tr><td><code>O</code></td><td>在当前行前插入一个新行</td></tr>
+<tr><td><code>cw</code></td><td>替换从光标所在位置后到一个单词结尾的字符</td></tr>
+</tbody></table>
+<p><strong>重复命令</strong></p>
+<ul>
+<li>在普通模式下，.（小数点）表示重复上一次的命令操作</li>
+<li>普通模式下输入x，删除第一个字符，输入.会再次删除一个字符，除此之外也可以重复dd的删除操作</li>
+<li>执行指定次数相同的命令：</li>
+</ul>
+<pre style="background-color:#002b36;color:#839496;"><code><span>N&lt;command&gt;
+</span></code></pre>
+<p>练习：</p>
+<pre style="background-color:#002b36;color:#839496;"><code><span>10x//删除10个连续字符
+</span><span>3dd//删除3行文本
+</span></code></pre>
+<p><strong>复制与粘贴</strong></p>
+<p>以下命令在普通模式中使用</p>
+<pre style="background-color:#002b36;color:#839496;"><code><span>y      //复制
+</span><span>yy     //复制游标所在的行，3yy表示复制3行
+</span><span>y^/y0  //复制到行首，y0不含光标所在字符
+</span><span>y$    //复制到行尾，含光标位置
+</span><span>yw    //复制一个单词
+</span><span>y2w   //复制两个单词
+</span><span>yG    //复制至文本末
+</span><span>y1G   //复制至文本开头
+</span><span>p     //粘贴（后）
+</span><span>P     //粘贴到光标前
+</span><span>ddp   //交换上下行
+</span></code></pre>
+<p><strong>退出</strong></p>
+<ul>
+<li><h4 id="ming-ling-mo-shi-xia-tui-chu-vim">命令模式下退出 vim<a class="zola-anchor" href="#ming-ling-mo-shi-xia-tui-chu-vim" aria-label="Anchor link for: ming-ling-mo-shi-xia-tui-chu-vim">🔗</a></h4>
+</li>
+</ul>
+<table><thead><tr><th>命令</th><th>说明</th></tr></thead><tbody>
+<tr><td><code>:q!</code></td><td>强制退出，不保存</td></tr>
+<tr><td><code>:q</code></td><td>退出</td></tr>
+<tr><td><code>:wq!</code></td><td>强制保存并退出</td></tr>
+<tr><td><code>:w &lt;文件路径&gt;</code></td><td>另存为</td></tr>
+<tr><td><code>:saveas 文件路径</code></td><td>另存为</td></tr>
+<tr><td><code>:x</code></td><td>保存并退出</td></tr>
+<tr><td><code>:wq</code></td><td>保存并退出</td></tr>
+</tbody></table>
+<ul>
+<li><h4 id="pu-tong-mo-shi-xia-de-tui-chu">普通模式下的退出<a class="zola-anchor" href="#pu-tong-mo-shi-xia-de-tui-chu" aria-label="Anchor link for: pu-tong-mo-shi-xia-de-tui-chu">🔗</a></h4>
+</li>
+</ul>
+<p>普通模式下按下 <code>Shift+zz</code> 即可保存退出 vim。</p>
+<p><strong>删除</strong></p>
+<table><thead><tr><th>命令</th><th>说明</th></tr></thead><tbody>
+<tr><td><code>x</code></td><td>删除游标所在的字符</td></tr>
+<tr><td><code>X</code></td><td>删除游标所在前一个字符</td></tr>
+<tr><td><code>Delete</code></td><td>同 <code>x</code></td></tr>
+<tr><td><code>dd</code></td><td>删除整行</td></tr>
+<tr><td><code>dw</code></td><td>删除一个单词（不适用中文）</td></tr>
+<tr><td><code>d$</code>或<code>D</code></td><td>删除至行尾</td></tr>
+<tr><td><code>d^</code></td><td>删除至行首</td></tr>
+<tr><td><code>dG</code></td><td>删除到文档结尾处</td></tr>
+<tr><td><code>d1G</code></td><td>删至文档首部</td></tr>
+</tbody></table>
+<ul>
+<li>除此之外，你还可以在命令之前加上数字，表示一次删除多行，如：</li>
+</ul>
+<p><code>2dd</code> 表示一次删除 2 行。</p>
+<p><strong>替换与撤销</strong></p>
+<h4 id="ti-huan-he-che-xiao">替换和撤销<a class="zola-anchor" href="#ti-huan-he-che-xiao" aria-label="Anchor link for: ti-huan-he-che-xiao">🔗</a></h4>
+<p>替换和 Undo 命令都是针对普通模式下的操作：</p>
+<table><thead><tr><th>命令</th><th>说明</th></tr></thead><tbody>
+<tr><td><code>r</code>+&lt;待替换字母&gt;</td><td>将游标所在字母替换为指定字母</td></tr>
+<tr><td><code>R</code></td><td>连续替换，直到按下 <code>Esc</code></td></tr>
+<tr><td><code>cc</code></td><td>替换整行，即删除游标所在行，并进入插入模式</td></tr>
+<tr><td><code>cw</code></td><td>替换一个单词，即删除一个单词，并进入插入模式</td></tr>
+<tr><td><code>C</code>(大写)</td><td>替换游标以后至行末</td></tr>
+<tr><td><code>~</code></td><td>反转游标所在字母大小写</td></tr>
+<tr><td><code>{n}u</code></td><td>撤销一次或 n 次操作</td></tr>
+<tr><td><code>U</code>(大写)</td><td>撤销当前行的所有修改</td></tr>
+<tr><td><code>Ctrl+r</code></td><td>redo，即撤销 undo 的操作</td></tr>
+</tbody></table>
+<p><strong>缩进</strong></p>
+<ul>
+<li>普通模式下输入 <code>15G</code>，跳转到 15 行</li>
+<li>普通模式下输入 <code>&gt;&gt;</code> 整行将向右缩进（使用，用于格式化代码超爽）</li>
+<li>普通模式下输入 <code>&lt;&lt;</code> 整行向左回退</li>
+<li>普通模式下输入 <code>:</code> 进入命令行模式下对 <code>shiftwidth</code> 值进行设置可以控制缩进和回退的字符数</li>
+</ul>
+<h4 id="shiftwidth-ming-ling">shiftwidth 命令<a class="zola-anchor" href="#shiftwidth-ming-ling" aria-label="Anchor link for: shiftwidth-ming-ling">🔗</a></h4>
+<p><code>shiftwidth</code> 命令是指上一节 <code>&gt;&gt;</code> 命令产生的缩进（可以简写成<code>sw</code>），普通模式下输入 <code>:</code> 进入命令行模式下对 <code>shiftwidth</code> 值进行设置可以控制缩进和回退的字符数。</p>
+<pre style="background-color:#002b36;color:#839496;"><code><span>:set shiftwidth?
+</span><span>:set shiftwidth=10
+</span></code></pre>
+<h4 id="diao-zheng-wen-ben-wei-zhi">调整文本位置<a class="zola-anchor" href="#diao-zheng-wen-ben-wei-zhi" aria-label="Anchor link for: diao-zheng-wen-ben-wei-zhi">🔗</a></h4>
+<p>命令行模式下输入 <code>:ce</code>(center)命令使本行内容居中：</p>
+<pre style="background-color:#002b36;color:#839496;"><code><span>:ce
+</span></code></pre>
+<p>命令行模式下输入 <code>:ri</code>(right)命令使本行文本靠右：</p>
+<pre style="background-color:#002b36;color:#839496;"><code><span>:ri
+</span></code></pre>
+<p>命令行模式下输入 <code>le</code>(left)命令使本行内容靠左：</p>
+<pre style="background-color:#002b36;color:#839496;"><code><span>:le
+</span></code></pre>
+<p><strong>查找</strong></p>
+<h4 id="kuai-su-cha-zhao">快速查找<a class="zola-anchor" href="#kuai-su-cha-zhao" aria-label="Anchor link for: kuai-su-cha-zhao">🔗</a></h4>
+<p>普通模式下输入 <code>/</code> 然后键入需要查找的字符串，按回车后就会进行查找。<code>?</code> 与<code>/</code> 功能相同，只不过 <code>?</code> 是向上而 <code>/</code> 是向下查找。</p>
+<p>进入查找之后，输入 <code>n</code> 和 <code>N</code> 可以继续查找。<code>n</code> 是查找下一个内容，<code>N</code> 查找上一个内容。</p>
+<h4 id="gao-ji-cha-zhao">高级查找<a class="zola-anchor" href="#gao-ji-cha-zhao" aria-label="Anchor link for: gao-ji-cha-zhao">🔗</a></h4>
+<ul>
+<li>普通模式下输入 <code>\*</code> 寻找游标所在处的单词</li>
+<li>普通模式下输入 <code>\#</code> 同上，但 <code>\#</code> 是向前（上）找，<code>\*</code> 则是向后（下）找</li>
+<li>普通模式下输入 <code>g\*</code> 同 <code>\*</code>，但部分符合该单词即可</li>
+<li>普通模式下输入 <code>g\#</code> 同 <code>\#</code>，但部分符合该单词即可</li>
+</ul>
+<p>以上查找 <code>n</code>，<code>N</code> 的继续查找命令依然可以用。</p>
+<hr />
+
+      
+    </div><!--./card-body-->
+
+    <div class="card-footer">
+      <div class="columns">
+        <div class="column col-9 col-sm-7">
+          <div class="taxonomies text-left">
+            
+
+    
+          </div>
+        </div><!--./col-6-->
+        
+        </div><!--./columns-->
+    </div><!--./card-footer-->
+</div><!--./card-->
+</div>
+              <div id="sidebar" class="column col-4 col-md-12">
+                <div class="sidebar-content">
+                  
+                  
+<div class="sidebar-widget">
+  <div class="tile">
+    <div class="tile-icon">
+      <figure class="avatar avatar-xl">
+        <img src="https://ilikexff.cn/avatar.png" alt="author avatar image">
+      </figure>
+    </div>
+    <div class="tile-content">
+      <p class="tile-title" style="font-weight: 600;">慕予</p>
+      <p class="tile-subtitle">热爱编程，专注于技术分享和学习</p>
+    </div>
+</div><!--./tile-->
+</div>
+
+                  
+                  
+<div class="sidebar-widget">
+  欢迎来到<strong>慕予博客</strong>！这里分享技术文章和编程心得。
+</div><!-- end text widget -->
+
+                  
+
+                  </div><!--./sidebar-content-->
+              </div>
+            </div>
+            
+          </section>
+        </section></section>
+<section class="container grid-xl">
+<ul class="pagination paginator">
+  
+  
+</ul>
+</section>
+</div><!-- ./page-wrapper -->
+
+    
+<div class="mobile-container">
+        <div class="overlay" id="overlay">
+            <div style="padding: 1rem;">
+              
+<a class="site-logo" href="https:&#x2F;&#x2F;ilikexff.cn">
+  
+  <div class="col-mx-auto">
+    <figure style="margin: 8px">
+      <img class="img-responsive"
+           style="max-height: 45px"
+           alt="frontmatter image"
+           src="https://ilikexff.cn/./logo.svg">
+    </figure>
+  </div>
+  
+</a>
+
+            </div>
+            <nav class="overlay-menu">
+              
+
+<ul class="tree treemenu treemenu-root"><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/tags">标签</a>
+    </li><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/categories">分类</a>
+    </li><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/about">关于</a>
+    </li></ul>
+
+
+              </nav>
+        </div>
+    </div>
+
+<script type="text/javascript">
+  var overlay = document.getElementById('overlay');
+  var toggle = document.getElementById('toggle');
+
+  function openOverlay(){
+      // Open overlay
+      if (overlay.classList.contains("open")) {
+          overlay.classList.remove("open");
+      }
+      else {
+          overlay.classList.add("open");
+      }
+
+      // Button transition
+      if (toggle.classList.contains("active")) {
+          toggle.classList.remove("active");
+      }
+      else {
+          toggle.classList.add("active");
+      }
+    }
+</script>
+
+<section id="footer" class="bg-gray">
+  <div class="container grid-xl">
+    
+
+
+    <div class="columns">
+      
+      <div class="column col-6 col-lg-12 col-mx-auto" style="text-align: center;">
+        简单是效率的灵魂 | 黔ICP备2021010295号
+      </div>
+      
+      <div class="column col-6 col-lg-12 col-mx-auto" style="text-align: center;">
+        Made by <a href="https://github.com/gicrisf/">gicrisf</a> -
+        <strong>Zhuia</strong>&nbsp;<a href="https://github.com/gicrisf/zhuia">source code</a>
+        is licensed under <a href="http://opensource.org/licenses/mit-license.php" target="_blank">MIT</a>.
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="zh" data-theme="light" dir="ltr">
+  <head>
+    <title>游戏算法基础-深入解析A*寻路算法 - 慕予博客</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="详细介绍A*寻路算法,包括代价函数、启发式函数、搜索流程等核心概念。"/>
+
+    <meta property="og:title" content="慕予博客 -&nbsp;游戏算法基础-深入解析A*寻路算法" />
+    <meta property="og:type" content="website"/><meta property="og:url" content="https:&#x2F;&#x2F;ilikexff.cn&#x2F;you-xi-suan-fa-ji-chu-a-xun-lu-suan-fa-chi-xu-wei-hu&#x2F;"/><meta property="og:description" content="详细介绍A*寻路算法,包括代价函数、启发式函数、搜索流程等核心概念。"/>
+
+
+    <meta name="twitter:card" content="summary">
+
+
+    <link rel="stylesheet" href="https://ilikexff.cn/spectre/spectre.css">
+    <link rel="stylesheet" href="https://ilikexff.cn/theme.css"><link rel="stylesheet" href="https://ilikexff.cn/custom.css">
+    
+
+        
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script>
+        function doRenderMath() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false},
+                {left: "\\begin{equation}", right: "\\end{equation}", display: true},
+                {left: "\\begin{align}", right: "\\end{align}", display: true},
+                {left: "\\begin{alignat}", right: "\\end{alignat}", display: true},
+                {left: "\\begin{gather}", right: "\\end{gather}", display: true},
+                {left: "\\begin{CD}", right: "\\end{CD}", display: true},
+                {left: "\\[", right: "\\]", display: true}
+                ]
+            });
+        }
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+        onload="doRenderMath()"></script>
+
+      </head>
+  <body id="top" class="sticky-footer"><div id="page-wrapper">
+<header id="header" class="section">
+  <section class="container grid-xl">
+    <nav class="navbar">
+      <section class="navbar-section">
+        
+<a class="site-logo" href="https:&#x2F;&#x2F;ilikexff.cn">
+  
+  <div class="col-mx-auto">
+    <figure style="margin: 8px">
+      <img class="img-responsive"
+           style="max-height: 45px"
+           alt="frontmatter image"
+           src="https://ilikexff.cn/./logo.svg">
+    </figure>
+  </div>
+  
+</a>
+
+      </section><!-- ./home button -->
+
+      <section class="navbar-center hide-md"></section>
+
+      <section class="navbar-section">
+        <nav class="dropmenu animated hide-md">
+
+<ul><li>
+        <a href="https://ilikexff.cn/tags">标签</a>
+    </li><li>
+        <a href="https://ilikexff.cn/categories">分类</a>
+    </li><li>
+        <a href="https://ilikexff.cn/about">关于</a>
+    </li></ul>
+
+
+          </nav>
+      </section><!-- ./desktop-menu -->
+    </nav>
+  </section><!-- ./container -->
+</header>
+
+
+<div class="mobile-menu">
+  <div class="button_container" id="toggle" onclick="openOverlay()">
+    <span class="top"></span>
+    <span class="middle"></span>
+    <span class="bottom"></span>
+  </div>
+</div><!--./mobile-menu-->
+
+
+<section id="start"><section id="body-wrapper" class="section">
+          <section class="container grid-xl">
+<div id="breadcrumbs" itemtype="http://schema.org/BreadcrumbList" class="hide-sm">
+  
+    
+    <span><a href="https:&#x2F;&#x2F;ilikexff.cn&#x2F;">Home</a></span>
+  
+    <span><a href="https:&#x2F;&#x2F;ilikexff.cn&#x2F;you-xi-suan-fa-ji-chu-a-xun-lu-suan-fa-chi-xu-wei-hu&#x2F;">游戏算法基础-深入解析A*寻路算法</a></span>
+</div>
+<div class="columns">
+              <div id="item" class="column col-8 col-md-12 extra-spacing">
+<div class="card">
+  
+
+    <div class="card-header">
+      <div class="card-title" style="margin-top: .25rem;"><div>
+          <h1 class="post-title">游戏算法基础-深入解析A*寻路算法</h1>
+          
+    <div class="post-meta" style="display: inline-flex">
+        <span class="blog-date" style="display: inline-flex;">
+          <i class="gg-calendar" style="margin-right: 5px;"></i><time datetime="2024.12.15">
+          2024.12.15
+          </time></span><span class="post-author" style="margin-left: 5px; display: inline-flex;">
+          - 
+    慕予
+        </span></div>
+
+        </div></div>
+    </div><!--./card-header-->
+
+    <div class="card-body">
+      
+        <blockquote>
+<p>在开始阅读之前,本文阿婆主默认你已经掌握或者了解以下支撑内容:</p>
+<ul>
+<li>
+<p>玩过游戏</p>
+</li>
+<li>
+<p>买菜用的数学</p>
+</li>
+<li>
+<p>图论基础(深度、广度、Dijkstra)</p>
+</li>
+<li>
+<p>C++编程</p>
+</li>
+<li>
+<p>非色盲选手</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="suan-fa-jian-jie">算法简介<a class="zola-anchor" href="#suan-fa-jian-jie" aria-label="Anchor link for: suan-fa-jian-jie">🔗</a></h2>
+<p><strong>A*寻路算法</strong>是一种在图形平面上寻找<strong>最短路径</strong>的有效方法。它被广泛应用于游戏开发、路径规划、机器人导航等领域。</p>
+<p>和一些其他的最短路径搜寻算法不同,A星算法是一种启发式的搜索算法,通过评估每个节点的代价来选择最优路径。A星结合了知名的<code>Dijkstra</code>算法和贪心算法的优点,因此被广泛的应用在各个领域,尤其是游戏开发中,对于游戏中AI角色或者NPC角色以及一些自动寻路功能的开发中更是常客。</p>
+<hr />
+<h2 id="suan-fa-he-xin-gai-nian">算法核心概念<a class="zola-anchor" href="#suan-fa-he-xin-gai-nian" aria-label="Anchor link for: suan-fa-he-xin-gai-nian">🔗</a></h2>
+<p>对于A星的核心,这里主要讲一下其中的两个核心函数,一是代价函数,第二则是启发式函数。</p>
+<h3 id="dai-jie-han-shu-f-n-g-n-h-n">代价函数$f(n) = g(n) + h(n)$<a class="zola-anchor" href="#dai-jie-han-shu-f-n-g-n-h-n" aria-label="Anchor link for: dai-jie-han-shu-f-n-g-n-h-n">🔗</a></h3>
+<ul>
+<li>$g(n)$:从起点到当前节点$n$的实际代价,也就是已经走过的那部分路径。 </li>
+<li>$h(n)$:从$n$到目标点的启发式估计代价(使用启发函数计算得到的距离)。</li>
+<li>$f(n)$:代价评估函数,也即是$g(n) + h(n)$的值,决定了搜索的优先级。</li>
+</ul>
+<p><img src="https://images.waer.ltd/notes/202503181309987.png" alt="1" /></p>
+<h3 id="qi-fa-shi-han-shu">启发式函数<a class="zola-anchor" href="#qi-fa-shi-han-shu" aria-label="Anchor link for: qi-fa-shi-han-shu">🔗</a></h3>
+<p>启发式函数（Heuristic Function）是一种用于引导搜索算法的方法，通过估计当前状态到目标状态的最优代价，帮助算法更高效地找到解决方案。它通常用于<strong>启发式搜索</strong>（如 A* 算法、贪心搜索）中，以减少搜索空间，提高搜索效率。</p>
+<p>在路径搜索或状态空间搜索中，启发式函数用于评估一个状态的“优越性”或“接近目标的程度”，从而帮助算法优先探索可能更优的路径。例如，在 A* 算法中，启发式函数用于估计从当前节点到目标节点的最短距离。</p>
+<h4 id="chang-jian-de-qi-fa-shi-han-shu">常见的启发式函数<a class="zola-anchor" href="#chang-jian-de-qi-fa-shi-han-shu" aria-label="Anchor link for: chang-jian-de-qi-fa-shi-han-shu">🔗</a></h4>
+<p><strong>1. 欧几里得距离（Euclidean Distance）</strong></p>
+<p>$h(n) = \sqrt{(x_{\text{goal} } - x_n)^2 + (y_{\text{goal} } - y_n)^2}$</p>
+<blockquote>
+<p>欧几里得距离计算的是两点之间的直线最短距离，适用于<strong>连续空间</strong>（如3D世界）或者允许<strong>对角线自由移动</strong>的环境。</p>
+</blockquote>
+<p><strong>2.曼哈顿距离（Manhattan Distance）</strong></p>
+<p>$h(n) = |x_{\text{goal} } - x_n| + |y_{\text{goal} } - y_n|$</p>
+<blockquote>
+<p>适用于只能水平或者垂直移动的环境,比如棋盘网格状的地图中,常见的如迷宫类游戏。</p>
+</blockquote>
+<p><strong>3.切比雪夫距离（Chebyshev Distance）</strong></p>
+<p>$h(n) = \max(|x_{\text{goal} } - x_n|, |y_{\text{goal} } - y_n|)$</p>
+<blockquote>
+<p>一般用于允许对角线移动的八方向网格地图中。 </p>
+</blockquote>
+<p><strong>下面是这三种常见函数的对比总结</strong>:</p>
+<table><thead><tr><th>启发式函数</th><th>适用场景</th><th>适用游戏类型</th><th>具体游戏示例</th></tr></thead><tbody>
+<tr><td><strong>欧几里得距离</strong></td><td>连续空间，适用于<strong>自由移动</strong>的 3D 世界</td><td>FPS、开放世界、RTS、驾驶游戏</td><td>GTA 5、使命召唤、星际争霸 2</td></tr>
+<tr><td><strong>曼哈顿距离</strong></td><td>网格地图，<strong>只能水平 / 垂直移动</strong></td><td>2D 像素风、回合制 RPG、战棋</td><td>火焰纹章、博德之门 3、勇者斗恶龙</td></tr>
+<tr><td><strong>切比雪夫距离</strong></td><td><strong>允许对角线移动</strong>的网格地图</td><td>战略游戏、棋盘类、生存游戏</td><td>国际象棋、魔兽争霸 3、暗黑破坏神 2</td></tr>
+</tbody></table>
+<p>为了方便理解,如果没有特殊说明,后续的示例都是基于 <strong>曼哈顿距离</strong>作为启发式函数来讲解的。</p>
+<p>举个例子,假设存在下面这样一个地图,其中图二是图一的数组化形式,逻辑上他们是等效的:</p>
+<p><img src="https://images.waer.ltd/notes/202503181347197.png" alt="image-20250318134713119" /></p>
+<p>下面是其中一条最优路径的图示:从<code>(0,0)</code>出发到达<code>(3,3)</code></p>
+<p><img src="https://images.waer.ltd/notes/202503181507389.png" alt="image-20250318150755239" /></p>
+<p>对于上面的网格地图来说,如果是启发式函数基于 <strong>曼哈顿距离</strong>的情况下,该示例的$g(n),h(n),f(n)$的计算结果如下:</p>
+<table><thead><tr><th><strong>位置 (x,y)</strong></th><th><strong>G(n) (路径代价)</strong></th><th><strong>H(n) (曼哈顿)</strong></th><th><strong>F(n) = G(n) + H(n)</strong></th></tr></thead><tbody>
+<tr><td><strong>(0,0) (起点)</strong></td><td>0</td><td><strong>6</strong> (3+3)</td><td>6</td></tr>
+<tr><td><strong>(0,1)</strong></td><td>1</td><td><strong>5</strong> (3+2)</td><td>6</td></tr>
+<tr><td><strong>(1,1)</strong></td><td>2</td><td><strong>4</strong> (3+1)</td><td>6</td></tr>
+<tr><td><strong>(1,2)</strong></td><td>3</td><td><strong>3</strong> (3+0)</td><td>6</td></tr>
+<tr><td><strong>(1,3)</strong></td><td>4</td><td><strong>2</strong> (2+0)</td><td>6</td></tr>
+<tr><td><strong>(2,3)</strong></td><td>5</td><td><strong>1</strong> (1+0)</td><td>6</td></tr>
+<tr><td><strong>(3,3) (终点)</strong></td><td>6</td><td><strong>0</strong> (0+0)</td><td>6</td></tr>
+</tbody></table>
+<blockquote>
+<p><strong>纸上得来终觉浅</strong>,建议你掏出压箱底的<strong>稿纸</strong>和垃圾桶里的<strong>2B</strong>,自己模拟计算所需的代价函数,强化理解。</p>
+</blockquote>
+<p>注意,为了节省篇幅,这里列出的只是其中一条可行的路径,就这个示例地图来说,可能存在多个最优的选择,并不唯一。 </p>
+<hr />
+<h2 id="a-suan-fa-dai-ma-shi-xian-c">A*算法代码实现(C++)<a class="zola-anchor" href="#a-suan-fa-dai-ma-shi-xian-c" aria-label="Anchor link for: a-suan-fa-dai-ma-shi-xian-c">🔗</a></h2>
+<p>理解了A星的基本原理之后,接下来我们使用C++实现一个A星的基本算法流程。</p>
+<p><strong>0.相关头文件</strong></p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">vector</span><span>&gt;
+</span><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">queue</span><span>&gt;
+</span><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">cmath</span><span>&gt;
+</span><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">unordered_map</span><span>&gt;
+</span><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">algorithm</span><span>&gt;
+</span></code></pre>
+<hr />
+<h3 id="1-nodejie-gou"><strong>1. Node结构</strong><a class="zola-anchor" href="#1-nodejie-gou" aria-label="Anchor link for: 1-nodejie-gou">🔗</a></h3>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#586e75;">// 节点结构体
+</span><span style="color:#268bd2;">struct </span><span style="color:#b58900;">Node </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#268bd2;">int</span><span> x, y;       </span><span style="color:#586e75;">// 坐标
+</span><span>    </span><span style="color:#268bd2;">float</span><span> g, h;     </span><span style="color:#586e75;">// g: 从起点到当前节点的代价, h: 启发式估价
+</span><span>    Node</span><span style="color:#859900;">*</span><span> parent;   </span><span style="color:#586e75;">// 父节点指针, 用于回溯路径
+</span><span>
+</span><span>    </span><span style="color:#b58900;">Node</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">int x</span><span>, </span><span style="color:#268bd2;">int y</span><span>, </span><span style="color:#268bd2;">float g</span><span>, </span><span style="color:#268bd2;">float h</span><span>, Node</span><span style="color:#859900;">* </span><span style="color:#268bd2;">parent </span><span style="color:#657b83;">= </span><span style="color:#b58900;">nullptr</span><span style="color:#657b83;">)
+</span><span>        : </span><span style="color:#268bd2;">x</span><span style="color:#657b83;">(</span><span>x</span><span style="color:#657b83;">)</span><span>, </span><span style="color:#268bd2;">y</span><span style="color:#657b83;">(</span><span>y</span><span style="color:#657b83;">)</span><span>, </span><span style="color:#268bd2;">g</span><span style="color:#657b83;">(</span><span>g</span><span style="color:#657b83;">)</span><span>, </span><span style="color:#268bd2;">h</span><span style="color:#657b83;">(</span><span>h</span><span style="color:#657b83;">)</span><span>, </span><span style="color:#268bd2;">parent</span><span style="color:#657b83;">(</span><span>parent</span><span style="color:#657b83;">) {}
+</span><span>
+</span><span>    </span><span style="color:#268bd2;">float </span><span style="color:#b58900;">f</span><span style="color:#657b83;">() </span><span style="color:#859900;">const </span><span style="color:#657b83;">{ </span><span style="color:#859900;">return</span><span> g </span><span style="color:#657b83;">+</span><span> h; </span><span style="color:#657b83;">} </span><span style="color:#586e75;">// 计算总代价 f = g + h
+</span><span style="color:#657b83;">}</span><span>;
+</span></code></pre>
+<blockquote>
+<ul>
+<li>
+<p>g：从起点到当前节点的 <strong>真实代价</strong>（步数）。</p>
+</li>
+<li>
+<p>h：当前节点到目标点的 <strong>估算代价</strong>（启发式函数）。</p>
+</li>
+<li>
+<p>f = g + h：总代价，A* 总是优先选择 f 最小的节点。</p>
+</li>
+</ul>
+</blockquote>
+<hr />
+<p><strong>2.定义<code>Compare</code>结构体</strong></p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#586e75;">// 优先队列比较器, 使得 f 值较小的节点优先出队
+</span><span style="color:#268bd2;">struct </span><span style="color:#b58900;">Compare </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#268bd2;">bool </span><span style="color:#b58900;">operator()</span><span style="color:#657b83;">(</span><span style="color:#859900;">const</span><span> Node</span><span style="color:#859900;">* </span><span style="color:#268bd2;">a</span><span>, </span><span style="color:#859900;">const</span><span> Node</span><span style="color:#859900;">* </span><span style="color:#268bd2;">b</span><span style="color:#657b83;">) {
+</span><span>        </span><span style="color:#859900;">return</span><span> a-&gt;</span><span style="color:#b58900;">f</span><span style="color:#657b83;">() &gt;</span><span> b-&gt;</span><span style="color:#b58900;">f</span><span style="color:#657b83;">()</span><span>;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span style="color:#657b83;">}</span><span>;
+</span></code></pre>
+<blockquote>
+<p>由于优先队列<code>priority_queue</code>默认是 <strong>大顶堆(最大值优先)</strong>,但 <code>A* </code>需要 <strong>f 值最小</strong> 的优先出队，因此这里实现了 <strong>小顶堆</strong>（f 小的优先）。</p>
+</blockquote>
+<hr />
+<p><strong>3.启发式函数</strong></p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#586e75;">// 启发式函数: 使用曼哈顿距离（适用于只能水平或垂直移动的情况）
+</span><span style="color:#268bd2;">float </span><span style="color:#b58900;">heuristic</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">int x1</span><span>, </span><span style="color:#268bd2;">int y1</span><span>, </span><span style="color:#268bd2;">int x2</span><span>, </span><span style="color:#268bd2;">int y2</span><span style="color:#657b83;">) {
+</span><span>    </span><span style="color:#859900;">return </span><span>std::</span><span style="color:#859900;">abs</span><span style="color:#657b83;">(</span><span>x1 </span><span style="color:#657b83;">-</span><span> x2</span><span style="color:#657b83;">) + </span><span>std::</span><span style="color:#859900;">abs</span><span style="color:#657b83;">(</span><span>y1 </span><span style="color:#657b83;">-</span><span> y2</span><span style="color:#657b83;">)</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<blockquote>
+<ul>
+<li>曼哈顿距离 <strong>适用于网格地图</strong>（只能水平/垂直移动）。</li>
+<li>后续也会给出其他几种函数的代码参考,你可以自己更换不同的启发函数来研究不同情况下的<code>A*</code></li>
+</ul>
+</blockquote>
+<p><strong>4. A*搜索主方法</strong></p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#586e75;">// A* 搜索算法
+</span><span>std::vector</span><span style="color:#657b83;">&lt;</span><span>std::pair</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">int</span><span>, </span><span style="color:#268bd2;">int</span><span style="color:#657b83;">&gt;&gt; </span><span style="color:#b58900;">aStarSearch</span><span style="color:#657b83;">(</span><span>std::vector</span><span style="color:#657b83;">&lt;</span><span>std::vector</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">int</span><span style="color:#657b83;">&gt;&gt;</span><span style="color:#859900;">&amp; </span><span style="color:#268bd2;">grid</span><span>,
+</span><span>                                             std::pair</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">int</span><span>, </span><span style="color:#268bd2;">int</span><span style="color:#657b83;">&gt; </span><span style="color:#268bd2;">start</span><span>,
+</span><span>                                             std::pair</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">int</span><span>, </span><span style="color:#268bd2;">int</span><span style="color:#657b83;">&gt; </span><span style="color:#268bd2;">goal</span><span style="color:#657b83;">) {
+</span><span>    </span><span style="color:#268bd2;">int</span><span> rows </span><span style="color:#657b83;">=</span><span> grid.</span><span style="color:#b58900;">size</span><span style="color:#657b83;">()</span><span>, cols </span><span style="color:#657b83;">=</span><span> grid</span><span style="color:#268bd2;">[</span><span style="color:#6c71c4;">0</span><span style="color:#268bd2;">]</span><span>.</span><span style="color:#b58900;">size</span><span style="color:#657b83;">()</span><span>;
+</span><span>    std::priority_queue</span><span style="color:#657b83;">&lt;</span><span>Node</span><span style="color:#859900;">*</span><span>, std::vector</span><span style="color:#657b83;">&lt;</span><span>Node</span><span style="color:#859900;">*</span><span style="color:#657b83;">&gt;</span><span>, Compare</span><span style="color:#657b83;">&gt;</span><span> openSet; </span><span style="color:#586e75;">// 优先队列
+</span><span>    std::unordered_map</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">int</span><span>, Node</span><span style="color:#859900;">*</span><span style="color:#657b83;">&gt;</span><span> allNodes; </span><span style="color:#586e75;">// 记录所有访问过的节点
+</span><span>
+</span><span>    </span><span style="color:#586e75;">// 创建起始节点并放入开启列表
+</span><span>    Node</span><span style="color:#859900;">*</span><span> startNode </span><span style="color:#657b83;">= </span><span style="color:#859900;">new </span><span style="color:#b58900;">Node</span><span style="color:#657b83;">(</span><span>start.</span><span style="color:#268bd2;">first</span><span>, start.</span><span style="color:#268bd2;">second</span><span>, </span><span style="color:#6c71c4;">0</span><span>, </span><span style="color:#b58900;">heuristic</span><span style="color:#657b83;">(</span><span>start.</span><span style="color:#268bd2;">first</span><span>, start.</span><span style="color:#268bd2;">second</span><span>, goal.</span><span style="color:#268bd2;">first</span><span>, goal.</span><span style="color:#268bd2;">second</span><span style="color:#657b83;">))</span><span>;
+</span><span>    openSet.</span><span style="color:#b58900;">push</span><span style="color:#657b83;">(</span><span>startNode</span><span style="color:#657b83;">)</span><span>;
+</span><span>    allNodes</span><span style="color:#268bd2;">[</span><span>start.</span><span style="color:#268bd2;">first </span><span style="color:#859900;">*</span><span> cols </span><span style="color:#657b83;">+</span><span> start.</span><span style="color:#268bd2;">second] </span><span style="color:#657b83;">=</span><span> startNode;
+</span><span>
+</span><span>    </span><span style="color:#586e75;">// 4个移动方向（右、下、左、上）
+</span><span>    std::vector</span><span style="color:#657b83;">&lt;</span><span>std::pair</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">int</span><span>, </span><span style="color:#268bd2;">int</span><span style="color:#657b83;">&gt;&gt;</span><span> directions </span><span style="color:#657b83;">= { {</span><span style="color:#6c71c4;">0</span><span>, </span><span style="color:#6c71c4;">1</span><span style="color:#657b83;">}</span><span>, </span><span style="color:#657b83;">{</span><span style="color:#6c71c4;">1</span><span>, </span><span style="color:#6c71c4;">0</span><span style="color:#657b83;">}</span><span>, </span><span style="color:#657b83;">{</span><span style="color:#6c71c4;">0</span><span>, </span><span style="color:#657b83;">-</span><span style="color:#6c71c4;">1</span><span style="color:#657b83;">}</span><span>, </span><span style="color:#657b83;">{-</span><span style="color:#6c71c4;">1</span><span>, </span><span style="color:#6c71c4;">0</span><span style="color:#657b83;">} }</span><span>;
+</span><span>    std::vector</span><span style="color:#657b83;">&lt;</span><span>std::pair</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">int</span><span>, </span><span style="color:#268bd2;">int</span><span style="color:#657b83;">&gt;&gt;</span><span> path;
+</span><span>
+</span><span>    </span><span style="color:#859900;">while </span><span style="color:#657b83;">(!</span><span>openSet.</span><span style="color:#b58900;">empty</span><span style="color:#657b83;">()) {
+</span><span>        Node</span><span style="color:#859900;">*</span><span> current </span><span style="color:#657b83;">=</span><span> openSet.</span><span style="color:#b58900;">top</span><span style="color:#657b83;">()</span><span>; </span><span style="color:#586e75;">// 取出当前代价最小的节点
+</span><span>        openSet.</span><span style="color:#b58900;">pop</span><span style="color:#657b83;">()</span><span>;
+</span><span>
+</span><span>        </span><span style="color:#586e75;">// 如果到达目标点，回溯路径
+</span><span>        </span><span style="color:#859900;">if </span><span style="color:#657b83;">(</span><span>current-&gt;</span><span style="color:#268bd2;">x </span><span style="color:#657b83;">==</span><span> goal.</span><span style="color:#268bd2;">first </span><span style="color:#657b83;">&amp;&amp;</span><span> current-&gt;</span><span style="color:#268bd2;">y </span><span style="color:#657b83;">==</span><span> goal.</span><span style="color:#268bd2;">second</span><span style="color:#657b83;">) {
+</span><span>            </span><span style="color:#859900;">while </span><span style="color:#657b83;">(</span><span>current</span><span style="color:#657b83;">) {
+</span><span>                path.</span><span style="color:#b58900;">emplace_back</span><span style="color:#657b83;">(</span><span>current-&gt;</span><span style="color:#268bd2;">x</span><span>, current-&gt;</span><span style="color:#268bd2;">y</span><span style="color:#657b83;">)</span><span>;
+</span><span>                current </span><span style="color:#657b83;">=</span><span> current-&gt;</span><span style="color:#268bd2;">parent</span><span>;
+</span><span>            </span><span style="color:#657b83;">}
+</span><span>            std::</span><span style="color:#b58900;">reverse</span><span style="color:#657b83;">(</span><span>path.</span><span style="color:#b58900;">begin</span><span style="color:#657b83;">()</span><span>, path.</span><span style="color:#b58900;">end</span><span style="color:#657b83;">())</span><span>;
+</span><span>            </span><span style="color:#859900;">break</span><span>;
+</span><span>        </span><span style="color:#657b83;">}
+</span><span>
+</span><span>        </span><span style="color:#586e75;">// 遍历 4 个方向的邻居节点
+</span><span>        </span><span style="color:#859900;">for </span><span style="color:#657b83;">(</span><span style="color:#268bd2;">auto [</span><span>dx, dy</span><span style="color:#268bd2;">] </span><span style="color:#859900;">:</span><span> directions</span><span style="color:#657b83;">) {
+</span><span>            </span><span style="color:#268bd2;">int</span><span> nx </span><span style="color:#657b83;">=</span><span> current-&gt;</span><span style="color:#268bd2;">x </span><span style="color:#657b83;">+</span><span> dx, ny </span><span style="color:#657b83;">=</span><span> current-&gt;</span><span style="color:#268bd2;">y </span><span style="color:#657b83;">+</span><span> dy;
+</span><span>
+</span><span>            </span><span style="color:#586e75;">// 边界检查和障碍物检查
+</span><span>            </span><span style="color:#859900;">if </span><span style="color:#657b83;">(</span><span>nx </span><span style="color:#657b83;">&lt; </span><span style="color:#6c71c4;">0 </span><span style="color:#657b83;">||</span><span> ny </span><span style="color:#657b83;">&lt; </span><span style="color:#6c71c4;">0 </span><span style="color:#657b83;">||</span><span> nx </span><span style="color:#657b83;">&gt;=</span><span> rows </span><span style="color:#657b83;">||</span><span> ny </span><span style="color:#657b83;">&gt;=</span><span> cols </span><span style="color:#657b83;">||</span><span> grid</span><span style="color:#268bd2;">[</span><span>nx</span><span style="color:#268bd2;">][</span><span>ny</span><span style="color:#268bd2;">] </span><span style="color:#657b83;">== </span><span style="color:#6c71c4;">1</span><span style="color:#657b83;">)
+</span><span>                </span><span style="color:#859900;">continue</span><span>;
+</span><span>
+</span><span>            </span><span style="color:#268bd2;">float gNew </span><span style="color:#657b83;">=</span><span> current-&gt;</span><span style="color:#268bd2;">g </span><span style="color:#657b83;">+ </span><span style="color:#6c71c4;">1</span><span>; </span><span style="color:#586e75;">// g 值 +1 (假设所有移动的代价相等)
+</span><span>            </span><span style="color:#268bd2;">float</span><span> hNew </span><span style="color:#657b83;">= </span><span style="color:#b58900;">heuristic</span><span style="color:#657b83;">(</span><span>nx, ny, goal.</span><span style="color:#268bd2;">first</span><span>, goal.</span><span style="color:#268bd2;">second</span><span style="color:#657b83;">)</span><span>;
+</span><span>            </span><span style="color:#268bd2;">int</span><span> key </span><span style="color:#657b83;">=</span><span> nx </span><span style="color:#859900;">*</span><span> cols </span><span style="color:#657b83;">+</span><span> ny;
+</span><span>
+</span><span>            </span><span style="color:#586e75;">// 如果该节点未被访问或找到更短路径
+</span><span>            </span><span style="color:#859900;">if </span><span style="color:#657b83;">(!</span><span>allNodes.</span><span style="color:#b58900;">count</span><span style="color:#657b83;">(</span><span>key</span><span style="color:#657b83;">) || </span><span style="color:#268bd2;">gNew </span><span style="color:#657b83;">&lt;</span><span> allNodes</span><span style="color:#268bd2;">[</span><span>key</span><span style="color:#268bd2;">]</span><span>-&gt;</span><span style="color:#268bd2;">g</span><span style="color:#657b83;">) {
+</span><span>                </span><span style="color:#268bd2;">auto</span><span> neighbor </span><span style="color:#657b83;">= </span><span style="color:#859900;">new </span><span style="color:#b58900;">Node</span><span style="color:#657b83;">(</span><span>nx, ny, </span><span style="color:#268bd2;">gNew</span><span>, hNew, current</span><span style="color:#657b83;">)</span><span>;
+</span><span>                openSet.</span><span style="color:#b58900;">push</span><span style="color:#657b83;">(</span><span>neighbor</span><span style="color:#657b83;">)</span><span>;
+</span><span>                allNodes</span><span style="color:#268bd2;">[</span><span>key</span><span style="color:#268bd2;">] </span><span style="color:#657b83;">=</span><span> neighbor;
+</span><span>            </span><span style="color:#657b83;">}
+</span><span>        </span><span style="color:#657b83;">}
+</span><span>    </span><span style="color:#657b83;">}
+</span><span>
+</span><span>    </span><span style="color:#586e75;">// 释放所有节点的内存
+</span><span>    </span><span style="color:#859900;">for </span><span style="color:#657b83;">(</span><span style="color:#268bd2;">auto</span><span style="color:#859900;">&amp; </span><span style="color:#268bd2;">[</span><span>_, node</span><span style="color:#268bd2;">] </span><span style="color:#859900;">:</span><span> allNodes</span><span style="color:#657b83;">)
+</span><span>        </span><span style="color:#859900;">delete</span><span> node;
+</span><span>
+</span><span>    </span><span style="color:#859900;">return</span><span> path;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p><strong>5.路径字符化(可选)</strong></p>
+<blockquote>
+<p>这不是算法必须的步骤,添加这部分代码主要是用来打印路径字符,直观的理解搜索的结果。</p>
+</blockquote>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#586e75;">// 可视化打印路径
+</span><span style="color:#268bd2;">void </span><span style="color:#b58900;">printGridWithPath</span><span style="color:#657b83;">(</span><span>std::vector</span><span style="color:#657b83;">&lt;</span><span>std::vector</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">int</span><span style="color:#657b83;">&gt;&gt;</span><span style="color:#859900;">&amp; </span><span style="color:#268bd2;">grid</span><span>, </span><span style="color:#859900;">const</span><span> std::vector</span><span style="color:#657b83;">&lt;</span><span>std::pair</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">int</span><span>, </span><span style="color:#268bd2;">int</span><span style="color:#657b83;">&gt;&gt;</span><span style="color:#859900;">&amp; </span><span style="color:#268bd2;">path</span><span>,
+</span><span>                       std::pair</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">int</span><span>, </span><span style="color:#268bd2;">int</span><span style="color:#657b83;">&gt; </span><span style="color:#268bd2;">start</span><span>, std::pair</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">int</span><span>, </span><span style="color:#268bd2;">int</span><span style="color:#657b83;">&gt; </span><span style="color:#268bd2;">goal</span><span style="color:#657b83;">) {
+</span><span>    std::vector</span><span style="color:#657b83;">&lt;</span><span>std::vector</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">char</span><span style="color:#657b83;">&gt;&gt; </span><span style="color:#b58900;">display</span><span style="color:#657b83;">(</span><span>grid.</span><span style="color:#b58900;">size</span><span style="color:#657b83;">()</span><span>, std::</span><span style="color:#b58900;">vector</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">char</span><span style="color:#657b83;">&gt;(</span><span>grid</span><span style="color:#268bd2;">[</span><span style="color:#6c71c4;">0</span><span style="color:#268bd2;">]</span><span>.</span><span style="color:#b58900;">size</span><span style="color:#657b83;">()</span><span>, &#39; &#39;</span><span style="color:#657b83;">))</span><span>;
+</span><span>
+</span><span>    </span><span style="color:#586e75;">// 初始化网格，障碍物用 &#39;#&#39; 标记
+</span><span>    </span><span style="color:#859900;">for </span><span style="color:#657b83;">(</span><span style="color:#268bd2;">int</span><span> i </span><span style="color:#657b83;">= </span><span style="color:#6c71c4;">0</span><span>; i </span><span style="color:#657b83;">&lt;</span><span> grid.</span><span style="color:#b58900;">size</span><span style="color:#657b83;">()</span><span>; </span><span style="color:#657b83;">++</span><span>i</span><span style="color:#657b83;">) {
+</span><span>        </span><span style="color:#859900;">for </span><span style="color:#657b83;">(</span><span style="color:#268bd2;">int</span><span> j </span><span style="color:#657b83;">= </span><span style="color:#6c71c4;">0</span><span>; j </span><span style="color:#657b83;">&lt;</span><span> grid</span><span style="color:#268bd2;">[</span><span style="color:#6c71c4;">0</span><span style="color:#268bd2;">]</span><span>.</span><span style="color:#b58900;">size</span><span style="color:#657b83;">()</span><span>; </span><span style="color:#657b83;">++</span><span>j</span><span style="color:#657b83;">) {
+</span><span>            display</span><span style="color:#268bd2;">[</span><span>i</span><span style="color:#268bd2;">][</span><span>j</span><span style="color:#268bd2;">] </span><span style="color:#657b83;">= (</span><span>grid</span><span style="color:#268bd2;">[</span><span>i</span><span style="color:#268bd2;">][</span><span>j</span><span style="color:#268bd2;">] </span><span style="color:#657b83;">== </span><span style="color:#6c71c4;">1</span><span style="color:#657b83;">) </span><span style="color:#859900;">? </span><span>&#39;</span><span style="color:#2aa198;">#</span><span>&#39; </span><span style="color:#859900;">: </span><span>&#39;</span><span style="color:#2aa198;">.</span><span>&#39;;
+</span><span>        </span><span style="color:#657b83;">}
+</span><span>    </span><span style="color:#657b83;">}
+</span><span>
+</span><span>    </span><span style="color:#586e75;">// 绘制路径
+</span><span>    </span><span style="color:#859900;">for </span><span style="color:#657b83;">(</span><span style="color:#859900;">const </span><span style="color:#268bd2;">auto</span><span style="color:#859900;">&amp; </span><span style="color:#268bd2;">[</span><span>x, y</span><span style="color:#268bd2;">] </span><span style="color:#859900;">:</span><span> path</span><span style="color:#657b83;">) {
+</span><span>        display</span><span style="color:#268bd2;">[</span><span>x</span><span style="color:#268bd2;">][</span><span>y</span><span style="color:#268bd2;">] </span><span style="color:#657b83;">= </span><span>&#39;</span><span style="color:#2aa198;">*</span><span>&#39;;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span>
+</span><span>    </span><span style="color:#586e75;">// 标记起点和终点
+</span><span>    display</span><span style="color:#268bd2;">[</span><span>start.</span><span style="color:#268bd2;">first][</span><span>start.</span><span style="color:#268bd2;">second] </span><span style="color:#657b83;">= </span><span>&#39;</span><span style="color:#2aa198;">S</span><span>&#39;;
+</span><span>    display</span><span style="color:#268bd2;">[</span><span>goal.</span><span style="color:#268bd2;">first][</span><span>goal.</span><span style="color:#268bd2;">second] </span><span style="color:#657b83;">= </span><span>&#39;</span><span style="color:#2aa198;">G</span><span>&#39;;
+</span><span>
+</span><span>    </span><span style="color:#586e75;">// 打印网格
+</span><span>    std::cout </span><span style="color:#657b83;">&lt;&lt; </span><span>&quot;</span><span style="color:#dc322f;">\n</span><span style="color:#2aa198;">A* 搜索路径:</span><span style="color:#dc322f;">\n</span><span>&quot;;
+</span><span>    </span><span style="color:#859900;">for </span><span style="color:#657b83;">(</span><span style="color:#859900;">const </span><span style="color:#268bd2;">auto</span><span style="color:#859900;">&amp;</span><span> row </span><span style="color:#859900;">:</span><span> display</span><span style="color:#657b83;">) {
+</span><span>        </span><span style="color:#859900;">for </span><span style="color:#657b83;">(</span><span style="color:#268bd2;">char</span><span> cell </span><span style="color:#859900;">:</span><span> row</span><span style="color:#657b83;">) {
+</span><span>            std::cout </span><span style="color:#657b83;">&lt;&lt;</span><span> cell </span><span style="color:#657b83;">&lt;&lt; </span><span>&#39; &#39;;
+</span><span>        </span><span style="color:#657b83;">}
+</span><span>        std::cout </span><span style="color:#657b83;">&lt;&lt; </span><span>&#39;</span><span style="color:#dc322f;">\n</span><span>&#39;;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>字符化地图说明:</p>
+<blockquote>
+<p>#：障碍物</p>
+<p>.：可行区域</p>
+<p>*：路径</p>
+<p>S：起点</p>
+<p>G：终点</p>
+</blockquote>
+<hr />
+<p><strong>5. 主函数</strong></p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">() {
+</span><span>   std::vector</span><span style="color:#657b83;">&lt;</span><span>std::vector</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">int</span><span style="color:#657b83;">&gt;&gt;</span><span> grid </span><span style="color:#657b83;">=
+</span><span>        </span><span style="color:#657b83;">{
+</span><span>          </span><span style="color:#657b83;">{</span><span style="color:#6c71c4;">0</span><span>,</span><span style="color:#6c71c4;">0</span><span>,</span><span style="color:#6c71c4;">1</span><span>,</span><span style="color:#6c71c4;">0</span><span style="color:#657b83;">}</span><span>,
+</span><span>          </span><span style="color:#657b83;">{</span><span style="color:#6c71c4;">1</span><span>,</span><span style="color:#6c71c4;">0</span><span>,</span><span style="color:#6c71c4;">0</span><span>,</span><span style="color:#6c71c4;">0</span><span style="color:#657b83;">}</span><span>,
+</span><span>          </span><span style="color:#657b83;">{</span><span style="color:#6c71c4;">0</span><span>,</span><span style="color:#6c71c4;">1</span><span>,</span><span style="color:#6c71c4;">0</span><span>,</span><span style="color:#6c71c4;">0</span><span style="color:#657b83;">}</span><span>,
+</span><span>          </span><span style="color:#657b83;">{</span><span style="color:#6c71c4;">0</span><span>,</span><span style="color:#6c71c4;">1</span><span>,</span><span style="color:#6c71c4;">0</span><span>,</span><span style="color:#6c71c4;">0</span><span style="color:#657b83;">}</span><span>,
+</span><span>        </span><span style="color:#657b83;">}</span><span>;
+</span><span>
+</span><span>    std::pair</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">int</span><span>, </span><span style="color:#268bd2;">int</span><span style="color:#657b83;">&gt;</span><span> start </span><span style="color:#657b83;">= {</span><span style="color:#6c71c4;">0</span><span>, </span><span style="color:#6c71c4;">0</span><span style="color:#657b83;">}</span><span>;
+</span><span>    std::pair</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">int</span><span>, </span><span style="color:#268bd2;">int</span><span style="color:#657b83;">&gt;</span><span> goal </span><span style="color:#657b83;">= {</span><span style="color:#6c71c4;">6</span><span>, </span><span style="color:#6c71c4;">6</span><span style="color:#657b83;">}</span><span>;
+</span><span>
+</span><span>    </span><span style="color:#268bd2;">auto</span><span> path </span><span style="color:#657b83;">= </span><span style="color:#b58900;">aStarSearch</span><span style="color:#657b83;">(</span><span>grid, start, goal</span><span style="color:#657b83;">)</span><span>;
+</span><span>
+</span><span>    </span><span style="color:#859900;">if </span><span style="color:#657b83;">(</span><span>path.</span><span style="color:#b58900;">empty</span><span style="color:#657b83;">()) {
+</span><span>        std::cout </span><span style="color:#657b83;">&lt;&lt; </span><span>&quot;</span><span style="color:#2aa198;">未找到可行路径!</span><span>&quot; </span><span style="color:#657b83;">&lt;&lt;</span><span> std::endl;
+</span><span>    </span><span style="color:#657b83;">} </span><span style="color:#859900;">else </span><span style="color:#657b83;">{
+</span><span>        std::cout </span><span style="color:#657b83;">&lt;&lt; </span><span>&quot;</span><span style="color:#2aa198;">最短路径:</span><span style="color:#dc322f;">\n</span><span>&quot;;
+</span><span>        </span><span style="color:#859900;">for </span><span style="color:#657b83;">(</span><span style="color:#268bd2;">auto [</span><span>x, y</span><span style="color:#268bd2;">] </span><span style="color:#859900;">:</span><span> path</span><span style="color:#657b83;">)
+</span><span>            std::cout </span><span style="color:#657b83;">&lt;&lt; </span><span>&quot;</span><span style="color:#2aa198;">(</span><span>&quot; </span><span style="color:#657b83;">&lt;&lt;</span><span> x </span><span style="color:#657b83;">&lt;&lt; </span><span>&quot;</span><span style="color:#2aa198;">, </span><span>&quot; </span><span style="color:#657b83;">&lt;&lt;</span><span> y </span><span style="color:#657b83;">&lt;&lt; </span><span>&quot;</span><span style="color:#2aa198;">) -&gt; </span><span>&quot;;
+</span><span>        std::cout </span><span style="color:#657b83;">&lt;&lt; </span><span>&quot;</span><span style="color:#2aa198;">目标点</span><span style="color:#dc322f;">\n</span><span>&quot;;
+</span><span>        </span><span style="color:#b58900;">printGridWithPath</span><span style="color:#657b83;">(</span><span>grid, path, start, goal</span><span style="color:#657b83;">)</span><span>;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p><img src="https://images.waer.ltd/notes/202503181535055.png" alt="image-20250318153504868" /></p>
+<hr />
+<h2 id="guan-yu-a-de-yi-xie-you-hua-fang-xiang">关于A*的一些优化方向<a class="zola-anchor" href="#guan-yu-a-de-yi-xie-you-hua-fang-xiang" aria-label="Anchor link for: guan-yu-a-de-yi-xie-you-hua-fang-xiang">🔗</a></h2>
+<p>原生的A星算法已经相对高效,但是在大规模地图或者复杂路径规划的问题中可能会遇到性能瓶颈。因此具体的优化方向还得取决于具体的问题,这里只是列出一些常见的优化方向,作为学习指南。</p>
+<h3 id="shu-ju-jie-gou-shang-de-you-hua">数据结构上的优化<a class="zola-anchor" href="#shu-ju-jie-gou-shang-de-you-hua" aria-label="Anchor link for: shu-ju-jie-gou-shang-de-you-hua">🔗</a></h3>
+<blockquote>
+<p>这里的数据结构优化基于本文实现的代码而言。</p>
+</blockquote>
+<p><code>A*</code> 依赖 <strong>openSet</strong>（开启列表），当前实现使用的是 <code>std::priority_queue</code>，但是 <code>std::priority_queue</code> <strong>不支持高效的更新操作</strong>，这可能导致节点重复入队并降低性能。</p>
+<p>因此,可以使用<code>std::unordered_map+最小堆</code>进行优化:</p>
+<ul>
+<li><code>std::unordered_map</code> 存储节点索引，最小堆（<code>Binary Heap</code>）用于快速取出 <code>f(n)</code> 最小的节点。</li>
+<li>需要额外维护一个哈希表来存储节点的位置，以支持 <strong>堆的 decrease-key 操作</strong>。</li>
+</ul>
+<hr />
+<h3 id="qi-fa-shi-han-shu-de-xuan-ze">启发式函数的选择<a class="zola-anchor" href="#qi-fa-shi-han-shu-de-xuan-ze" aria-label="Anchor link for: qi-fa-shi-han-shu-de-xuan-ze">🔗</a></h3>
+<p>这个没啥说的,最基本的原则就是根据项目的类型来选择不同的启发式函数。</p>
+<hr />
+<h3 id="luo-ji-shang-de-you-hua">逻辑上的优化<a class="zola-anchor" href="#luo-ji-shang-de-you-hua" aria-label="Anchor link for: luo-ji-shang-de-you-hua">🔗</a></h3>
+<p>常见的优化方向有:</p>
+<ul>
+<li>双向<code>A*</code>:同时从起点和终点进行搜索,相遇时停止。</li>
+<li>跳点搜索(<code>JPS</code>):跳过冗余的节点,适用于规则网格地图,可以极大的减少搜索空间。</li>
+<li>图割方法(对称<code>A*</code>):在动态地图中,分割图像区域,减少搜索范围。</li>
+</ul>
+<hr />
+<blockquote>
+<p>欢迎关注后续更新….</p>
+</blockquote>
+
+      
+    </div><!--./card-body-->
+
+    <div class="card-footer">
+      <div class="columns">
+        <div class="column col-9 col-sm-7">
+          <div class="taxonomies text-left">
+            
+
+    
+          </div>
+        </div><!--./col-6-->
+        
+        </div><!--./columns-->
+    </div><!--./card-footer-->
+</div><!--./card-->
+</div>
+              <div id="sidebar" class="column col-4 col-md-12">
+                <div class="sidebar-content">
+                  
+                  
+<div class="sidebar-widget">
+  <div class="tile">
+    <div class="tile-icon">
+      <figure class="avatar avatar-xl">
+        <img src="https://ilikexff.cn/avatar.png" alt="author avatar image">
+      </figure>
+    </div>
+    <div class="tile-content">
+      <p class="tile-title" style="font-weight: 600;">慕予</p>
+      <p class="tile-subtitle">热爱编程，专注于技术分享和学习</p>
+    </div>
+</div><!--./tile-->
+</div>
+
+                  
+                  
+<div class="sidebar-widget">
+  欢迎来到<strong>慕予博客</strong>！这里分享技术文章和编程心得。
+</div><!-- end text widget -->
+
+                  
+
+                  </div><!--./sidebar-content-->
+              </div>
+            </div>
+            
+          </section>
+        </section></section>
+<section class="container grid-xl">
+<ul class="pagination paginator">
+  
+  
+</ul>
+</section>
+</div><!-- ./page-wrapper -->
+
+    
+<div class="mobile-container">
+        <div class="overlay" id="overlay">
+            <div style="padding: 1rem;">
+              
+<a class="site-logo" href="https:&#x2F;&#x2F;ilikexff.cn">
+  
+  <div class="col-mx-auto">
+    <figure style="margin: 8px">
+      <img class="img-responsive"
+           style="max-height: 45px"
+           alt="frontmatter image"
+           src="https://ilikexff.cn/./logo.svg">
+    </figure>
+  </div>
+  
+</a>
+
+            </div>
+            <nav class="overlay-menu">
+              
+
+<ul class="tree treemenu treemenu-root"><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/tags">标签</a>
+    </li><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/categories">分类</a>
+    </li><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/about">关于</a>
+    </li></ul>
+
+
+              </nav>
+        </div>
+    </div>
+
+<script type="text/javascript">
+  var overlay = document.getElementById('overlay');
+  var toggle = document.getElementById('toggle');
+
+  function openOverlay(){
+      // Open overlay
+      if (overlay.classList.contains("open")) {
+          overlay.classList.remove("open");
+      }
+      else {
+          overlay.classList.add("open");
+      }
+
+      // Button transition
+      if (toggle.classList.contains("active")) {
+          toggle.classList.remove("active");
+      }
+      else {
+          toggle.classList.add("active");
+      }
+    }
+</script>
+
+<section id="footer" class="bg-gray">
+  <div class="container grid-xl">
+    
+
+
+    <div class="columns">
+      
+      <div class="column col-6 col-lg-12 col-mx-auto" style="text-align: center;">
+        简单是效率的灵魂 | 黔ICP备2021010295号
+      </div>
+      
+      <div class="column col-6 col-lg-12 col-mx-auto" style="text-align: center;">
+        Made by <a href="https://github.com/gicrisf/">gicrisf</a> -
+        <strong>Zhuia</strong>&nbsp;<a href="https://github.com/gicrisf/zhuia">source code</a>
+        is licensed under <a href="http://opensource.org/licenses/mit-license.php" target="_blank">MIT</a>.
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

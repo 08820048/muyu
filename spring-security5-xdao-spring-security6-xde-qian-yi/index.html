@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh" data-theme="light" dir="ltr">
+  <head>
+    <title>Spring Security5.x到Spring Security6.x的迁移 - 慕予博客</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="详细介绍Spring Security从5.x版本升级到6.x版本的迁移指南，包括新特性、API变化和配置方式的更新。"/>
+
+    <meta property="og:title" content="慕予博客 -&nbsp;Spring Security5.x到Spring Security6.x的迁移" />
+    <meta property="og:type" content="website"/><meta property="og:url" content="https:&#x2F;&#x2F;ilikexff.cn&#x2F;spring-security5-xdao-spring-security6-xde-qian-yi&#x2F;"/><meta property="og:description" content="详细介绍Spring Security从5.x版本升级到6.x版本的迁移指南，包括新特性、API变化和配置方式的更新。"/>
+
+
+    <meta name="twitter:card" content="summary">
+
+
+    <link rel="stylesheet" href="https://ilikexff.cn/spectre/spectre.css">
+    <link rel="stylesheet" href="https://ilikexff.cn/theme.css"><link rel="stylesheet" href="https://ilikexff.cn/custom.css">
+    
+
+        
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script>
+        function doRenderMath() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false},
+                {left: "\\begin{equation}", right: "\\end{equation}", display: true},
+                {left: "\\begin{align}", right: "\\end{align}", display: true},
+                {left: "\\begin{alignat}", right: "\\end{alignat}", display: true},
+                {left: "\\begin{gather}", right: "\\end{gather}", display: true},
+                {left: "\\begin{CD}", right: "\\end{CD}", display: true},
+                {left: "\\[", right: "\\]", display: true}
+                ]
+            });
+        }
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+        onload="doRenderMath()"></script>
+
+      </head>
+  <body id="top" class="sticky-footer"><div id="page-wrapper">
+<header id="header" class="section">
+  <section class="container grid-xl">
+    <nav class="navbar">
+      <section class="navbar-section">
+        
+<a class="site-logo" href="https:&#x2F;&#x2F;ilikexff.cn">
+  
+  <div class="col-mx-auto">
+    <figure style="margin: 8px">
+      <img class="img-responsive"
+           style="max-height: 45px"
+           alt="frontmatter image"
+           src="https://ilikexff.cn/./logo.svg">
+    </figure>
+  </div>
+  
+</a>
+
+      </section><!-- ./home button -->
+
+      <section class="navbar-center hide-md"></section>
+
+      <section class="navbar-section">
+        <nav class="dropmenu animated hide-md">
+
+<ul><li>
+        <a href="https://ilikexff.cn/tags">标签</a>
+    </li><li>
+        <a href="https://ilikexff.cn/categories">分类</a>
+    </li><li>
+        <a href="https://ilikexff.cn/about">关于</a>
+    </li></ul>
+
+
+          </nav>
+      </section><!-- ./desktop-menu -->
+    </nav>
+  </section><!-- ./container -->
+</header>
+
+
+<div class="mobile-menu">
+  <div class="button_container" id="toggle" onclick="openOverlay()">
+    <span class="top"></span>
+    <span class="middle"></span>
+    <span class="bottom"></span>
+  </div>
+</div><!--./mobile-menu-->
+
+
+<section id="start"><section id="body-wrapper" class="section">
+          <section class="container grid-xl">
+<div id="breadcrumbs" itemtype="http://schema.org/BreadcrumbList" class="hide-sm">
+  
+    
+    <span><a href="https:&#x2F;&#x2F;ilikexff.cn&#x2F;">Home</a></span>
+  
+    <span><a href="https:&#x2F;&#x2F;ilikexff.cn&#x2F;spring-security5-xdao-spring-security6-xde-qian-yi&#x2F;">Spring Security5.x到Spring Security6.x的迁移</a></span>
+</div>
+<div class="columns">
+              <div id="item" class="column col-8 col-md-12 extra-spacing">
+<div class="card">
+  
+
+    <div class="card-header">
+      <div class="card-title" style="margin-top: .25rem;"><div>
+          <h1 class="post-title">Spring Security5.x到Spring Security6.x的迁移</h1>
+          
+    <div class="post-meta" style="display: inline-flex">
+        <span class="blog-date" style="display: inline-flex;">
+          <i class="gg-calendar" style="margin-right: 5px;"></i><time datetime="2024.04.20">
+          2024.04.20
+          </time></span><span class="post-author" style="margin-left: 5px; display: inline-flex;">
+          - 
+    慕予
+        </span></div>
+
+        </div></div>
+    </div><!--./card-header-->
+
+    <div class="card-body">
+      
+        <h2 id="1-zhuo-li-ba-suo">1. 啄里吧嗦<a class="zola-anchor" href="#1-zhuo-li-ba-suo" aria-label="Anchor link for: 1-zhuo-li-ba-suo">🔗</a></h2>
+<p>之前有写过一篇关于<code>Spring Security</code>的文章，但那已经是相对比较旧的版本了，就目前<code>Spring Security6.0</code>来说，这其中出现了不少的变动和更新，很多<code>API</code>的使用也是有不小的变化，所以我觉得有必要学习一下。但这篇文章的重点放在<code>SpringSecurity6.x</code>的新变动了解以及<code>SpringSecurity5.x</code>版本的迁移上。</p>
+<hr />
+<h2 id="2-yue-du-qian-ti">2. 阅读前提<a class="zola-anchor" href="#2-yue-du-qian-ti" aria-label="Anchor link for: 2-yue-du-qian-ti">🔗</a></h2>
+<p>这里写什么呢？<code>SpringSecurity6.0+</code>版本都更新了些什么东西，这里就简单给各位整理一下。注意这里所整理的一些更新是相较于<code>SpringSecurity5</code>版本来说的，因此这部分的内容并不适合小白阅读，因为这是建立在你已经有了一些<code>SpringSecurity</code>基础的前提下的，所以如果是完全没学过<code>SpringSecurity</code>的童鞋，建议看看这篇<a href="https://blog.csdn.net/2302_76401343/article/details/137432951?spm=1001.2014.3001.5502">上古掌控安全的神:SpringSecurity初探揭秘</a>。它是是基于<code>SpringSecurity5</code>版本的快速入门文章，老肩巨猾,很好看，去看看吧。</p>
+<h3 id="2-1-spring-boothe-spring-securityde-ban-ben-guan-xi">2.1 Spring Boot和Spring Security的版本关系<a class="zola-anchor" href="#2-1-spring-boothe-spring-securityde-ban-ben-guan-xi" aria-label="Anchor link for: 2-1-spring-boothe-spring-securityde-ban-ben-guan-xi">🔗</a></h3>
+<p><code>Spring Boot 2 </code>默认为 <code>Spring Security 5</code>，而 <code>Spring Boot 3 </code>使用 <code>Spring Security 6</code>。所以记住这一点，后续系列的文章所有的案例都是基于<code>SpringBoot3</code>以及<code>Gradle</code>的组合来进行的，当然，如果你还是<code>Maven</code>玩家，其实就理解学习层面来说并没有本质上的影响，无非是在实际的项目中更换一种构建方式罢了，不要觉得一看到是<code>Gradle</code>系的例子就跑路:</p>
+<p>“哎呦！这项目没用我心爱的<code>Maven</code>，不适合我，溜了溜了!!”</p>
+<h3 id="2-2-spring-security-6-xin-de-bian-dong">2.2 Spring Security 6 新的变动<a class="zola-anchor" href="#2-2-spring-security-6-xin-de-bian-dong" aria-label="Anchor link for: 2-2-spring-security-6-xin-de-bian-dong">🔗</a></h3>
+<p><img src="https://images.waer.ltd/notes/image-20240420184640041.png" alt="image-20240420184640041" /></p>
+<p><code>Spring Security 6</code> 引入了多项功能更新，以提高安全性和健壮性。<strong>它现在至少需要 Java 版本 17 并使用 <code>jakarta </code>命名空间。</strong>，这个<code>Java17</code>可能听说过，但是<code>jakarta </code>是什么鬼可能很多人没有了解过(这其中就有我一席之地)，下面是来自 <strong>通义千文</strong> 的解释:</p>
+<blockquote>
+<p>Jakarta 命名空间是Java生态系统中用于标识一组特定技术规范和API的标准前缀。这个命名空间起源于开源社区对Java企业版（Java EE）规范的继任者——Jakarta EE项目中的API和组件的重新命名。</p>
+<p><strong>背景</strong>：</p>
+<ul>
+<li><strong>Java EE</strong>：最初由Sun Microsystems（后被Oracle收购）主导开发，是一套用于构建企业级Java应用程序的标准和规范集合，包括诸如Servlets、JSP、EJB、JMS、JPA等技术。这些规范定义了接口和行为，由第三方供应商（如IBM、Red Hat、Oracle等）提供具体的实现。Java EE规范中的API通常以<code>javax.*</code>命名空间开头。</li>
+<li><strong>Oracle与Java EE</strong>：随着Oracle对Java EE的管理和发展方向引起社区的关注和担忧，2017年，Oracle宣布将Java EE移交给开源组织，并停止在Java EE 8之后的版本开发。随后，Eclipse基金会接手了Java EE的后续开发工作，并将其重命名为Jakarta EE。</li>
+<li><strong>Jakarta EE</strong>：作为Java EE的开源替代品，Jakarta EE保留了大部分原有Java EE规范的功能和目标，但在治理模式、开发流程和知识产权等方面遵循更加开放和社区驱动的原则。为了反映这一转变，并避免与Oracle的商标权冲突，Eclipse基金会决定将所有相关的API包名从<code>javax.*</code>改为<code>jakarta.*</code>，形成了Jakarta命名空间。</li>
+</ul>
+<p><strong>Jakarta命名空间的意义</strong>：</p>
+<ol>
+<li><strong>法律与商标独立</strong>：更改至<code>jakarta.*</code>命名空间，标志着这些技术规范与Oracle的商标权脱钩，完全由Eclipse基金会和开源社区掌控，不受单一商业公司的控制。</li>
+<li><strong>技术演进的新开端</strong>：Jakarta EE不仅沿袭了Java EE的核心规范，还在其基础上引入了新技术、新规范和现代化开发实践。使用新的命名空间象征着这一技术栈进入了一个新的发展阶段，不受过去版本约束，能够更快地响应市场需求和技术创新。</li>
+<li><strong>清晰的版本分界</strong>：由于命名空间的改变，开发者和工具能够清楚地区分基于旧Java EE（<code>javax.*</code>）和新Jakarta EE（<code>jakarta.*</code>）构建的应用程序及其依赖。这有助于平滑迁移、避免混淆，并为兼容性问题提供了明确的基准。</li>
+<li><strong>社区认同与生态建设</strong>：Jakarta命名空间体现了开源社区对这一技术栈所有权的认可和支持。随着越来越多的厂商和开发者采用Jakarta EE规范，围绕<code>jakarta.*</code>命名空间的开源库、框架、工具和服务生态系统逐渐形成，推动了企业级Java开发的持续发展。</li>
+</ol>
+</blockquote>
+<p>别看™一大堆，其实你几乎可以不看他们，阅读一遍，有个简单的印象就好了。但<code>Java17</code>这块属于硬控，躲不开的。要想使用<code>Spring Security6</code>的话，还是得注意下哈。</p>
+<p>下面简单列一下这个版本的主要变动:</p>
+<ul>
+<li>删除了 <code>WebSecurityConfigurerAdapter</code>，以支持基于组件的安全配置</li>
+<li><code>authorizeRequests（）</code> 被删除并替换为 <code>authorizeHttpRequests（）</code> 以定义授权规则。</li>
+<li>引入了 <code>requestMatcher（）</code> 和 <code>securityMatcher（）</code> 等方法来替换<code> antMatcher（）</code> 和 <code>mvcMatcher（）</code> 来配置请求资源的安全性
+<ul>
+<li><code>requestMatcher（）</code> 方法更安全，因为它为请求配置选择了适当的<code> RequestMatcher</code> 实现。</li>
+</ul>
+</li>
+<li>弃用部分方法，如<code> cors（）</code> 和 <code>csrf（）</code> 推荐使用函数式编程。</li>
+<li>一些注解上的变化….</li>
+</ul>
+<hr />
+<h2 id="3-ban-ben-sheng-ji">3. 版本升级<a class="zola-anchor" href="#3-ban-ben-sheng-ji" aria-label="Anchor link for: 3-ban-ben-sheng-ji">🔗</a></h2>
+<p>基于上一个标题列出得更新，这部分将会简单分享一下，如何将你项目中的 <code>SpringSecurity5</code>版本升级到 <code>Spring Security6</code> 版本，以适应最新的特性；这不算一个很大的版本迁移，但有必要了解新版特性以及如何使用它们。</p>
+<ul>
+<li><code>@Configuration</code>不再是<code>@EnableWebSecurity</code>注的一部分。因此我们在新版本(没有特殊说明，这里以及后续说的新版本和旧版本分别指的是<code>SpringSecurity6</code>和<code>SpringSecurity5</code>)中需要同时给配置类加上这两个注解。</li>
+<li>新版本删除了 <code>WebSecurityConfigurerAdapter </code>类，并采用基于组件的配置,我们在些<code>SpringSecurity</code>配置类时不再需要继承这个<code>WebSecurityConfigurerAdapter</code>，因此，结合上面两点，新版本的配置应该是下面这样的:</li>
+</ul>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span>@</span><span style="color:#268bd2;">Configuration
+</span><span>@</span><span style="color:#268bd2;">EnableWebSecurity
+</span><span style="color:#93a1a1;">public </span><span style="color:#268bd2;">class </span><span style="color:#b58900;">WebSecurityConfig </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#586e75;">// more....
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<ul>
+<li>新版本通过 <code>WebSecurityCustomizer bean</code> 来修改排除静态资源, 该接口替代了 <code>WebSecurityConfigurerAdapter </code>接口中的 <code>configure</code>。当然，现在大部分项目都是前后端分离，这个配置相对来说没那么常用，但也不妨碍我们进步！！！！</li>
+</ul>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span>@</span><span style="color:#268bd2;">Bean
+</span><span style="color:#859900;">WebSecurityCustomizer </span><span style="color:#b58900;">webSecurityCustomizer</span><span style="color:#657b83;">() {
+</span><span>   </span><span style="color:#859900;">return </span><span style="color:#657b83;">(</span><span style="color:#268bd2;">web</span><span style="color:#657b83;">) </span><span style="color:#268bd2;">-&gt;</span><span> web.</span><span style="color:#b58900;">ignoring</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">requestMatchers</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">/js/**</span><span>&quot;, &quot;</span><span style="color:#2aa198;">/css/**</span><span>&quot;</span><span style="color:#657b83;">)</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<ul>
+<li>通过注册 <code>InMemoryUserDetailsManager bean </code>来重构身份验证凭据逻辑:</li>
+</ul>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span>@</span><span style="color:#268bd2;">Bean
+</span><span style="color:#93a1a1;">public </span><span style="color:#859900;">UserDetailsService </span><span style="color:#b58900;">userDetailsService </span><span style="color:#657b83;">() {
+</span><span>    </span><span style="color:#586e75;">// Define user information in memory
+</span><span>    </span><span style="color:#586e75;">// Administrator
+</span><span>    </span><span style="color:#859900;">UserDetails</span><span> adminUser </span><span style="color:#657b83;">= </span><span style="color:#859900;">User</span><span>.</span><span style="color:#b58900;">withUsername</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">八尺妖剑</span><span>&quot;</span><span style="color:#657b83;">) </span><span style="color:#586e75;">// Username
+</span><span>            .</span><span style="color:#b58900;">password</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">$2a$10$5GgerupMYdknnk.ln/9jK.MrQ39IcoO9vILlgPHigpAQ10PbLsoHS</span><span>&quot;</span><span style="color:#657b83;">) </span><span style="color:#586e75;">// Password, {noop} for no encryption
+</span><span>            .</span><span style="color:#b58900;">roles</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">admin</span><span>&quot;</span><span style="color:#657b83;">) </span><span style="color:#586e75;">// Assign roles
+</span><span>            .</span><span style="color:#b58900;">authorities</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">ROLE_test:show</span><span>&quot;,&quot;</span><span style="color:#2aa198;">user:name</span><span>&quot;,&quot;</span><span style="color:#2aa198;">user:list</span><span>&quot;</span><span style="color:#657b83;">) 
+</span><span>            .</span><span style="color:#b58900;">build</span><span style="color:#657b83;">()</span><span>;
+</span><span>    </span><span style="color:#586e75;">// Build normal user information
+</span><span>    </span><span style="color:#859900;">UserDetails</span><span> users </span><span style="color:#657b83;">= </span><span style="color:#859900;">User</span><span>.</span><span style="color:#b58900;">withUsername</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">李四</span><span>&quot;</span><span style="color:#657b83;">) </span><span style="color:#586e75;">// Username
+</span><span>            .</span><span style="color:#b58900;">password</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">$2a$10$5GgerupMYdknnk.ln/9jK.MrQ39IcoO9vILlgPHigpAQ10PbLsoHS</span><span>&quot;</span><span style="color:#657b83;">) </span><span style="color:#586e75;">// Password, {noop} for no encryption
+</span><span>            .</span><span style="color:#b58900;">roles</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">user</span><span>&quot;</span><span style="color:#657b83;">) </span><span style="color:#586e75;">// Assign role
+</span><span>            .</span><span style="color:#b58900;">build</span><span style="color:#657b83;">()</span><span>;
+</span><span>    </span><span style="color:#586e75;">// Store the constructed user information in SpringSecurity (in memory)
+</span><span>    </span><span style="color:#859900;">InMemoryUserDetailsManager</span><span> userDetailsManager </span><span style="color:#657b83;">= </span><span style="color:#859900;">new InMemoryUserDetailsManager</span><span style="color:#657b83;">()</span><span>;
+</span><span>    userDetailsManager.</span><span style="color:#b58900;">createUser</span><span style="color:#657b83;">(</span><span>adminUser</span><span style="color:#657b83;">)</span><span>;
+</span><span>    userDetailsManager.</span><span style="color:#b58900;">createUser</span><span style="color:#657b83;">(</span><span>users</span><span style="color:#657b83;">)</span><span>;
+</span><span>    </span><span style="color:#859900;">return</span><span> userDetailsManager;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<ul>
+<li>HTTP 安全配置,在旧版本中，我们一般通过重写 <code>WebSecurityConfigurer </code>类中的 <code>configure </code>方法来配置 <code>HttpSecurity</code>。由于它在最新版本中被删除，新版的配置方式是通过<code>SecurityFilterChain bean</code> 来进行。</li>
+</ul>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span>@</span><span style="color:#268bd2;">Bean
+</span><span style="color:#93a1a1;">public </span><span style="color:#859900;">SecurityFilterChain </span><span style="color:#b58900;">filterChain</span><span style="color:#657b83;">(</span><span style="color:#859900;">HttpSecurity</span><span> httpSecurity</span><span style="color:#657b83;">)</span><span> throws </span><span style="color:#859900;">Exception </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#586e75;">// Configure CSRF to be disabled
+</span><span>    httpSecurity.</span><span style="color:#b58900;">csrf</span><span style="color:#657b83;">(</span><span style="color:#859900;">AbstractHttpConfigurer</span><span>::</span><span style="color:#b58900;">disable</span><span style="color:#657b83;">)</span><span>;
+</span><span>
+</span><span>    </span><span style="color:#586e75;">// Configure request interception
+</span><span>    httpSecurity.</span><span style="color:#b58900;">authorizeHttpRequests</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">auth -&gt;
+</span><span>                    auth.</span><span style="color:#b58900;">requestMatchers</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">/to_login</span><span>&quot;,&quot;</span><span style="color:#2aa198;">/user</span><span>&quot;</span><span style="color:#657b83;">)</span><span>.</span><span style="color:#b58900;">permitAll</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">anyRequest</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">authenticated</span><span style="color:#657b83;">())</span><span>;
+</span><span>
+</span><span>    </span><span style="color:#586e75;">// Specify login method: form, BASIC, etc.
+</span><span>    httpSecurity.</span><span style="color:#b58900;">formLogin</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">form -&gt;</span><span> form.</span><span style="color:#b58900;">loginPage</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">/to_login</span><span>&quot;</span><span style="color:#657b83;">) </span><span style="color:#586e75;">// Redirect to custom login page
+</span><span>            .</span><span style="color:#b58900;">loginProcessingUrl</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">/doLogin</span><span>&quot;</span><span style="color:#657b83;">) </span><span style="color:#586e75;">// Handle frontend requests, path matches frontend request path
+</span><span>            .</span><span style="color:#b58900;">usernameParameter</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">username</span><span>&quot;</span><span style="color:#657b83;">)
+</span><span>            .</span><span style="color:#b58900;">passwordParameter</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">password</span><span>&quot;</span><span style="color:#657b83;">)
+</span><span>            .</span><span style="color:#b58900;">defaultSuccessUrl</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">/index</span><span>&quot;</span><span style="color:#657b83;">) </span><span style="color:#586e75;">// Default page to redirect to after successful login
+</span><span>    </span><span style="color:#657b83;">)</span><span>;
+</span><span>    </span><span style="color:#859900;">return</span><span> httpSecurity.</span><span style="color:#b58900;">build</span><span style="color:#657b83;">()</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<ul>
+<li>当然，密码编码器的写法也可以通过注册<code>Bean</code>得方式来完成:</li>
+</ul>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span>@</span><span style="color:#268bd2;">Bean
+</span><span style="color:#93a1a1;">public </span><span style="color:#859900;">PasswordEncoder </span><span style="color:#b58900;">passwordEncoderParser</span><span style="color:#657b83;">() {
+</span><span>    </span><span style="color:#586e75;">// Build the password encoder
+</span><span>    </span><span style="color:#859900;">return new BCryptPasswordEncoder</span><span style="color:#657b83;">()</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+
+      
+    </div><!--./card-body-->
+
+    <div class="card-footer">
+      <div class="columns">
+        <div class="column col-9 col-sm-7">
+          <div class="taxonomies text-left">
+            
+
+    
+          </div>
+        </div><!--./col-6-->
+        
+        </div><!--./columns-->
+    </div><!--./card-footer-->
+</div><!--./card-->
+</div>
+              <div id="sidebar" class="column col-4 col-md-12">
+                <div class="sidebar-content">
+                  
+                  
+<div class="sidebar-widget">
+  <div class="tile">
+    <div class="tile-icon">
+      <figure class="avatar avatar-xl">
+        <img src="https://ilikexff.cn/avatar.png" alt="author avatar image">
+      </figure>
+    </div>
+    <div class="tile-content">
+      <p class="tile-title" style="font-weight: 600;">慕予</p>
+      <p class="tile-subtitle">热爱编程，专注于技术分享和学习</p>
+    </div>
+</div><!--./tile-->
+</div>
+
+                  
+                  
+<div class="sidebar-widget">
+  欢迎来到<strong>慕予博客</strong>！这里分享技术文章和编程心得。
+</div><!-- end text widget -->
+
+                  
+
+                  </div><!--./sidebar-content-->
+              </div>
+            </div>
+            
+          </section>
+        </section></section>
+<section class="container grid-xl">
+<ul class="pagination paginator">
+  
+  
+</ul>
+</section>
+</div><!-- ./page-wrapper -->
+
+    
+<div class="mobile-container">
+        <div class="overlay" id="overlay">
+            <div style="padding: 1rem;">
+              
+<a class="site-logo" href="https:&#x2F;&#x2F;ilikexff.cn">
+  
+  <div class="col-mx-auto">
+    <figure style="margin: 8px">
+      <img class="img-responsive"
+           style="max-height: 45px"
+           alt="frontmatter image"
+           src="https://ilikexff.cn/./logo.svg">
+    </figure>
+  </div>
+  
+</a>
+
+            </div>
+            <nav class="overlay-menu">
+              
+
+<ul class="tree treemenu treemenu-root"><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/tags">标签</a>
+    </li><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/categories">分类</a>
+    </li><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/about">关于</a>
+    </li></ul>
+
+
+              </nav>
+        </div>
+    </div>
+
+<script type="text/javascript">
+  var overlay = document.getElementById('overlay');
+  var toggle = document.getElementById('toggle');
+
+  function openOverlay(){
+      // Open overlay
+      if (overlay.classList.contains("open")) {
+          overlay.classList.remove("open");
+      }
+      else {
+          overlay.classList.add("open");
+      }
+
+      // Button transition
+      if (toggle.classList.contains("active")) {
+          toggle.classList.remove("active");
+      }
+      else {
+          toggle.classList.add("active");
+      }
+    }
+</script>
+
+<section id="footer" class="bg-gray">
+  <div class="container grid-xl">
+    
+
+
+    <div class="columns">
+      
+      <div class="column col-6 col-lg-12 col-mx-auto" style="text-align: center;">
+        简单是效率的灵魂 | 黔ICP备2021010295号
+      </div>
+      
+      <div class="column col-6 col-lg-12 col-mx-auto" style="text-align: center;">
+        Made by <a href="https://github.com/gicrisf/">gicrisf</a> -
+        <strong>Zhuia</strong>&nbsp;<a href="https://github.com/gicrisf/zhuia">source code</a>
+        is licensed under <a href="http://opensource.org/licenses/mit-license.php" target="_blank">MIT</a>.
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

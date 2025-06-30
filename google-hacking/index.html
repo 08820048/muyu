@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh" data-theme="light" dir="ltr">
+  <head>
+    <title>Google Hacking - 慕予博客</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="简单是效率的灵魂"/>
+
+    <meta property="og:title" content="慕予博客 -&nbsp;Google Hacking" />
+    <meta property="og:type" content="website"/><meta property="og:url" content="https:&#x2F;&#x2F;ilikexff.cn&#x2F;google-hacking&#x2F;"/><meta property="og:description" content="简单是效率的灵魂"/>
+
+
+    <meta name="twitter:card" content="summary">
+
+
+    <link rel="stylesheet" href="https://ilikexff.cn/spectre/spectre.css">
+    <link rel="stylesheet" href="https://ilikexff.cn/theme.css"><link rel="stylesheet" href="https://ilikexff.cn/custom.css">
+    
+
+        
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script>
+        function doRenderMath() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false},
+                {left: "\\begin{equation}", right: "\\end{equation}", display: true},
+                {left: "\\begin{align}", right: "\\end{align}", display: true},
+                {left: "\\begin{alignat}", right: "\\end{alignat}", display: true},
+                {left: "\\begin{gather}", right: "\\end{gather}", display: true},
+                {left: "\\begin{CD}", right: "\\end{CD}", display: true},
+                {left: "\\[", right: "\\]", display: true}
+                ]
+            });
+        }
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+        onload="doRenderMath()"></script>
+
+      </head>
+  <body id="top" class="sticky-footer"><div id="page-wrapper">
+<header id="header" class="section">
+  <section class="container grid-xl">
+    <nav class="navbar">
+      <section class="navbar-section">
+        
+<a class="site-logo" href="https:&#x2F;&#x2F;ilikexff.cn">
+  
+  <div class="col-mx-auto">
+    <figure style="margin: 8px">
+      <img class="img-responsive"
+           style="max-height: 45px"
+           alt="frontmatter image"
+           src="https://ilikexff.cn/./logo.svg">
+    </figure>
+  </div>
+  
+</a>
+
+      </section><!-- ./home button -->
+
+      <section class="navbar-center hide-md"></section>
+
+      <section class="navbar-section">
+        <nav class="dropmenu animated hide-md">
+
+<ul><li>
+        <a href="https://ilikexff.cn/tags">标签</a>
+    </li><li>
+        <a href="https://ilikexff.cn/categories">分类</a>
+    </li><li>
+        <a href="https://ilikexff.cn/about">关于</a>
+    </li></ul>
+
+
+          </nav>
+      </section><!-- ./desktop-menu -->
+    </nav>
+  </section><!-- ./container -->
+</header>
+
+
+<div class="mobile-menu">
+  <div class="button_container" id="toggle" onclick="openOverlay()">
+    <span class="top"></span>
+    <span class="middle"></span>
+    <span class="bottom"></span>
+  </div>
+</div><!--./mobile-menu-->
+
+
+<section id="start"><section id="body-wrapper" class="section">
+          <section class="container grid-xl">
+<div id="breadcrumbs" itemtype="http://schema.org/BreadcrumbList" class="hide-sm">
+  
+    
+    <span><a href="https:&#x2F;&#x2F;ilikexff.cn&#x2F;">Home</a></span>
+  
+    <span><a href="https:&#x2F;&#x2F;ilikexff.cn&#x2F;google-hacking&#x2F;">Google Hacking</a></span>
+</div>
+<div class="columns">
+              <div id="item" class="column col-8 col-md-12 extra-spacing">
+<div class="card">
+  
+
+    <div class="card-header">
+      <div class="card-title" style="margin-top: .25rem;"><div>
+          <h1 class="post-title">Google Hacking</h1>
+          
+    <div class="post-meta" style="display: inline-flex">
+        <span class="blog-date" style="display: inline-flex;">
+          <i class="gg-calendar" style="margin-right: 5px;"></i><time datetime="2023.06.15">
+          2023.06.15
+          </time></span><span class="post-author" style="margin-left: 5px; display: inline-flex;">
+          - 
+    慕予
+        </span></div>
+
+        </div></div>
+    </div><!--./card-header-->
+
+    <div class="card-body">
+      
+        <h2 id="geng-xin-ri-zhi">更新日志：<a class="zola-anchor" href="#geng-xin-ri-zhi" aria-label="Anchor link for: geng-xin-ri-zhi">🔗</a></h2>
+<p>2022-10-03</p>
+<blockquote>
+<ul>
+<li>修改文章名称</li>
+<li>新增几条搜索技巧</li>
+</ul>
+</blockquote>
+<p>2022-09-26</p>
+<blockquote>
+<ul>
+<li>调整目录结构</li>
+</ul>
+</blockquote>
+<hr />
+<h2 id="qian-qing-ti-yao">前情提要<a class="zola-anchor" href="#qian-qing-ti-yao" aria-label="Anchor link for: qian-qing-ti-yao">🔗</a></h2>
+<blockquote>
+<p>如今科技网络如此发达的大环境，能学会一些非常实用的搜索技术,真的可以“为所欲为”，再者，我觉得不能让’找不到某某资源成为借口’，作为计算机专业的同学来说。</p>
+</blockquote>
+<blockquote>
+<p>【声明】:如果使用Google搜索引擎，那该部分很重要但不适合展示，请自行摸索….本文不提供任何<strong>help</strong>,<strong>亦不承担任何责任</strong>!还有一点，所谓的<code>Google Hacking</code> 并不是说只能使用 Google，只要是搜索引擎都可以使用，只是这名字是外国人起的，外国人更多的人使用 Google，我们当然也可以使用百度、搜狗、bing 等等其他的搜索引擎。</p>
+</blockquote>
+<hr />
+<h2 id="sou-suo-ji-qiao">搜索技巧<a class="zola-anchor" href="#sou-suo-ji-qiao" aria-label="Anchor link for: sou-suo-ji-qiao">🔗</a></h2>
+<blockquote>
+<p>提到搜索引擎，度爷也是一个不可忽视的存在了，但现今的百度已经变味了【个人觉得】，打开百度、键入关键词、回车一气呵成，等着你的就是一堆广告。搜索引擎不再专注于搜索，不纯粹了！所以我选择了<strong>Google</strong>搜索。</p>
+</blockquote>
+<p><img src="https://images.waer.ltd/img/20220219115817.png" alt="" /></p>
+<h3 id="shi-yong-yin-hao-qiang-zhi-jin-xing-jing-que-pi-pei-sou-suo">使用引号强制进行精确匹配搜索<a class="zola-anchor" href="#shi-yong-yin-hao-qiang-zhi-jin-xing-jing-que-pi-pei-sou-suo" aria-label="Anchor link for: shi-yong-yin-hao-qiang-zhi-jin-xing-jing-que-pi-pei-sou-suo">🔗</a></h3>
+<blockquote>
+<p>“what is Java?”</p>
+</blockquote>
+<p><img src="https://images.waer.ltd/img/solo-fetchupload-10461995544372781941-6670a275.png" alt="" /></p>
+<h3 id="shi-yong-andlian-jie-fu">使用And连接符<a class="zola-anchor" href="#shi-yong-andlian-jie-fu" aria-label="Anchor link for: shi-yong-andlian-jie-fu">🔗</a></h3>
+<blockquote>
+<p>mysql AND Java</p>
+</blockquote>
+<p><img src="https://images.waer.ltd/img/solo-fetchupload-14504734167488444756-53312d1d.png" alt="" /></p>
+<h3 id="shi-yong-orcao-zuo-fu-huo-qu-sou-suo-ci-zhong-mou-yi-ge-de-jie-guo">使用OR操作符获取搜索词中某一个的结果<a class="zola-anchor" href="#shi-yong-orcao-zuo-fu-huo-qu-sou-suo-ci-zhong-mou-yi-ge-de-jie-guo" aria-label="Anchor link for: shi-yong-orcao-zuo-fu-huo-qu-sou-suo-ci-zhong-mou-yi-ge-de-jie-guo">🔗</a></h3>
+<blockquote>
+<p>(Java OR C++) free course</p>
+</blockquote>
+<p><img src="https://images.waer.ltd/img/solo-fetchupload-472250761333355458-241c96a5.png" alt="" /></p>
+<h3 id="cao-zuo-fu-jiang-pai-chu-bao-han-sou-suo-ci-de-jie-guo">操作符将排除包含搜索词的结果<a class="zola-anchor" href="#cao-zuo-fu-jiang-pai-chu-bao-han-sou-suo-ci-de-jie-guo" aria-label="Anchor link for: cao-zuo-fu-jiang-pai-chu-bao-han-sou-suo-ci-de-jie-guo">🔗</a></h3>
+<blockquote>
+<p>Javascript -css</p>
+</blockquote>
+<p><img src="https://images.waer.ltd/img/solo-fetchupload-1380911999494599259-f33910ad.png" alt="" /></p>
+<h3 id="ke-yi-shi-yong-tong-pei-fu-zuo-wei-zhan-wei-fu-ta-jiang-bei-ren-he-dan-ci-huo-duan-yu-ti-huan">可以使用(*)通配符作为占位符，它将被任何单词或短语替换<a class="zola-anchor" href="#ke-yi-shi-yong-tong-pei-fu-zuo-wei-zhan-wei-fu-ta-jiang-bei-ren-he-dan-ci-huo-duan-yu-ti-huan" aria-label="Anchor link for: ke-yi-shi-yong-tong-pei-fu-zuo-wei-zhan-wei-fu-ta-jiang-bei-ren-he-dan-ci-huo-duan-yu-ti-huan">🔗</a></h3>
+<blockquote>
+<p>“how to start * in 6 months”</p>
+</blockquote>
+<p><img src="https://images.waer.ltd/img/solo-fetchupload-13092045242420342526-b72f6005.png" alt="" /></p>
+<h3 id="zai-yi-ge-dan-yi-de-wang-zhan-sou-suo">在一个单一的网站搜索<a class="zola-anchor" href="#zai-yi-ge-dan-yi-de-wang-zhan-sou-suo" aria-label="Anchor link for: zai-yi-ge-dan-yi-de-wang-zhan-sou-suo">🔗</a></h3>
+<blockquote>
+<p>site:baidu.com 中国</p>
+</blockquote>
+<p><img src="https://images.waer.ltd/img/solo-fetchupload-8020630060643892821-afa57228.png" alt="" /></p>
+<h3 id="cha-zhao-te-ding-de-wen-jian-lei-xing">查找特定的文件类型<a class="zola-anchor" href="#cha-zhao-te-ding-de-wen-jian-lei-xing" aria-label="Anchor link for: cha-zhao-te-ding-de-wen-jian-lei-xing">🔗</a></h3>
+<blockquote>
+<p><code>filetype:pdf learn java</code></p>
+</blockquote>
+<p><img src="https://images.waer.ltd/img/solo-fetchupload-6235979189838873316-c0c03a6e.png" alt="" /></p>
+<h3 id="sou-suo-yi-ge-shu-zi-fan-wei">搜索一个数字范围<a class="zola-anchor" href="#sou-suo-yi-ge-shu-zi-fan-wei" aria-label="Anchor link for: sou-suo-yi-ge-shu-zi-fan-wei">🔗</a></h3>
+<blockquote>
+<p>ecmascript 2016..2022</p>
+</blockquote>
+<p><img src="https://images.waer.ltd/img/solo-fetchupload-16261730749587081018-8daabba1.png" alt="" /></p>
+<blockquote>
+<p><strong>【注】</strong>：以上几个技巧来自知乎<a href="https://zhuanlan.zhihu.com/p/355438850">【工具】像大佬一样使用 Google</a></p>
+</blockquote>
+<hr />
+<h3 id="intext-sou-suo-wen-zhang-nei-rong">intext:搜索文章内容<a class="zola-anchor" href="#intext-sou-suo-wen-zhang-nei-rong" aria-label="Anchor link for: intext-sou-suo-wen-zhang-nei-rong">🔗</a></h3>
+<p><img src="https://imgsforme.oss-cn-hangzhou.aliyuncs.com/imgs/image-20221003125019967.png" alt="image-20221003125019967" /></p>
+<h3 id="intitle-sou-suo-ye-mian-de-biao-ti">intitle:搜索页面的标题<a class="zola-anchor" href="#intitle-sou-suo-ye-mian-de-biao-ti" aria-label="Anchor link for: intitle-sou-suo-ye-mian-de-biao-ti">🔗</a></h3>
+<p><img src="https://imgsforme.oss-cn-hangzhou.aliyuncs.com/imgs/image-20221003125208356.png" alt="image-20221003125208356" /></p>
+<h3 id="cache-sou-suo-yi-jing-bei-shan-chu-dan-shi-huan-liu-huan-cun-de-ye-mian">cache:搜索已经被删除但是还留缓存的页面<a class="zola-anchor" href="#cache-sou-suo-yi-jing-bei-shan-chu-dan-shi-huan-liu-huan-cun-de-ye-mian" aria-label="Anchor link for: cache-sou-suo-yi-jing-bei-shan-chu-dan-shi-huan-liu-huan-cun-de-ye-mian">🔗</a></h3>
+<blockquote>
+<p>由于搜索结果不宜展示，作了一些处理。</p>
+</blockquote>
+<p><img src="https://imgsforme.oss-cn-hangzhou.aliyuncs.com/imgs/image-20221003125531285.png" alt="image-20221003125531285" /></p>
+<h3 id="related-sou-suo-yu-zhi-xiang-guan-de-zhan-dian">related:搜索与之相关的站点<a class="zola-anchor" href="#related-sou-suo-yu-zhi-xiang-guan-de-zhan-dian" aria-label="Anchor link for: related-sou-suo-yu-zhi-xiang-guan-de-zhan-dian">🔗</a></h3>
+<p><img src="https://imgsforme.oss-cn-hangzhou.aliyuncs.com/imgs/image-20221003125720943.png" alt="image-20221003125720943" /></p>
+<h3 id="info-sou-suo-mou-ge-wang-zhan-de-xin-xi">info:搜索某个网站的信息<a class="zola-anchor" href="#info-sou-suo-mou-ge-wang-zhan-de-xin-xi" aria-label="Anchor link for: info-sou-suo-mou-ge-wang-zhan-de-xin-xi">🔗</a></h3>
+<p><img src="https://imgsforme.oss-cn-hangzhou.aliyuncs.com/imgs/image-20221003125829490.png" alt="image-20221003125829490" /></p>
+<h3 id="inurl-pi-pei-wang-zhan-urlzhong-de-guan-jian-zi">inurl:匹配网站url中的关键字<a class="zola-anchor" href="#inurl-pi-pei-wang-zhan-urlzhong-de-guan-jian-zi" aria-label="Anchor link for: inurl-pi-pei-wang-zhan-urlzhong-de-guan-jian-zi">🔗</a></h3>
+<p><img src="https://imgsforme.oss-cn-hangzhou.aliyuncs.com/imgs/image-20221003130047559.png" alt="image-20221003130047559" /></p>
+<h3 id="define-sou-suo-mou-ge-ci-de-ding-yi">define:搜索某个词的定义<a class="zola-anchor" href="#define-sou-suo-mou-ge-ci-de-ding-yi" aria-label="Anchor link for: define-sou-suo-mou-ge-ci-de-ding-yi">🔗</a></h3>
+<blockquote>
+<p>这个词我以前是不知道的，自从用了某特,发现了人性令人作呕的一面。</p>
+</blockquote>
+<p><img src="https://imgsforme.oss-cn-hangzhou.aliyuncs.com/imgs/image-20221003130231654.png" alt="image-20221003130231654" /></p>
+<hr />
+<h3 id="bu-cuo-de-wen-ti-jiao-liu-she-qu">不错的问题交流社区<a class="zola-anchor" href="#bu-cuo-de-wen-ti-jiao-liu-she-qu" aria-label="Anchor link for: bu-cuo-de-wen-ti-jiao-liu-she-qu">🔗</a></h3>
+<ol>
+<li><a href="https://stackoverflow.com/">stackoverflow</a></li>
+<li>待更新…</li>
+</ol>
+
+      
+    </div><!--./card-body-->
+
+    <div class="card-footer">
+      <div class="columns">
+        <div class="column col-9 col-sm-7">
+          <div class="taxonomies text-left">
+            
+
+    
+          </div>
+        </div><!--./col-6-->
+        
+        </div><!--./columns-->
+    </div><!--./card-footer-->
+</div><!--./card-->
+</div>
+              <div id="sidebar" class="column col-4 col-md-12">
+                <div class="sidebar-content">
+                  
+                  
+<div class="sidebar-widget">
+  <div class="tile">
+    <div class="tile-icon">
+      <figure class="avatar avatar-xl">
+        <img src="https://ilikexff.cn/avatar.png" alt="author avatar image">
+      </figure>
+    </div>
+    <div class="tile-content">
+      <p class="tile-title" style="font-weight: 600;">慕予</p>
+      <p class="tile-subtitle">热爱编程，专注于技术分享和学习</p>
+    </div>
+</div><!--./tile-->
+</div>
+
+                  
+                  
+<div class="sidebar-widget">
+  欢迎来到<strong>慕予博客</strong>！这里分享技术文章和编程心得。
+</div><!-- end text widget -->
+
+                  
+
+                  </div><!--./sidebar-content-->
+              </div>
+            </div>
+            
+          </section>
+        </section></section>
+<section class="container grid-xl">
+<ul class="pagination paginator">
+  
+  
+</ul>
+</section>
+</div><!-- ./page-wrapper -->
+
+    
+<div class="mobile-container">
+        <div class="overlay" id="overlay">
+            <div style="padding: 1rem;">
+              
+<a class="site-logo" href="https:&#x2F;&#x2F;ilikexff.cn">
+  
+  <div class="col-mx-auto">
+    <figure style="margin: 8px">
+      <img class="img-responsive"
+           style="max-height: 45px"
+           alt="frontmatter image"
+           src="https://ilikexff.cn/./logo.svg">
+    </figure>
+  </div>
+  
+</a>
+
+            </div>
+            <nav class="overlay-menu">
+              
+
+<ul class="tree treemenu treemenu-root"><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/tags">标签</a>
+    </li><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/categories">分类</a>
+    </li><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/about">关于</a>
+    </li></ul>
+
+
+              </nav>
+        </div>
+    </div>
+
+<script type="text/javascript">
+  var overlay = document.getElementById('overlay');
+  var toggle = document.getElementById('toggle');
+
+  function openOverlay(){
+      // Open overlay
+      if (overlay.classList.contains("open")) {
+          overlay.classList.remove("open");
+      }
+      else {
+          overlay.classList.add("open");
+      }
+
+      // Button transition
+      if (toggle.classList.contains("active")) {
+          toggle.classList.remove("active");
+      }
+      else {
+          toggle.classList.add("active");
+      }
+    }
+</script>
+
+<section id="footer" class="bg-gray">
+  <div class="container grid-xl">
+    
+
+
+    <div class="columns">
+      
+      <div class="column col-6 col-lg-12 col-mx-auto" style="text-align: center;">
+        简单是效率的灵魂 | 黔ICP备2021010295号
+      </div>
+      
+      <div class="column col-6 col-lg-12 col-mx-auto" style="text-align: center;">
+        Made by <a href="https://github.com/gicrisf/">gicrisf</a> -
+        <strong>Zhuia</strong>&nbsp;<a href="https://github.com/gicrisf/zhuia">source code</a>
+        is licensed under <a href="http://opensource.org/licenses/mit-license.php" target="_blank">MIT</a>.
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

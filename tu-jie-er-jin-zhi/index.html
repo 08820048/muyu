@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh" data-theme="light" dir="ltr">
+  <head>
+    <title>图解二进制 - 慕予博客</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="简单是效率的灵魂"/>
+
+    <meta property="og:title" content="慕予博客 -&nbsp;图解二进制" />
+    <meta property="og:type" content="website"/><meta property="og:url" content="https:&#x2F;&#x2F;ilikexff.cn&#x2F;tu-jie-er-jin-zhi&#x2F;"/><meta property="og:description" content="简单是效率的灵魂"/>
+
+
+    <meta name="twitter:card" content="summary">
+
+
+    <link rel="stylesheet" href="https://ilikexff.cn/spectre/spectre.css">
+    <link rel="stylesheet" href="https://ilikexff.cn/theme.css"><link rel="stylesheet" href="https://ilikexff.cn/custom.css">
+    
+
+        
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script>
+        function doRenderMath() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false},
+                {left: "\\begin{equation}", right: "\\end{equation}", display: true},
+                {left: "\\begin{align}", right: "\\end{align}", display: true},
+                {left: "\\begin{alignat}", right: "\\end{alignat}", display: true},
+                {left: "\\begin{gather}", right: "\\end{gather}", display: true},
+                {left: "\\begin{CD}", right: "\\end{CD}", display: true},
+                {left: "\\[", right: "\\]", display: true}
+                ]
+            });
+        }
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+        onload="doRenderMath()"></script>
+
+      </head>
+  <body id="top" class="sticky-footer"><div id="page-wrapper">
+<header id="header" class="section">
+  <section class="container grid-xl">
+    <nav class="navbar">
+      <section class="navbar-section">
+        
+<a class="site-logo" href="https:&#x2F;&#x2F;ilikexff.cn">
+  
+  <div class="col-mx-auto">
+    <figure style="margin: 8px">
+      <img class="img-responsive"
+           style="max-height: 45px"
+           alt="frontmatter image"
+           src="https://ilikexff.cn/./logo.svg">
+    </figure>
+  </div>
+  
+</a>
+
+      </section><!-- ./home button -->
+
+      <section class="navbar-center hide-md"></section>
+
+      <section class="navbar-section">
+        <nav class="dropmenu animated hide-md">
+
+<ul><li>
+        <a href="https://ilikexff.cn/tags">标签</a>
+    </li><li>
+        <a href="https://ilikexff.cn/categories">分类</a>
+    </li><li>
+        <a href="https://ilikexff.cn/about">关于</a>
+    </li></ul>
+
+
+          </nav>
+      </section><!-- ./desktop-menu -->
+    </nav>
+  </section><!-- ./container -->
+</header>
+
+
+<div class="mobile-menu">
+  <div class="button_container" id="toggle" onclick="openOverlay()">
+    <span class="top"></span>
+    <span class="middle"></span>
+    <span class="bottom"></span>
+  </div>
+</div><!--./mobile-menu-->
+
+
+<section id="start"><section id="body-wrapper" class="section">
+          <section class="container grid-xl">
+<div id="breadcrumbs" itemtype="http://schema.org/BreadcrumbList" class="hide-sm">
+  
+    
+    <span><a href="https:&#x2F;&#x2F;ilikexff.cn&#x2F;">Home</a></span>
+  
+    <span><a href="https:&#x2F;&#x2F;ilikexff.cn&#x2F;tu-jie-er-jin-zhi&#x2F;">图解二进制</a></span>
+</div>
+<div class="columns">
+              <div id="item" class="column col-8 col-md-12 extra-spacing">
+<div class="card">
+  
+
+    <div class="card-header">
+      <div class="card-title" style="margin-top: .25rem;"><div>
+          <h1 class="post-title">图解二进制</h1>
+          
+    <div class="post-meta" style="display: inline-flex">
+        <span class="blog-date" style="display: inline-flex;">
+          <i class="gg-calendar" style="margin-right: 5px;"></i><time datetime="2023.06.15">
+          2023.06.15
+          </time></span><span class="post-author" style="margin-left: 5px; display: inline-flex;">
+          - 
+    慕予
+        </span></div>
+
+        </div></div>
+    </div><!--./card-header-->
+
+    <div class="card-body">
+      
+        <blockquote>
+<p>说明：以下均指8位二进制数形式</p>
+</blockquote>
+<p>在了解原码之前，先熟悉几个名词.。</p>
+<h2 id="ji-qi-shu">机器数<a class="zola-anchor" href="#ji-qi-shu" aria-label="Anchor link for: ji-qi-shu">🔗</a></h2>
+<blockquote>
+<p>数字在计算机中的二进制表现形式。分正负。</p>
+</blockquote>
+<p>图解</p>
+<p><img src="https://imgsforme.oss-cn-hangzhou.aliyuncs.com/imgs/solo-fetchupload-11621301338766896621-6fb9b906.png" alt="" /></p>
+<h2 id="zhen-zhi">真值<a class="zola-anchor" href="#zhen-zhi" aria-label="Anchor link for: zhen-zhi">🔗</a></h2>
+<blockquote>
+<p>有符号数转二进制之后，其原来对应的值位<strong>真值</strong>，带符号的二进制转为其他进制之后的值称为<em><strong>形式值</strong></em>。</p>
+</blockquote>
+<p>图解</p>
+<blockquote>
+<p>注：红色的数字1是十进制-3转二进制之后的符号位</p>
+</blockquote>
+<p><img src="https://imgsforme.oss-cn-hangzhou.aliyuncs.com/imgs/solo-fetchupload-10098498248002566295-65794642.png" alt="" /></p>
+<h2 id="yuan-ma">原码<a class="zola-anchor" href="#yuan-ma" aria-label="Anchor link for: yuan-ma">🔗</a></h2>
+<blockquote>
+<p>符号位+真值的绝对值，即是带符号的二进制数</p>
+</blockquote>
+<p>举例：</p>
+<table><thead><tr><th>十进制</th><th>二进制原码</th></tr></thead><tbody>
+<tr><td>+1（正一）</td><td>0000 0001</td></tr>
+<tr><td>-1（负一）</td><td>1000 0001</td></tr>
+</tbody></table>
+<blockquote>
+<p>注意：八位二进制取值范围[-127,127]即为[1111 1111,0111 1111]</p>
+</blockquote>
+<h2 id="fan-ma">反码<a class="zola-anchor" href="#fan-ma" aria-label="Anchor link for: fan-ma">🔗</a></h2>
+<ul>
+<li>正数的反码是它本身</li>
+<li>负数的反码是在其原码基础上，符号位不变，其余位取反</li>
+</ul>
+<p>图解：</p>
+<p><img src="https://imgsforme.oss-cn-hangzhou.aliyuncs.com/imgs/solo-fetchupload-1331049284497249101-350ced31.png" alt="" /></p>
+<h2 id="bu-ma">补码<a class="zola-anchor" href="#bu-ma" aria-label="Anchor link for: bu-ma">🔗</a></h2>
+<ul>
+<li>正数的补码是其本身</li>
+<li>负数的补码是在原码基础上，符号位不变，其余位取反后加一</li>
+<li>即等价于在反码基础上+1</li>
+</ul>
+<p>图解</p>
+<p><img src="https://imgsforme.oss-cn-hangzhou.aliyuncs.com/imgs/solo-fetchupload-3796841612373007066-2a7f291f.png" alt="" /></p>
+<blockquote>
+<p>提示：二进制加法在后面会介绍</p>
+</blockquote>
+<h2 id="fan-wai-pian-wei-shi-yao-hui-you-bu-ma-de-chu-xian">番外篇：为什么会有补码的出现？？？？<a class="zola-anchor" href="#fan-wai-pian-wei-shi-yao-hui-you-bu-ma-de-chu-xian" aria-label="Anchor link for: fan-wai-pian-wei-shi-yao-hui-you-bu-ma-de-chu-xian">🔗</a></h2>
+<ul>
+<li>计算机中只有加法</li>
+</ul>
+<blockquote>
+<p>从小学开始，亲爱的数学老师就告诉我们，在数学中，一个数减去另一个数</p>
+<p>等于该数加上另一个数的相反数(负数)</p>
+</blockquote>
+<ul>
+<li>举个栗子：用原码计算 <code>1-1=1+(-1)=0</code></li>
+</ul>
+<p><img src="https://imgsforme.oss-cn-hangzhou.aliyuncs.com/imgs/solo-fetchupload-14180390376761256158-e506c130.png" alt="" /></p>
+<blockquote>
+<p>∴易知，利用二进制原码进行计算时，出现了错误的结果，<code>显然1-1=0而不等于-2</code></p>
+<p>你可能已经想到，既然原码不行，那么用反码怎么样？继续看…..</p>
+</blockquote>
+<ul>
+<li>举个栗子：用反码计算 <code>1-1=1+(-1)=0</code></li>
+</ul>
+<p><img src="https://imgsforme.oss-cn-hangzhou.aliyuncs.com/imgs/solo-fetchupload-18027988502619096185-e1dbbd1b.png" alt="" /></p>
+<blockquote>
+<h2 id="zhu-yi-la">注意啦！！！<a class="zola-anchor" href="#zhu-yi-la" aria-label="Anchor link for: zhu-yi-la">🔗</a></h2>
+</blockquote>
+<blockquote>
+<p>最后的计算结果是<code>-0</code>(负零)，虽然在数学上，0和-0可以等价，但在计算机中不行，因为已经有实例证出，两个二进制反码相减的结果等于-0的数并不唯一，了解更多，可以<a href="https://www.baidu.com">百度</a>，或者自己摸索。这里不再赘述。</p>
+</blockquote>
+<blockquote>
+<p>∴ 在利用其反码进行计算时，也出现了不合理的结论，可见光有原码和反码并不完善，接下来有请压轴大佬补码出场。</p>
+</blockquote>
+<p><img src="https://imgsforme.oss-cn-hangzhou.aliyuncs.com/imgs/solo-fetchupload-3663699271995589813-b745d611.png" alt="" /></p>
+<blockquote>
+<p>由此,通过<em><strong>补码</strong></em>大佬的一番操作，终于将1-1=0证出，成功捍卫了二进制减法的地位！！！！</p>
+</blockquote>
+<h2 id="jin-zhi-zhuan-huan-er-jin-zhi-yu-shi-jin-zhi">进制转换（二进制与十进制）<a class="zola-anchor" href="#jin-zhi-zhuan-huan-er-jin-zhi-yu-shi-jin-zhi" aria-label="Anchor link for: jin-zhi-zhuan-huan-er-jin-zhi-yu-shi-jin-zhi">🔗</a></h2>
+<p>老规矩，正式进入内容之前，有必要了解一下几个相关的概念。</p>
+<ul>
+<li>基数</li>
+</ul>
+<blockquote>
+<p>数值位<code>x</code>进制，其基数就是<code>x</code> —这里给出个人笔记上理解，喜欢完整解释的自行 <a href="https://ilikexff.cn/tu-jie-er-jin-zhi/www.baidu.com">百度</a></p>
+<p>举个栗子：<strong>十进制的基数位10，二进制的基数位2</strong></p>
+</blockquote>
+<ul>
+<li>
+<p>权</p>
+<blockquote>
+<p>也称<strong>位权</strong> 数进制中每一位固定位置对应的单位值。</p>
+<p>举个栗子：</p>
+<p>十进制的第二位的权位 10，第三位权位100，类推成立</p>
+<p>二进制第二位的权位2</p>
+<p>第三位权位4 类推成立</p>
+</blockquote>
+</li>
+</ul>
+<p>总结：对于N进制数，整数部分第<code>i</code>位的权为$N^{i-1}$</p>
+<p><img src="https://b3logfile.com/file/2022/08/solo-fetchupload-14138108637687718183-e49ae0e8.jpeg" alt="" /></p>
+<p>而小数部分第<code>j</code>位权为$N^{(-j)}$</p>
+<ul>
+<li>系数，基数，幂的图示</li>
+</ul>
+<p><img src="https://imgsforme.oss-cn-hangzhou.aliyuncs.com/imgs/solo-fetchupload-5964279234040226951-da5d98dc.png" alt="" /></p>
+<h2 id="shi-jin-zhi-zhuan-er-jin-zhi-zheng-shu">十进制转二进制（整数）<a class="zola-anchor" href="#shi-jin-zhi-zhuan-er-jin-zhi-zheng-shu" aria-label="Anchor link for: shi-jin-zhi-zhuan-er-jin-zhi-zheng-shu">🔗</a></h2>
+<p><img src="https://imgsforme.oss-cn-hangzhou.aliyuncs.com/imgs/solo-fetchupload-4551935672665525332-bb3ad661.png" alt="" /></p>
+<blockquote>
+<p>小结：记住<strong>除基倒取余</strong> 即确定基数，将原值一直除以基数再记录得到的余数，最后倒着将余数写出，根据情况补位即可完成转换。</p>
+</blockquote>
+<h2 id="er-jin-zhi-zhuan-shi-jin-zhi-zheng-shu">二进制转十进制（整数）<a class="zola-anchor" href="#er-jin-zhi-zhuan-shi-jin-zhi-zheng-shu" aria-label="Anchor link for: er-jin-zhi-zhuan-shi-jin-zhi-zheng-shu">🔗</a></h2>
+<ul>
+<li>补齐二进制位数（注意符号位：0表正，1表负）</li>
+<li>将位数乘以对应的权值</li>
+<li>相加即可</li>
+</ul>
+<p>举个栗子：将二进制1010转十进制</p>
+<p><img src="https://imgsforme.oss-cn-hangzhou.aliyuncs.com/imgs/solo-fetchupload-15253076057933170102-d0fec7fa.jpeg" alt="" /></p>
+<ul>
+<li>
+<p>特别的，若补足位的二进制符号位为1时，要先取反再换算。</p>
+<p><img src="https://imgsforme.oss-cn-hangzhou.aliyuncs.com/imgs/solo-fetchupload-14174307743488397285-39098105.jpeg" alt="" /></p>
+</li>
+</ul>
+<blockquote>
+<p>小数和负数的进制转换后序更新…..</p>
+</blockquote>
+<h2 id="an-wei-yu-huo-yi-huo-zuo-you-yi-yun-suan">按位与，或，异或，左右移运算<a class="zola-anchor" href="#an-wei-yu-huo-yi-huo-zuo-you-yi-yun-suan" aria-label="Anchor link for: an-wei-yu-huo-yi-huo-zuo-you-yi-yun-suan">🔗</a></h2>
+<h3 id="an-wei-yu">按位与（&amp;）<a class="zola-anchor" href="#an-wei-yu" aria-label="Anchor link for: an-wei-yu">🔗</a></h3>
+<p>图解：<code>3 &amp; 5 = 1</code></p>
+<p><img src="https://imgsforme.oss-cn-hangzhou.aliyuncs.com/imgs/solo-fetchupload-1224537827999265403-1200d014.png" alt="" /></p>
+<h3 id="an-wei-huo">按位或|<a class="zola-anchor" href="#an-wei-huo" aria-label="Anchor link for: an-wei-huo">🔗</a></h3>
+<p>图解：<code>2 | 4 = 6</code></p>
+<p><img src="https://imgsforme.oss-cn-hangzhou.aliyuncs.com/imgs/solo-fetchupload-13024199376254218033-a33176a7.png" alt="" /></p>
+<h3 id="an-wei-yi-huo">按位异或 ^<a class="zola-anchor" href="#an-wei-yi-huo" aria-label="Anchor link for: an-wei-yi-huo">🔗</a></h3>
+<p>图解：<code>6 ^ 7 = 1</code></p>
+<p><img src="https://imgsforme.oss-cn-hangzhou.aliyuncs.com/imgs/solo-fetchupload-5223363497533853791-b7cfeeb4.png" alt="" /></p>
+<h3 id="an-wei-fei">按位非～<a class="zola-anchor" href="#an-wei-fei" aria-label="Anchor link for: an-wei-fei">🔗</a></h3>
+<p>图解：<code>～ （-5） = 4</code></p>
+<p><img src="https://imgsforme.oss-cn-hangzhou.aliyuncs.com/imgs/solo-fetchupload-11736361739125057160-1c147fcc.png" alt="" /></p>
+<h3 id="zuo-yi-yun-suan">左移运算&lt;&lt;<a class="zola-anchor" href="#zuo-yi-yun-suan" aria-label="Anchor link for: zuo-yi-yun-suan">🔗</a></h3>
+<p>文解：<code>(-5)&lt;&lt;2=(-20)</code></p>
+<ul>
+<li>位移对象时进制数的补码</li>
+<li>将二进制码左移<code>x</code>位，空出的位置用<code>0</code>填充</li>
+</ul>
+<pre style="background-color:#002b36;color:#839496;"><code><span>(-5)的补码：1111 1011
+</span><span>左移2位： 1110 1100
+</span><span>转位原码：1001 0100(-20)
+</span></code></pre>
+<h3 id="you-yi-yun-suan">右移运算&gt;&gt;<a class="zola-anchor" href="#you-yi-yun-suan" aria-label="Anchor link for: you-yi-yun-suan">🔗</a></h3>
+<p>文解：<code>(-5)&gt;&gt;2</code></p>
+<pre style="background-color:#002b36;color:#839496;"><code><span>(-5)的补码：1111 1011
+</span><span>右移2位：   1111 1110
+</span><span>求出原码:   0000 0010(-2)
+</span></code></pre>
+<blockquote>
+<p>注意：上述步骤中的求原码不是必须的，为了方便讲解而已。</p>
+</blockquote>
+<h2 id="er-jin-zhi-jia-fa">二进制加法<a class="zola-anchor" href="#er-jin-zhi-jia-fa" aria-label="Anchor link for: er-jin-zhi-jia-fa">🔗</a></h2>
+<ul>
+<li>两整数二进制相加时，从低位（右边）开始</li>
+<li>依次对每一位进行加法运算</li>
+<li>规则：<code>1+1=10,1+0=1,0+0=0,0+1=1</code></li>
+<li>注意<code>1+1=10</code>满足进位条件，需要向前一位进1，0写在本位</li>
+</ul>
+<p>图解：<code>23+13 = 36</code>的二进制加法</p>
+<p><img src="https://imgsforme.oss-cn-hangzhou.aliyuncs.com/imgs/solo-fetchupload-16673569776653302162-32b6139f.png" alt="" /></p>
+<blockquote>
+<p>PS:二进制的减法，乘法和除法与其他部分相关内容将在后序的笔记中更新…感谢阅读与指正。</p>
+</blockquote>
+<p><strong>我的博客即将同步至腾讯云开发者社区，邀请大家一同入驻：</strong><a href="https://cloud.tencent.com/developer/support-plan?invite_code=1hq2mccc3t0zm">https://cloud.tencent.com/developer/support-plan?invite_code=1hq2mccc3t0zm</a></p>
+
+      
+    </div><!--./card-body-->
+
+    <div class="card-footer">
+      <div class="columns">
+        <div class="column col-9 col-sm-7">
+          <div class="taxonomies text-left">
+            
+
+    
+          </div>
+        </div><!--./col-6-->
+        
+        </div><!--./columns-->
+    </div><!--./card-footer-->
+</div><!--./card-->
+</div>
+              <div id="sidebar" class="column col-4 col-md-12">
+                <div class="sidebar-content">
+                  
+                  
+<div class="sidebar-widget">
+  <div class="tile">
+    <div class="tile-icon">
+      <figure class="avatar avatar-xl">
+        <img src="https://ilikexff.cn/avatar.png" alt="author avatar image">
+      </figure>
+    </div>
+    <div class="tile-content">
+      <p class="tile-title" style="font-weight: 600;">慕予</p>
+      <p class="tile-subtitle">热爱编程，专注于技术分享和学习</p>
+    </div>
+</div><!--./tile-->
+</div>
+
+                  
+                  
+<div class="sidebar-widget">
+  欢迎来到<strong>慕予博客</strong>！这里分享技术文章和编程心得。
+</div><!-- end text widget -->
+
+                  
+
+                  </div><!--./sidebar-content-->
+              </div>
+            </div>
+            
+          </section>
+        </section></section>
+<section class="container grid-xl">
+<ul class="pagination paginator">
+  
+  
+</ul>
+</section>
+</div><!-- ./page-wrapper -->
+
+    
+<div class="mobile-container">
+        <div class="overlay" id="overlay">
+            <div style="padding: 1rem;">
+              
+<a class="site-logo" href="https:&#x2F;&#x2F;ilikexff.cn">
+  
+  <div class="col-mx-auto">
+    <figure style="margin: 8px">
+      <img class="img-responsive"
+           style="max-height: 45px"
+           alt="frontmatter image"
+           src="https://ilikexff.cn/./logo.svg">
+    </figure>
+  </div>
+  
+</a>
+
+            </div>
+            <nav class="overlay-menu">
+              
+
+<ul class="tree treemenu treemenu-root"><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/tags">标签</a>
+    </li><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/categories">分类</a>
+    </li><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/about">关于</a>
+    </li></ul>
+
+
+              </nav>
+        </div>
+    </div>
+
+<script type="text/javascript">
+  var overlay = document.getElementById('overlay');
+  var toggle = document.getElementById('toggle');
+
+  function openOverlay(){
+      // Open overlay
+      if (overlay.classList.contains("open")) {
+          overlay.classList.remove("open");
+      }
+      else {
+          overlay.classList.add("open");
+      }
+
+      // Button transition
+      if (toggle.classList.contains("active")) {
+          toggle.classList.remove("active");
+      }
+      else {
+          toggle.classList.add("active");
+      }
+    }
+</script>
+
+<section id="footer" class="bg-gray">
+  <div class="container grid-xl">
+    
+
+
+    <div class="columns">
+      
+      <div class="column col-6 col-lg-12 col-mx-auto" style="text-align: center;">
+        简单是效率的灵魂 | 黔ICP备2021010295号
+      </div>
+      
+      <div class="column col-6 col-lg-12 col-mx-auto" style="text-align: center;">
+        Made by <a href="https://github.com/gicrisf/">gicrisf</a> -
+        <strong>Zhuia</strong>&nbsp;<a href="https://github.com/gicrisf/zhuia">source code</a>
+        is licensed under <a href="http://opensource.org/licenses/mit-license.php" target="_blank">MIT</a>.
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>
