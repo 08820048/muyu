@@ -1,6 +1,349 @@
 /* ========================================
-   Telegram 风格主题 - 慕予博客
+   Telegram 风格主题 - 八尺妖剑
    ======================================== */
+
+/* ========================================
+   页面过渡动画和交互动画
+   ======================================== */
+
+/* 页面加载动画 */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideInFromLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInFromRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* 页面整体动画 */
+body {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* 主要内容区域动画 */
+.content, .main-content, main, .section {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* 文章卡片动画 */
+article, .post {
+    animation: fadeInUp 0.7s ease-out;
+    animation-fill-mode: both;
+}
+
+/* 为多个文章添加延迟动画 */
+article:nth-child(1), .post:nth-child(1) { animation-delay: 0.1s; }
+article:nth-child(2), .post:nth-child(2) { animation-delay: 0.2s; }
+article:nth-child(3), .post:nth-child(3) { animation-delay: 0.3s; }
+article:nth-child(4), .post:nth-child(4) { animation-delay: 0.4s; }
+article:nth-child(5), .post:nth-child(5) { animation-delay: 0.5s; }
+
+/* 侧边栏动画 */
+.sidebar, .sidebar-content {
+    animation: slideInFromRight 0.8s ease-out;
+}
+
+/* 头部动画 */
+header#header.section {
+    animation: slideInFromLeft 0.6s ease-out;
+}
+
+/* 页面跳转过渡效果 */
+html {
+    scroll-behavior: smooth;
+}
+
+/* 链接点击动画 */
+a {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+    z-index: 1;
+}
+
+a:hover::before {
+    left: 100%;
+}
+
+/* 按钮点击波纹效果 */
+.button, .btn, input[type="submit"], input[type="button"] {
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.button::after, .btn::after, input[type="submit"]::after, input[type="button"]::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.button:active::after, .btn:active::after,
+input[type="submit"]:active::after, input[type="button"]:active::after {
+    width: 300px;
+    height: 300px;
+}
+
+/* 卡片悬停动画增强 */
+article, .post, .card, .box {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+article:hover, .post:hover, .card:hover, .box:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* 导航链接动画增强 */
+.dropmenu ul li a {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.dropmenu ul li a::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--tg-primary);
+    transition: width 0.3s ease;
+}
+
+.dropmenu ul li a:hover::before {
+    width: 100%;
+}
+
+/* 标签云动画 */
+.tag, .category {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+.tag:hover, .category:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 136, 204, 0.3);
+}
+
+/* 图片加载动画 */
+img {
+    transition: all 0.3s ease;
+    opacity: 0;
+    animation: fadeIn 0.5s ease forwards;
+}
+
+img:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+
+/* 表格行悬停动画 */
+tr {
+    transition: background-color 0.2s ease;
+}
+
+tr:hover {
+    background-color: var(--tg-primary-lighter) !important;
+}
+
+/* 输入框聚焦动画 */
+input, textarea, select {
+    transition: all 0.3s ease;
+    border: 2px solid var(--tg-border);
+    border-radius: var(--tg-radius);
+    padding: 12px;
+}
+
+input:focus, textarea:focus, select:focus {
+    border-color: var(--tg-primary);
+    box-shadow: 0 0 0 3px rgba(0, 136, 204, 0.1);
+    transform: scale(1.02);
+    outline: none;
+}
+
+/* 代码块动画 */
+pre {
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+pre:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* 引用块动画 */
+blockquote {
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+blockquote:hover {
+    transform: translateX(5px);
+    box-shadow: -5px 0 15px rgba(0, 136, 204, 0.1);
+}
+
+/* 分页按钮动画 */
+.pagination a, .pagination span {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.pagination a:hover {
+    transform: translateY(-2px) scale(1.1);
+    box-shadow: 0 8px 16px rgba(0, 136, 204, 0.3);
+}
+
+/* 侧边栏模块动画 */
+.sidebar > div, .sidebar-content > div {
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.sidebar > div:hover, .sidebar-content > div:hover {
+    transform: translateX(-5px);
+    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+}
+
+/* 头像动画 */
+.author-avatar, .avatar {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.author-avatar:hover, .avatar:hover {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 10px 20px rgba(0, 136, 204, 0.3) !important;
+}
+
+/* Logo动画 */
+.site-logo {
+    transition: all 0.3s ease;
+}
+
+.site-logo:hover {
+    transform: scale(1.05);
+}
+
+.site-logo img {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.site-logo img:hover {
+    transform: rotate(360deg) scale(1.1);
+}
+
+/* 移动端菜单动画 */
+.navbar-menu, .nav-menu {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(-20px);
+    opacity: 0;
+}
+
+.navbar-menu.is-active, .nav-menu.is-active {
+    transform: translateY(0);
+    opacity: 1;
+    animation: slideInFromTop 0.3s ease;
+}
+
+@keyframes slideInFromTop {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* 页面滚动时的视差效果 */
+@media (prefers-reduced-motion: no-preference) {
+    .parallax-element {
+        transform: translateZ(0);
+        will-change: transform;
+    }
+}
+
+/* 减少动画的用户偏好设置 */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
 
 /* CSS 变量定义 - Telegram 色彩系统 */
 :root {
