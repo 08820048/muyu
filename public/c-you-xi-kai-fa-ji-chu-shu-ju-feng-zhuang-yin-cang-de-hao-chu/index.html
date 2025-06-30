@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="zh" data-theme="light" dir="ltr">
+  <head>
+    <title>[C++游戏开发基础]:数据封装(隐藏)的好处 - 八尺妖剑</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="探讨C++中数据封装的概念、实现方法及其在游戏开发中的重要性"/>
+
+    <meta property="og:title" content="八尺妖剑 -&nbsp;[C++游戏开发基础]:数据封装(隐藏)的好处" />
+    <meta property="og:type" content="website"/><meta property="og:url" content="https:&#x2F;&#x2F;ilikexff.cn&#x2F;c-you-xi-kai-fa-ji-chu-shu-ju-feng-zhuang-yin-cang-de-hao-chu&#x2F;"/><meta property="og:description" content="探讨C++中数据封装的概念、实现方法及其在游戏开发中的重要性"/>
+
+
+    <meta name="twitter:card" content="summary">
+
+
+    <link rel="stylesheet" href="https://ilikexff.cn/spectre/spectre.css">
+    <link rel="stylesheet" href="https://ilikexff.cn/theme.css"><link rel="stylesheet" href="https://ilikexff.cn/custom.css">
+    
+<link rel="alternate" type="application/rss+xml" title="八尺妖剑 RSS" href="https://ilikexff.cn/rss.xml">
+        
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script>
+        function doRenderMath() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false},
+                {left: "\\begin{equation}", right: "\\end{equation}", display: true},
+                {left: "\\begin{align}", right: "\\end{align}", display: true},
+                {left: "\\begin{alignat}", right: "\\end{alignat}", display: true},
+                {left: "\\begin{gather}", right: "\\end{gather}", display: true},
+                {left: "\\begin{CD}", right: "\\end{CD}", display: true},
+                {left: "\\[", right: "\\]", display: true}
+                ]
+            });
+        }
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+        onload="doRenderMath()"></script>
+
+      </head>
+  <body id="top" class="sticky-footer"><div id="page-wrapper">
+<header id="header" class="section">
+  <section class="container grid-xl">
+    <nav class="navbar">
+      <section class="navbar-section">
+        
+<a class="site-logo" href="https:&#x2F;&#x2F;ilikexff.cn">
+  
+  <div class="col-mx-auto">
+    <figure style="margin: 8px">
+      <img class="img-responsive"
+           style="max-height: 45px"
+           alt="frontmatter image"
+           src="https://ilikexff.cn/./logo.svg">
+    </figure>
+  </div>
+  
+</a>
+
+      </section><!-- ./home button -->
+
+      <section class="navbar-center hide-md"></section>
+
+      <section class="navbar-section">
+        <nav class="dropmenu animated hide-md">
+
+<ul><li>
+        <a href="https://ilikexff.cn/tags">标签</a>
+    </li><li>
+        <a href="https://ilikexff.cn/categories">分类</a>
+    </li><li>
+        <a href="https://ilikexff.cn/about">关于</a>
+    </li></ul>
+
+
+          </nav>
+      </section><!-- ./desktop-menu -->
+    </nav>
+  </section><!-- ./container -->
+</header>
+
+
+<div class="mobile-menu">
+  <div class="button_container" id="toggle" onclick="openOverlay()">
+    <span class="top"></span>
+    <span class="middle"></span>
+    <span class="bottom"></span>
+  </div>
+</div><!--./mobile-menu-->
+
+
+<section id="start"><section id="body-wrapper" class="section">
+          <section class="container grid-xl">
+<div id="breadcrumbs" itemtype="http://schema.org/BreadcrumbList" class="hide-sm">
+  
+    
+    <span><a href="https:&#x2F;&#x2F;ilikexff.cn&#x2F;">Home</a></span>
+  
+    <span><a href="https:&#x2F;&#x2F;ilikexff.cn&#x2F;c-you-xi-kai-fa-ji-chu-shu-ju-feng-zhuang-yin-cang-de-hao-chu&#x2F;">[C++游戏开发基础]:数据封装(隐藏)的好处</a></span>
+</div>
+<div class="columns">
+              <div id="item" class="column col-8 col-md-12 extra-spacing">
+<div class="card">
+  
+
+    <div class="card-header">
+      <div class="card-title" style="margin-top: .25rem;"><div>
+          <h1 class="post-title">[C++游戏开发基础]:数据封装(隐藏)的好处</h1>
+          
+    <div class="post-meta" style="display: inline-flex">
+        <span class="blog-date" style="display: inline-flex;">
+          <i class="gg-calendar" style="margin-right: 5px;"></i><time datetime="2025.06.19">
+          2025.06.19
+          </time></span><span class="post-author" style="margin-left: 5px; display: inline-flex;">
+          - 
+    慕予
+        </span></div>
+
+        </div></div>
+    </div><!--./card-header-->
+
+    <div class="card-body">
+      
+        <ul>
+<li>
+<p>在现代生活中，我们有许多机械或电子设备。你通过遥控器开关电视。你通过踩油门使汽车前进。你通过开关来打开灯。</p>
+</li>
+<li>
+<p>实际上这些设备是如何运作的对你来说是隐藏起来的。当你按下遥控器上的按钮时，你不需要知道遥控器是如何与电视进行通信的。</p>
+</li>
+<li>
+<p>当你踩下汽车的油门时，你不需要知道内燃机是如何让车轮转动的。当你拍照时，你不需要知道传感器是如何收集光线并将光线转换成像素图像的。</p>
+</li>
+<li>
+<p>这种接口和实现的分离非常有用，因为它允许我们在不需要理解它们如何工作的情况下使用对象——我们只需要了解如何与它们交互。这大大减少了使用这些对象的复杂性，并增加了我们可以交互的对象数量。</p>
+</li>
+</ul>
+<hr />
+<h2 id="lei-de-jie-kou-yu-shi-xian-de-fen-chi">类的接口与实现的分离<a class="zola-anchor" href="#lei-de-jie-kou-yu-shi-xian-de-fen-chi" aria-label="Anchor link for: lei-de-jie-kou-yu-shi-xian-de-fen-chi">🔗</a></h2>
+<p>在编程中，接口（interface）和实现（implementation）的分离是非常有用的概念。让我们先明确在类（class）类型中，这两个术语的含义。</p>
+<p><strong>什么是接口</strong></p>
+<p>类的接口（也称为<strong>类接口</strong>）定义了类的用户如何与该类的对象进行交互。由于<strong>只有公有成员（public members）</strong> 可以被类外部访问，因此，<strong>类的公有成员构成了该类的接口</strong>。由于接口由公有成员组成，因此它有时也被称为<strong>公有接口（public interface）</strong>。</p>
+<p>接口是<strong>类的作者</strong>和<strong>类的使用者</strong>之间的一种<strong>隐式契约（implicit contract）</strong>。</p>
+<ul>
+<li><strong>一旦类的接口被使用，就不能轻易修改</strong>，因为任何对接口的更改都可能导致依赖它的代码发生错误。</li>
+<li>因此，我们应该<strong>确保类的接口设计良好且稳定</strong>，尽量减少不必要的更改。</li>
+</ul>
+<p><strong>什么是实现</strong></p>
+<p>类的<strong>实现</strong>指的是<strong>使类按照预期行为运行的代码</strong>，它包括：</p>
+<ul>
+<li><strong>成员变量（member variables）：</strong> 用于存储数据。</li>
+<li><strong>成员函数的具体实现（bodies of member functions）：</strong> 包含程序逻辑并操作成员变量。</li>
+</ul>
+<p>换句话说，<strong>实现是支撑类功能的幕后代码</strong>，它决定了类的行为方式，而接口只是提供了与外部交互的方式。</p>
+<hr />
+<h2 id="shu-ju-feng-zhuang-shi-lei-geng-rong-yi-shi-yong-bing-jiang-di-liao-fu-za-xing">数据封装使类更容易使用并降低了复杂性<a class="zola-anchor" href="#shu-ju-feng-zhuang-shi-lei-geng-rong-yi-shi-yong-bing-jiang-di-liao-fu-za-xing" aria-label="Anchor link for: shu-ju-feng-zhuang-shi-lei-geng-rong-yi-shi-yong-bing-jiang-di-liao-fu-za-xing">🔗</a></h2>
+<p>使用封装类时，你不需要知道它的实现细节。你只需要理解它的接口：哪些成员函数是公开的，它们接受什么参数，以及返回什么值。</p>
+<p>比如:</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">string_view</span><span>&gt;
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    std::string_view </span><span style="color:#b58900;">sv</span><span style="color:#657b83;">{ </span><span>&quot;</span><span style="color:#2aa198;">Hello, world!</span><span>&quot; </span><span style="color:#657b83;">}</span><span>;
+</span><span>    std::cout </span><span style="color:#657b83;">&lt;&lt;</span><span> sv.</span><span style="color:#b58900;">length</span><span style="color:#657b83;">()</span><span>;
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>在这个简短的程序中，我们看不到 <code>std::string_view</code> 的实现细节。我们不知道 <code>std::string_view</code> 有多少个数据成员、它们的名字或类型是什么。我们也不知道 <code>length()</code> 成员函数是如何返回所查看字符串的长度的。</p>
+<p>不必关心这些细节极大地降低了程序的复杂性，从而减少了错误。这是封装的关键优势，比其他任何原因都更为重要。</p>
+<p>不妨想象一下:如果要使用 <code>std::string</code> 、 <code>std::vector</code> 或 <code>std::cout</code> ，就必须理解它们的实现细节，C++ 会变得多么复杂！</p>
+<hr />
+<h2 id="shu-ju-feng-zhuang-neng-geng-hao-de-wei-hu-bu-bian-liang">数据封装能更好的维护不变量<a class="zola-anchor" href="#shu-ju-feng-zhuang-neng-geng-hao-de-wei-hu-bu-bian-liang" aria-label="Anchor link for: shu-ju-feng-zhuang-neng-geng-hao-de-wei-hu-bu-bian-liang">🔗</a></h2>
+<p>所谓不变量,即为了使对象在整个生命周期内保持有效状态而必须满足的条件。</p>
+<p>考虑下面程序:</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">string</span><span>&gt;
+</span><span>
+</span><span style="color:#268bd2;">struct </span><span style="color:#b58900;">Employee </span><span style="color:#586e75;">// 结构体的成员默认是 public（公有的）
+</span><span style="color:#657b83;">{
+</span><span>    std::string </span><span style="color:#b58900;">name</span><span style="color:#657b83;">{ </span><span>&quot;</span><span style="color:#2aa198;">John</span><span>&quot; </span><span style="color:#657b83;">}</span><span>; </span><span style="color:#586e75;">// 员工姓名，默认值为 &quot;John&quot;
+</span><span>    </span><span style="color:#268bd2;">char </span><span style="color:#b58900;">firstInitial</span><span style="color:#657b83;">{ </span><span>&#39;</span><span style="color:#2aa198;">J</span><span>&#39; </span><span style="color:#657b83;">}</span><span>;   </span><span style="color:#586e75;">// 员工的首字母，默认值为 &#39;J&#39;（应与 name 的首字母匹配）
+</span><span>
+</span><span>    </span><span style="color:#268bd2;">void </span><span style="color:#b58900;">print</span><span style="color:#657b83;">() </span><span style="color:#859900;">const </span><span style="color:#586e75;">// 输出员工信息
+</span><span>    </span><span style="color:#657b83;">{
+</span><span>        std::cout </span><span style="color:#657b83;">&lt;&lt; </span><span>&quot;</span><span style="color:#2aa198;">Employee </span><span>&quot; </span><span style="color:#657b83;">&lt;&lt;</span><span> name </span><span style="color:#657b83;">&lt;&lt; </span><span>&quot;</span><span style="color:#2aa198;"> has first initial </span><span>&quot; </span><span style="color:#657b83;">&lt;&lt;</span><span> firstInitial </span><span style="color:#657b83;">&lt;&lt; </span><span>&#39;</span><span style="color:#dc322f;">\n</span><span>&#39;;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span style="color:#657b83;">}</span><span>;
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    Employee </span><span style="color:#b58900;">e</span><span style="color:#657b83;">{}</span><span>; </span><span style="color:#586e75;">// 使用默认值初始化 Employee（name=&quot;John&quot;, firstInitial=&#39;J&#39;）
+</span><span>    e.</span><span style="color:#b58900;">print</span><span style="color:#657b83;">()</span><span>; </span><span style="color:#586e75;">// 输出：&quot;Employee John has first initial J&quot;
+</span><span>
+</span><span>    e.</span><span style="color:#268bd2;">name </span><span style="color:#657b83;">= </span><span>&quot;</span><span style="color:#2aa198;">Mark</span><span>&quot;; </span><span style="color:#586e75;">// 修改员工的姓名为 &quot;Mark&quot;
+</span><span>    e.</span><span style="color:#b58900;">print</span><span style="color:#657b83;">()</span><span>; </span><span style="color:#586e75;">// 由于 firstInitial 没有同步更新，此时仍然是 &#39;J&#39;，导致输出的首字母错误
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>因为 <code>name</code> 成员是公共的， <code>main()</code> 中的代码能够将 <code>e.name</code> 设置为 <code>"Mark"</code> ，而 <code>firstInitial</code> 成员没有被更新。我们的不变式被破坏了，所以对 <code>print()</code> 的第二次调用没有按预期工作。</p>
+<p>如果我们直接给用户提供类的实现访问权限，他们就需要负责维护所有不变量,这显然不太现实。</p>
+<p>让我们重写这个程序，将我们的成员变量设为私有，并暴露一个成员函数来设置 Employee 的名字：</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">string</span><span>&gt;
+</span><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">string_view</span><span>&gt;
+</span><span>
+</span><span style="color:#268bd2;">class </span><span style="color:#b58900;">Employee 
+</span><span style="color:#657b83;">{
+</span><span>    std::string </span><span style="color:#268bd2;">m_name</span><span style="color:#657b83;">{}</span><span>;
+</span><span>    </span><span style="color:#268bd2;">char m_firstInitial</span><span style="color:#657b83;">{}</span><span>;
+</span><span>
+</span><span style="color:#859900;">public</span><span style="color:#657b83;">:
+</span><span>    </span><span style="color:#268bd2;">void </span><span style="color:#b58900;">setName</span><span style="color:#657b83;">(</span><span>std::string_view </span><span style="color:#268bd2;">name</span><span style="color:#657b83;">)
+</span><span>    </span><span style="color:#657b83;">{
+</span><span>        </span><span style="color:#268bd2;">m_name </span><span style="color:#657b83;">=</span><span> name;
+</span><span>        </span><span style="color:#268bd2;">m_firstInitial </span><span style="color:#657b83;">=</span><span> name.</span><span style="color:#b58900;">front</span><span style="color:#657b83;">()</span><span>; </span><span style="color:#586e75;">// use std::string::front() to get first letter of `name`
+</span><span>    </span><span style="color:#657b83;">}
+</span><span>
+</span><span>    </span><span style="color:#268bd2;">void </span><span style="color:#b58900;">print</span><span style="color:#657b83;">() </span><span style="color:#859900;">const
+</span><span>    </span><span style="color:#657b83;">{
+</span><span>        std::cout </span><span style="color:#657b83;">&lt;&lt; </span><span>&quot;</span><span style="color:#2aa198;">Employee </span><span>&quot; </span><span style="color:#657b83;">&lt;&lt; </span><span style="color:#268bd2;">m_name </span><span style="color:#657b83;">&lt;&lt; </span><span>&quot;</span><span style="color:#2aa198;"> has first initial </span><span>&quot; </span><span style="color:#657b83;">&lt;&lt; </span><span style="color:#268bd2;">m_firstInitial </span><span style="color:#657b83;">&lt;&lt; </span><span>&#39;</span><span style="color:#dc322f;">\n</span><span>&#39;;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span style="color:#657b83;">}</span><span>;
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    Employee </span><span style="color:#b58900;">e</span><span style="color:#657b83;">{}</span><span>;
+</span><span>    e.</span><span style="color:#b58900;">setName</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">John</span><span>&quot;</span><span style="color:#657b83;">)</span><span>;
+</span><span>    e.</span><span style="color:#b58900;">print</span><span style="color:#657b83;">()</span><span>;
+</span><span>
+</span><span>    e.</span><span style="color:#b58900;">setName</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">Mark</span><span>&quot;</span><span style="color:#657b83;">)</span><span>;
+</span><span>    e.</span><span style="color:#b58900;">print</span><span style="color:#657b83;">()</span><span>;
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>上面的程序的变更,从用户的角度来看，唯一的变化是他们不再直接给 <code>name</code> 分配一个值，而是调用成员函数 <code>setName()</code> ，该函数负责同时设置 <code>m_name</code> 和 <code>m_firstInitial</code> 。用户不再需要维护这个不变量！</p>
+<hr />
+<h2 id="shu-ju-feng-zhuang-ke-yi-geng-hao-de-jin-xing-cuo-wu-jian-ce-he-chu-li">数据封装可以更好的进行错误检测和处理<a class="zola-anchor" href="#shu-ju-feng-zhuang-ke-yi-geng-hao-de-jin-xing-cuo-wu-jian-ce-he-chu-li" aria-label="Anchor link for: shu-ju-feng-zhuang-ke-yi-geng-hao-de-jin-xing-cuo-wu-jian-ce-he-chu-li">🔗</a></h2>
+<p>在上述程序中， <code>m_firstInitial</code> 必须与 <code>m_name</code> 的第一个字符匹配这一不变量存在是因为 <code>m_firstInitial</code> 独立于 <code>m_name</code> 存在。我们可以通过将数据成员 <code>m_firstInitial</code> 替换为一个返回第一个字符的成员函数来移除这个特定的不变量。</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">string</span><span>&gt;
+</span><span>
+</span><span style="color:#268bd2;">class </span><span style="color:#b58900;">Employee
+</span><span style="color:#657b83;">{
+</span><span>    std::string </span><span style="color:#268bd2;">m_name</span><span style="color:#657b83;">{ </span><span>&quot;</span><span style="color:#2aa198;">John</span><span>&quot; </span><span style="color:#657b83;">}</span><span>;
+</span><span>
+</span><span style="color:#859900;">public</span><span style="color:#657b83;">:
+</span><span>    </span><span style="color:#268bd2;">void </span><span style="color:#b58900;">setName</span><span style="color:#657b83;">(</span><span>std::string_view </span><span style="color:#268bd2;">name</span><span style="color:#657b83;">)
+</span><span>    </span><span style="color:#657b83;">{
+</span><span>        </span><span style="color:#268bd2;">m_name </span><span style="color:#657b83;">=</span><span> name;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span>
+</span><span>    </span><span style="color:#586e75;">// use std::string::front() to get first letter of `m_name`
+</span><span>    </span><span style="color:#268bd2;">char </span><span style="color:#b58900;">firstInitial</span><span style="color:#657b83;">() </span><span style="color:#859900;">const </span><span style="color:#657b83;">{ </span><span style="color:#859900;">return </span><span style="color:#268bd2;">m_name</span><span>.</span><span style="color:#b58900;">front</span><span style="color:#657b83;">()</span><span>; </span><span style="color:#657b83;">}
+</span><span>
+</span><span>    </span><span style="color:#268bd2;">void </span><span style="color:#b58900;">print</span><span style="color:#657b83;">() </span><span style="color:#859900;">const
+</span><span>    </span><span style="color:#657b83;">{
+</span><span>        std::cout </span><span style="color:#657b83;">&lt;&lt; </span><span>&quot;</span><span style="color:#2aa198;">Employee </span><span>&quot; </span><span style="color:#657b83;">&lt;&lt; </span><span style="color:#268bd2;">m_name </span><span style="color:#657b83;">&lt;&lt; </span><span>&quot;</span><span style="color:#2aa198;"> has first initial </span><span>&quot; </span><span style="color:#657b83;">&lt;&lt; </span><span style="color:#b58900;">firstInitial</span><span style="color:#657b83;">() &lt;&lt; </span><span>&#39;</span><span style="color:#dc322f;">\n</span><span>&#39;;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span style="color:#657b83;">}</span><span>;
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    Employee </span><span style="color:#b58900;">e</span><span style="color:#657b83;">{}</span><span>; </span><span style="color:#586e75;">// defaults to &quot;John&quot;
+</span><span>    e.</span><span style="color:#b58900;">setName</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">Mark</span><span>&quot;</span><span style="color:#657b83;">)</span><span>;
+</span><span>    e.</span><span style="color:#b58900;">print</span><span style="color:#657b83;">()</span><span>;
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>对于上面的程序,还存在一个问题,<code>m_name</code> 不应该是一个空字符串（因为每个 <code>Employee</code> 都应该有一个名称）。如果 <code>m_name</code> 被设置为空字符串，立即不会发生任何糟糕的事情。但如果随后调用了 <code>firstInitial()</code> ， <code>front()</code> 成员将会尝试获取空字符串的第一个字母，这会导致未定义行为。</p>
+<p>如果用户对 <code>m_name</code> 成员有公共访问权限，他们可以直接设置 <code>m_name = ""</code> ，而我们无法阻止这种情况发生。</p>
+<p>然而，因为我们要求用户通过公共接口函数 <code>setName()</code> 设置 <code>m_name</code> ，我们可以在 <code>setName()</code> 中验证用户传递的是一个有效的名称。如果名称非空，我们可以将其赋值给 <code>m_name</code> 。如果名称是空字符串，我们可以采取任何数量的措施进行响应：</p>
+<ul>
+<li>忽略将名称设置为“”的请求，并返回给调用者。</li>
+<li>错误断言</li>
+<li>抛出异常</li>
+<li>其他</li>
+</ul>
+<hr />
+<h2 id="yi-dian-jian-yi-you-xian-shi-yong-fei-cheng-yuan-han-shu-er-bu-shi-cheng-yuan-han-shu">一点建议:优先使用非成员函数而不是成员函数<a class="zola-anchor" href="#yi-dian-jian-yi-you-xian-shi-yong-fei-cheng-yuan-han-shu-er-bu-shi-cheng-yuan-han-shu" aria-label="Anchor link for: yi-dian-jian-yi-you-xian-shi-yong-fei-cheng-yuan-han-shu-er-bu-shi-cheng-yuan-han-shu">🔗</a></h2>
+<p>在C++中,如果一个函数可以合理的作为非成员函数实现,应该优先将其实现为非成员函数,而不是成员函数。 这样做是有原因的:</p>
+<ul>
+<li>非成员函数不是你类接口的一部分,因此,类接口将会变得更小更简洁,使类更容易理解和维护。</li>
+<li>非成员函数能够强化封装性，因为它们必须通过类的公共接口来工作。这样就不会因为方便而直接访问类的内部实现。</li>
+<li>非成员函数通常更容易调试;</li>
+<li>非成员函数可以帮助将应用特定的逻辑从类中分离出来，从而提高类的通用性和可复用性。</li>
+</ul>
+<p>如果你之前有现代面向对象编程（OOP）语言的经验（比如 Java 或 C#），这种做法可能会让你感到意外。这些语言采用了不同的概念模型，在它们的设计中，<strong>类是核心</strong>，所有东西都围绕类展开。</p>
+<p>因此，这些语言强调成员函数（member functions），并且实际上 <strong>Java 和 C# 甚至不支持非成员函数（non-member functions）</strong>。</p>
+<p>这里针对上面最后一条举个例子:</p>
+<p><strong>反向示例:</strong></p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">cmath</span><span>&gt;
+</span><span>
+</span><span style="color:#268bd2;">class </span><span style="color:#b58900;">Vector3D
+</span><span style="color:#657b83;">{
+</span><span style="color:#859900;">private</span><span style="color:#657b83;">:
+</span><span>    </span><span style="color:#268bd2;">double m_x</span><span>, </span><span style="color:#268bd2;">m_y</span><span>, </span><span style="color:#268bd2;">m_z</span><span>;
+</span><span>
+</span><span style="color:#859900;">public</span><span style="color:#657b83;">:
+</span><span>    </span><span style="color:#b58900;">Vector3D</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">double x</span><span>, </span><span style="color:#268bd2;">double y</span><span>, </span><span style="color:#268bd2;">double z</span><span style="color:#657b83;">) </span><span>: </span><span style="color:#268bd2;">m_x</span><span style="color:#657b83;">(</span><span>x</span><span style="color:#657b83;">)</span><span>, </span><span style="color:#268bd2;">m_y</span><span style="color:#657b83;">(</span><span>y</span><span style="color:#657b83;">)</span><span>, </span><span style="color:#268bd2;">m_z</span><span style="color:#657b83;">(</span><span>z</span><span style="color:#657b83;">) {}
+</span><span>
+</span><span>    </span><span style="color:#268bd2;">double </span><span style="color:#b58900;">length</span><span style="color:#657b83;">() </span><span style="color:#859900;">const </span><span style="color:#586e75;">// 计算向量长度
+</span><span>    </span><span style="color:#657b83;">{
+</span><span>        </span><span style="color:#859900;">return </span><span>std::</span><span style="color:#859900;">sqrt</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">m_x </span><span style="color:#859900;">* </span><span style="color:#268bd2;">m_x </span><span style="color:#657b83;">+ </span><span style="color:#268bd2;">m_y </span><span style="color:#859900;">* </span><span style="color:#268bd2;">m_y </span><span style="color:#657b83;">+ </span><span style="color:#268bd2;">m_z </span><span style="color:#859900;">* </span><span style="color:#268bd2;">m_z</span><span style="color:#657b83;">)</span><span>;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span>
+</span><span>    </span><span style="color:#586e75;">// 这个方法把游戏特定的逻辑放进了 Vector3D 中
+</span><span>    </span><span style="color:#268bd2;">void </span><span style="color:#b58900;">applyGravity</span><span style="color:#657b83;">()
+</span><span>    </span><span style="color:#657b83;">{
+</span><span>        </span><span style="color:#268bd2;">m_y </span><span style="color:#657b83;">-= </span><span style="color:#6c71c4;">9.81</span><span>; </span><span style="color:#586e75;">// 物理重力，属于游戏逻辑
+</span><span>    </span><span style="color:#657b83;">}
+</span><span>
+</span><span>    </span><span style="color:#268bd2;">void </span><span style="color:#b58900;">print</span><span style="color:#657b83;">() </span><span style="color:#859900;">const
+</span><span>    </span><span style="color:#657b83;">{
+</span><span>        std::cout </span><span style="color:#657b83;">&lt;&lt; </span><span>&quot;</span><span style="color:#2aa198;">Vector(</span><span>&quot; </span><span style="color:#657b83;">&lt;&lt; </span><span style="color:#268bd2;">m_x </span><span style="color:#657b83;">&lt;&lt; </span><span>&quot;</span><span style="color:#2aa198;">, </span><span>&quot; </span><span style="color:#657b83;">&lt;&lt; </span><span style="color:#268bd2;">m_y </span><span style="color:#657b83;">&lt;&lt; </span><span>&quot;</span><span style="color:#2aa198;">, </span><span>&quot; </span><span style="color:#657b83;">&lt;&lt; </span><span style="color:#268bd2;">m_z </span><span style="color:#657b83;">&lt;&lt; </span><span>&quot;</span><span style="color:#2aa198;">)</span><span style="color:#dc322f;">\n</span><span>&quot;;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span style="color:#657b83;">}</span><span>;
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    Vector3D </span><span style="color:#b58900;">velocity</span><span style="color:#657b83;">(</span><span style="color:#6c71c4;">10</span><span>, </span><span style="color:#6c71c4;">20</span><span>, </span><span style="color:#6c71c4;">30</span><span style="color:#657b83;">)</span><span>;
+</span><span>    velocity.</span><span style="color:#b58900;">applyGravity</span><span style="color:#657b83;">()</span><span>; </span><span style="color:#586e75;">// 调用物理引擎逻辑
+</span><span>    velocity.</span><span style="color:#b58900;">print</span><span style="color:#657b83;">()</span><span>; </span><span style="color:#586e75;">// Vector(10, 10.19, 30) (不符合通用设计)
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<ul>
+<li>applyGravity() 是<strong>游戏特定</strong>的逻辑，而 Vector3D 本身应该是一个通用的数学类。</li>
+<li>如果未来需要在物理模拟、3D 渲染等不同场景使用 Vector3D，这个方法可能就不适用了。</li>
+<li>这导致 Vector3D 变得<strong>不够通用，难以复用</strong>。</li>
+</ul>
+<p><strong>使用非成员函数分离应用逻辑以改进</strong></p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">cmath</span><span>&gt;
+</span><span>
+</span><span style="color:#268bd2;">class </span><span style="color:#b58900;">Vector3D
+</span><span style="color:#657b83;">{
+</span><span style="color:#859900;">private</span><span style="color:#657b83;">:
+</span><span>    </span><span style="color:#268bd2;">double m_x</span><span>, </span><span style="color:#268bd2;">m_y</span><span>, </span><span style="color:#268bd2;">m_z</span><span>;
+</span><span>
+</span><span style="color:#859900;">public</span><span style="color:#657b83;">:
+</span><span>    </span><span style="color:#b58900;">Vector3D</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">double x</span><span>, </span><span style="color:#268bd2;">double y</span><span>, </span><span style="color:#268bd2;">double z</span><span style="color:#657b83;">) </span><span>: </span><span style="color:#268bd2;">m_x</span><span style="color:#657b83;">(</span><span>x</span><span style="color:#657b83;">)</span><span>, </span><span style="color:#268bd2;">m_y</span><span style="color:#657b83;">(</span><span>y</span><span style="color:#657b83;">)</span><span>, </span><span style="color:#268bd2;">m_z</span><span style="color:#657b83;">(</span><span>z</span><span style="color:#657b83;">) {}
+</span><span>
+</span><span>    </span><span style="color:#268bd2;">double </span><span style="color:#b58900;">length</span><span style="color:#657b83;">() </span><span style="color:#859900;">const </span><span style="color:#586e75;">// 计算向量长度
+</span><span>    </span><span style="color:#657b83;">{
+</span><span>        </span><span style="color:#859900;">return </span><span>std::</span><span style="color:#859900;">sqrt</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">m_x </span><span style="color:#859900;">* </span><span style="color:#268bd2;">m_x </span><span style="color:#657b83;">+ </span><span style="color:#268bd2;">m_y </span><span style="color:#859900;">* </span><span style="color:#268bd2;">m_y </span><span style="color:#657b83;">+ </span><span style="color:#268bd2;">m_z </span><span style="color:#859900;">* </span><span style="color:#268bd2;">m_z</span><span style="color:#657b83;">)</span><span>;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span>
+</span><span>    </span><span style="color:#268bd2;">void </span><span style="color:#b58900;">print</span><span style="color:#657b83;">() </span><span style="color:#859900;">const
+</span><span>    </span><span style="color:#657b83;">{
+</span><span>        std::cout </span><span style="color:#657b83;">&lt;&lt; </span><span>&quot;</span><span style="color:#2aa198;">Vector(</span><span>&quot; </span><span style="color:#657b83;">&lt;&lt; </span><span style="color:#268bd2;">m_x </span><span style="color:#657b83;">&lt;&lt; </span><span>&quot;</span><span style="color:#2aa198;">, </span><span>&quot; </span><span style="color:#657b83;">&lt;&lt; </span><span style="color:#268bd2;">m_y </span><span style="color:#657b83;">&lt;&lt; </span><span>&quot;</span><span style="color:#2aa198;">, </span><span>&quot; </span><span style="color:#657b83;">&lt;&lt; </span><span style="color:#268bd2;">m_z </span><span style="color:#657b83;">&lt;&lt; </span><span>&quot;</span><span style="color:#2aa198;">)</span><span style="color:#dc322f;">\n</span><span>&quot;;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span>
+</span><span>    </span><span style="color:#586e75;">// 提供访问和修改 y 分量的接口
+</span><span>    </span><span style="color:#268bd2;">double </span><span style="color:#b58900;">getY</span><span style="color:#657b83;">() </span><span style="color:#859900;">const </span><span style="color:#657b83;">{ </span><span style="color:#859900;">return </span><span style="color:#268bd2;">m_y</span><span>; </span><span style="color:#657b83;">}
+</span><span>    </span><span style="color:#268bd2;">void </span><span style="color:#b58900;">setY</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">double y</span><span style="color:#657b83;">) { </span><span style="color:#268bd2;">m_y </span><span style="color:#657b83;">=</span><span> y; </span><span style="color:#657b83;">}
+</span><span style="color:#657b83;">}</span><span>;
+</span><span>
+</span><span style="color:#586e75;">// 应用层的游戏逻辑：用非成员函数实现重力影响
+</span><span style="color:#268bd2;">void </span><span style="color:#b58900;">applyGravity</span><span style="color:#657b83;">(</span><span>Vector3D</span><span style="color:#859900;">&amp; </span><span style="color:#268bd2;">velocity</span><span style="color:#657b83;">)
+</span><span style="color:#657b83;">{
+</span><span>    velocity.</span><span style="color:#b58900;">setY</span><span style="color:#657b83;">(</span><span>velocity.</span><span style="color:#b58900;">getY</span><span style="color:#657b83;">() - </span><span style="color:#6c71c4;">9.81</span><span style="color:#657b83;">)</span><span>; </span><span style="color:#586e75;">// 物理引擎的重力影响
+</span><span style="color:#657b83;">}
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    Vector3D </span><span style="color:#b58900;">velocity</span><span style="color:#657b83;">(</span><span style="color:#6c71c4;">10</span><span>, </span><span style="color:#6c71c4;">20</span><span>, </span><span style="color:#6c71c4;">30</span><span style="color:#657b83;">)</span><span>;
+</span><span>    </span><span style="color:#b58900;">applyGravity</span><span style="color:#657b83;">(</span><span>velocity</span><span style="color:#657b83;">)</span><span>; </span><span style="color:#586e75;">// 现在 applyGravity() 只影响游戏逻辑
+</span><span>    velocity.</span><span style="color:#b58900;">print</span><span style="color:#657b83;">()</span><span>; </span><span style="color:#586e75;">// Vector(10, 10.19, 30)
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<hr />
+<h2 id="guan-yu-lei-cheng-yuan-sheng-ming-shun-xu-de-tao-lun">关于类成员声明顺序的讨论<a class="zola-anchor" href="#guan-yu-lei-cheng-yuan-sheng-ming-shun-xu-de-tao-lun" aria-label="Anchor link for: guan-yu-lei-cheng-yuan-sheng-ming-shun-xu-de-tao-lun">🔗</a></h2>
+<p>在类外部编写代码时,我们必须在使用变量和函数之前声明它们,然而,在类内部,这种限制并不存在。</p>
+<p>关于如何排序,下面有两种观点:</p>
+<ul>
+<li>首先列出你的私有成员，然后列出你的公有成员函数。这遵循了先声明后使用的传统风格。任何查看你类代码的人可以看到你在使用数据成员之前是如何定义它们的，这可以使阅读和理解实现细节变得更加容易。</li>
+<li>首先列出你的公共成员，然后将私有成员放在底部。因为使用你类的人关心的是公共接口，所以把公共成员放在前面可以让他们需要的信息放在顶部，而把实现细节（这些细节是最不重要的）放在最后。</li>
+</ul>
+<p>在现代C++中,第二种方式更为推荐,尤其是在团队开发中。所以 <strong>最佳实践:</strong></p>
+<blockquote>
+<p>首先声明公共成员,接着声明受保护成员,最后声明私有成员。这样可以突出公共接口并弱化实现细节。</p>
+</blockquote>
+<p>在<code>Google C++</code>风格指南中对这部分有更加详细的阅读,可以自己看看[Google C++style guide](<a class="" href="https://google.github.io/styleguide/cppguide.html#Declaration_Order">Google C++ style guide</a>:)</p>
+
+      
+    </div><!--./card-body-->
+
+    <div class="card-footer">
+      <div class="columns">
+        <div class="column col-9 col-sm-7">
+          <div class="taxonomies text-left">
+            
+
+    
+          </div>
+        </div><!--./col-6-->
+        
+        </div><!--./columns-->
+    </div><!--./card-footer-->
+</div><!--./card-->
+</div>
+              <div id="sidebar" class="column col-4 col-md-12">
+                <div class="sidebar-content">
+                  
+                  
+<div class="sidebar-widget">
+  <div class="tile">
+    <div class="tile-icon">
+      <figure class="avatar avatar-xl">
+        <img src="https://ilikexff.cn/avatar.png" alt="author avatar image">
+      </figure>
+    </div>
+    <div class="tile-content">
+      <p class="tile-title" style="font-weight: 600;">慕予</p>
+      <p class="tile-subtitle">热爱编程，专注于技术分享和学习</p>
+    </div>
+</div><!--./tile-->
+</div>
+
+                  
+                  
+<div class="sidebar-widget">
+  欢迎来到<strong>八尺妖剑</strong>！这里分享技术文章和编程心得。
+</div><!-- end text widget -->
+
+                  
+
+                  
+<div class="sidebar-widget syndicate">
+<h4>Feed</h4>
+<a class="btn" href="/rss.xml">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-rss-fill" viewBox="0 0 16 16">
+  <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm1.5 2.5c5.523 0 10 4.477 10 10a1 1 0 1 1-2 0 8 8 0 0 0-8-8 1 1 0 0 1 0-2zm0 4a6 6 0 0 1 6 6 1 1 0 1 1-2 0 4 4 0 0 0-4-4 1 1 0 0 1 0-2zm.5 7a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+</svg>
+<span>RSS</span>
+</a>
+</div>
+
+                  </div><!--./sidebar-content-->
+              </div>
+            </div>
+            
+          </section>
+        </section></section>
+<section class="container grid-xl">
+<ul class="pagination paginator">
+  
+  
+</ul>
+</section>
+</div><!-- ./page-wrapper -->
+
+    
+<div class="mobile-container">
+        <div class="overlay" id="overlay">
+            <div style="padding: 1rem;">
+              
+<a class="site-logo" href="https:&#x2F;&#x2F;ilikexff.cn">
+  
+  <div class="col-mx-auto">
+    <figure style="margin: 8px">
+      <img class="img-responsive"
+           style="max-height: 45px"
+           alt="frontmatter image"
+           src="https://ilikexff.cn/./logo.svg">
+    </figure>
+  </div>
+  
+</a>
+
+            </div>
+            <nav class="overlay-menu">
+              
+
+<ul class="tree treemenu treemenu-root"><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/tags">标签</a>
+    </li><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/categories">分类</a>
+    </li><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/about">关于</a>
+    </li></ul>
+
+
+              </nav>
+        </div>
+    </div>
+
+<script type="text/javascript">
+  var overlay = document.getElementById('overlay');
+  var toggle = document.getElementById('toggle');
+
+  function openOverlay(){
+      // Open overlay
+      if (overlay.classList.contains("open")) {
+          overlay.classList.remove("open");
+      }
+      else {
+          overlay.classList.add("open");
+      }
+
+      // Button transition
+      if (toggle.classList.contains("active")) {
+          toggle.classList.remove("active");
+      }
+      else {
+          toggle.classList.add("active");
+      }
+    }
+</script>
+
+<section id="footer" class="bg-gray">
+  <div class="container grid-xl">
+    
+
+
+    <div class="columns">
+      
+      <div class="column col-6 col-lg-12 col-mx-auto" style="text-align: center;">
+        简单是效率的灵魂 | 黔ICP备2021010295号
+      </div>
+      
+      <div class="column col-6 col-lg-12 col-mx-auto" style="text-align: center;">
+        Made by <a href="https://github.com/gicrisf/">gicrisf</a> -
+        <strong>Zhuia</strong>&nbsp;<a href="https://github.com/gicrisf/zhuia">source code</a>
+        is licensed under <a href="http://opensource.org/licenses/mit-license.php" target="_blank">MIT</a>.
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

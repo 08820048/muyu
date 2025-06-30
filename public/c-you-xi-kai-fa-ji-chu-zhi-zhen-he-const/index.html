@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh" data-theme="light" dir="ltr">
+  <head>
+    <title>[C++游戏开发基础]:指针和const - 八尺妖剑</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="详解C++中指针与const关键字的结合使用、常量指针与指针常量的区别及最佳实践"/>
+
+    <meta property="og:title" content="八尺妖剑 -&nbsp;[C++游戏开发基础]:指针和const" />
+    <meta property="og:type" content="website"/><meta property="og:url" content="https:&#x2F;&#x2F;ilikexff.cn&#x2F;c-you-xi-kai-fa-ji-chu-zhi-zhen-he-const&#x2F;"/><meta property="og:description" content="详解C++中指针与const关键字的结合使用、常量指针与指针常量的区别及最佳实践"/>
+
+
+    <meta name="twitter:card" content="summary">
+
+
+    <link rel="stylesheet" href="https://ilikexff.cn/spectre/spectre.css">
+    <link rel="stylesheet" href="https://ilikexff.cn/theme.css"><link rel="stylesheet" href="https://ilikexff.cn/custom.css">
+    
+<link rel="alternate" type="application/rss+xml" title="八尺妖剑 RSS" href="https://ilikexff.cn/rss.xml">
+        
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script>
+        function doRenderMath() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false},
+                {left: "\\begin{equation}", right: "\\end{equation}", display: true},
+                {left: "\\begin{align}", right: "\\end{align}", display: true},
+                {left: "\\begin{alignat}", right: "\\end{alignat}", display: true},
+                {left: "\\begin{gather}", right: "\\end{gather}", display: true},
+                {left: "\\begin{CD}", right: "\\end{CD}", display: true},
+                {left: "\\[", right: "\\]", display: true}
+                ]
+            });
+        }
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+        onload="doRenderMath()"></script>
+
+      </head>
+  <body id="top" class="sticky-footer"><div id="page-wrapper">
+<header id="header" class="section">
+  <section class="container grid-xl">
+    <nav class="navbar">
+      <section class="navbar-section">
+        
+<a class="site-logo" href="https:&#x2F;&#x2F;ilikexff.cn">
+  
+  <div class="col-mx-auto">
+    <figure style="margin: 8px">
+      <img class="img-responsive"
+           style="max-height: 45px"
+           alt="frontmatter image"
+           src="https://ilikexff.cn/./logo.svg">
+    </figure>
+  </div>
+  
+</a>
+
+      </section><!-- ./home button -->
+
+      <section class="navbar-center hide-md"></section>
+
+      <section class="navbar-section">
+        <nav class="dropmenu animated hide-md">
+
+<ul><li>
+        <a href="https://ilikexff.cn/tags">标签</a>
+    </li><li>
+        <a href="https://ilikexff.cn/categories">分类</a>
+    </li><li>
+        <a href="https://ilikexff.cn/about">关于</a>
+    </li></ul>
+
+
+          </nav>
+      </section><!-- ./desktop-menu -->
+    </nav>
+  </section><!-- ./container -->
+</header>
+
+
+<div class="mobile-menu">
+  <div class="button_container" id="toggle" onclick="openOverlay()">
+    <span class="top"></span>
+    <span class="middle"></span>
+    <span class="bottom"></span>
+  </div>
+</div><!--./mobile-menu-->
+
+
+<section id="start"><section id="body-wrapper" class="section">
+          <section class="container grid-xl">
+<div id="breadcrumbs" itemtype="http://schema.org/BreadcrumbList" class="hide-sm">
+  
+    
+    <span><a href="https:&#x2F;&#x2F;ilikexff.cn&#x2F;">Home</a></span>
+  
+    <span><a href="https:&#x2F;&#x2F;ilikexff.cn&#x2F;c-you-xi-kai-fa-ji-chu-zhi-zhen-he-const&#x2F;">[C++游戏开发基础]:指针和const</a></span>
+</div>
+<div class="columns">
+              <div id="item" class="column col-8 col-md-12 extra-spacing">
+<div class="card">
+  
+
+    <div class="card-header">
+      <div class="card-title" style="margin-top: .25rem;"><div>
+          <h1 class="post-title">[C++游戏开发基础]:指针和const</h1>
+          
+    <div class="post-meta" style="display: inline-flex">
+        <span class="blog-date" style="display: inline-flex;">
+          <i class="gg-calendar" style="margin-right: 5px;"></i><time datetime="2025.06.19">
+          2025.06.19
+          </time></span><span class="post-author" style="margin-left: 5px; display: inline-flex;">
+          - 
+    慕予
+        </span></div>
+
+        </div></div>
+    </div><!--./card-header-->
+
+    <div class="card-body">
+      
+        <p>之前的文章有说过,使用指针我们可以改变指针指向的内容(通过给指针赋一个新的地址)或者改变被保存地址的值(通过给解引用指针赋一个新值):</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#268bd2;">int </span><span style="color:#b58900;">x </span><span style="color:#657b83;">{ </span><span style="color:#6c71c4;">5 </span><span style="color:#657b83;">}</span><span>;  </span><span style="color:#586e75;">// 创建一个整数变量 x，初始值为 5
+</span><span>    </span><span style="color:#268bd2;">int</span><span style="color:#859900;">* </span><span style="color:#b58900;">ptr </span><span style="color:#657b83;">{ </span><span style="color:#859900;">&amp;</span><span>x </span><span style="color:#657b83;">}</span><span>; </span><span style="color:#586e75;">// 创建一个指针 ptr，指向 x 的地址（非 const 指针）
+</span><span>
+</span><span>    </span><span style="color:#268bd2;">int </span><span style="color:#b58900;">y </span><span style="color:#657b83;">{ </span><span style="color:#6c71c4;">6 </span><span style="color:#657b83;">}</span><span>;  </span><span style="color:#586e75;">// 创建一个整数变量 y，初始值为 6
+</span><span>    ptr </span><span style="color:#657b83;">= </span><span style="color:#859900;">&amp;</span><span>y;  </span><span style="color:#586e75;">// 将 ptr 指向 y 的地址，我们可以改变它指向的地址
+</span><span>
+</span><span>    </span><span style="color:#859900;">*</span><span>ptr </span><span style="color:#657b83;">= </span><span style="color:#6c71c4;">7</span><span>;  </span><span style="color:#586e75;">// 通过指针修改 ptr 所指向地址的值，即将 y 的值改为 7
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;  </span><span style="color:#586e75;">// 程序成功结束
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>那么,如果我们想指向的值是<code>const</code>呢?</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">const </span><span style="color:#268bd2;">int </span><span style="color:#b58900;">x </span><span style="color:#657b83;">{ </span><span style="color:#6c71c4;">5 </span><span style="color:#657b83;">}</span><span>; </span><span style="color:#586e75;">// x 现在是常量，值为 5
+</span><span>    </span><span style="color:#268bd2;">int</span><span style="color:#859900;">* </span><span style="color:#b58900;">ptr </span><span style="color:#657b83;">{ </span><span style="color:#859900;">&amp;</span><span>x </span><span style="color:#657b83;">}</span><span>;   </span><span style="color:#586e75;">// 编译错误：不能将 const int* 转换为 int*，因为 x 是常量，不能修改它的值
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;  </span><span style="color:#586e75;">// 程序正常结束
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>这段代码会出现编译错误，因为我们尝试将一个指向 <code>const int</code> 类型的指针赋值给一个普通的 <code>int*</code> 指针，<code>C++</code> 中不允许这样做。具体原因是 <code>const</code> 修饰符确保该变量的值在程序运行期间不能被修改，而普通的 <code>int*</code> 指针允许修改所指向的内容，所以会发生类型不匹配。</p>
+<hr />
+<h2 id="zhi-xiang-chang-liang-zhi-de-zhi-zhen">指向常量值的指针<a class="zola-anchor" href="#zhi-xiang-chang-liang-zhi-de-zhi-zhen" aria-label="Anchor link for: zhi-xiang-chang-liang-zhi-de-zhi-zhen">🔗</a></h2>
+<p>指向常量值的指针（有时简称为指向 const 的指针）是一个（非 const）指针，它指向一个常量值。声明指向常量值的指针时,只需要在指针的数据类型之前使用<code>const</code>关键字。</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">const </span><span style="color:#268bd2;">int </span><span style="color:#b58900;">x </span><span style="color:#657b83;">{</span><span style="color:#6c71c4;">5</span><span style="color:#657b83;">}</span><span>;
+</span><span>    </span><span style="color:#859900;">const </span><span style="color:#268bd2;">int</span><span style="color:#859900;">*</span><span> ptr </span><span style="color:#657b83;">= {</span><span style="color:#859900;">&amp;</span><span>x</span><span style="color:#657b83;">}</span><span>;
+</span><span>    
+</span><span>    </span><span style="color:#859900;">*</span><span>ptr </span><span style="color:#657b83;">= </span><span style="color:#6c71c4;">6</span><span>; </span><span style="color:#586e75;">// 非法操作:不能更改const值
+</span><span>   
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>在上面的示例中， <code>ptr</code> 指向一个 <code>const int</code> 。因为被指向的数据类型是 const，所以指向的值不能被更改。</p>
+<p>然而,因此指向常量的指针本身不是常量(而是它的指向是一个常量),所以,我们可以通过给指针赋值=一个新的地址来改变指针指向的内容。</p>
+<p><img src="https://images.waer.ltd/notes/202502222247037.png" alt="image-20250222224723856" loading="lazy" decoding="async" /></p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">const </span><span style="color:#268bd2;">int </span><span style="color:#b58900;">x </span><span style="color:#657b83;">{</span><span style="color:#6c71c4;">5</span><span style="color:#657b83;">}</span><span>;
+</span><span>    </span><span style="color:#859900;">const </span><span style="color:#268bd2;">int</span><span style="color:#859900;">*</span><span> ptr </span><span style="color:#657b83;">= {</span><span style="color:#859900;">&amp;</span><span>x</span><span style="color:#657b83;">}</span><span>; </span><span style="color:#586e75;">// ptr指向一个值为const的int类型的变量地址
+</span><span>    
+</span><span>    </span><span style="color:#859900;">const </span><span style="color:#268bd2;">int </span><span style="color:#b58900;">y </span><span style="color:#657b83;">{</span><span style="color:#6c71c4;">6</span><span style="color:#657b83;">}</span><span>;
+</span><span>    
+</span><span>    ptr </span><span style="color:#657b83;">= </span><span style="color:#859900;">&amp;</span><span>y; </span><span style="color:#586e75;">// 指向一个新的地址
+</span><span>    
+</span><span>    std::cout </span><span style="color:#657b83;">&lt;&lt;</span><span> ptr </span><span style="color:#657b83;">&lt;&lt; </span><span>&#39;</span><span style="color:#dc322f;">\n</span><span>&#39;;
+</span><span>    std::cout </span><span style="color:#657b83;">&lt;&lt; </span><span style="color:#859900;">*</span><span>ptr </span><span style="color:#657b83;">&lt;&lt; </span><span>&#39;</span><span style="color:#dc322f;">\n</span><span>&#39;;
+</span><span>    
+</span><span>    
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>就像 <code>const</code> 引用一样，指向<code> const</code> 的指针也可以指向非 <code>const</code> 变量。指向 const 的指针将所指向的值视为常量，不管该地址上的对象最初是否被定义为<code> const</code>。</p>
+<p>有点绕口,看个例子助消化:</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#268bd2;">int </span><span style="color:#b58900;">x</span><span style="color:#657b83;">{ </span><span style="color:#6c71c4;">5 </span><span style="color:#657b83;">}</span><span>; </span><span style="color:#586e75;">// 非 const 变量，x 的初始值为 5
+</span><span>    </span><span style="color:#859900;">const </span><span style="color:#268bd2;">int</span><span style="color:#859900;">* </span><span style="color:#b58900;">ptr </span><span style="color:#657b83;">{ </span><span style="color:#859900;">&amp;</span><span>x </span><span style="color:#657b83;">}</span><span>; </span><span style="color:#586e75;">// ptr 是一个指向 const int 的指针，指向 x
+</span><span>
+</span><span>    </span><span style="color:#859900;">*</span><span>ptr </span><span style="color:#657b83;">= </span><span style="color:#6c71c4;">6</span><span>;  </span><span style="color:#586e75;">// 不允许：因为 ptr 指向的是 &quot;const int&quot;，所以不能通过 ptr 修改值
+</span><span>    x </span><span style="color:#657b83;">= </span><span style="color:#6c71c4;">6</span><span>; </span><span style="color:#586e75;">// 允许：因为 x 是非 const 的，直接修改 x 的值是可以的
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>; </span><span style="color:#586e75;">// 程序结束
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<ul>
+<li>**int x{ 5 };**这里定义了一个非 <code>const</code> 变量 x，并将其初始化为 5。</li>
+<li><strong>const int* ptr { &amp;x };</strong>：定义了一个指向 <code>const int</code> 类型的指针<code>ptr</code>，它指向变量 x 的地址。虽然 x 是一个非 <code>const </code>变量，但指针 <code>ptr</code> 被声明为指向 <code>const</code> 类型的对象。这样，<code>ptr</code> 不能修改所指向的值。</li>
+<li>***ptr = 6;**这是一个编译错误。虽然 x 是非 <code>const</code> 的，但由于 <code>ptr</code> 是指向 <code>const int</code> 的指针，编译器禁止通过该指针修改 x 的值。这是因为 <code>ptr</code> 被声明为指向常量，所以它会将 x 视为常量</li>
+<li>**x = 6;**这行代码是允许的，因为 <code>x</code> 是非<code> const</code> 的，直接通过变量名 x 修改其值没有问题。指针的 <code>const</code> 属性只影响通过指针访问数据时的行为，而不是通过普通的变量名。</li>
+</ul>
+<hr />
+<h2 id="">常量指针<a class="zola-anchor" href="#" aria-label="Anchor link for: ">🔗</a></h2>
+<p>基于上述这些理论不难想到,我们也可以使指针本身成为常量。这就是常量指针,该指针是指其地址初始化后不能再次被更改。和普通的常量定义的概念是一致的,不过是将这个概念用在了指针类型上。</p>
+<p>声明一个常量指针,在指针声明中的星号后面使用<code>const</code>关键字即可:</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#268bd2;">int </span><span style="color:#b58900;">x</span><span style="color:#657b83;">{ </span><span style="color:#6c71c4;">5 </span><span style="color:#657b83;">}</span><span>;
+</span><span>    </span><span style="color:#268bd2;">int</span><span style="color:#859900;">* const </span><span style="color:#b58900;">ptr </span><span style="color:#657b83;">{ </span><span style="color:#859900;">&amp;</span><span>x </span><span style="color:#657b83;">}</span><span>; </span><span style="color:#586e75;">//星号之后的const意味着这是const指针
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<ul>
+<li>
+<p>在上述情况下， <code>ptr</code> 是一个指向（非 const）int 值的 const 指针。</p>
+</li>
+<li>
+<p>就像一个普通的 const 变量一样，const 指针必须在定义时初始化，并且这个值不能通过赋值来改变：</p>
+</li>
+</ul>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#268bd2;">int </span><span style="color:#b58900;">x</span><span style="color:#657b83;">{ </span><span style="color:#6c71c4;">5 </span><span style="color:#657b83;">}</span><span>; </span><span style="color:#586e75;">// 创建一个整数变量 x，初始值为 5
+</span><span>    </span><span style="color:#268bd2;">int </span><span style="color:#b58900;">y</span><span style="color:#657b83;">{ </span><span style="color:#6c71c4;">6 </span><span style="color:#657b83;">}</span><span>; </span><span style="color:#586e75;">// 创建一个整数变量 y，初始值为 6
+</span><span>
+</span><span>    </span><span style="color:#268bd2;">int</span><span style="color:#859900;">* const </span><span style="color:#b58900;">ptr </span><span style="color:#657b83;">{ </span><span style="color:#859900;">&amp;</span><span>x </span><span style="color:#657b83;">}</span><span>; </span><span style="color:#586e75;">// const 指针 ptr 被初始化为指向 x 的地址
+</span><span>    ptr </span><span style="color:#657b83;">= </span><span style="color:#859900;">&amp;</span><span>y; </span><span style="color:#586e75;">// 错误：一旦初始化，const 指针就不能改变它指向的地址
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>; </span><span style="color:#586e75;">// 程序正常结束
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>然而，因为所指向的值是非 const 的，可以通过解引用 const 指针来更改所指向的值：</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span> </span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#268bd2;">int </span><span style="color:#b58900;">x</span><span style="color:#657b83;">{ </span><span style="color:#6c71c4;">5 </span><span style="color:#657b83;">}</span><span>;
+</span><span>    </span><span style="color:#268bd2;">int</span><span style="color:#859900;">* const </span><span style="color:#b58900;">ptr </span><span style="color:#657b83;">{ </span><span style="color:#859900;">&amp;</span><span>x </span><span style="color:#657b83;">}</span><span>; 
+</span><span>
+</span><span>    </span><span style="color:#859900;">*</span><span>ptr </span><span style="color:#657b83;">= </span><span style="color:#6c71c4;">6</span><span>; 
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>最后,可以通过在类型和星号之前和之后都是用<code>const</code>关键字来声明一个指常量值的常量指针:</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#268bd2;">int </span><span style="color:#b58900;">value </span><span style="color:#657b83;">{ </span><span style="color:#6c71c4;">5 </span><span style="color:#657b83;">}</span><span>;
+</span><span>    </span><span style="color:#859900;">const </span><span style="color:#268bd2;">int</span><span style="color:#859900;">* const </span><span style="color:#b58900;">ptr </span><span style="color:#657b83;">{ </span><span style="color:#859900;">&amp;</span><span>value </span><span style="color:#657b83;">}</span><span>; </span><span style="color:#586e75;">// 指常量值的常量指针
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>一个指向常量值的常量指针不能改变其地址，也不能通过该指针改变它所指向的值。它只能解引用以获取它所指向的值。</p>
+<hr />
+<h2 id="-1">小结一下<a class="zola-anchor" href="#-1" aria-label="Anchor link for: -1">🔗</a></h2>
+<ul>
+<li>一个非 <code>const</code> 指针（例如 <code>int* ptr</code> ）可以被分配另一个地址以改变它所指向的内容。</li>
+<li>一个常量指针（例如 <code>int* const ptr</code> ）始终指向同一个地址，并且这个地址不能更改。</li>
+<li>一个指向非 <code>const </code>值的指针（例如 <code>int* ptr</code> ）可以改变它所指向的值。这些指针不能指向 <code>const</code> 值。</li>
+<li>一个指向常量值的指针（例如 <code>const int* ptr</code> ）在通过该指针访问时将值视为常量，因此不能更改它所指向的值。这些指针可以指向常量或非常量左值（但不能指向右值，因为右值没有地址）。</li>
+</ul>
+<blockquote>
+<p>感谢阅读、欢迎指正!</p>
+</blockquote>
+
+      
+    </div><!--./card-body-->
+
+    <div class="card-footer">
+      <div class="columns">
+        <div class="column col-9 col-sm-7">
+          <div class="taxonomies text-left">
+            
+
+    
+          </div>
+        </div><!--./col-6-->
+        
+        </div><!--./columns-->
+    </div><!--./card-footer-->
+</div><!--./card-->
+</div>
+              <div id="sidebar" class="column col-4 col-md-12">
+                <div class="sidebar-content">
+                  
+                  
+<div class="sidebar-widget">
+  <div class="tile">
+    <div class="tile-icon">
+      <figure class="avatar avatar-xl">
+        <img src="https://ilikexff.cn/avatar.png" alt="author avatar image">
+      </figure>
+    </div>
+    <div class="tile-content">
+      <p class="tile-title" style="font-weight: 600;">慕予</p>
+      <p class="tile-subtitle">热爱编程，专注于技术分享和学习</p>
+    </div>
+</div><!--./tile-->
+</div>
+
+                  
+                  
+<div class="sidebar-widget">
+  欢迎来到<strong>八尺妖剑</strong>！这里分享技术文章和编程心得。
+</div><!-- end text widget -->
+
+                  
+
+                  
+<div class="sidebar-widget syndicate">
+<h4>Feed</h4>
+<a class="btn" href="/rss.xml">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-rss-fill" viewBox="0 0 16 16">
+  <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm1.5 2.5c5.523 0 10 4.477 10 10a1 1 0 1 1-2 0 8 8 0 0 0-8-8 1 1 0 0 1 0-2zm0 4a6 6 0 0 1 6 6 1 1 0 1 1-2 0 4 4 0 0 0-4-4 1 1 0 0 1 0-2zm.5 7a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+</svg>
+<span>RSS</span>
+</a>
+</div>
+
+                  </div><!--./sidebar-content-->
+              </div>
+            </div>
+            
+          </section>
+        </section></section>
+<section class="container grid-xl">
+<ul class="pagination paginator">
+  
+  
+</ul>
+</section>
+</div><!-- ./page-wrapper -->
+
+    
+<div class="mobile-container">
+        <div class="overlay" id="overlay">
+            <div style="padding: 1rem;">
+              
+<a class="site-logo" href="https:&#x2F;&#x2F;ilikexff.cn">
+  
+  <div class="col-mx-auto">
+    <figure style="margin: 8px">
+      <img class="img-responsive"
+           style="max-height: 45px"
+           alt="frontmatter image"
+           src="https://ilikexff.cn/./logo.svg">
+    </figure>
+  </div>
+  
+</a>
+
+            </div>
+            <nav class="overlay-menu">
+              
+
+<ul class="tree treemenu treemenu-root"><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/tags">标签</a>
+    </li><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/categories">分类</a>
+    </li><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/about">关于</a>
+    </li></ul>
+
+
+              </nav>
+        </div>
+    </div>
+
+<script type="text/javascript">
+  var overlay = document.getElementById('overlay');
+  var toggle = document.getElementById('toggle');
+
+  function openOverlay(){
+      // Open overlay
+      if (overlay.classList.contains("open")) {
+          overlay.classList.remove("open");
+      }
+      else {
+          overlay.classList.add("open");
+      }
+
+      // Button transition
+      if (toggle.classList.contains("active")) {
+          toggle.classList.remove("active");
+      }
+      else {
+          toggle.classList.add("active");
+      }
+    }
+</script>
+
+<section id="footer" class="bg-gray">
+  <div class="container grid-xl">
+    
+
+
+    <div class="columns">
+      
+      <div class="column col-6 col-lg-12 col-mx-auto" style="text-align: center;">
+        简单是效率的灵魂 | 黔ICP备2021010295号
+      </div>
+      
+      <div class="column col-6 col-lg-12 col-mx-auto" style="text-align: center;">
+        Made by <a href="https://github.com/gicrisf/">gicrisf</a> -
+        <strong>Zhuia</strong>&nbsp;<a href="https://github.com/gicrisf/zhuia">source code</a>
+        is licensed under <a href="http://opensource.org/licenses/mit-license.php" target="_blank">MIT</a>.
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="zh" data-theme="light" dir="ltr">
+  <head>
+    <title>C++游戏开发基础-类模版和参数推导指南 - 八尺妖剑</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="详细介绍C++中的类模板参数推导（CTAD）的基本概念、用法及实践技巧。"/>
+
+    <meta property="og:title" content="八尺妖剑 -&nbsp;C++游戏开发基础-类模版和参数推导指南" />
+    <meta property="og:type" content="website"/><meta property="og:url" content="https:&#x2F;&#x2F;ilikexff.cn&#x2F;c-you-xi-kai-fa-ji-chu-lei-mo-ban-he-can-shu-tui-dao-zhi-nan&#x2F;"/><meta property="og:description" content="详细介绍C++中的类模板参数推导（CTAD）的基本概念、用法及实践技巧。"/>
+
+
+    <meta name="twitter:card" content="summary">
+
+
+    <link rel="stylesheet" href="https://ilikexff.cn/spectre/spectre.css">
+    <link rel="stylesheet" href="https://ilikexff.cn/theme.css"><link rel="stylesheet" href="https://ilikexff.cn/custom.css">
+    
+<link rel="alternate" type="application/rss+xml" title="八尺妖剑 RSS" href="https://ilikexff.cn/rss.xml">
+        
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script>
+        function doRenderMath() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false},
+                {left: "\\begin{equation}", right: "\\end{equation}", display: true},
+                {left: "\\begin{align}", right: "\\end{align}", display: true},
+                {left: "\\begin{alignat}", right: "\\end{alignat}", display: true},
+                {left: "\\begin{gather}", right: "\\end{gather}", display: true},
+                {left: "\\begin{CD}", right: "\\end{CD}", display: true},
+                {left: "\\[", right: "\\]", display: true}
+                ]
+            });
+        }
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+        onload="doRenderMath()"></script>
+
+      </head>
+  <body id="top" class="sticky-footer"><div id="page-wrapper">
+<header id="header" class="section">
+  <section class="container grid-xl">
+    <nav class="navbar">
+      <section class="navbar-section">
+        
+<a class="site-logo" href="https:&#x2F;&#x2F;ilikexff.cn">
+  
+  <div class="col-mx-auto">
+    <figure style="margin: 8px">
+      <img class="img-responsive"
+           style="max-height: 45px"
+           alt="frontmatter image"
+           src="https://ilikexff.cn/./logo.svg">
+    </figure>
+  </div>
+  
+</a>
+
+      </section><!-- ./home button -->
+
+      <section class="navbar-center hide-md"></section>
+
+      <section class="navbar-section">
+        <nav class="dropmenu animated hide-md">
+
+<ul><li>
+        <a href="https://ilikexff.cn/tags">标签</a>
+    </li><li>
+        <a href="https://ilikexff.cn/categories">分类</a>
+    </li><li>
+        <a href="https://ilikexff.cn/about">关于</a>
+    </li></ul>
+
+
+          </nav>
+      </section><!-- ./desktop-menu -->
+    </nav>
+  </section><!-- ./container -->
+</header>
+
+
+<div class="mobile-menu">
+  <div class="button_container" id="toggle" onclick="openOverlay()">
+    <span class="top"></span>
+    <span class="middle"></span>
+    <span class="bottom"></span>
+  </div>
+</div><!--./mobile-menu-->
+
+
+<section id="start"><section id="body-wrapper" class="section">
+          <section class="container grid-xl">
+<div id="breadcrumbs" itemtype="http://schema.org/BreadcrumbList" class="hide-sm">
+  
+    
+    <span><a href="https:&#x2F;&#x2F;ilikexff.cn&#x2F;">Home</a></span>
+  
+    <span><a href="https:&#x2F;&#x2F;ilikexff.cn&#x2F;c-you-xi-kai-fa-ji-chu-lei-mo-ban-he-can-shu-tui-dao-zhi-nan&#x2F;">C++游戏开发基础-类模版和参数推导指南</a></span>
+</div>
+<div class="columns">
+              <div id="item" class="column col-8 col-md-12 extra-spacing">
+<div class="card">
+  
+
+    <div class="card-header">
+      <div class="card-title" style="margin-top: .25rem;"><div>
+          <h1 class="post-title">C++游戏开发基础-类模版和参数推导指南</h1>
+          
+    <div class="post-meta" style="display: inline-flex">
+        <span class="blog-date" style="display: inline-flex;">
+          <i class="gg-calendar" style="margin-right: 5px;"></i><time datetime="2025.06.19">
+          2025.06.19
+          </time></span><span class="post-author" style="margin-left: 5px; display: inline-flex;">
+          - 
+    慕予
+        </span></div>
+
+        </div></div>
+    </div><!--./card-header-->
+
+    <div class="card-body">
+      
+        <p>考虑下面这样一个问题,假设我们正在编写一个程序,需要处理成对的<code>int</code>值.并且需要确定两个数字中的最大值。</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include</span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span>
+</span><span style="color:#268bd2;">struct </span><span style="color:#b58900;">Pair
+</span><span style="color:#657b83;">{
+</span><span>  </span><span style="color:#268bd2;">int</span><span> first </span><span style="color:#657b83;">{}</span><span>;
+</span><span>  </span><span style="color:#268bd2;">int</span><span> second </span><span style="color:#657b83;">{}</span><span>;
+</span><span>
+</span><span style="color:#657b83;">}</span><span>;
+</span><span>
+</span><span style="color:#859900;">constexpr </span><span style="color:#268bd2;">int </span><span style="color:#b58900;">max</span><span style="color:#657b83;">(</span><span>Pair </span><span style="color:#268bd2;">p</span><span style="color:#657b83;">)
+</span><span style="color:#657b83;">{
+</span><span>  </span><span style="color:#859900;">return </span><span style="color:#657b83;">(</span><span>p.</span><span style="color:#268bd2;">first </span><span style="color:#657b83;">&lt;</span><span> p.</span><span style="color:#268bd2;">second </span><span style="color:#859900;">?</span><span> p.</span><span style="color:#268bd2;">second </span><span style="color:#859900;">:</span><span> p.</span><span style="color:#268bd2;">first</span><span style="color:#657b83;">)</span><span>;
+</span><span style="color:#657b83;">}
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    Pair </span><span style="color:#b58900;">p1 </span><span style="color:#657b83;">{</span><span style="color:#6c71c4;">2</span><span>,</span><span style="color:#6c71c4;">4</span><span style="color:#657b83;">}</span><span>;
+</span><span>    std::cout </span><span style="color:#657b83;">&lt;&lt;</span><span style="color:#b58900;">max</span><span style="color:#657b83;">(</span><span>p1</span><span style="color:#657b83;">) &lt;&lt;</span><span>&quot;</span><span style="color:#2aa198;">is larger</span><span style="color:#dc322f;">\n</span><span>&quot;;
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>后来.你那尊贵的狗策划需求一变,需要新增一个<code>double</code>类型的Pair,所以你的程序又改成下面这样;</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span>
+</span><span style="color:#268bd2;">struct </span><span style="color:#b58900;">Pair
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#268bd2;">int </span><span style="color:#b58900;">first</span><span style="color:#657b83;">{}</span><span>;
+</span><span>    </span><span style="color:#268bd2;">int </span><span style="color:#b58900;">second</span><span style="color:#657b83;">{}</span><span>;
+</span><span style="color:#657b83;">}</span><span>;
+</span><span>
+</span><span style="color:#268bd2;">struct </span><span style="color:#b58900;">Pair 
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#268bd2;">double </span><span style="color:#b58900;">first</span><span style="color:#657b83;">{}</span><span>;
+</span><span>    </span><span style="color:#268bd2;">double </span><span style="color:#b58900;">second</span><span style="color:#657b83;">{}</span><span>;
+</span><span style="color:#657b83;">}</span><span>;
+</span><span>
+</span><span style="color:#859900;">constexpr </span><span style="color:#268bd2;">int </span><span style="color:#b58900;">max</span><span style="color:#657b83;">(</span><span>Pair </span><span style="color:#268bd2;">p</span><span style="color:#657b83;">)
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#657b83;">(</span><span>p.</span><span style="color:#268bd2;">first </span><span style="color:#657b83;">&lt;</span><span> p.</span><span style="color:#268bd2;">second </span><span style="color:#859900;">?</span><span> p.</span><span style="color:#268bd2;">second </span><span style="color:#859900;">:</span><span> p.</span><span style="color:#268bd2;">first</span><span style="color:#657b83;">)</span><span>;
+</span><span style="color:#657b83;">}
+</span><span>
+</span><span style="color:#859900;">constexpr </span><span style="color:#268bd2;">double </span><span style="color:#b58900;">max</span><span style="color:#657b83;">(</span><span>Pair </span><span style="color:#268bd2;">p</span><span style="color:#657b83;">) 
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#657b83;">(</span><span>p.</span><span style="color:#268bd2;">first </span><span style="color:#657b83;">&lt;</span><span> p.</span><span style="color:#268bd2;">second </span><span style="color:#859900;">?</span><span> p.</span><span style="color:#268bd2;">second </span><span style="color:#859900;">:</span><span> p.</span><span style="color:#268bd2;">first</span><span style="color:#657b83;">)</span><span>;
+</span><span style="color:#657b83;">}
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    Pair </span><span style="color:#b58900;">p1</span><span style="color:#657b83;">{ </span><span style="color:#6c71c4;">5</span><span>, </span><span style="color:#6c71c4;">6 </span><span style="color:#657b83;">}</span><span>;
+</span><span>    std::cout </span><span style="color:#657b83;">&lt;&lt; </span><span style="color:#b58900;">max</span><span style="color:#657b83;">(</span><span>p1</span><span style="color:#657b83;">) &lt;&lt; </span><span>&quot;</span><span style="color:#2aa198;"> is larger</span><span style="color:#dc322f;">\n</span><span>&quot;;
+</span><span>
+</span><span>    Pair </span><span style="color:#b58900;">p2</span><span style="color:#657b83;">{ </span><span style="color:#6c71c4;">1.2</span><span>, </span><span style="color:#6c71c4;">3.4 </span><span style="color:#657b83;">}</span><span>;
+</span><span>    std::cout </span><span style="color:#657b83;">&lt;&lt; </span><span style="color:#b58900;">max</span><span style="color:#657b83;">(</span><span>p2</span><span style="color:#657b83;">) &lt;&lt; </span><span>&quot;</span><span style="color:#2aa198;"> is larger</span><span style="color:#dc322f;">\n</span><span>&quot;;
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>这些代码看起来人畜无害,但其实存在问题:</p>
+<ul>
+<li>
+<p>首先，与函数不同，类型定义不能被重载。编译器会将 Pair 的第二个定义视为对第一个 Pair 定义的错误性重新声明。</p>
+</li>
+<li>
+<p>其次，尽管函数可以被重载，但这里的<code> max(Pair)</code> 函数仅在返回类型上有所不同，而函数重载不能仅通过返回类型来区分。</p>
+</li>
+<li>
+<p>第三，这里存在大量的冗余。每个 <code>Pair</code> 结构体都是相同的（除了数据类型不同），而 <code>max(Pair)</code> 函数也是如此（除了返回类型不同）。</p>
+</li>
+</ul>
+<p>基于这个问题,引出了本文的主题,类模版。</p>
+<hr />
+<h2 id="lei-mo-ban-ji-ben-ding-yi">类模版基本定义<a class="zola-anchor" href="#lei-mo-ban-ji-ben-ding-yi" aria-label="Anchor link for: lei-mo-ban-ji-ben-ding-yi">🔗</a></h2>
+<p>就像函数模板是用于实例化函数的模板定义一样，类模板是用于实例化类类型的模板定义。</p>
+<blockquote>
+<p>“类类型”指的是<code> struct、class</code> 或<code> union</code> 类型。尽管我们为了简单起见会在 <code>struct</code> 上演示“类模板”，但这里的内容同样适用于 <code>class</code>。</p>
+</blockquote>
+<p>现在我们将上面第一个示例代码改写为类模版的形式:</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include</span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span>
+</span><span style="color:#268bd2;">template</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">typename</span><span> T</span><span style="color:#657b83;">&gt;
+</span><span style="color:#268bd2;">struct </span><span style="color:#b58900;">Pair
+</span><span style="color:#657b83;">{
+</span><span>    T first </span><span style="color:#657b83;">{}</span><span>;
+</span><span>    T second </span><span style="color:#657b83;">{}</span><span>;
+</span><span style="color:#657b83;">}</span><span>;
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    Pair</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">int</span><span style="color:#657b83;">&gt; </span><span style="color:#b58900;">p1 </span><span style="color:#657b83;">{</span><span style="color:#6c71c4;">4</span><span>,</span><span style="color:#6c71c4;">6</span><span style="color:#657b83;">}</span><span>;
+</span><span>    std::cout </span><span style="color:#657b83;">&lt;&lt;</span><span>p1.</span><span style="color:#268bd2;">first </span><span style="color:#657b83;">&lt;&lt;</span><span>&#39; &#39; </span><span style="color:#657b83;">&lt;&lt;</span><span> p1.</span><span style="color:#268bd2;">second </span><span style="color:#657b83;">&lt;&lt;</span><span>&#39;</span><span style="color:#dc322f;">\n</span><span>&#39;;
+</span><span>    Pair</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">double</span><span style="color:#657b83;">&gt; </span><span style="color:#b58900;">p2 </span><span style="color:#657b83;">{</span><span style="color:#6c71c4;">3.2</span><span>,</span><span style="color:#6c71c4;">5.4</span><span style="color:#657b83;">}</span><span>;
+</span><span>    std::cout </span><span style="color:#657b83;">&lt;&lt;</span><span>p2.</span><span style="color:#268bd2;">first </span><span style="color:#657b83;">&lt;&lt;</span><span>&#39; &#39; </span><span style="color:#657b83;">&lt;&lt;</span><span> p2.</span><span style="color:#268bd2;">second </span><span style="color:#657b83;">&lt;&lt;</span><span>&#39;</span><span style="color:#dc322f;">\n</span><span>&#39;;
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span><span>
+</span></code></pre>
+<p>就像函数模版一样,我们用以模版参数声明开始类模版的定义。接下来在<code>&lt;&gt;</code>内指定模版将使用的所有模版类型。对于我们需要的每个模板类型，使用关键字 <code>typename</code>（首选）或 <code>class</code>，后跟模板类型的名称（例如 <code>T</code>）。在这种情况下，由于我们的两个成员将是相同的类型，我们只需要一个模板类型。”</p>
+<p>在<code>main</code>中，我们可以使用我们想要的任何类型来实例化<code>Pair</code>对象。首先，实例化一<code>个Pair&lt;int&gt;</code>类型的对象。由于<code>Pair&lt;int&gt;</code>的类型定义尚不存在，因此编译器使用类模板实例化名为<code>Pair&lt;int&gt;</code>的结构类型定义，其中模板类型<code>T</code>的所有出现都被类型<code>int</code>替换。其他类型同理。</p>
+<hr />
+<h2 id="zai-han-shu-zhong-shi-yong-lei-mo-ban">在函数中使用类模版<a class="zola-anchor" href="#zai-han-shu-zhong-shi-yong-lei-mo-ban" aria-label="Anchor link for: zai-han-shu-zhong-shi-yong-lei-mo-ban">🔗</a></h2>
+<p>对于之前的<code>max</code>函数,由于编译器会将<code>Pair&lt;int&gt;</code>,<code>Pair&lt;double&gt;</code>视为单独的类型,因此我们可以按照参数类型的区分,对该函数进行重载。</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#859900;">constexpr </span><span style="color:#268bd2;">int </span><span style="color:#b58900;">max</span><span style="color:#657b83;">(</span><span>Pair</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">int</span><span style="color:#657b83;">&gt; </span><span style="color:#268bd2;">p</span><span style="color:#657b83;">)
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#657b83;">(</span><span>p.</span><span style="color:#268bd2;">first </span><span style="color:#657b83;">&lt;</span><span> p.</span><span style="color:#268bd2;">second</span><span style="color:#657b83;">) </span><span style="color:#859900;">?</span><span> p.</span><span style="color:#268bd2;">second </span><span style="color:#859900;">:</span><span> p.</span><span style="color:#268bd2;">first</span><span style="background-color:#6e2e32;color:#839496;">)</span><span>;
+</span><span style="color:#657b83;">}
+</span><span>
+</span><span style="color:#859900;">constexpr </span><span style="color:#268bd2;">double </span><span style="color:#b58900;">max</span><span style="color:#657b83;">(</span><span>Pair</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">int</span><span style="color:#657b83;">&gt; </span><span style="color:#268bd2;">p</span><span style="color:#657b83;">)
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#657b83;">(</span><span>p.</span><span style="color:#268bd2;">first </span><span style="color:#657b83;">&lt;</span><span> p.</span><span style="color:#268bd2;">second</span><span style="color:#657b83;">) </span><span style="color:#859900;">?</span><span> p.</span><span style="color:#268bd2;">second </span><span style="color:#859900;">:</span><span> p.</span><span style="color:#268bd2;">first</span><span style="background-color:#6e2e32;color:#839496;">)</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>虽然可以正常编译,但是这样并没有解决代码冗余的问题。我们真正想要的是一个可以接受任何类型的函数。换句话说,我们需要一个接受<code>Pair&lt;T&gt;</code>类型参数的函数。其中的<code>T</code>是模版类型参数。所以暗示的够明显了吧,我们需要一个函数模版来解决这个问题。</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include</span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span>
+</span><span style="color:#268bd2;">template</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">typename</span><span> T</span><span style="color:#657b83;">&gt;
+</span><span style="color:#268bd2;">struct </span><span style="color:#b58900;">Pair
+</span><span style="color:#657b83;">{
+</span><span>    T first </span><span style="color:#657b83;">{}</span><span>;
+</span><span>    T second </span><span style="color:#657b83;">{}</span><span>;
+</span><span style="color:#657b83;">}</span><span>;
+</span><span>
+</span><span style="color:#268bd2;">template </span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">typename</span><span> T</span><span style="color:#657b83;">&gt;
+</span><span style="color:#859900;">constexpr</span><span> T </span><span style="color:#b58900;">max</span><span style="color:#657b83;">(</span><span>Pair</span><span style="color:#657b83;">&lt;</span><span>T</span><span style="color:#657b83;">&gt; </span><span style="color:#268bd2;">p</span><span style="color:#657b83;">)
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#657b83;">(</span><span>p.</span><span style="color:#268bd2;">first </span><span style="color:#657b83;">&lt;</span><span> p.</span><span style="color:#268bd2;">second </span><span style="color:#859900;">?</span><span> p.</span><span style="color:#268bd2;">second </span><span style="color:#859900;">:</span><span> p.</span><span style="color:#268bd2;">first</span><span style="color:#657b83;">)</span><span>;
+</span><span style="color:#657b83;">}
+</span><span>
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    Pair</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">int</span><span style="color:#657b83;">&gt; </span><span style="color:#b58900;">p1 </span><span style="color:#657b83;">{</span><span style="color:#6c71c4;">2</span><span>,</span><span style="color:#6c71c4;">4</span><span style="color:#657b83;">}</span><span>;
+</span><span>    std::cout </span><span style="color:#657b83;">&lt;&lt; </span><span style="color:#b58900;">max</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">int</span><span style="color:#657b83;">&gt;(</span><span>p1</span><span style="color:#657b83;">) &lt;&lt;</span><span>&quot;</span><span style="color:#2aa198;">is larger</span><span style="color:#dc322f;">\n</span><span>&quot;;
+</span><span>
+</span><span>    Pair</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">double</span><span style="color:#657b83;">&gt; </span><span style="color:#b58900;">p2 </span><span style="color:#657b83;">{</span><span style="color:#6c71c4;">3.5</span><span>, </span><span style="color:#6c71c4;">2.5</span><span style="color:#657b83;">}</span><span>;
+</span><span>    std::cout </span><span style="color:#657b83;">&lt;&lt; </span><span style="color:#b58900;">max</span><span style="color:#657b83;">(</span><span>p2</span><span style="color:#657b83;">) &lt;&lt; </span><span>&quot;</span><span style="color:#2aa198;">is larger</span><span style="color:#dc322f;">\n</span><span>&quot;;
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p><code>max()</code> 函数模板的逻辑非常直观。由于我们希望传入一个 <code>Pair&lt;T&gt;</code>，我们需要让编译器知道 T 的具体类型。因此，我们需要在函数前面添加 <strong>模板参数声明</strong>，用于定义模板类型 T。</p>
+<p>这样，我们就可以在返回类型和 <code>Pair&lt;T&gt;</code> 的模板类型中使用 <code>T</code>，从而使 <code>max()</code> 适用于不同的数据类型。</p>
+<p>当<code>max（）</code>函数用<code>Pair&lt;int&gt;</code>参数调用时，编译器将从函数模板实例化函数<code>int max&lt;int&gt;（Pair&lt;int&gt;）</code>，其中模板类型<code>T</code>被替换为<code>int</code>。下面的代码片段显示了在这种情况下编译器实际实例化的内容：</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#268bd2;">template </span><span style="color:#657b83;">&lt;&gt;
+</span><span style="color:#859900;">constexpr </span><span style="color:#268bd2;">int </span><span style="color:#b58900;">max</span><span style="color:#657b83;">(</span><span>Pair</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">int</span><span style="color:#657b83;">&gt; </span><span style="color:#268bd2;">p</span><span style="color:#657b83;">)
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#657b83;">(</span><span>p.</span><span style="color:#268bd2;">first </span><span style="color:#657b83;">&lt;</span><span> p.</span><span style="color:#268bd2;">second </span><span style="color:#859900;">?</span><span> p.</span><span style="color:#268bd2;">second </span><span style="color:#859900;">:</span><span> p.</span><span style="color:#268bd2;">first</span><span style="color:#657b83;">)</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<blockquote>
+<p>与所有对函数模板的调用一样，我们可以显式地使用模板类型参数（例如<code>max&lt;int&gt;（p1）</code>），也可以隐式地使用（例如<code>max（p2）</code>），让编译器使用模板参数推导来确定模板类型参数应该是什么。</p>
+</blockquote>
+<hr />
+<h2 id="ju-you-mo-ban-lei-xing-cheng-yuan-he-fei-mo-ban-lei-xing-cheng-yuan-de-lei-mo-ban">具有模板类型成员和非模板类型成员的类模板<a class="zola-anchor" href="#ju-you-mo-ban-lei-xing-cheng-yuan-he-fei-mo-ban-lei-xing-cheng-yuan-de-lei-mo-ban" aria-label="Anchor link for: ju-you-mo-ban-lei-xing-cheng-yuan-he-fei-mo-ban-lei-xing-cheng-yuan-de-lei-mo-ban">🔗</a></h2>
+<p>在 <strong>类模板（class templates）</strong> 中，我们不仅可以使用<strong>模板类型参数（template type parameter）</strong>，还可以包含<strong>非模板类型成员（non-template type members）</strong>。这意味着，类中的某些成员可以是通用类型（由模板参数决定），而其他成员可以是固定类型（例如 int、double 等）。</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#268bd2;">template</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">typename</span><span> T</span><span style="color:#657b83;">&gt;
+</span><span style="color:#268bd2;">struct </span><span style="color:#b58900;">Foo
+</span><span style="color:#657b83;">{
+</span><span>  T first </span><span style="color:#657b83;">{}</span><span>; </span><span style="color:#586e75;">// 模版类型
+</span><span>  </span><span style="color:#268bd2;">int</span><span> second </span><span style="color:#657b83;">{}</span><span>; </span><span style="color:#586e75;">// 非模版类型
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>类模版也可以有多个模版类型,例如,如果我们希望<code>Pair</code>类的两个成员能够有不同的类型,我们可以用脸肿莫办类型来定义这个类模版。</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span>
+</span><span style="color:#268bd2;">template </span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">typename</span><span> T, </span><span style="color:#268bd2;">typename</span><span> U</span><span style="color:#657b83;">&gt;
+</span><span style="color:#268bd2;">struct </span><span style="color:#b58900;">Pair
+</span><span style="color:#657b83;">{
+</span><span>    T </span><span style="color:#b58900;">first</span><span style="color:#657b83;">{}</span><span>;
+</span><span>    U </span><span style="color:#b58900;">second</span><span style="color:#657b83;">{}</span><span>;
+</span><span style="color:#657b83;">}</span><span>;
+</span><span>
+</span><span style="color:#268bd2;">template </span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">typename</span><span> T, </span><span style="color:#268bd2;">typename</span><span> U</span><span style="color:#657b83;">&gt;
+</span><span style="color:#268bd2;">void </span><span style="color:#b58900;">print</span><span style="color:#657b83;">(</span><span>Pair</span><span style="color:#657b83;">&lt;</span><span>T, U</span><span style="color:#657b83;">&gt; </span><span style="color:#268bd2;">p</span><span style="color:#657b83;">)
+</span><span style="color:#657b83;">{
+</span><span>    std::cout </span><span style="color:#657b83;">&lt;&lt; </span><span>&#39;</span><span style="color:#2aa198;">[</span><span>&#39; </span><span style="color:#657b83;">&lt;&lt;</span><span> p.</span><span style="color:#268bd2;">first </span><span style="color:#657b83;">&lt;&lt; </span><span>&quot;</span><span style="color:#2aa198;">, </span><span>&quot; </span><span style="color:#657b83;">&lt;&lt;</span><span> p.</span><span style="color:#268bd2;">second </span><span style="color:#657b83;">&lt;&lt; </span><span>&#39;</span><span style="color:#2aa198;">]</span><span>&#39;;
+</span><span style="color:#657b83;">}
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    Pair</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">int</span><span>, </span><span style="color:#268bd2;">double</span><span style="color:#657b83;">&gt; </span><span style="color:#b58900;">p1</span><span style="color:#657b83;">{ </span><span style="color:#6c71c4;">1</span><span>, </span><span style="color:#6c71c4;">2.3 </span><span style="color:#657b83;">}</span><span>; 
+</span><span>    Pair</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">double</span><span>, </span><span style="color:#268bd2;">int</span><span style="color:#657b83;">&gt; </span><span style="color:#b58900;">p2</span><span style="color:#657b83;">{ </span><span style="color:#6c71c4;">4.5</span><span>, </span><span style="color:#6c71c4;">6 </span><span style="color:#657b83;">}</span><span>; 
+</span><span>    Pair</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">int</span><span>, </span><span style="color:#268bd2;">int</span><span style="color:#657b83;">&gt; </span><span style="color:#b58900;">p3</span><span style="color:#657b83;">{ </span><span style="color:#6c71c4;">7</span><span>, </span><span style="color:#6c71c4;">8 </span><span style="color:#657b83;">}</span><span>;      
+</span><span>
+</span><span>    </span><span style="color:#b58900;">print</span><span style="color:#657b83;">(</span><span>p2</span><span style="color:#657b83;">)</span><span>;
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>为了定义多个模版类型,在模版参数声明中,我们用逗号分隔每一个所需类型。在上面的例子中,定义了两个不同的模版类型,分别为<code>T</code>和<code>U</code>,在实际使用时,两个模版类型我们可以随意安排,比如两个不同类型或者两个相同类型都是被允许的。</p>
+<hr />
+<h2 id="mo-ban-han-shu-he-duo-ge-lei-lei-xing">模版函数和多个类类型<a class="zola-anchor" href="#mo-ban-han-shu-he-duo-ge-lei-lei-xing" aria-label="Anchor link for: mo-ban-han-shu-he-duo-ge-lei-lei-xing">🔗</a></h2>
+<p>对于上面的例子,因为我们已经将函数参数显式定义为<code>Pair&lt;T，U&gt;</code>，所以只有<code>Pair&lt;T，U&gt;</code>类型的参数（或那些可以转换为<code>Pair&lt;T，U&gt;的</code>参数）才会匹配。如果我们只希望能够使用<code>Pair&lt;T，U&gt;</code>参数调用函数，这是没问题的。</p>
+<p>但是在某些情况下,我们希望可以编写一个可以与任何类型一起使用的函数模版,只需要使用类型模版参数作为函数参数即可。</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include</span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span>
+</span><span style="color:#268bd2;">template</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">typename</span><span> T,</span><span style="color:#268bd2;">typename</span><span> U</span><span style="color:#657b83;">&gt;
+</span><span style="color:#268bd2;">struct </span><span style="color:#b58900;">Pair
+</span><span style="color:#657b83;">{
+</span><span>    T first </span><span style="color:#657b83;">{}</span><span>;
+</span><span>    U second </span><span style="color:#657b83;">{}</span><span>;
+</span><span style="color:#657b83;">}</span><span>;
+</span><span>
+</span><span style="color:#268bd2;">struct </span><span style="color:#b58900;">Point
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#268bd2;">int</span><span> first </span><span style="color:#657b83;">{}</span><span>;
+</span><span>    </span><span style="color:#268bd2;">int</span><span> second </span><span style="color:#657b83;">{}</span><span>;
+</span><span style="color:#657b83;">}</span><span>;
+</span><span>
+</span><span>
+</span><span style="color:#268bd2;">template</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">typename</span><span> T</span><span style="color:#657b83;">&gt;
+</span><span style="color:#268bd2;">void </span><span style="color:#b58900;">print</span><span style="color:#657b83;">(</span><span>T </span><span style="color:#268bd2;">p</span><span style="color:#657b83;">)
+</span><span style="color:#657b83;">{
+</span><span>    std::cout </span><span style="color:#657b83;">&lt;&lt;</span><span> p.</span><span style="color:#268bd2;">first </span><span style="color:#657b83;">&lt;&lt;</span><span>&quot;</span><span style="color:#2aa198;">, </span><span>&quot; </span><span style="color:#657b83;">&lt;&lt;</span><span> p.</span><span style="color:#268bd2;">second </span><span style="color:#657b83;">&lt;&lt; </span><span>&quot;</span><span style="color:#dc322f;">\n</span><span>&quot;;
+</span><span style="color:#657b83;">}
+</span><span>
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>
+</span><span>    Pair</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">double</span><span>, </span><span style="color:#268bd2;">int</span><span style="color:#657b83;">&gt; </span><span style="color:#b58900;">p1</span><span style="color:#657b83;">{ </span><span style="color:#6c71c4;">4.5</span><span>, </span><span style="color:#6c71c4;">6 </span><span style="color:#657b83;">}</span><span>;
+</span><span>    </span><span style="color:#b58900;">print</span><span style="color:#657b83;">(</span><span>p1</span><span style="color:#657b83;">)</span><span>; </span><span style="color:#586e75;">// 匹配 print(Pair&lt;double, int&gt;)
+</span><span>    std::cout </span><span style="color:#657b83;">&lt;&lt; </span><span>&#39;</span><span style="color:#dc322f;">\n</span><span>&#39;;
+</span><span>    Point </span><span style="color:#b58900;">p2 </span><span style="color:#657b83;">{ </span><span style="color:#6c71c4;">7</span><span>, </span><span style="color:#6c71c4;">8 </span><span style="color:#657b83;">}</span><span>;
+</span><span>    </span><span style="color:#b58900;">print</span><span style="color:#657b83;">(</span><span>p2</span><span style="color:#657b83;">)</span><span>; </span><span style="color:#586e75;">// 匹配 print(Point)
+</span><span>    std::cout </span><span style="color:#657b83;">&lt;&lt; </span><span>&#39;</span><span style="color:#dc322f;">\n</span><span>&#39;;
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span><span>
+</span></code></pre>
+<p>在上面的例子中，我们重写了<code>print（）</code>，使它只有一个类型模板参数（<code>T</code>），它将匹配任何类型。对于任何具有<code>第一</code>个和<code>第二个</code>成员的类类型，函数体都将成功编译。</p>
+<hr />
+<h2 id="biao-zhun-ku-zhong-de-std-pair">标准库中的std::pair<a class="zola-anchor" href="#biao-zhun-ku-zhong-de-std-pair" aria-label="Anchor link for: biao-zhun-ku-zhong-de-std-pair">🔗</a></h2>
+<p>在C++标准库中包含了一个名为<code>std::pair</code>的类模版,它的定义与上面我们自己实现的原理相似,所以我们完全可以使用标准库提供的方法替换掉我们自己的实现。</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">utility</span><span>&gt;
+</span><span>
+</span><span style="color:#268bd2;">template </span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">typename</span><span> T,</span><span style="color:#268bd2;">typename</span><span> U</span><span style="color:#657b83;">&gt;
+</span><span style="color:#268bd2;">void </span><span style="color:#b58900;">print</span><span style="color:#657b83;">(</span><span>std::pair</span><span style="color:#657b83;">&lt;</span><span>T,U</span><span style="color:#657b83;">&gt; </span><span style="color:#268bd2;">p</span><span style="color:#657b83;">)
+</span><span style="color:#657b83;">{
+</span><span>    std::cout </span><span style="color:#657b83;">&lt;&lt;</span><span>&#39;</span><span style="color:#2aa198;">[</span><span>&#39; </span><span style="color:#657b83;">&lt;&lt;</span><span> p.</span><span style="color:#268bd2;">first </span><span style="color:#657b83;">&lt;&lt; </span><span>&quot;</span><span style="color:#2aa198;">, </span><span>&quot; </span><span style="color:#657b83;">&lt;&lt;</span><span> p.</span><span style="color:#268bd2;">second </span><span style="color:#657b83;">&lt;&lt; </span><span>&#39;</span><span style="color:#2aa198;">]</span><span>&#39;;
+</span><span style="color:#657b83;">}
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    std::pair</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">int</span><span>,</span><span style="color:#268bd2;">double</span><span style="color:#657b83;">&gt; </span><span style="color:#b58900;">p1 </span><span style="color:#657b83;">{</span><span style="color:#6c71c4;">1</span><span>,</span><span style="color:#6c71c4;">3.0</span><span style="color:#657b83;">}</span><span>;
+</span><span>    std::pair</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">double</span><span>,</span><span style="color:#268bd2;">int</span><span style="color:#657b83;">&gt; </span><span style="color:#b58900;">p2 </span><span style="color:#657b83;">{</span><span style="color:#6c71c4;">4.3</span><span>,</span><span style="color:#6c71c4;">2</span><span style="color:#657b83;">}</span><span>;
+</span><span>    std::pair</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">int</span><span>,</span><span style="color:#268bd2;">int</span><span style="color:#657b83;">&gt; </span><span style="color:#b58900;">p3 </span><span style="color:#657b83;">{</span><span style="color:#6c71c4;">2</span><span>,</span><span style="color:#6c71c4;">2</span><span style="color:#657b83;">}</span><span>;
+</span><span>    std::pair</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">float</span><span>,</span><span style="color:#268bd2;">double</span><span style="color:#657b83;">&gt; </span><span style="color:#b58900;">p4 </span><span style="color:#657b83;">{</span><span style="color:#6c71c4;">3.14</span><span>,</span><span style="color:#6c71c4;">2.71</span><span style="color:#657b83;">}</span><span>;
+</span><span>
+</span><span>    </span><span style="color:#b58900;">print</span><span style="color:#657b83;">(</span><span>p1</span><span style="color:#657b83;">)</span><span>;
+</span><span>    </span><span style="color:#b58900;">print</span><span style="color:#657b83;">(</span><span>p2</span><span style="color:#657b83;">)</span><span>;
+</span><span>    </span><span style="color:#b58900;">print</span><span style="color:#657b83;">(</span><span>p3</span><span style="color:#657b83;">)</span><span>;
+</span><span>    </span><span style="color:#b58900;">print</span><span style="color:#657b83;">(</span><span>p4</span><span style="color:#657b83;">)</span><span>;
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span><span>
+</span></code></pre>
+<blockquote>
+<p>在实际开发中,一般建议直接使用标准库定义的<code>pair</code>而不是自己重新实现,除非标准库的实现无法满足需求。</p>
+</blockquote>
+<hr />
+<h2 id="zai-duo-ge-wen-jian-zhong-shi-yong-lei-mo-ban">在多个文件中使用类模版<a class="zola-anchor" href="#zai-duo-ge-wen-jian-zhong-shi-yong-lei-mo-ban" aria-label="Anchor link for: zai-duo-ge-wen-jian-zhong-shi-yong-lei-mo-ban">🔗</a></h2>
+<p>就像函数模版一样,类模版通常定义在头文件中,因此他们可以在任何需要他们的代码文件中,模版定义和类型定义都不受 <strong>ORD</strong>原则的限制。</p>
+<ul>
+<li>pair.h</li>
+</ul>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#ifndef</span><span style="color:#b58900;"> PAIR_H
+</span><span style="color:#cb4b16;">#define </span><span style="color:#b58900;">PAIR_H
+</span><span>
+</span><span style="color:#268bd2;">template </span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">typename</span><span> T</span><span style="color:#657b83;">&gt;
+</span><span style="color:#268bd2;">struct </span><span style="color:#b58900;">Pair 
+</span><span style="color:#657b83;">{
+</span><span>    T first;
+</span><span>    T second;
+</span><span style="color:#657b83;">}</span><span>;
+</span><span style="color:#268bd2;">template </span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">typename</span><span> T</span><span style="color:#657b83;">&gt;
+</span><span style="color:#859900;">constexpr</span><span> T  </span><span style="color:#b58900;">max</span><span style="color:#657b83;">(</span><span>Pair</span><span style="color:#657b83;">&lt;</span><span>T</span><span style="color:#657b83;">&gt; </span><span style="color:#268bd2;">p</span><span style="color:#657b83;">)
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">return</span><span> p.</span><span style="color:#268bd2;">first </span><span style="color:#657b83;">&gt;</span><span> p.</span><span style="color:#268bd2;">second </span><span style="color:#859900;">?</span><span> p.</span><span style="color:#268bd2;">first </span><span style="color:#859900;">:</span><span> p.</span><span style="color:#268bd2;">second</span><span>;
+</span><span style="color:#657b83;">}
+</span><span>
+</span><span style="color:#cb4b16;">#endif </span><span style="color:#586e75;">// PAIR_H
+</span></code></pre>
+<ul>
+<li>foo.cpp</li>
+</ul>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include </span><span>&quot;</span><span style="color:#2aa198;">pair.h</span><span>&quot;
+</span><span style="color:#cb4b16;">#include</span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span>
+</span><span>
+</span><span style="color:#268bd2;">void </span><span style="color:#b58900;">foo</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    Pair</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">int</span><span style="color:#657b83;">&gt; </span><span style="color:#b58900;">p1</span><span style="color:#657b83;">{</span><span style="color:#6c71c4;">1</span><span>, </span><span style="color:#6c71c4;">2</span><span style="color:#657b83;">}</span><span>;
+</span><span>    std::cout </span><span style="color:#657b83;">&lt;&lt; </span><span style="color:#b58900;">max</span><span style="color:#657b83;">(</span><span>p1</span><span style="color:#657b83;">) &lt;&lt; </span><span>&quot;</span><span style="color:#2aa198;">is large</span><span style="color:#dc322f;">\n</span><span>&quot;;
+</span><span style="color:#657b83;">}
+</span><span>
+</span></code></pre>
+<ul>
+<li>main.cpp</li>
+</ul>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include</span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span style="color:#cb4b16;">#include </span><span>&quot;</span><span style="color:#2aa198;">pair.h</span><span>&quot;
+</span><span>
+</span><span style="color:#268bd2;">void </span><span style="color:#b58900;">foo</span><span style="color:#657b83;">()</span><span>;
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    Pair</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">double</span><span style="color:#657b83;">&gt; </span><span style="color:#b58900;">p2 </span><span style="color:#657b83;">{</span><span style="color:#6c71c4;">1.0</span><span>, </span><span style="color:#6c71c4;">2.0</span><span style="color:#657b83;">}</span><span>;
+</span><span>    std::cout </span><span style="color:#657b83;">&lt;&lt;</span><span style="color:#b58900;">max</span><span style="color:#657b83;">(</span><span>p2</span><span style="color:#657b83;">)&lt;&lt;</span><span>&quot;</span><span style="color:#2aa198;">is larger</span><span style="color:#dc322f;">\n</span><span>&quot;;
+</span><span>    
+</span><span>    </span><span style="color:#b58900;">foo</span><span style="color:#657b83;">()</span><span>;
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>对于上面的程序,如果你是使用命令单独编译的情况下,在编译<code>main.cpp</code>的同时务必记得编译<code>foo.cpp</code></p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span>g</span><span style="color:#657b83;">++ -</span><span>std</span><span style="color:#657b83;">=</span><span>c</span><span style="color:#657b83;">++</span><span style="color:#6c71c4;">17 </span><span style="color:#657b83;">-</span><span>o main main.</span><span style="color:#268bd2;">cpp</span><span> foo.</span><span style="color:#268bd2;">cpp
+</span></code></pre>
+<hr />
+<h2 id="mo-ban-can-shu-tui-dao">模版参数推导<a class="zola-anchor" href="#mo-ban-can-shu-tui-dao" aria-label="Anchor link for: mo-ban-can-shu-tui-dao">🔗</a></h2>
+<p>从C++17开始,当从类模版实例化一个对象时,编译器可以从对象的初始化器的类型推导出模版类型,这称为 <strong>模版类型推导</strong>或者简称<code>CTAD.</code></p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include</span><span>&lt;</span><span style="color:#2aa198;">utility</span><span>&gt;
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>  std::pair</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">int</span><span>,</span><span style="color:#268bd2;">int</span><span style="color:#657b83;">&gt; </span><span style="color:#b58900;">p1 </span><span style="color:#657b83;">{</span><span style="color:#6c71c4;">1</span><span>,</span><span style="color:#6c71c4;">2</span><span style="color:#657b83;">}</span><span>;
+</span><span>  std::pair </span><span style="color:#b58900;">p2 </span><span style="color:#657b83;">{</span><span style="color:#6c71c4;">1</span><span>,</span><span style="color:#6c71c4;">2</span><span style="color:#657b83;">}</span><span>; </span><span style="color:#586e75;">// 这里用到了C++17的自动模版类型推导,不需要显式的声明
+</span><span>  
+</span><span>  </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>值得注意的是,这样的推导是有条件的,只有在没有显式声明模版参数的情况下才会执行。所以,下面两种方式是错误示范:</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include</span><span>&lt;</span><span style="color:#2aa198;">utility</span><span>&gt;
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>  std::pair</span><span style="color:#657b83;">&lt;&gt; </span><span style="color:#b58900;">p1 </span><span style="color:#657b83;">{</span><span style="color:#6c71c4;">1</span><span>,</span><span style="color:#6c71c4;">2</span><span style="color:#657b83;">}</span><span>;  </span><span style="color:#586e75;">// 模板参数太少，两个参数均未推导
+</span><span>  std::pair</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">int</span><span style="color:#657b83;">&gt; </span><span style="color:#b58900;">p2 </span><span style="color:#657b83;">{</span><span style="color:#6c71c4;">3</span><span>,</span><span style="color:#6c71c4;">4</span><span style="color:#657b83;">}</span><span>; </span><span style="color:#586e75;">// 模板参数太少，第二个参数未推导
+</span><span>  
+</span><span>  </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>由于 CTAD（类模板参数推导）是一种类型推导的形式，我们可以使用 <strong>字面量后缀</strong> 来改变推导出的类型：</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">utility</span><span>&gt; 
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    std::pair </span><span style="color:#b58900;">p1 </span><span style="color:#657b83;">{ </span><span style="color:#6c71c4;">3.4</span><span style="color:#268bd2;">f</span><span>, </span><span style="color:#6c71c4;">5.6</span><span style="color:#268bd2;">f </span><span style="color:#657b83;">}</span><span>; </span><span style="color:#586e75;">// 推导为 pair&lt;float, float&gt;
+</span><span>    std::pair </span><span style="color:#b58900;">p2 </span><span style="color:#657b83;">{ </span><span style="color:#6c71c4;">1</span><span style="color:#268bd2;">u</span><span>, </span><span style="color:#6c71c4;">2</span><span style="color:#268bd2;">u </span><span style="color:#657b83;">}</span><span>;     </span><span style="color:#586e75;">// 推导为 pair&lt;unsigned int, unsigned int&gt;
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>大多数情况下,<code>CTAD</code>可以开箱即用,但是在某些情况下,编译器可能需要一些额外的帮助来理解如何正确推导模版参数。</p>
+<p>比如下面的程序,如果你在C++17环境下编译,是无法正常编译成功的。</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include</span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span style="color:#cb4b16;">#include</span><span>&lt;</span><span style="color:#2aa198;">utility</span><span>&gt;
+</span><span>
+</span><span style="color:#268bd2;">template</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">typename</span><span> T,</span><span style="color:#268bd2;">typename</span><span> U</span><span style="color:#657b83;">&gt;
+</span><span style="color:#268bd2;">struct </span><span style="color:#b58900;">Pair
+</span><span style="color:#657b83;">{
+</span><span>    T first </span><span style="color:#657b83;">{}</span><span>;
+</span><span>    U second </span><span style="color:#657b83;">{}</span><span>;
+</span><span style="color:#657b83;">}</span><span>;
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    Pair</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">int</span><span>,</span><span style="color:#268bd2;">int</span><span style="color:#657b83;">&gt; </span><span style="color:#b58900;">p1 </span><span style="color:#657b83;">{</span><span style="color:#6c71c4;">1</span><span>,</span><span style="color:#6c71c4;">2</span><span style="color:#657b83;">}</span><span>;
+</span><span>    Pair </span><span style="color:#b58900;">p2 </span><span style="color:#657b83;">{</span><span style="color:#6c71c4;">2</span><span>,</span><span style="color:#6c71c4;">3</span><span style="color:#657b83;">}</span><span>;
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>比如,我尝试编译这段代码时,就遇到了下面这样的错误提示:</p>
+<p><img src="https://images.waer.ltd/notes/202503161556985.png" alt="image-20250316155611729" loading="lazy" decoding="async" /></p>
+<p>这是因为在C++17中,它不知道如何推导聚合类型的类模版参数,为了解决这个问题,我们需要手动的给编译器提供一个推导指南,它会告诉编译器如何推导给定类模版的模版参数:</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include</span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span style="color:#cb4b16;">#include</span><span>&lt;</span><span style="color:#2aa198;">utility</span><span>&gt;
+</span><span>
+</span><span style="color:#268bd2;">template</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">typename</span><span> T,</span><span style="color:#268bd2;">typename</span><span> U</span><span style="color:#657b83;">&gt;
+</span><span style="color:#268bd2;">struct </span><span style="color:#b58900;">Pair
+</span><span style="color:#657b83;">{
+</span><span>    T first </span><span style="color:#657b83;">{}</span><span>;
+</span><span>    U second </span><span style="color:#657b83;">{}</span><span>;
+</span><span style="color:#657b83;">}</span><span>;
+</span><span>
+</span><span style="color:#586e75;">// 推导指南
+</span><span style="color:#268bd2;">template</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">typename</span><span> T,</span><span style="color:#268bd2;">typename</span><span> U</span><span style="color:#657b83;">&gt;
+</span><span style="color:#b58900;">Pair</span><span style="color:#657b83;">(</span><span>T,U</span><span style="color:#657b83;">) </span><span>-&gt; </span><span style="color:#b58900;">Pair</span><span style="color:#657b83;">&lt;</span><span>T,U</span><span style="color:#657b83;">&gt;</span><span>;
+</span><span>
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    Pair</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">int</span><span>,</span><span style="color:#268bd2;">int</span><span style="color:#657b83;">&gt; </span><span style="color:#b58900;">p1 </span><span style="color:#657b83;">{</span><span style="color:#6c71c4;">1</span><span>,</span><span style="color:#6c71c4;">2</span><span style="color:#657b83;">}</span><span>;
+</span><span>    Pair </span><span style="color:#b58900;">p2 </span><span style="color:#657b83;">{</span><span style="color:#6c71c4;">2</span><span>,</span><span style="color:#6c71c4;">3</span><span style="color:#657b83;">}</span><span>;
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span><span>
+</span></code></pre>
+<p>关键的代码就两行:</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#268bd2;">template</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">typename</span><span> T,</span><span style="color:#268bd2;">typename</span><span> U</span><span style="color:#657b83;">&gt;
+</span><span style="color:#b58900;">Pair</span><span style="color:#657b83;">(</span><span>T,U</span><span style="color:#657b83;">) </span><span>-&gt; </span><span style="color:#b58900;">Pair</span><span style="color:#657b83;">&lt;</span><span>T,U</span><span style="color:#657b83;">&gt;</span><span>;
+</span></code></pre>
+<ul>
+<li>
+<p>首先，我们使用与 <code>Pair</code> 类中相同的模板类型定义。这是合理的，因为如果我们的 <strong>推导指引（deduction guide）</strong> 要告诉编译器如何为 <code>Pair&lt;T, U&gt;</code> 推导类型，我们必须定义 <code>T</code> 和<code> U</code>（即模板类型）。</p>
+</li>
+<li>
+<p>其次，在箭头 <code>-&gt;</code> 右侧，我们指定了希望帮助编译器推导出的类型。在本例中，我们希望编译器能够推导出 <code>Pair&lt;T, U&gt;</code> 类型的模板参数，因此这里直接写 <code>Pair&lt;T, U&gt;</code>。</p>
+</li>
+<li>
+<p>最后，在箭头<code> -&gt;</code> 左侧，我们告诉编译器要寻找哪种形式的声明。在本例中，我们指定了 <code>Pair</code> 对象的声明，且它接受两个参数（一个是 <code>T</code> 类型，另一个是 <code>U</code> 类型）。我们也可以写成 <code>Pair(T t, U u)</code>，其中 <code>t</code> 和<code> u</code> 是参数的名称，但由于在推导过程中不需要使用它们，因此可以省略名称。</p>
+</li>
+</ul>
+<p>把所有这些放在一起，我们告诉编译器，如果它看到一个带有两个参数（分别是<code>T</code>和<code>U</code>类型）的<code>Pair</code>声明，它应该推断类型为<code>Pair&lt;T，U&gt;</code>。</p>
+<p>再看一个类似的例子:</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#586e75;">// 定义一个模板结构体 Pair，表示一对数据
+</span><span style="color:#268bd2;">template </span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">typename</span><span> T</span><span style="color:#657b83;">&gt;
+</span><span style="color:#268bd2;">struct </span><span style="color:#b58900;">Pair
+</span><span style="color:#657b83;">{
+</span><span>    T </span><span style="color:#b58900;">first</span><span style="color:#657b83;">{}</span><span>;  </span><span style="color:#586e75;">// 第一个值
+</span><span>    T </span><span style="color:#b58900;">second</span><span style="color:#657b83;">{}</span><span>; </span><span style="color:#586e75;">// 第二个值
+</span><span style="color:#657b83;">}</span><span>;
+</span><span>
+</span><span style="color:#586e75;">// 这是 `Pair` 的一个推导指引（仅在 C++17 及以上版本需要）
+</span><span style="color:#586e75;">// 当 `Pair` 对象用两个 `T` 类型的参数初始化时，推导结果应为 `Pair&lt;T&gt;`
+</span><span style="color:#268bd2;">template </span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">typename</span><span> T</span><span style="color:#657b83;">&gt;
+</span><span style="color:#b58900;">Pair</span><span style="color:#657b83;">(</span><span>T, T</span><span style="color:#657b83;">) </span><span>-&gt; </span><span style="color:#b58900;">Pair</span><span style="color:#657b83;">&lt;</span><span>T</span><span style="color:#657b83;">&gt;</span><span>;
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    Pair</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">int</span><span style="color:#657b83;">&gt; </span><span style="color:#b58900;">p1</span><span style="color:#657b83;">{ </span><span style="color:#6c71c4;">1</span><span>, </span><span style="color:#6c71c4;">2 </span><span style="color:#657b83;">}</span><span>; </span><span style="color:#586e75;">// 显式指定类模板 `Pair&lt;int&gt;`（适用于 C++11 及更高版本）
+</span><span>    Pair </span><span style="color:#b58900;">p2</span><span style="color:#657b83;">{ </span><span style="color:#6c71c4;">1</span><span>, </span><span style="color:#6c71c4;">2 </span><span style="color:#657b83;">}</span><span>;      </span><span style="color:#586e75;">// 使用类模板参数推导（CTAD），从初始化参数推导 `Pair&lt;int&gt;`（C++17）
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p><code>Pair(T, T) -&gt; Pair&lt;T&gt;;</code>告诉编译器，当 <code>Pair</code> 通过两个相同类型 T 的参数初始化时，<code>Pair&lt;T&gt;</code> 应该被推导出来。</p>
+<p>例如 <code>Pair p2{1, 2}</code>;，编译器会自动推导 <code>T=int</code>，最终等价于<code> Pair&lt;int&gt; p2{1, 2};</code>。</p>
+<hr />
+<h2 id="">带默认值的类型模板参数<a class="zola-anchor" href="#" aria-label="Anchor link for: ">🔗</a></h2>
+<p>就像函数参数可以有默认参数一样，模板参数也可以有默认值。当模板参数没有明确指定并且无法推导时，将使用这些参数。</p>
+<p>下面是对上面的<code>Pair&lt;T，U&gt;</code>类模板程序的修改，类型模板参数<code>T</code>和<code>U</code>默认为<code>int</code>类型：</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#586e75;">// 定义一个模板结构体 Pair，T 和 U 默认类型为 int
+</span><span style="color:#268bd2;">template </span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">typename</span><span> T </span><span style="color:#657b83;">= </span><span style="color:#268bd2;">int</span><span>, </span><span style="color:#268bd2;">typename</span><span> U </span><span style="color:#657b83;">= </span><span style="color:#268bd2;">int</span><span style="color:#657b83;">&gt; </span><span style="color:#586e75;">// 默认 T 和 U 都是 int 类型
+</span><span style="color:#268bd2;">struct </span><span style="color:#b58900;">Pair
+</span><span style="color:#657b83;">{
+</span><span>    T </span><span style="color:#b58900;">first</span><span style="color:#657b83;">{}</span><span>;  </span><span style="color:#586e75;">// 第一个值
+</span><span>    U </span><span style="color:#b58900;">second</span><span style="color:#657b83;">{}</span><span>; </span><span style="color:#586e75;">// 第二个值
+</span><span style="color:#657b83;">}</span><span>;
+</span><span>
+</span><span style="color:#586e75;">// 推导指引，帮助编译器推导 Pair(T, U) -&gt; Pair&lt;T, U&gt;
+</span><span style="color:#268bd2;">template </span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">typename</span><span> T, </span><span style="color:#268bd2;">typename</span><span> U</span><span style="color:#657b83;">&gt;
+</span><span style="color:#b58900;">Pair</span><span style="color:#657b83;">(</span><span>T, U</span><span style="color:#657b83;">) </span><span>-&gt; </span><span style="color:#b58900;">Pair</span><span style="color:#657b83;">&lt;</span><span>T, U</span><span style="color:#657b83;">&gt;</span><span>;
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    Pair</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">int</span><span>, </span><span style="color:#268bd2;">int</span><span style="color:#657b83;">&gt; </span><span style="color:#b58900;">p1</span><span style="color:#657b83;">{ </span><span style="color:#6c71c4;">1</span><span>, </span><span style="color:#6c71c4;">2 </span><span style="color:#657b83;">}</span><span>; </span><span style="color:#586e75;">// 显式指定类模板 `Pair&lt;int, int&gt;`（C++11 及以上）
+</span><span>    Pair </span><span style="color:#b58900;">p2</span><span style="color:#657b83;">{ </span><span style="color:#6c71c4;">1</span><span>, </span><span style="color:#6c71c4;">2 </span><span style="color:#657b83;">}</span><span>;           </span><span style="color:#586e75;">// 使用 CTAD 推导 `Pair&lt;int, int&gt;`（C++17）
+</span><span>
+</span><span>    Pair p3;                   </span><span style="color:#586e75;">// 使用默认模板参数 `Pair&lt;int, int&gt;`
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>我们对<code>p3的</code>定义没有显式地指定类型模板参数的类型，也没有从这些类型推导出的初始化器。因此，编译器将使用默认值中指定的类型，这意味<code>着p3</code>将是<code>Pair&lt;int，int&gt;</code>类型。</p>
+<hr />
+<p>当使用<strong>非静态成员初始化</strong>（non-static member initialization）来初始化类类型的成员时，<strong>类模板参数推导（CTAD）</strong> 在这种情况下不会生效。所有的模板参数必须<strong>显式指定</strong>。</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">utility</span><span>&gt; </span><span style="color:#586e75;">// for std::pair
+</span><span>
+</span><span style="color:#268bd2;">struct </span><span style="color:#b58900;">Foo
+</span><span style="color:#657b83;">{
+</span><span>    std::pair</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">int</span><span>, </span><span style="color:#268bd2;">int</span><span style="color:#657b83;">&gt; </span><span style="color:#b58900;">p1</span><span style="color:#657b83;">{ </span><span style="color:#6c71c4;">1</span><span>, </span><span style="color:#6c71c4;">2 </span><span style="color:#657b83;">}</span><span>; </span><span style="color:#586e75;">// ✅ OK，显式指定模板参数
+</span><span>    std::pair </span><span style="color:#b58900;">p2</span><span style="color:#657b83;">{ </span><span style="color:#6c71c4;">1</span><span>, </span><span style="color:#6c71c4;">2 </span><span style="color:#657b83;">}</span><span>;           </span><span style="color:#586e75;">// ❌ 编译错误，CTAD 在非静态成员初始化时不可用
+</span><span style="color:#657b83;">}</span><span>;
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    std::pair </span><span style="color:#b58900;">p3</span><span style="color:#657b83;">{ </span><span style="color:#6c71c4;">1</span><span>, </span><span style="color:#6c71c4;">2 </span><span style="color:#657b83;">}</span><span>;           </span><span style="color:#586e75;">// ✅ OK，CTAD 在此处可以使用
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p><strong>为什么 CTAD 不能用于非静态成员初始化？</strong></p>
+<ul>
+<li>非静态成员初始化是在<strong>类定义时</strong>解析的，而 <code>CTAD</code> 需要在对象实际创建时推导类型，两者的时机不同。</li>
+<li>在 <code>Foo</code> 定义时，编译器必须确定 <code>p2</code> 的完整类型（包括模板参数）。如果没有显式指定模板参数，编译器无法在类定义阶段进行推导。</li>
+<li><code>CTAD</code> 主要用于变量初始化（如 <code>std::pair p{1, 2};</code>），而非静态成员初始化并不会直接调用 <code>CTAD</code> 规则。</li>
+</ul>
+<hr />
+<blockquote>
+<p><code>CTAD</code> 代表“类模板实参推导”（<code>Class Template Argument Deduction</code>），而不是“类模板参数推导”（<code>Class Template Parameter Deduction</code>），因此它只会推导模板的实参类型，而不会推导模板的参数。</p>
+</blockquote>
+<p><strong>CTAD 只能在变量定义时生效</strong>，但不能用于函数参数类型推导。因此,不能在函数中使用<code>CTAD</code>:</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">utility</span><span>&gt;
+</span><span>
+</span><span style="color:#268bd2;">void </span><span style="color:#b58900;">print</span><span style="color:#657b83;">(</span><span>std::pair </span><span style="color:#268bd2;">p</span><span style="color:#657b83;">) </span><span style="color:#586e75;">// ❌ 编译错误：CTAD 不能用于函数参数
+</span><span style="color:#657b83;">{
+</span><span>    std::cout </span><span style="color:#657b83;">&lt;&lt;</span><span> p.</span><span style="color:#268bd2;">first </span><span style="color:#657b83;">&lt;&lt; </span><span>&#39; &#39; </span><span style="color:#657b83;">&lt;&lt;</span><span> p.</span><span style="color:#268bd2;">second </span><span style="color:#657b83;">&lt;&lt; </span><span>&#39;</span><span style="color:#dc322f;">\n</span><span>&#39;;
+</span><span style="color:#657b83;">}
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    std::pair </span><span style="color:#b58900;">p </span><span style="color:#657b83;">{ </span><span style="color:#6c71c4;">1</span><span>, </span><span style="color:#6c71c4;">2 </span><span style="color:#657b83;">}</span><span>; </span><span style="color:#586e75;">// ✅ CTAD 在变量声明时有效，推导为 std::pair&lt;int, int&gt;
+</span><span>    </span><span style="color:#b58900;">print</span><span style="color:#657b83;">(</span><span>p</span><span style="color:#657b83;">)</span><span>; </span><span style="color:#586e75;">// ❌ 编译错误
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>在这种情况下，应该使用模板来实现:</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">utility</span><span>&gt;
+</span><span>
+</span><span style="color:#268bd2;">template </span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">typename</span><span> T, </span><span style="color:#268bd2;">typename</span><span> U</span><span style="color:#657b83;">&gt;
+</span><span style="color:#268bd2;">void </span><span style="color:#b58900;">print</span><span style="color:#657b83;">(</span><span>std::pair</span><span style="color:#657b83;">&lt;</span><span>T, U</span><span style="color:#657b83;">&gt; </span><span style="color:#268bd2;">p</span><span style="color:#657b83;">)
+</span><span style="color:#657b83;">{
+</span><span>    std::cout </span><span style="color:#657b83;">&lt;&lt;</span><span> p.</span><span style="color:#268bd2;">first </span><span style="color:#657b83;">&lt;&lt; </span><span>&#39; &#39; </span><span style="color:#657b83;">&lt;&lt;</span><span> p.</span><span style="color:#268bd2;">second </span><span style="color:#657b83;">&lt;&lt; </span><span>&#39;</span><span style="color:#dc322f;">\n</span><span>&#39;;
+</span><span style="color:#657b83;">}
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    std::pair </span><span style="color:#b58900;">p </span><span style="color:#657b83;">{ </span><span style="color:#6c71c4;">1</span><span>, </span><span style="color:#6c71c4;">2 </span><span style="color:#657b83;">}</span><span>; </span><span style="color:#586e75;">// 推导为 std::pair&lt;int, int&gt;
+</span><span>    </span><span style="color:#b58900;">print</span><span style="color:#657b83;">(</span><span>p</span><span style="color:#657b83;">)</span><span>;
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+
+      
+    </div><!--./card-body-->
+
+    <div class="card-footer">
+      <div class="columns">
+        <div class="column col-9 col-sm-7">
+          <div class="taxonomies text-left">
+            
+
+    
+          </div>
+        </div><!--./col-6-->
+        
+        </div><!--./columns-->
+    </div><!--./card-footer-->
+</div><!--./card-->
+</div>
+              <div id="sidebar" class="column col-4 col-md-12">
+                <div class="sidebar-content">
+                  
+                  
+<div class="sidebar-widget">
+  <div class="tile">
+    <div class="tile-icon">
+      <figure class="avatar avatar-xl">
+        <img src="https://ilikexff.cn/avatar.png" alt="author avatar image">
+      </figure>
+    </div>
+    <div class="tile-content">
+      <p class="tile-title" style="font-weight: 600;">慕予</p>
+      <p class="tile-subtitle">热爱编程，专注于技术分享和学习</p>
+    </div>
+</div><!--./tile-->
+</div>
+
+                  
+                  
+<div class="sidebar-widget">
+  欢迎来到<strong>八尺妖剑</strong>！这里分享技术文章和编程心得。
+</div><!-- end text widget -->
+
+                  
+
+                  
+<div class="sidebar-widget syndicate">
+<h4>Feed</h4>
+<a class="btn" href="/rss.xml">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-rss-fill" viewBox="0 0 16 16">
+  <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm1.5 2.5c5.523 0 10 4.477 10 10a1 1 0 1 1-2 0 8 8 0 0 0-8-8 1 1 0 0 1 0-2zm0 4a6 6 0 0 1 6 6 1 1 0 1 1-2 0 4 4 0 0 0-4-4 1 1 0 0 1 0-2zm.5 7a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+</svg>
+<span>RSS</span>
+</a>
+</div>
+
+                  </div><!--./sidebar-content-->
+              </div>
+            </div>
+            
+          </section>
+        </section></section>
+<section class="container grid-xl">
+<ul class="pagination paginator">
+  
+  
+</ul>
+</section>
+</div><!-- ./page-wrapper -->
+
+    
+<div class="mobile-container">
+        <div class="overlay" id="overlay">
+            <div style="padding: 1rem;">
+              
+<a class="site-logo" href="https:&#x2F;&#x2F;ilikexff.cn">
+  
+  <div class="col-mx-auto">
+    <figure style="margin: 8px">
+      <img class="img-responsive"
+           style="max-height: 45px"
+           alt="frontmatter image"
+           src="https://ilikexff.cn/./logo.svg">
+    </figure>
+  </div>
+  
+</a>
+
+            </div>
+            <nav class="overlay-menu">
+              
+
+<ul class="tree treemenu treemenu-root"><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/tags">标签</a>
+    </li><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/categories">分类</a>
+    </li><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/about">关于</a>
+    </li></ul>
+
+
+              </nav>
+        </div>
+    </div>
+
+<script type="text/javascript">
+  var overlay = document.getElementById('overlay');
+  var toggle = document.getElementById('toggle');
+
+  function openOverlay(){
+      // Open overlay
+      if (overlay.classList.contains("open")) {
+          overlay.classList.remove("open");
+      }
+      else {
+          overlay.classList.add("open");
+      }
+
+      // Button transition
+      if (toggle.classList.contains("active")) {
+          toggle.classList.remove("active");
+      }
+      else {
+          toggle.classList.add("active");
+      }
+    }
+</script>
+
+<section id="footer" class="bg-gray">
+  <div class="container grid-xl">
+    
+
+
+    <div class="columns">
+      
+      <div class="column col-6 col-lg-12 col-mx-auto" style="text-align: center;">
+        简单是效率的灵魂 | 黔ICP备2021010295号
+      </div>
+      
+      <div class="column col-6 col-lg-12 col-mx-auto" style="text-align: center;">
+        Made by <a href="https://github.com/gicrisf/">gicrisf</a> -
+        <strong>Zhuia</strong>&nbsp;<a href="https://github.com/gicrisf/zhuia">source code</a>
+        is licensed under <a href="http://opensource.org/licenses/mit-license.php" target="_blank">MIT</a>.
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

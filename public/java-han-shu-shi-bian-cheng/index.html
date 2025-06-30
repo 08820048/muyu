@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html lang="zh" data-theme="light" dir="ltr">
+  <head>
+    <title>Java函数式编程 - 八尺妖剑</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="简单是效率的灵魂"/>
+
+    <meta property="og:title" content="八尺妖剑 -&nbsp;Java函数式编程" />
+    <meta property="og:type" content="website"/><meta property="og:url" content="https:&#x2F;&#x2F;ilikexff.cn&#x2F;java-han-shu-shi-bian-cheng&#x2F;"/><meta property="og:description" content="简单是效率的灵魂"/>
+
+
+    <meta name="twitter:card" content="summary">
+
+
+    <link rel="stylesheet" href="https://ilikexff.cn/spectre/spectre.css">
+    <link rel="stylesheet" href="https://ilikexff.cn/theme.css"><link rel="stylesheet" href="https://ilikexff.cn/custom.css">
+    
+<link rel="alternate" type="application/rss+xml" title="八尺妖剑 RSS" href="https://ilikexff.cn/rss.xml">
+        
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script>
+        function doRenderMath() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false},
+                {left: "\\begin{equation}", right: "\\end{equation}", display: true},
+                {left: "\\begin{align}", right: "\\end{align}", display: true},
+                {left: "\\begin{alignat}", right: "\\end{alignat}", display: true},
+                {left: "\\begin{gather}", right: "\\end{gather}", display: true},
+                {left: "\\begin{CD}", right: "\\end{CD}", display: true},
+                {left: "\\[", right: "\\]", display: true}
+                ]
+            });
+        }
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+        onload="doRenderMath()"></script>
+
+      </head>
+  <body id="top" class="sticky-footer"><div id="page-wrapper">
+<header id="header" class="section">
+  <section class="container grid-xl">
+    <nav class="navbar">
+      <section class="navbar-section">
+        
+<a class="site-logo" href="https:&#x2F;&#x2F;ilikexff.cn">
+  
+  <div class="col-mx-auto">
+    <figure style="margin: 8px">
+      <img class="img-responsive"
+           style="max-height: 45px"
+           alt="frontmatter image"
+           src="https://ilikexff.cn/./logo.svg">
+    </figure>
+  </div>
+  
+</a>
+
+      </section><!-- ./home button -->
+
+      <section class="navbar-center hide-md"></section>
+
+      <section class="navbar-section">
+        <nav class="dropmenu animated hide-md">
+
+<ul><li>
+        <a href="https://ilikexff.cn/tags">标签</a>
+    </li><li>
+        <a href="https://ilikexff.cn/categories">分类</a>
+    </li><li>
+        <a href="https://ilikexff.cn/about">关于</a>
+    </li></ul>
+
+
+          </nav>
+      </section><!-- ./desktop-menu -->
+    </nav>
+  </section><!-- ./container -->
+</header>
+
+
+<div class="mobile-menu">
+  <div class="button_container" id="toggle" onclick="openOverlay()">
+    <span class="top"></span>
+    <span class="middle"></span>
+    <span class="bottom"></span>
+  </div>
+</div><!--./mobile-menu-->
+
+
+<section id="start"><section id="body-wrapper" class="section">
+          <section class="container grid-xl">
+<div id="breadcrumbs" itemtype="http://schema.org/BreadcrumbList" class="hide-sm">
+  
+    
+    <span><a href="https:&#x2F;&#x2F;ilikexff.cn&#x2F;">Home</a></span>
+  
+    <span><a href="https:&#x2F;&#x2F;ilikexff.cn&#x2F;java-han-shu-shi-bian-cheng&#x2F;">Java函数式编程</a></span>
+</div>
+<div class="columns">
+              <div id="item" class="column col-8 col-md-12 extra-spacing">
+<div class="card">
+  
+
+    <div class="card-header">
+      <div class="card-title" style="margin-top: .25rem;"><div>
+          <h1 class="post-title">Java函数式编程</h1>
+          
+    <div class="post-meta" style="display: inline-flex">
+        <span class="blog-date" style="display: inline-flex;">
+          <i class="gg-calendar" style="margin-right: 5px;"></i><time datetime="2023.06.15">
+          2023.06.15
+          </time></span><span class="post-author" style="margin-left: 5px; display: inline-flex;">
+          - 
+    慕予
+        </span></div>
+
+        </div></div>
+    </div><!--./card-header-->
+
+    <div class="card-body">
+      
+        <h2 id="1-gai-shu">1.概述<a class="zola-anchor" href="#1-gai-shu" aria-label="Anchor link for: 1-gai-shu">🔗</a></h2>
+<h3 id="1-1gai-nian">1.1概念<a class="zola-anchor" href="#1-1gai-nian" aria-label="Anchor link for: 1-1gai-nian">🔗</a></h3>
+<p>函数式编程是一种编程范式，即一切都是数学函数。在Java<a class="" href="https://so.csdn.net/so/search?q=%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1&amp;spm=1001.2101.3001.7020">面向对象</a>编程中，程序是一系列相互作用（方法）的对象，而在函数式编程中，程序会是一个无状态的函数组合序列。</p>
+<h3 id="1-2-you-dian">1.2 优点<a class="zola-anchor" href="#1-2-you-dian" aria-label="Anchor link for: 1-2-you-dian">🔗</a></h3>
+<ul>
+<li>大数量下处理集合效率高</li>
+<li>代码可读性高</li>
+<li>消灭嵌套地狱</li>
+<li>降低代码量</li>
+</ul>
+<hr />
+<h2 id="2-lambdabiao-da-shi">2.Lambda表达式<a class="zola-anchor" href="#2-lambdabiao-da-shi" aria-label="Anchor link for: 2-lambdabiao-da-shi">🔗</a></h2>
+<h3 id="2-1gai-shu">2.1概述<a class="zola-anchor" href="#2-1gai-shu" aria-label="Anchor link for: 2-1gai-shu">🔗</a></h3>
+<p><strong>Lambda是JDK8中一个语法糖</strong>。他可以对某些匿名内部类的写法进行简化。它是函数式编程思想的一个重要体现。让我们不用关注是什么对象。而是更关注我们对数据进行了什么操作。</p>
+<h3 id="2-2-he-xin-yuan-ze">2.2 核心原则<a class="zola-anchor" href="#2-2-he-xin-yuan-ze" aria-label="Anchor link for: 2-2-he-xin-yuan-ze">🔗</a></h3>
+<blockquote>
+<p>可推导可省略原则。</p>
+</blockquote>
+<h3 id="2-3-sheng-lue-gui-ze">2.3 省略规则<a class="zola-anchor" href="#2-3-sheng-lue-gui-ze" aria-label="Anchor link for: 2-3-sheng-lue-gui-ze">🔗</a></h3>
+<ul>
+<li>参数类型可以省略</li>
+<li>方法体只有一句代码时大括号<code>return</code>和唯一一句代码的分号可以省略</li>
+<li>方法只有一个参数时小括号可以省略</li>
+</ul>
+<h3 id="2-4-ji-ben-yu-fa-ge-shi">2.4 基本语法格式<a class="zola-anchor" href="#2-4-ji-ben-yu-fa-ge-shi" aria-label="Anchor link for: 2-4-ji-ben-yu-fa-ge-shi">🔗</a></h3>
+<pre style="background-color:#002b36;color:#839496;"><code><span>(参数列表)-&gt;{代码}
+</span></code></pre>
+<h3 id="2-5-shi-li">2.5 示例<a class="zola-anchor" href="#2-5-shi-li" aria-label="Anchor link for: 2-5-shi-li">🔗</a></h3>
+<blockquote>
+<p>通过具体的代码示例来了解<code>lambda</code>表达式的各种基本用法。</p>
+</blockquote>
+<h4 id="2-5-1-li-yi">2.5.1 例一<a class="zola-anchor" href="#2-5-1-li-yi" aria-label="Anchor link for: 2-5-1-li-yi">🔗</a></h4>
+<blockquote>
+<p>启动线程</p>
+</blockquote>
+<pre style="background-color:#002b36;color:#839496;"><code><span>//原始写法
+</span><span>new Thread(new Runnable() {
+</span><span>    @Override
+</span><span>    public void run() {
+</span><span>        System.out.println(&quot;惟有热爱,可抵岁月漫长!&quot;);
+</span><span>    }
+</span><span>}).start();
+</span><span>//lambda写法
+</span><span>new Thread(() -&gt; System.out.println(&quot;惟有热爱,可抵岁月漫长!&quot;)).start();
+</span></code></pre>
+<h3 id="2-5-2-li-er">2.5.2 例二<a class="zola-anchor" href="#2-5-2-li-er" aria-label="Anchor link for: 2-5-2-li-er">🔗</a></h3>
+<blockquote>
+<p>现有方法定义如下，其中<code>IntBinaryOperator</code>是一个接口。先使用匿名内部类的写法调用该方法。</p>
+</blockquote>
+<pre style="background-color:#002b36;color:#839496;"><code><span>//方法定义
+</span><span>private int calculateNum(IntBinaryOperator operator) {
+</span><span>    int a = 10;
+</span><span>    int b = 20;
+</span><span>    return operator.applyAsInt(a,b);
+</span><span>}
+</span><span>//原始写法(匿名内部类写法)
+</span><span>int i1 = calculateNum(new IntBinaryOperator() {
+</span><span>    @Override
+</span><span>    public int applyAsInt(int left, int right) {
+</span><span>        return left + right;
+</span><span>    }
+</span><span>});
+</span><span>System.out.println(i1);
+</span><span>//Lmabda写法
+</span><span>calculateNum((left,right)-&gt;left + right);
+</span></code></pre>
+<h3 id="2-5-3-li-san">2.5.3 例三<a class="zola-anchor" href="#2-5-3-li-san" aria-label="Anchor link for: 2-5-3-li-san">🔗</a></h3>
+<blockquote>
+<p>现有方法定义如下，其中<code>IntPredicate</code>是一个接口。先使用匿名内部类的写法调用该方法。</p>
+</blockquote>
+<pre style="background-color:#002b36;color:#839496;"><code><span>//方法定义
+</span><span>public static void printNum(IntPredicate predicate){
+</span><span>    int[] arr = {1,2,3,4,5,6,7,8,9,10};
+</span><span>    for (int i : arr) {
+</span><span>        if(predicate.test(i)){
+</span><span>            System.out.println(i);
+</span><span>        }
+</span><span>    }
+</span><span>}
+</span><span>//原始写法
+</span><span>printNum(new IntPredicate() {
+</span><span>    @Override
+</span><span>    public boolean test(int value) {
+</span><span>        return value % 2==0;
+</span><span>    }
+</span><span>});
+</span><span>//lambda写法
+</span><span>printNum(value-&gt;value % 2 == 0);
+</span></code></pre>
+<h3 id="2-5-4-li-si">2.5.4 例四<a class="zola-anchor" href="#2-5-4-li-si" aria-label="Anchor link for: 2-5-4-li-si">🔗</a></h3>
+<blockquote>
+<p>现有方法定义如下，其中<code>Function</code>是一个接口。先使用匿名内部类的写法调用该方法。</p>
+</blockquote>
+<pre style="background-color:#002b36;color:#839496;"><code><span>//方法定义
+</span><span>public static &lt;R&gt; R typeConver(Function&lt;String,R&gt; function){
+</span><span>    String str = &quot;1235&quot;;
+</span><span>    R result = function.apply(str);
+</span><span>    return result;
+</span><span>}
+</span><span>//原始写法
+</span><span>Integer res = typeConver(new Function&lt;String, Integer&gt;() {
+</span><span>    @Override
+</span><span>    public Integer apply(String s) {
+</span><span>        return Integer.valueOf(s);
+</span><span>    }
+</span><span>});
+</span><span>System.out.println(res);
+</span><span>//lambda写法
+</span><span>Integer res = typeConver(s-&gt;Integer.valueOf(s));
+</span><span>System.out.println(res);
+</span></code></pre>
+<h3 id="2-5-5-li-wu">2.5.5 例五<a class="zola-anchor" href="#2-5-5-li-wu" aria-label="Anchor link for: 2-5-5-li-wu">🔗</a></h3>
+<blockquote>
+<p>现有方法定义如下，其中<code>IntConsumer</code>是一个接口。先使用匿名内部类的写法调用该方法。</p>
+</blockquote>
+<pre style="background-color:#002b36;color:#839496;"><code><span>//方法定义
+</span><span>public static void foreachArr(IntConsumer consumer){
+</span><span>    int[] arr = {1,2,3,4,5,6,7,8,9,10};
+</span><span>    for (int i : arr) {
+</span><span>        consumer.accept(i);
+</span><span>    }
+</span><span>}
+</span><span>//原始写法
+</span><span>foreachArr(new IntConsumer() {
+</span><span>    @Override
+</span><span>    public void accept(int value) {
+</span><span>        System.out.println(value+10);
+</span><span>    }
+</span><span>});
+</span><span>//lambda写法
+</span><span>foreachArr(value-&gt; System.out.println(value + 10));
+</span></code></pre>
+<hr />
+<h2 id="3-streamliu">3.Stream流<a class="zola-anchor" href="#3-streamliu" aria-label="Anchor link for: 3-streamliu">🔗</a></h2>
+<blockquote>
+<p><code>Java8</code>的<code>Stream</code>流使用的是函数式编程模式，如同他的名字一样，可以被用来对集合或数组进行链式操作，更方便让我们去操作集合或数组。</p>
+</blockquote>
+<h3 id="3-1an-li-zhun-bei">3.1案例准备<a class="zola-anchor" href="#3-1an-li-zhun-bei" aria-label="Anchor link for: 3-1an-li-zhun-bei">🔗</a></h3>
+<blockquote>
+<p>为了更好的学习和了解<code>Stream</code>流的操作，下面通过一个具体的案例，在案例中通过实现需求的方式去理解<code>Stream</code>流。</p>
+</blockquote>
+<ul>
+<li>maven依赖</li>
+</ul>
+<pre style="background-color:#002b36;color:#839496;"><code><span>&lt;dependencies&gt;
+</span><span>    &lt;dependency&gt;
+</span><span>        &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;
+</span><span>        &lt;artifactId&gt;lombok&lt;/artifactId&gt;
+</span><span>        &lt;version&gt;1.18.16&lt;/version&gt;
+</span><span>    &lt;/dependency&gt;
+</span><span>&lt;/dependencies&gt;
+</span></code></pre>
+<ul>
+<li>两个实体类</li>
+</ul>
+<pre style="background-color:#002b36;color:#839496;"><code><span>package com.waer.security.demo.pojo;
+</span><span>
+</span><span>import lombok.AllArgsConstructor;
+</span><span>import lombok.Data;
+</span><span>import lombok.EqualsAndHashCode;
+</span><span>import lombok.NoArgsConstructor;
+</span><span>
+</span><span>import java.util.List;
+</span><span>
+</span><span>@SuppressWarnings(&quot;all&quot;)
+</span><span>/**
+</span><span> * @author: 八尺妖剑
+</span><span> * @date: 2022/8/28 8:58
+</span><span> * @email: ilikexff@gmail.com
+</span><span> * @blog: https://www.waer.ltd
+</span><span> */
+</span><span>@Data
+</span><span>@AllArgsConstructor
+</span><span>@NoArgsConstructor
+</span><span>@EqualsAndHashCode
+</span><span>public class Author {
+</span><span>    /*ID*/
+</span><span>    private Long id;
+</span><span>
+</span><span>    /*姓名*/
+</span><span>    private String name;
+</span><span>
+</span><span>    /*年龄*/
+</span><span>    private Integer age;
+</span><span>
+</span><span>    /*简介*/
+</span><span>    private String intro;
+</span><span>
+</span><span>    /*作品*/
+</span><span>    private List&lt;Book&gt; books;
+</span><span>}
+</span></code></pre>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">package </span><span style="color:#b58900;">com.waer.security.demo.pojo</span><span>;
+</span><span>
+</span><span style="color:#cb4b16;">import </span><span style="color:#859900;">lombok</span><span>.</span><span style="color:#859900;">AllArgsConstructor</span><span>;
+</span><span style="color:#cb4b16;">import </span><span style="color:#859900;">lombok</span><span>.</span><span style="color:#859900;">Data</span><span>;
+</span><span style="color:#cb4b16;">import </span><span style="color:#859900;">lombok</span><span>.</span><span style="color:#859900;">EqualsAndHashCode</span><span>;
+</span><span style="color:#cb4b16;">import </span><span style="color:#859900;">lombok</span><span>.</span><span style="color:#859900;">NoArgsConstructor</span><span>;
+</span><span>
+</span><span>@</span><span style="color:#268bd2;">SuppressWarnings</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">all</span><span>&quot;</span><span style="color:#657b83;">)
+</span><span style="color:#586e75;">/**
+</span><span style="color:#586e75;"> * </span><span style="color:#859900;">@author</span><span style="color:#586e75;">: 八尺妖剑
+</span><span style="color:#586e75;"> * @date: 2022/8/28 9:00
+</span><span style="color:#586e75;"> * @email: ilikexff@gmail.com
+</span><span style="color:#586e75;"> * @blog: https://www.waer.ltd
+</span><span style="color:#586e75;"> */
+</span><span>@</span><span style="color:#268bd2;">Data
+</span><span>@</span><span style="color:#268bd2;">AllArgsConstructor
+</span><span>@</span><span style="color:#268bd2;">NoArgsConstructor
+</span><span>@</span><span style="color:#268bd2;">EqualsAndHashCode
+</span><span style="color:#93a1a1;">public </span><span style="color:#268bd2;">class </span><span style="color:#b58900;">Book </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#586e75;">/*ID*/
+</span><span>    </span><span style="color:#93a1a1;">private </span><span style="color:#859900;">Long </span><span>id;
+</span><span>
+</span><span>    </span><span style="color:#586e75;">/*书名*/
+</span><span>    </span><span style="color:#93a1a1;">private </span><span style="color:#859900;">String </span><span>name;
+</span><span>
+</span><span>    </span><span style="color:#586e75;">/*分类*/
+</span><span>    </span><span style="color:#93a1a1;">private </span><span style="color:#859900;">String </span><span>category;
+</span><span>
+</span><span>    </span><span style="color:#586e75;">/*评分*/
+</span><span>    </span><span style="color:#93a1a1;">private </span><span style="color:#859900;">Integer </span><span>score;
+</span><span>
+</span><span>    </span><span style="color:#586e75;">/*简介*/
+</span><span>    </span><span style="color:#93a1a1;">private </span><span style="color:#859900;">String </span><span>intro;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<ul>
+<li>初始化数据</li>
+</ul>
+<pre style="background-color:#002b36;color:#839496;"><code><span>private static List&lt;Author&gt; getAuthors() {
+</span><span>    /*数据初始化*/
+</span><span>    Author author = new Author(1L,&quot;蒙多&quot;,33,&quot;一个从菜刀中明悟哲理的祖安人&quot;,null);
+</span><span>    Author author2 = new Author(2L,&quot;亚拉索&quot;,15,&quot;狂风也追逐不上他的思考速度&quot;,null);
+</span><span>    Author author3 = new Author(3L,&quot;易&quot;,14,&quot;是这个世界在限制他的思维&quot;,null);
+</span><span>    Author author4 = new Author(3L,&quot;易&quot;,14,&quot;是这个世界在限制他的思维&quot;,null);
+</span><span>
+</span><span>    /*书籍列表*/
+</span><span>    List&lt;Book&gt; books1 = new ArrayList&lt;&gt;();
+</span><span>    List&lt;Book&gt; books2 = new ArrayList&lt;&gt;();
+</span><span>    List&lt;Book&gt; books3 = new ArrayList&lt;&gt;();
+</span><span>
+</span><span>    books1.add(new Book(1L,&quot;刀的两侧是光明与黑暗&quot;,&quot;哲学,爱情&quot;,88,&quot;用一把刀划分了爱恨&quot;));
+</span><span>    books1.add(new Book(2L,&quot;一个人不能死在同一把刀下&quot;,&quot;个人成长,爱情&quot;,99,&quot;讲述如何从失败中明悟真理&quot;));
+</span><span>
+</span><span>    books2.add(new Book(3L,&quot;那风吹不到的地方&quot;,&quot;哲学&quot;,85,&quot;带你用思维去领略世界的尽头&quot;));
+</span><span>    books2.add(new Book(3L,&quot;那风吹不到的地方&quot;,&quot;哲学&quot;,85,&quot;带你用思维去领略世界的尽头&quot;));
+</span><span>    books2.add(new Book(4L,&quot;吹或不吹&quot;,&quot;爱情,个人传记&quot;,56,&quot;一个哲学家的恋爱观注定很难把他所在的时代理解&quot;));
+</span><span>
+</span><span>    books3.add(new Book(5L,&quot;你的剑就是我的剑&quot;,&quot;爱情&quot;,56,&quot;无法想象一个武者能对他的伴侣这么的宽容&quot;));
+</span><span>    books3.add(new Book(6L,&quot;风与剑&quot;,&quot;个人传记&quot;,100,&quot;两个哲学家灵魂和肉体的碰撞会激起怎么样的火花呢？&quot;));
+</span><span>    books3.add(new Book(6L,&quot;风与剑&quot;,&quot;个人传记&quot;,100,&quot;两个哲学家灵魂和肉体的碰撞会激起怎么样的火花呢？&quot;));
+</span><span>
+</span><span>    author.setBooks(books1);
+</span><span>    author2.setBooks(books2);
+</span><span>    author3.setBooks(books3);
+</span><span>    author4.setBooks(books3);
+</span><span>
+</span><span>    List&lt;Author&gt; authorList = new ArrayList&lt;&gt;(Arrays.asList(author,author2,author3,author4));
+</span><span>    return authorList;
+</span><span>}
+</span></code></pre>
+<hr />
+<h3 id="3-2kuai-su-ti-yan">3.2快速体验<a class="zola-anchor" href="#3-2kuai-su-ti-yan" aria-label="Anchor link for: 3-2kuai-su-ti-yan">🔗</a></h3>
+<h4 id="3-2-1xu-qiu">3.2.1需求<a class="zola-anchor" href="#3-2-1xu-qiu" aria-label="Anchor link for: 3-2-1xu-qiu">🔗</a></h4>
+<blockquote>
+<p>调用<code>getAuthors</code>方法获取到作家的集合。现在需要打印所有年龄小于18的作家的名字，并且要注意去重。</p>
+</blockquote>
+<h4 id="3-2-2shi-xian">3.2.2实现<a class="zola-anchor" href="#3-2-2shi-xian" aria-label="Anchor link for: 3-2-2shi-xian">🔗</a></h4>
+<pre style="background-color:#002b36;color:#839496;"><code><span>/*需求：打印所有年龄小于18的作家名字，需要对数据去重处理*/
+</span><span>List&lt;Author&gt; authors = getAuthors();
+</span><span>authors
+</span><span>    /*将集合转为Stream流*/
+</span><span>    .stream()
+</span><span>    /*去重处理*/
+</span><span>    .distinct()
+</span><span>    /*过滤：年龄要小于18*/
+</span><span>    .filter(author -&gt; author.getAge() &lt; 18)
+</span><span>    /*遍历，打印符合要求的作家名*/
+</span><span>    .forEach(author -&gt; System.out.println(author.getName()));
+</span></code></pre>
+<blockquote>
+<p>亚拉索
+易</p>
+</blockquote>
+<hr />
+<h3 id="3-3chang-yong-cao-zuo">3.3常用操作<a class="zola-anchor" href="#3-3chang-yong-cao-zuo" aria-label="Anchor link for: 3-3chang-yong-cao-zuo">🔗</a></h3>
+<h4 id="3-3-1chuang-jian-liu">3.3.1创建流<a class="zola-anchor" href="#3-3-1chuang-jian-liu" aria-label="Anchor link for: 3-3-1chuang-jian-liu">🔗</a></h4>
+<blockquote>
+<p>集合转stream：<code>集合对象.stream()</code></p>
+</blockquote>
+<pre style="background-color:#002b36;color:#839496;"><code><span>/*单列集合转Stream*/
+</span><span>List&lt;Author&gt; authorList = getAuthors();
+</span><span>Stream&lt;Author&gt; stream = authorList.stream();
+</span></code></pre>
+<blockquote>
+<p>数组转stream: <code>Arrays.stream(arr)或者Stream.of(arr)</code></p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#586e75;">/*数组转stream*/
+</span><span style="color:#859900;">Integer</span><span style="color:#93a1a1;">[]</span><span> arr </span><span style="color:#657b83;">= {</span><span style="color:#6c71c4;">1</span><span>,</span><span style="color:#6c71c4;">2</span><span>,</span><span style="color:#6c71c4;">3</span><span>,</span><span style="color:#6c71c4;">4</span><span>,</span><span style="color:#6c71c4;">6</span><span>,</span><span style="color:#6c71c4;">6</span><span>,</span><span style="color:#6c71c4;">5</span><span style="color:#657b83;">}</span><span>;
+</span><span style="color:#859900;">Stream</span><span>&lt;</span><span style="color:#859900;">Integer</span><span>&gt; stream1 </span><span style="color:#657b83;">= </span><span style="color:#859900;">Arrays</span><span>.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">(</span><span>arr</span><span style="color:#657b83;">)</span><span>;
+</span><span style="color:#859900;">Stream</span><span>&lt;</span><span style="color:#859900;">Integer</span><span>&gt; stream2 </span><span style="color:#657b83;">= </span><span style="color:#859900;">Stream</span><span>.</span><span style="color:#b58900;">of</span><span style="color:#657b83;">(</span><span>arr</span><span style="color:#657b83;">)</span><span>;
+</span></code></pre>
+<blockquote>
+<p>双列集合转stream  <code>转换成单列集合后再创建</code></p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#586e75;">/*双列集合转stream*/
+</span><span style="color:#859900;">Map</span><span>&lt;</span><span style="color:#859900;">String</span><span>, </span><span style="color:#859900;">Integer</span><span>&gt; map </span><span style="color:#657b83;">= </span><span style="color:#859900;">new HashMap</span><span>&lt;&gt;</span><span style="color:#657b83;">()</span><span>;
+</span><span>map.</span><span style="color:#b58900;">put</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">师哥</span><span>&quot;,</span><span style="color:#6c71c4;">20</span><span style="color:#657b83;">)</span><span>;
+</span><span>map.</span><span style="color:#b58900;">put</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">小庄</span><span>&quot;,</span><span style="color:#6c71c4;">18</span><span style="color:#657b83;">)</span><span>;
+</span><span>map.</span><span style="color:#b58900;">put</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">天明</span><span>&quot;,</span><span style="color:#6c71c4;">12</span><span style="color:#657b83;">)</span><span>;
+</span><span style="color:#586e75;">/*先转为单列集合再转stream*/
+</span><span style="color:#859900;">Stream</span><span>&lt;</span><span style="color:#859900;">Map</span><span>.</span><span style="color:#859900;">Entry</span><span>&lt;</span><span style="color:#859900;">String</span><span>, </span><span style="color:#859900;">Integer</span><span>&gt;&gt; stream3 </span><span style="color:#657b83;">=</span><span> map.</span><span style="color:#b58900;">entrySet</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">()</span><span>;
+</span></code></pre>
+<hr />
+<h4 id="3-3-2zhong-jian-cao-zuo">3.3.2中间操作<a class="zola-anchor" href="#3-3-2zhong-jian-cao-zuo" aria-label="Anchor link for: 3-3-2zhong-jian-cao-zuo">🔗</a></h4>
+<h5 id="filter">filter<a class="zola-anchor" href="#filter" aria-label="Anchor link for: filter">🔗</a></h5>
+<p><strong>可以对流中的元素进行条件过滤，符合过滤条件的才能继续留在流中。</strong></p>
+<blockquote>
+<p>打印所有姓名长度大于1的作家的姓名.</p>
+</blockquote>
+<pre style="background-color:#002b36;color:#839496;"><code><span>List&lt;Author&gt; authors = getAuthors();
+</span><span>authors
+</span><span>    .stream()
+</span><span>    .filter(author-&gt;author.getName().length() &gt;1)
+</span><span>    .forEach(author-&gt;System.out.println(author.getName()));
+</span></code></pre>
+<blockquote>
+<p>蒙多
+亚拉索</p>
+</blockquote>
+<hr />
+<h5 id="map">map<a class="zola-anchor" href="#map" aria-label="Anchor link for: map">🔗</a></h5>
+<p><strong>可以把对流中的元素进行计算或转换。</strong></p>
+<blockquote>
+<p>打印所有作家的姓名。</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">List</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt; authors </span><span style="color:#657b83;">= </span><span style="color:#b58900;">getAuthors</span><span style="color:#657b83;">()</span><span>;
+</span><span>authors
+</span><span>    .</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">()
+</span><span>    .</span><span style="color:#b58900;">map</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">author-&gt;</span><span>author.</span><span style="color:#b58900;">getName</span><span style="color:#657b83;">())
+</span><span>    .</span><span style="color:#b58900;">forEach</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">name-&gt; </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>name</span><span style="color:#657b83;">))</span><span>;
+</span></code></pre>
+<blockquote>
+<p>蒙多
+亚拉索
+易
+易</p>
+</blockquote>
+<hr />
+<blockquote>
+<p>将作家的年龄加10并打印。</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">List</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt; authors </span><span style="color:#657b83;">= </span><span style="color:#b58900;">getAuthors</span><span style="color:#657b83;">()</span><span>;
+</span><span>authors.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">()
+</span><span>    .</span><span style="color:#b58900;">map</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">author-&gt;</span><span>author.</span><span style="color:#b58900;">getAge</span><span style="color:#657b83;">() + </span><span style="color:#6c71c4;">10</span><span style="color:#657b83;">)
+</span><span>    .</span><span style="color:#b58900;">forEach</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">age-&gt; </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>age</span><span style="color:#657b83;">))</span><span>;
+</span></code></pre>
+<blockquote>
+<p>43
+25
+24
+24</p>
+</blockquote>
+<hr />
+<h5 id="distinct">distinct<a class="zola-anchor" href="#distinct" aria-label="Anchor link for: distinct">🔗</a></h5>
+<p><strong>可以去除流中的重复元素。</strong></p>
+<p><strong>注意：distinct方法是依赖Object的equals方法来判断是否是相同对象的。所以需要注意重写equals方法。</strong></p>
+<blockquote>
+<p>打印所有作家的姓名，并且要求其中不能有重复元素。</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">List</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt; authors </span><span style="color:#657b83;">= </span><span style="color:#b58900;">getAuthors</span><span style="color:#657b83;">()</span><span>;
+</span><span>authors.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">()
+</span><span>    .</span><span style="color:#b58900;">distinct</span><span style="color:#657b83;">()
+</span><span>    .</span><span style="color:#b58900;">forEach</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">author-&gt; </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>author.</span><span style="color:#b58900;">getName</span><span style="color:#657b83;">()))</span><span>;
+</span></code></pre>
+<blockquote>
+<p>蒙多
+亚拉索
+易</p>
+</blockquote>
+<hr />
+<h5 id="sorted">sorted<a class="zola-anchor" href="#sorted" aria-label="Anchor link for: sorted">🔗</a></h5>
+<p><strong>对流中的元素进行排序。</strong></p>
+<blockquote>
+<p>对流中的元素按照年龄进行降序排序，并且要求不能有重复的元素。</p>
+</blockquote>
+<p><strong>如果调用空参的sorted()方法，需要流中的元素是实现了Comparable。否则会抛异常</strong></p>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span>@</span><span style="color:#268bd2;">Override
+</span><span style="color:#93a1a1;">public </span><span style="color:#268bd2;">int </span><span style="color:#b58900;">compareTo</span><span style="color:#657b83;">(</span><span>@</span><span style="color:#859900;">NotNull Author</span><span> o</span><span style="color:#657b83;">) {
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#657b83;">(</span><span>o.</span><span style="color:#b58900;">getAge</span><span style="color:#657b83;">()-</span><span style="color:#d33682;">this</span><span>.age</span><span style="color:#657b83;">)</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">List</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt; authors </span><span style="color:#657b83;">= </span><span style="color:#b58900;">getAuthors</span><span style="color:#657b83;">()</span><span>;
+</span><span>authors.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">()
+</span><span>    .</span><span style="color:#b58900;">distinct</span><span style="color:#657b83;">()
+</span><span>    .</span><span style="color:#b58900;">sorted</span><span style="color:#657b83;">((</span><span style="color:#268bd2;">o1</span><span>,</span><span style="color:#268bd2;">o2</span><span style="color:#657b83;">)</span><span style="color:#268bd2;">-&gt;</span><span>o2.</span><span style="color:#b58900;">getAge</span><span style="color:#657b83;">()-</span><span>o1.</span><span style="color:#b58900;">getAge</span><span style="color:#657b83;">())
+</span><span>    .</span><span style="color:#b58900;">forEach</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">author-&gt; </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>author.</span><span style="color:#b58900;">getAge</span><span style="color:#657b83;">()))</span><span>;
+</span></code></pre>
+<blockquote>
+<p>33
+15
+14</p>
+</blockquote>
+<hr />
+<h5 id="limit">limit<a class="zola-anchor" href="#limit" aria-label="Anchor link for: limit">🔗</a></h5>
+<p><strong>可以设置流的最大长度，超出的部分将被抛弃。</strong></p>
+<blockquote>
+<p>对流中的元素按照年龄进行降序排序，并且要求不能有重复的元素,然后打印其中年龄最大的两个作家的姓名和年龄。</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">List</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt; authors </span><span style="color:#657b83;">= </span><span style="color:#b58900;">getAuthors</span><span style="color:#657b83;">()</span><span>;
+</span><span>authors.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">()
+</span><span>    .</span><span style="color:#b58900;">distinct</span><span style="color:#657b83;">()
+</span><span>    .</span><span style="color:#b58900;">sorted</span><span style="color:#657b83;">((</span><span style="color:#268bd2;">o1</span><span>,</span><span style="color:#268bd2;">o2</span><span style="color:#657b83;">)</span><span style="color:#268bd2;">-&gt;</span><span>o2.</span><span style="color:#b58900;">getAge</span><span style="color:#657b83;">() -</span><span> o2.</span><span style="color:#b58900;">getAge</span><span style="color:#657b83;">())
+</span><span>    .</span><span style="color:#b58900;">limit</span><span style="color:#657b83;">(</span><span style="color:#6c71c4;">2</span><span style="color:#657b83;">)
+</span><span>    .</span><span style="color:#b58900;">forEach</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">author-&gt; </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>author.</span><span style="color:#b58900;">getName</span><span style="color:#657b83;">() + </span><span>&quot;</span><span style="color:#2aa198;">:</span><span>&quot; </span><span style="color:#657b83;">+</span><span> author.</span><span style="color:#b58900;">getAge</span><span style="color:#657b83;">()))</span><span>;
+</span></code></pre>
+<blockquote>
+<p>蒙多:33
+亚拉索:15</p>
+</blockquote>
+<hr />
+<h5 id="skip">skip<a class="zola-anchor" href="#skip" aria-label="Anchor link for: skip">🔗</a></h5>
+<p><strong>跳过流中的前n个元素，返回剩下的元素。</strong></p>
+<blockquote>
+<p>打印除了年龄最大的作家外的其他作家姓名和年龄，要求不能有重复元素，并且按照年龄降序排序。</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">List</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt; authors </span><span style="color:#657b83;">= </span><span style="color:#b58900;">getAuthors</span><span style="color:#657b83;">()</span><span>;
+</span><span>authors.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">()
+</span><span>    .</span><span style="color:#b58900;">distinct</span><span style="color:#657b83;">()
+</span><span>    .</span><span style="color:#b58900;">sorted</span><span style="color:#657b83;">()
+</span><span>    .</span><span style="color:#b58900;">skip</span><span style="color:#657b83;">(</span><span style="color:#6c71c4;">1</span><span style="color:#657b83;">)
+</span><span>    .</span><span style="color:#b58900;">forEach</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">author-&gt; </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>author.</span><span style="color:#b58900;">getName</span><span style="color:#657b83;">() + </span><span>&quot;</span><span style="color:#2aa198;">:</span><span>&quot; </span><span style="color:#657b83;">+</span><span> author.</span><span style="color:#b58900;">getAge</span><span style="color:#657b83;">()))</span><span>;
+</span></code></pre>
+<blockquote>
+<p>亚拉索:15
+易:14</p>
+</blockquote>
+<hr />
+<h5 id="flatmap">flatMap<a class="zola-anchor" href="#flatmap" aria-label="Anchor link for: flatmap">🔗</a></h5>
+<p><strong>map只能把一个对象转换成另一个对象来作为流中的元素。而flatMap可以把一个对象转换成多个对象作为流中的元素。</strong></p>
+<blockquote>
+<p>打印所有书籍的名字。要求对重复的元素进行去重。</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">List</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt; authors </span><span style="color:#657b83;">= </span><span style="color:#b58900;">getAuthors</span><span style="color:#657b83;">()</span><span>;
+</span><span>authors.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">()
+</span><span>    .</span><span style="color:#b58900;">flatMap</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">author-&gt;</span><span>author.</span><span style="color:#b58900;">getBooks</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">())
+</span><span>    .</span><span style="color:#b58900;">distinct</span><span style="color:#657b83;">()
+</span><span>    .</span><span style="color:#b58900;">forEach</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">book-&gt; </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>book.</span><span style="color:#b58900;">getName</span><span style="color:#657b83;">()))</span><span>;
+</span></code></pre>
+<blockquote>
+<p>吹或不吹
+你的剑就是我的剑
+风与剑</p>
+</blockquote>
+<hr />
+<blockquote>
+<p>打印现有数据的所有分类。要求对分类进行去重。不能出现这种格式：哲学,爱情</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">List</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt; authors </span><span style="color:#657b83;">= </span><span style="color:#b58900;">getAuthors</span><span style="color:#657b83;">()</span><span>;
+</span><span>authors.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">()
+</span><span>    .</span><span style="color:#b58900;">flatMap</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">author-&gt;</span><span>author.</span><span style="color:#b58900;">getBooks</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">())
+</span><span>    .</span><span style="color:#b58900;">distinct</span><span style="color:#657b83;">()
+</span><span>    .</span><span style="color:#b58900;">flatMap</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">book-&gt;</span><span style="color:#859900;">Arrays</span><span>.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">(</span><span>book.</span><span style="color:#b58900;">getCategory</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">split</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">,</span><span>&quot;</span><span style="color:#657b83;">)))
+</span><span>    .</span><span style="color:#b58900;">distinct</span><span style="color:#657b83;">()
+</span><span>    .</span><span style="color:#b58900;">forEach</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">category-&gt; </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>category</span><span style="color:#657b83;">))</span><span>;
+</span></code></pre>
+<blockquote>
+<p>哲学
+爱情
+个人成长
+个人传记</p>
+</blockquote>
+<h4 id="3-3-3zhong-jie-cao-zuo">3.3.3终结操作<a class="zola-anchor" href="#3-3-3zhong-jie-cao-zuo" aria-label="Anchor link for: 3-3-3zhong-jie-cao-zuo">🔗</a></h4>
+<h5 id="foreach">forEach<a class="zola-anchor" href="#foreach" aria-label="Anchor link for: foreach">🔗</a></h5>
+<p><strong>对流中的元素进行遍历操作，我们通过传入的参数去指定对遍历到的元素进行什么具体操作。</strong></p>
+<blockquote>
+<p>输出所有作家的名字。</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">List</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt; authors </span><span style="color:#657b83;">= </span><span style="color:#b58900;">getAuthors</span><span style="color:#657b83;">()</span><span>;
+</span><span>authors.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">()
+</span><span>    .</span><span style="color:#b58900;">map</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">author-&gt;</span><span>author.</span><span style="color:#b58900;">getName</span><span style="color:#657b83;">())
+</span><span>    .</span><span style="color:#b58900;">distinct</span><span style="color:#657b83;">()
+</span><span>    .</span><span style="color:#b58900;">forEach</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">name-&gt; </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>name</span><span style="color:#657b83;">))</span><span>;
+</span></code></pre>
+<blockquote>
+<p>蒙多
+亚拉索
+易</p>
+</blockquote>
+<hr />
+<h5 id="count">count<a class="zola-anchor" href="#count" aria-label="Anchor link for: count">🔗</a></h5>
+<p><strong>可以用来获取当前流中元素的个数。</strong></p>
+<blockquote>
+<p>打印这些作家的所出书籍的数目，注意删除重复元素。</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">List</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt; authors </span><span style="color:#657b83;">= </span><span style="color:#b58900;">getAuthors</span><span style="color:#657b83;">()</span><span>;
+</span><span style="color:#268bd2;">long</span><span> count </span><span style="color:#657b83;">=</span><span> authors.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">()
+</span><span>    .</span><span style="color:#b58900;">flatMap</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">author -&gt;</span><span> author.</span><span style="color:#b58900;">getBooks</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">())
+</span><span>    .</span><span style="color:#b58900;">distinct</span><span style="color:#657b83;">()
+</span><span>    .</span><span style="color:#b58900;">count</span><span style="color:#657b83;">()</span><span>;
+</span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>count</span><span style="color:#657b83;">)</span><span>;
+</span></code></pre>
+<blockquote>
+<p>6</p>
+</blockquote>
+<hr />
+<h5 id="min-max">min&amp;max<a class="zola-anchor" href="#min-max" aria-label="Anchor link for: min-max">🔗</a></h5>
+<p><strong>可以用来或者流中的最值。</strong></p>
+<blockquote>
+<p>分别获取这些作家的所出书籍的最高分和最低分并打印。</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">List</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt; authors </span><span style="color:#657b83;">= </span><span style="color:#b58900;">getAuthors</span><span style="color:#657b83;">()</span><span>;
+</span><span style="color:#859900;">Optional</span><span>&lt;</span><span style="color:#859900;">Integer</span><span>&gt; max </span><span style="color:#657b83;">=</span><span> authors.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">()
+</span><span>    .</span><span style="color:#b58900;">flatMap</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">author -&gt;</span><span> author.</span><span style="color:#b58900;">getBooks</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">())
+</span><span>    .</span><span style="color:#b58900;">map</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">book -&gt;</span><span> book.</span><span style="color:#b58900;">getScore</span><span style="color:#657b83;">())
+</span><span>    .</span><span style="color:#b58900;">max</span><span style="color:#657b83;">((</span><span style="color:#268bd2;">score1</span><span>, </span><span style="color:#268bd2;">score2</span><span style="color:#657b83;">) </span><span style="color:#268bd2;">-&gt;</span><span> score1 </span><span style="color:#657b83;">-</span><span> score2</span><span style="color:#657b83;">)</span><span>;
+</span><span>
+</span><span style="color:#859900;">Optional</span><span>&lt;</span><span style="color:#859900;">Integer</span><span>&gt; min </span><span style="color:#657b83;">=</span><span> authors.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">()
+</span><span>    .</span><span style="color:#b58900;">flatMap</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">author -&gt;</span><span> author.</span><span style="color:#b58900;">getBooks</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">())
+</span><span>    .</span><span style="color:#b58900;">map</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">book -&gt;</span><span> book.</span><span style="color:#b58900;">getScore</span><span style="color:#657b83;">())
+</span><span>    .</span><span style="color:#b58900;">min</span><span style="color:#657b83;">((</span><span style="color:#268bd2;">score1</span><span>, </span><span style="color:#268bd2;">score2</span><span style="color:#657b83;">) </span><span style="color:#268bd2;">-&gt;</span><span> score1 </span><span style="color:#657b83;">-</span><span> score2</span><span style="color:#657b83;">)</span><span>;
+</span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>min.</span><span style="color:#b58900;">get</span><span style="color:#657b83;">())</span><span>;
+</span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>max.</span><span style="color:#b58900;">get</span><span style="color:#657b83;">())</span><span>;
+</span></code></pre>
+<blockquote>
+<p>56</p>
+<p>100</p>
+</blockquote>
+<hr />
+<h5 id="collect">collect<a class="zola-anchor" href="#collect" aria-label="Anchor link for: collect">🔗</a></h5>
+<p><strong>将当前流转为一个集合。</strong></p>
+<blockquote>
+<p>获取一个存放所有作者名字的List集合。</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">List</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt; authors </span><span style="color:#657b83;">= </span><span style="color:#b58900;">getAuthors</span><span style="color:#657b83;">()</span><span>;
+</span><span style="color:#859900;">List</span><span>&lt;</span><span style="color:#859900;">String</span><span>&gt; nameList </span><span style="color:#657b83;">=</span><span> authors.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">()
+</span><span>    .</span><span style="color:#b58900;">map</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">author -&gt;</span><span> author.</span><span style="color:#b58900;">getName</span><span style="color:#657b83;">())
+</span><span>    .</span><span style="color:#b58900;">collect</span><span style="color:#657b83;">(</span><span style="color:#859900;">Collectors</span><span>.</span><span style="color:#b58900;">toList</span><span style="color:#657b83;">())</span><span>;
+</span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>nameList</span><span style="color:#657b83;">)</span><span>;
+</span></code></pre>
+<blockquote>
+<p>[蒙多, 亚拉索, 易, 易]</p>
+</blockquote>
+<hr />
+<blockquote>
+<p>获取一个书名的Set集合。</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">Set</span><span>&lt;</span><span style="color:#859900;">Book</span><span>&gt; bookSet </span><span style="color:#657b83;">= </span><span style="color:#b58900;">getAuthors</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">()
+</span><span>    .</span><span style="color:#b58900;">flatMap</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">author -&gt;</span><span> author.</span><span style="color:#b58900;">getBooks</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">())
+</span><span>    .</span><span style="color:#b58900;">collect</span><span style="color:#657b83;">(</span><span style="color:#859900;">Collectors</span><span>.</span><span style="color:#b58900;">toSet</span><span style="color:#657b83;">())</span><span>;
+</span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>bookSet</span><span style="color:#657b83;">)</span><span>;
+</span></code></pre>
+<blockquote>
+<p>[Book(id=4, name=吹或不吹, category=爱情,个人传记, score=56, intro=一个哲学家的恋爱观注定很难把他所在的时代理解), Book(id=6, name=风与剑, category=个人传记, score=100, intro=两个哲学家灵魂和肉体的碰撞会激起怎么样的火花呢？), Book(id=2, name=一个人不能死在同一把刀下, category=个人成长,爱情, score=99, intro=讲述如何从失败中明悟真理), Book(id=3, name=那风吹不到的地方, category=哲学, score=85, intro=带你用思维去领略世界的尽头), Book(id=5, name=你的剑就是我的剑, category=爱情, score=56, intro=无法想象一个武者能对他的伴侣这么的宽容), Book(id=1, name=刀的两侧是光明与黑暗, category=哲学,爱情, score=88, intro=用一把刀划分了爱恨)]</p>
+</blockquote>
+<hr />
+<blockquote>
+<p>获取一个Map集合，map的key为作者名，value为List<Book>。</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">Map</span><span>&lt;</span><span style="color:#859900;">String</span><span>, </span><span style="color:#859900;">List</span><span>&lt;</span><span style="color:#859900;">Book</span><span>&gt;&gt; map </span><span style="color:#657b83;">= </span><span style="color:#b58900;">getAuthors</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">()
+</span><span>    .</span><span style="color:#b58900;">distinct</span><span style="color:#657b83;">()
+</span><span>    .</span><span style="color:#b58900;">collect</span><span style="color:#657b83;">(</span><span style="color:#859900;">Collectors</span><span>.</span><span style="color:#b58900;">toMap</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">author -&gt;</span><span> author.</span><span style="color:#b58900;">getName</span><span style="color:#657b83;">()</span><span>, </span><span style="color:#268bd2;">author -&gt;</span><span> author.</span><span style="color:#b58900;">getBooks</span><span style="color:#657b83;">()))</span><span>;
+</span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>map</span><span style="color:#657b83;">)</span><span>;
+</span></code></pre>
+<blockquote>
+<p>{亚拉索=[Book(id=3, name=那风吹不到的地方, category=哲学, score=85, intro=带你用思维去领略世界的尽头), Book(id=3, name=那风吹不到的地方, category=哲学, score=85, intro=带你用思维去领略世界的尽头), Book(id=4, name=吹或不吹, category=爱情,个人传记, score=56, intro=一个哲学家的恋爱观注定很难把他所在的时代理解)], 蒙多=[Book(id=1, name=刀的两侧是光明与黑暗, category=哲学,爱情, score=88, intro=用一把刀划分了爱恨), Book(id=2, name=一个人不能死在同一把刀下, category=个人成长,爱情, score=99, intro=讲述如何从失败中明悟真理)], 易=[Book(id=5, name=你的剑就是我的剑, category=爱情, score=56, intro=无法想象一个武者能对他的伴侣这么的宽容), Book(id=6, name=风与剑, category=个人传记, score=100, intro=两个哲学家灵魂和肉体的碰撞会激起怎么样的火花呢？), Book(id=6, name=风与剑, category=个人传记, score=100, intro=两个哲学家灵魂和肉体的碰撞会激起怎么样的火花呢？)]}</p>
+</blockquote>
+<hr />
+<h5 id="anymatch">anyMatch<a class="zola-anchor" href="#anymatch" aria-label="Anchor link for: anymatch">🔗</a></h5>
+<p><strong>可以用来判断是否有任意符合匹配条件的元素，结果为boolean类型。</strong></p>
+<blockquote>
+<p>判断是否有年龄在29以上的作家。</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#268bd2;">boolean</span><span> flag </span><span style="color:#657b83;">= </span><span style="color:#b58900;">getAuthors</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">()
+</span><span>    .</span><span style="color:#b58900;">anyMatch</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">author -&gt;</span><span> author.</span><span style="color:#b58900;">getAge</span><span style="color:#657b83;">() &gt; </span><span style="color:#6c71c4;">20</span><span style="color:#657b83;">)</span><span>;
+</span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>flag</span><span style="color:#657b83;">)</span><span>;
+</span></code></pre>
+<blockquote>
+<p>true</p>
+</blockquote>
+<hr />
+<h5 id="allmatch">allMatch<a class="zola-anchor" href="#allmatch" aria-label="Anchor link for: allmatch">🔗</a></h5>
+<p><strong>可以用来判断是否都符合匹配条件，结果为boolean类型，如果都符合为true，否则为false.</strong></p>
+<blockquote>
+<p>判断是否所有的作家都是成年人！</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#268bd2;">boolean</span><span> flag </span><span style="color:#657b83;">= </span><span style="color:#b58900;">getAuthors</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">()
+</span><span>    .</span><span style="color:#b58900;">allMatch</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">author -&gt;</span><span> author.</span><span style="color:#b58900;">getAge</span><span style="color:#657b83;">() &gt;= </span><span style="color:#6c71c4;">18</span><span style="color:#657b83;">)</span><span>;
+</span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>flag</span><span style="color:#657b83;">)</span><span>;
+</span></code></pre>
+<blockquote>
+<p>false</p>
+</blockquote>
+<hr />
+<h5 id="nonematch">noneMatch<a class="zola-anchor" href="#nonematch" aria-label="Anchor link for: nonematch">🔗</a></h5>
+<p><strong>可以判断流中的元素是否都不符合匹配条件。如果都不符合结果为true，否则结果为false</strong></p>
+<blockquote>
+<p>判断作家是否都没有超过100岁的。</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#268bd2;">boolean</span><span> flag </span><span style="color:#657b83;">= </span><span style="color:#b58900;">getAuthors</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">()
+</span><span>    .</span><span style="color:#b58900;">noneMatch</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">author -&gt;</span><span> author.</span><span style="color:#b58900;">getAge</span><span style="color:#657b83;">() &gt; </span><span style="color:#6c71c4;">100</span><span style="color:#657b83;">)</span><span>;
+</span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>flag</span><span style="color:#657b83;">)</span><span>;
+</span></code></pre>
+<blockquote>
+<p>true</p>
+</blockquote>
+<hr />
+<h5 id="findany">findAny<a class="zola-anchor" href="#findany" aria-label="Anchor link for: findany">🔗</a></h5>
+<p><strong>获取流中的任意一个元素。该方法没有办法保证获取的一定是流中的第一个元素。</strong></p>
+<blockquote>
+<p>获取任意一个年龄大于18的作家，如果存在就输出他的名字。</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">Optional</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt; optionalAuthor </span><span style="color:#657b83;">= </span><span style="color:#b58900;">getAuthors</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">()
+</span><span>    .</span><span style="color:#b58900;">filter</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">author -&gt;</span><span> author.</span><span style="color:#b58900;">getAge</span><span style="color:#657b83;">() &gt; </span><span style="color:#6c71c4;">18</span><span style="color:#657b83;">)
+</span><span>    .</span><span style="color:#b58900;">findAny</span><span style="color:#657b83;">()</span><span>;
+</span><span>optionalAuthor.</span><span style="color:#b58900;">ifPresent</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">author -&gt; </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>author.</span><span style="color:#b58900;">getName</span><span style="color:#657b83;">()))</span><span>;
+</span></code></pre>
+<blockquote>
+<p>蒙多</p>
+</blockquote>
+<hr />
+<h5 id="findfirst">findFirst<a class="zola-anchor" href="#findfirst" aria-label="Anchor link for: findfirst">🔗</a></h5>
+<p><strong>获取流中的第一个元素。</strong></p>
+<blockquote>
+<p>获取一个年龄最小的作家并输出他的姓名。</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">Optional</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt;  first </span><span style="color:#657b83;">= </span><span style="color:#b58900;">getAuthors</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">()
+</span><span>    .</span><span style="color:#b58900;">sorted</span><span style="color:#657b83;">((</span><span style="color:#268bd2;">o1</span><span>, </span><span style="color:#268bd2;">o2</span><span style="color:#657b83;">) </span><span style="color:#268bd2;">-&gt;</span><span> o1.</span><span style="color:#b58900;">getAge</span><span style="color:#657b83;">() -</span><span> o2.</span><span style="color:#b58900;">getAge</span><span style="color:#657b83;">())
+</span><span>    .</span><span style="color:#b58900;">findFirst</span><span style="color:#657b83;">()</span><span>;
+</span><span>first.</span><span style="color:#b58900;">ifPresent</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">author-&gt; </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>author.</span><span style="color:#b58900;">getName</span><span style="color:#657b83;">()))</span><span>;
+</span></code></pre>
+<blockquote>
+<p>易</p>
+</blockquote>
+<hr />
+<h5 id="reduce-gui-bing">reduce(归并)<a class="zola-anchor" href="#reduce-gui-bing" aria-label="Anchor link for: reduce-gui-bing">🔗</a></h5>
+<p>​	<strong>对流中的数据按照你指定的计算方式计算出一个结果。（缩减操作）</strong></p>
+<p>​	<strong>reduce的作用是把stream中的元素给组合起来，我们可以传入一个初始值，它会按照我们的计算方式依次拿流中的元素和初始化值进行计算，计算结果再和后面的元素计算。</strong></p>
+<p>​	<strong>reduce两个参数的重载形式内部的计算方式如下：</strong></p>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">T</span><span> result </span><span style="color:#657b83;">=</span><span> identity;
+</span><span style="color:#859900;">for </span><span style="color:#657b83;">(</span><span style="color:#859900;">T</span><span> element </span><span style="color:#859900;">: </span><span style="color:#d33682;">this</span><span> stream</span><span style="color:#657b83;">)
+</span><span>	result </span><span style="color:#657b83;">=</span><span> accumulator.</span><span style="color:#b58900;">apply</span><span style="color:#657b83;">(</span><span>result, element</span><span style="color:#657b83;">)
+</span><span style="color:#859900;">return</span><span> result;
+</span></code></pre>
+<p><strong>其中identity就是我们可以通过方法参数传入的初始值，accumulator的apply具体进行什么计算也是我们通过方法参数来确定的。</strong></p>
+<blockquote>
+<p>使用reduce计算所有作者的年龄和。</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">Integer</span><span> sum </span><span style="color:#657b83;">= </span><span style="color:#b58900;">getAuthors</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">()
+</span><span>    .</span><span style="color:#b58900;">distinct</span><span style="color:#657b83;">()
+</span><span>    .</span><span style="color:#b58900;">map</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">author -&gt;</span><span> author.</span><span style="color:#b58900;">getAge</span><span style="color:#657b83;">())
+</span><span>    .</span><span style="color:#b58900;">reduce</span><span style="color:#657b83;">(</span><span style="color:#6c71c4;">0</span><span>, </span><span style="color:#657b83;">(</span><span style="color:#268bd2;">result</span><span>, </span><span style="color:#268bd2;">element</span><span style="color:#657b83;">) </span><span style="color:#268bd2;">-&gt;</span><span> result </span><span style="color:#657b83;">+</span><span> element</span><span style="color:#657b83;">)</span><span>;
+</span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>sum</span><span style="color:#657b83;">)</span><span>;
+</span></code></pre>
+<blockquote>
+<p>62</p>
+</blockquote>
+<hr />
+<blockquote>
+<p>使用reduce求所有作者中年龄的最大值。</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">Integer</span><span> maxAge </span><span style="color:#657b83;">= </span><span style="color:#b58900;">getAuthors</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">()
+</span><span>    .</span><span style="color:#b58900;">map</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">author -&gt;</span><span> author.</span><span style="color:#b58900;">getAge</span><span style="color:#657b83;">())
+</span><span>    .</span><span style="color:#b58900;">reduce</span><span style="color:#657b83;">(</span><span style="color:#859900;">Integer</span><span>.</span><span style="color:#cb4b16;">MIN_VALUE</span><span>, </span><span style="color:#657b83;">(</span><span style="color:#268bd2;">res</span><span>, </span><span style="color:#268bd2;">ele</span><span style="color:#657b83;">) </span><span style="color:#268bd2;">-&gt;</span><span> res </span><span style="color:#657b83;">&lt;</span><span> ele </span><span style="color:#859900;">?</span><span> ele </span><span style="color:#859900;">:</span><span> res</span><span style="color:#657b83;">)</span><span>;
+</span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>maxAge</span><span style="color:#657b83;">)</span><span>;
+</span></code></pre>
+<blockquote>
+<p>33</p>
+</blockquote>
+<hr />
+<blockquote>
+<p>使用reduce求所有作者中年龄的最小值。</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">Integer</span><span> minAge </span><span style="color:#657b83;">= </span><span style="color:#b58900;">getAuthors</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">()
+</span><span>    .</span><span style="color:#b58900;">map</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">author -&gt;</span><span> author.</span><span style="color:#b58900;">getAge</span><span style="color:#657b83;">())
+</span><span>    .</span><span style="color:#b58900;">reduce</span><span style="color:#657b83;">(</span><span style="color:#859900;">Integer</span><span>.</span><span style="color:#cb4b16;">MAX_VALUE</span><span>, </span><span style="color:#657b83;">(</span><span style="color:#268bd2;">res</span><span>, </span><span style="color:#268bd2;">ele</span><span style="color:#657b83;">) </span><span style="color:#268bd2;">-&gt;</span><span> res </span><span style="color:#657b83;">&gt;</span><span> ele </span><span style="color:#859900;">?</span><span> ele </span><span style="color:#859900;">:</span><span> res</span><span style="color:#657b83;">)</span><span>;
+</span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>minAge</span><span style="color:#657b83;">)</span><span>;
+</span></code></pre>
+<blockquote>
+<p>14</p>
+</blockquote>
+<hr />
+<blockquote>
+<p>reduce一个参数的重载形式内部的计算。</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#268bd2;">boolean</span><span> foundAny </span><span style="color:#657b83;">= </span><span style="color:#b58900;">false</span><span>;
+</span><span style="color:#859900;">T</span><span> result </span><span style="color:#657b83;">= </span><span style="color:#b58900;">null</span><span>;
+</span><span style="color:#859900;">for </span><span style="color:#657b83;">(</span><span style="color:#859900;">T</span><span> element </span><span style="color:#859900;">: </span><span style="color:#d33682;">this</span><span> stream</span><span style="color:#657b83;">) {
+</span><span>    </span><span style="color:#859900;">if </span><span style="color:#657b83;">(</span><span style="color:#859900;">!</span><span>foundAny</span><span style="color:#657b83;">) {
+</span><span>        foundAny </span><span style="color:#657b83;">= </span><span style="color:#b58900;">true</span><span>;
+</span><span>        result </span><span style="color:#657b83;">=</span><span> element;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span>    </span><span style="color:#859900;">else
+</span><span>        result </span><span style="color:#657b83;">=</span><span> accumulator.</span><span style="color:#b58900;">apply</span><span style="color:#657b83;">(</span><span>result, element</span><span style="color:#657b83;">)</span><span>;
+</span><span style="color:#657b83;">}
+</span><span style="color:#859900;">return</span><span> foundAny </span><span style="color:#859900;">? Optional</span><span>.</span><span style="color:#b58900;">of</span><span style="color:#657b83;">(</span><span>result</span><span style="color:#657b83;">) </span><span style="color:#859900;">: Optional</span><span>.</span><span style="color:#b58900;">empty</span><span style="color:#657b83;">()</span><span>;
+</span></code></pre>
+<blockquote>
+<p>如果用一个参数的重载方法去求最小值代码如下：</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">List</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt; authors </span><span style="color:#657b83;">= </span><span style="color:#b58900;">getAuthors</span><span style="color:#657b83;">()</span><span>;
+</span><span style="color:#859900;">Optional</span><span>&lt;</span><span style="color:#859900;">Integer</span><span>&gt; minOptional </span><span style="color:#657b83;">=</span><span> authors.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">()
+</span><span>    .</span><span style="color:#b58900;">map</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">author -&gt;</span><span> author.</span><span style="color:#b58900;">getAge</span><span style="color:#657b83;">())
+</span><span>    .</span><span style="color:#b58900;">reduce</span><span style="color:#657b83;">((</span><span style="color:#268bd2;">result</span><span>, </span><span style="color:#268bd2;">element</span><span style="color:#657b83;">) </span><span style="color:#268bd2;">-&gt;</span><span> result </span><span style="color:#657b83;">&gt;</span><span> element </span><span style="color:#859900;">?</span><span> element </span><span style="color:#859900;">:</span><span> result</span><span style="color:#657b83;">)</span><span>;
+</span><span>minOptional.</span><span style="color:#b58900;">ifPresent</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">age-&gt; </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>age</span><span style="color:#657b83;">))</span><span>;
+</span></code></pre>
+<blockquote>
+<p>14</p>
+</blockquote>
+<h4 id="3-3-4zhu-yi-shi-xiang">3.3.4注意事项<a class="zola-anchor" href="#3-3-4zhu-yi-shi-xiang" aria-label="Anchor link for: 3-3-4zhu-yi-shi-xiang">🔗</a></h4>
+<ul>
+<li>惰性求值（如果没有终结操作，所有中间操作是不会得到执行的）</li>
+<li>流是一次性的（一旦一个流对象经过一个终结操作后。这个流就不能再被使用）</li>
+<li>不会影响原数据（我们在流中可以多数据做很多处理。但是正常情况下是不会影响原来集合中的元素的。这往往也是我们期望的）</li>
+</ul>
+<hr />
+<h2 id="4-optional">4.Optional<a class="zola-anchor" href="#4-optional" aria-label="Anchor link for: 4-optional">🔗</a></h2>
+<h3 id="4-1-gai-shu">4.1 概述<a class="zola-anchor" href="#4-1-gai-shu" aria-label="Anchor link for: 4-1-gai-shu">🔗</a></h3>
+<p>我们在编写代码的时候出现最多的就是空指针异常。所以在很多情况下我们需要做各种非空的判断。</p>
+<blockquote>
+<p>例如</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">Author</span><span> author </span><span style="color:#657b83;">= </span><span style="color:#b58900;">getAuthor</span><span style="color:#657b83;">()</span><span>;
+</span><span style="color:#859900;">if</span><span style="color:#657b83;">(</span><span>author</span><span style="color:#657b83;">!=</span><span style="color:#b58900;">null</span><span style="color:#657b83;">){
+</span><span>    </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>author.</span><span style="color:#b58900;">getName</span><span style="color:#657b83;">())</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>​	尤其是对象中的属性还是一个对象的情况下。这种判断会更多。</p>
+<p>​	而过多的判断语句会让我们的代码显得臃肿不堪。</p>
+<p>​	所以在<code>JDK8</code>中引入了<code>Optional</code>,养成使用<code>Optional</code>的习惯后你可以写出更优雅的代码来避免空指针异常。</p>
+<p>​	并且在很多函数式编程相关的<code>API</code>中也都用到了<code>Optional</code>，如果不会使用<code>Optional</code>也会对函数式编程的学习造成影响。</p>
+<hr />
+<h3 id="4-2-shi-yong">4.2 使用<a class="zola-anchor" href="#4-2-shi-yong" aria-label="Anchor link for: 4-2-shi-yong">🔗</a></h3>
+<h4 id="4-2-1-chuang-jian-dui-xiang">4.2.1 创建对象<a class="zola-anchor" href="#4-2-1-chuang-jian-dui-xiang" aria-label="Anchor link for: 4-2-1-chuang-jian-dui-xiang">🔗</a></h4>
+<p><strong>Optional就好像是包装类，可以把我们的具体数据封装给Optional对象内部。然后我们去使用Optional中封装好的方法操作封装进去的数据就可以非常优雅的避免空指针异常。</strong></p>
+<blockquote>
+<p>我们一般使用<strong>Optional</strong>的<strong>静态方法ofNullable</strong>来把数据封装成一个Optional对象。无论传入的参数是否为null都不会出现问题。</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">Author</span><span> author </span><span style="color:#657b83;">= </span><span style="color:#b58900;">getAuthor</span><span style="color:#657b83;">()</span><span>;
+</span><span style="color:#859900;">Optional</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt; authorOptional </span><span style="color:#657b83;">= </span><span style="color:#859900;">Optional</span><span>.</span><span style="color:#b58900;">ofNullable</span><span style="color:#657b83;">(</span><span>author</span><span style="color:#657b83;">)</span><span>;
+</span></code></pre>
+<p>你可能会觉得还要加一行代码来封装数据比较麻烦。但是如果改造下<code>getAuthor</code>方法，让其它的返回值就是封装好的<code>Optional</code>的话，我们在使用时就会方便很多。而且在实际开发中我们的数据很多是从数据库获取的。<code>Mybatis</code>从3.5版本可以也已经支持<code>Optional</code>了。我们可以直接把<code>dao</code>方法的返回值类型定义成<code>Optional</code>类型，<code>MyBastis</code>会自己把数据封装成<code>Optional</code>对象返回。封装的过程也不需要我们自己操作。</p>
+<blockquote>
+<p>​	如果你<strong>确定一个对象不是空</strong>的则可以使用<strong>Optional</strong>的<strong>静态方法of</strong>来把数据封装成Optional对象。</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">Author</span><span> author </span><span style="color:#657b83;">= </span><span style="color:#859900;">new Author</span><span style="color:#657b83;">()</span><span>;
+</span><span style="color:#859900;">Optional</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt; optional </span><span style="color:#657b83;">= </span><span style="color:#859900;">Optional</span><span>.</span><span style="color:#b58900;">of</span><span style="color:#657b83;">(</span><span>author</span><span style="color:#657b83;">)</span><span>;
+</span></code></pre>
+<blockquote>
+<p>​	但是一定要注意，如果使用of的时候传入的参数必须不为null。</p>
+</blockquote>
+<blockquote>
+<p>如果一个方法的返回值类型是Optional类型。而如果我们经判断发现某次计算得到的返回值为null，这个时候就需要把null封装成Optional对象返回。这时则可以使用<strong>Optional</strong>的<strong>静态方法empty</strong>来进行封装。</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">Optional</span><span>.</span><span style="color:#b58900;">empty</span><span style="color:#657b83;">()
+</span></code></pre>
+<p><strong>所以一套下来，还是<code>ofNullable</code>真香!!!!</strong></p>
+<hr />
+<h4 id="4-2-1-an-quan-xiao-fei-zhi">4.2.1 安全消费值<a class="zola-anchor" href="#4-2-1-an-quan-xiao-fei-zhi" aria-label="Anchor link for: 4-2-1-an-quan-xiao-fei-zhi">🔗</a></h4>
+<p><strong>我们获取到一个<code>Optional</code>对象后肯定需要对其中的数据进行使用。这时候我们可以使用其<code>ifPresent</code>方法对来消费其中的值。这个方法会判断其内封装的数据是否为空，不为空时才会执行具体的消费代码。这样使用起来就更加安全了。</strong></p>
+<blockquote>
+<p>例如,以下写法就优雅的避免了空指针异常。</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">Optional</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt; authorOptional </span><span style="color:#657b83;">= </span><span style="color:#859900;">Optional</span><span>.</span><span style="color:#b58900;">ofNullable</span><span style="color:#657b83;">(</span><span style="color:#b58900;">getAuthor</span><span style="color:#657b83;">())</span><span>;
+</span><span>authorOptional.</span><span style="color:#b58900;">ifPresent</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">author -&gt; </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>author.</span><span style="color:#b58900;">getName</span><span style="color:#657b83;">()))</span><span>;
+</span></code></pre>
+<p><strong>另外，如果我们想获取值自己进行处理可以使用get方法获取，但是不推荐。因为当Optional内部的数据为空的时候会出现异常。</strong></p>
+<hr />
+<h4 id="an-quan-huo-qu-zhi">安全获取值<a class="zola-anchor" href="#an-quan-huo-qu-zhi" aria-label="Anchor link for: an-quan-huo-qu-zhi">🔗</a></h4>
+<p>如果我们期望安全的获取值。我们不推荐使用<code>get</code>方法，而是使用<code>Optional</code>提供的以下方法。</p>
+<h5 id="orelseget">orElseGet<a class="zola-anchor" href="#orelseget" aria-label="Anchor link for: orelseget">🔗</a></h5>
+<p><strong>获取数据并且设置数据为空时的默认值。如果数据不为空就能获取到该数据。如果为空则根据你传入的参数来创建对象作为默认值返回。</strong></p>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">Optional</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt; authorOptional </span><span style="color:#657b83;">= </span><span style="color:#859900;">Optional</span><span>.</span><span style="color:#b58900;">ofNullable</span><span style="color:#657b83;">(</span><span style="color:#b58900;">getAuthor</span><span style="color:#657b83;">())</span><span>;
+</span><span style="color:#859900;">Author</span><span> author1 </span><span style="color:#657b83;">=</span><span> authorOptional.</span><span style="color:#b58900;">orElseGet</span><span style="color:#657b83;">(() </span><span style="color:#268bd2;">-&gt; </span><span style="color:#859900;">new Author</span><span style="color:#657b83;">())</span><span>;
+</span></code></pre>
+<hr />
+<h5 id="orelsethrow">orElseThrow<a class="zola-anchor" href="#orelsethrow" aria-label="Anchor link for: orelsethrow">🔗</a></h5>
+<p><strong>获取数据，如果数据不为空就能获取到该数据。如果为空则根据你传入的参数来创建异常抛出。</strong></p>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">Optional</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt; authorOptional </span><span style="color:#657b83;">= </span><span style="color:#859900;">Optional</span><span>.</span><span style="color:#b58900;">ofNullable</span><span style="color:#657b83;">(</span><span style="color:#b58900;">getAuthor</span><span style="color:#657b83;">())</span><span>;
+</span><span style="color:#859900;">try </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">Author</span><span> author </span><span style="color:#657b83;">=</span><span> authorOptional.</span><span style="color:#b58900;">orElseThrow</span><span style="color:#657b83;">((</span><span style="color:#859900;">Supplier</span><span>&lt;</span><span style="color:#859900;">Throwable</span><span>&gt;</span><span style="color:#657b83;">)</span><span> () </span><span style="color:#268bd2;">-&gt; </span><span style="color:#859900;">new RuntimeException</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">author为空</span><span>&quot;</span><span style="color:#657b83;">))</span><span>;
+</span><span>    </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>author.</span><span style="color:#b58900;">getName</span><span style="color:#657b83;">())</span><span>;
+</span><span style="color:#657b83;">} </span><span style="color:#859900;">catch </span><span style="color:#657b83;">(</span><span style="color:#859900;">Throwable </span><span style="color:#268bd2;">throwable</span><span style="color:#657b83;">) {
+</span><span>    throwable.</span><span style="color:#b58900;">printStackTrace</span><span style="color:#657b83;">()</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<hr />
+<h5 id="guo-lu">过滤<a class="zola-anchor" href="#guo-lu" aria-label="Anchor link for: guo-lu">🔗</a></h5>
+<p><strong>我们可以使用<code>filter</code>方法对数据进行过滤。如果原本是有数据的，但是不符合判断，也会变成一个无数据的<code>Optional</code>对象。</strong></p>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">Optional</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt; authorOptional </span><span style="color:#657b83;">= </span><span style="color:#859900;">Optional</span><span>.</span><span style="color:#b58900;">ofNullable</span><span style="color:#657b83;">(</span><span style="color:#b58900;">getAuthor</span><span style="color:#657b83;">())</span><span>;
+</span><span>authorOptional.</span><span style="color:#b58900;">filter</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">author -&gt;</span><span> author.</span><span style="color:#b58900;">getAge</span><span style="color:#657b83;">()&gt;</span><span style="color:#6c71c4;">100</span><span style="color:#657b83;">)</span><span>.</span><span style="color:#b58900;">ifPresent</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">author -&gt; </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>author.</span><span style="color:#b58900;">getName</span><span style="color:#657b83;">()))</span><span>;
+</span></code></pre>
+<hr />
+<h5 id="pan-duan">判断<a class="zola-anchor" href="#pan-duan" aria-label="Anchor link for: pan-duan">🔗</a></h5>
+<p><strong>我们可以使用<code>isPresent</code>方法进行是否存在数据的判断。如果为空返回值为<code>false</code>,如果不为空，返回值为<code>true</code>。但是这种方式并不能体现<code>Optional</code>的好处，更推荐使用<code>ifPresent</code>方法</strong></p>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">Optional</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt; authorOptional </span><span style="color:#657b83;">= </span><span style="color:#859900;">Optional</span><span>.</span><span style="color:#b58900;">ofNullable</span><span style="color:#657b83;">(</span><span style="color:#b58900;">getAuthor</span><span style="color:#657b83;">())</span><span>;
+</span><span style="color:#859900;">if </span><span style="color:#657b83;">(</span><span>authorOptional.</span><span style="color:#b58900;">isPresent</span><span style="color:#657b83;">()) {
+</span><span>    </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>authorOptional.</span><span style="color:#b58900;">get</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">getName</span><span style="color:#657b83;">())</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<hr />
+<h5 id="shu-ju-zhuan-huan">数据转换<a class="zola-anchor" href="#shu-ju-zhuan-huan" aria-label="Anchor link for: shu-ju-zhuan-huan">🔗</a></h5>
+<p><strong>Optional还提供了map可以让我们的对数据进行转换，并且转换得到的数据也还是被Optional包装好的，保证了我们的使用安全。</strong></p>
+<blockquote>
+<p>例如我们想获取作家的书籍集合。</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#93a1a1;">private static</span><span> void </span><span style="color:#b58900;">testMap</span><span style="color:#657b83;">() {
+</span><span>    </span><span style="color:#859900;">Optional</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt; authorOperation </span><span style="color:#657b83;">= </span><span style="color:#b58900;">getAuthorOperation</span><span style="color:#657b83;">()</span><span>;
+</span><span>    </span><span style="color:#859900;">Optional</span><span>&lt;</span><span style="color:#859900;">List</span><span>&lt;</span><span style="color:#859900;">Book</span><span>&gt;&gt; optionalBooks </span><span style="color:#657b83;">=</span><span> authorOperation.</span><span style="color:#b58900;">map</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">author -&gt;</span><span> author.</span><span style="color:#b58900;">getBooks</span><span style="color:#657b83;">())</span><span>;
+</span><span>    optionalBooks.</span><span style="color:#b58900;">ifPresent</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">books-&gt; </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>books</span><span style="color:#657b83;">))</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p><strong>上面涉及到的两个方法</strong></p>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#93a1a1;">public static </span><span style="color:#859900;">Author </span><span style="color:#b58900;">getAuthor</span><span style="color:#657b83;">() {
+</span><span>    </span><span style="color:#859900;">Author</span><span> author </span><span style="color:#657b83;">= </span><span style="color:#859900;">new Author</span><span style="color:#657b83;">(</span><span style="color:#6c71c4;">1</span><span style="color:#268bd2;">L</span><span>,&quot;</span><span style="color:#2aa198;">蒙多</span><span>&quot;,</span><span style="color:#6c71c4;">33</span><span>,&quot;</span><span style="color:#2aa198;">一个从菜刀中明悟哲理的祖安人</span><span>&quot;,</span><span style="color:#b58900;">null</span><span style="color:#657b83;">)</span><span>;
+</span><span>    </span><span style="color:#859900;">return</span><span> author;
+</span><span style="color:#657b83;">}
+</span><span>
+</span><span style="color:#93a1a1;">public static </span><span style="color:#859900;">Optional</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt; </span><span style="color:#b58900;">getAuthorOperation</span><span style="color:#657b83;">() {
+</span><span>    </span><span style="color:#859900;">Author</span><span> author </span><span style="color:#657b83;">= </span><span style="color:#859900;">new Author</span><span style="color:#657b83;">(</span><span style="color:#6c71c4;">1</span><span style="color:#268bd2;">L</span><span>,&quot;</span><span style="color:#2aa198;">蒙多</span><span>&quot;,</span><span style="color:#6c71c4;">33</span><span>,&quot;</span><span style="color:#2aa198;">一个从菜刀中明悟哲理的祖安人</span><span>&quot;,</span><span style="color:#b58900;">null</span><span style="color:#657b83;">)</span><span>;
+</span><span>    </span><span style="color:#859900;">return Optional</span><span>.</span><span style="color:#b58900;">ofNullable</span><span style="color:#657b83;">(</span><span>author</span><span style="color:#657b83;">)</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<hr />
+<h2 id="5-han-shu-shi-jie-kou">5.函数式接口<a class="zola-anchor" href="#5-han-shu-shi-jie-kou" aria-label="Anchor link for: 5-han-shu-shi-jie-kou">🔗</a></h2>
+<h3 id="5-1-gai-shu">5.1 概述<a class="zola-anchor" href="#5-1-gai-shu" aria-label="Anchor link for: 5-1-gai-shu">🔗</a></h3>
+<p><strong>只有一个抽象方法的接口称为函数接口</strong>在<code>JDK</code>的函数式接口都加上<code>@FunctionInterface</code>注解进行标识。但是无论是否加上该注解，只要接口中只有一个抽象方法。都是函数式接口。</p>
+<hr />
+<h3 id="5-2-chang-jian-de-han-shu-shi-jie-kou">5.2 常见的函数式接口<a class="zola-anchor" href="#5-2-chang-jian-de-han-shu-shi-jie-kou" aria-label="Anchor link for: 5-2-chang-jian-de-han-shu-shi-jie-kou">🔗</a></h3>
+<h4 id="5-2-1-comsumerxiao-fei-jie-kou">5.2.1 Comsumer消费接口<a class="zola-anchor" href="#5-2-1-comsumerxiao-fei-jie-kou" aria-label="Anchor link for: 5-2-1-comsumerxiao-fei-jie-kou">🔗</a></h4>
+<p>根据抽象方法的参数列表和返回值类型知道，我们可以在方法中对传入的参数进行消费。</p>
+<p><img src="https://images.waer.ltd/img/image-20220830085951417.png" alt="image-20220830085951417" loading="lazy" decoding="async" /></p>
+<h4 id="">5.2.2 Function 计算转换接口<a class="zola-anchor" href="#" aria-label="Anchor link for: ">🔗</a></h4>
+<p>根据其中抽象方法的参数列表和返回值类型知道，我们可以在方法中对传入的参数计算或转换，把结果返回。</p>
+<p><img src="https://images.waer.ltd/img/image-20220830090053563.png" alt="image-20220830090053563" loading="lazy" decoding="async" /></p>
+<h4 id="-1">5.2.3 Predicate 判断接口<a class="zola-anchor" href="#-1" aria-label="Anchor link for: -1">🔗</a></h4>
+<p>根据其中抽象方法的参数列表和返回值类型知道，我们可以在方法中对传入的参数条件判断，返回判断结果。</p>
+<p><img src="https://images.waer.ltd/img/image-20220830090128559.png" alt="image-20220830090128559" loading="lazy" decoding="async" /></p>
+<h4 id="-2">5.2.4 Supplier 生产型接口<a class="zola-anchor" href="#-2" aria-label="Anchor link for: -2">🔗</a></h4>
+<p>根据其中抽象方法的参数列表和返回值类型知道，我们可以在方法中创建对象，把创建好的对象返回。</p>
+<p><img src="https://images.waer.ltd/img/image-20220830090201854.png" alt="image-20220830090201854" loading="lazy" decoding="async" /></p>
+<hr />
+<h3 id="-3">5.3 常用的默认方法<a class="zola-anchor" href="#-3" aria-label="Anchor link for: -3">🔗</a></h3>
+<h4 id="-4">5.3.1 and<a class="zola-anchor" href="#-4" aria-label="Anchor link for: -4">🔗</a></h4>
+<p><strong>我们在使用Predicate接口时候可能需要进行判断条件的拼接。而and方法相当于是使用&amp;&amp;来拼接两个判断条件.</strong></p>
+<blockquote>
+<p>打印作家中年龄大于17并且姓名的长度大于1的作家。当然，满足这个需求的实现方式不止这一种。</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">List</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt; authors </span><span style="color:#657b83;">= </span><span style="color:#b58900;">getAuthors</span><span style="color:#657b83;">()</span><span>;
+</span><span style="color:#859900;">Stream</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt; authorStream </span><span style="color:#657b83;">=</span><span> authors.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">()</span><span>;
+</span><span>authorStream.</span><span style="color:#b58900;">filter</span><span style="color:#657b83;">(</span><span style="color:#859900;">new Predicate</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt;</span><span style="color:#657b83;">() {
+</span><span>    @</span><span style="color:#268bd2;">Override
+</span><span>    </span><span style="color:#93a1a1;">public </span><span style="color:#268bd2;">boolean </span><span style="color:#b58900;">test</span><span style="color:#657b83;">(</span><span style="color:#859900;">Author </span><span style="color:#268bd2;">author</span><span style="color:#657b83;">) {
+</span><span>        </span><span style="color:#859900;">return</span><span> author.</span><span style="color:#b58900;">getAge</span><span style="color:#657b83;">() &gt; </span><span style="color:#6c71c4;">17</span><span>;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span style="color:#657b83;">}</span><span>.</span><span style="color:#b58900;">and</span><span style="color:#657b83;">(</span><span style="color:#859900;">new Predicate</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt;</span><span style="color:#657b83;">() {
+</span><span>    @</span><span style="color:#268bd2;">Override
+</span><span>    </span><span style="color:#93a1a1;">public </span><span style="color:#268bd2;">boolean </span><span style="color:#b58900;">test</span><span style="color:#657b83;">(</span><span style="color:#859900;">Author </span><span style="color:#268bd2;">author</span><span style="color:#657b83;">) {
+</span><span>        </span><span style="color:#859900;">return</span><span> author.</span><span style="color:#b58900;">getName</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">length</span><span style="color:#657b83;">() &gt; </span><span style="color:#6c71c4;">1</span><span>;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span style="color:#657b83;">}))</span><span>.</span><span style="color:#b58900;">forEach</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">author-&gt; </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>author</span><span style="color:#657b83;">))</span><span>;
+</span></code></pre>
+<blockquote>
+<p>Author(id=1, name=蒙多, age=33, intro=一个从菜刀中明悟哲理的祖安人, books=[Book(id=1, name=刀的两侧是光明与黑暗, category=哲学,爱情, score=88, intro=用一把刀划分了爱恨), Book(id=2, name=一个人不能死在同一把刀下, category=个人成长,爱情, score=99, intro=讲述如何从失败中明悟真理)])</p>
+</blockquote>
+<hr />
+<h4 id="-5">5.3.2 or<a class="zola-anchor" href="#-5" aria-label="Anchor link for: -5">🔗</a></h4>
+<p><strong>我们在使用Predicate接口时候可能需要进行判断条件的拼接。而or方法相当于是使用||来拼接两个判断条件。</strong></p>
+<blockquote>
+<p>打印作家中年龄大于17或者姓名的长度小于2的作家。</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">List</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt; authors </span><span style="color:#657b83;">= </span><span style="color:#b58900;">getAuthors</span><span style="color:#657b83;">()</span><span>;
+</span><span>authors.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">()
+</span><span>    .</span><span style="color:#b58900;">filter</span><span style="color:#657b83;">(</span><span style="color:#859900;">new Predicate</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt;</span><span style="color:#657b83;">() {
+</span><span>        @</span><span style="color:#268bd2;">Override
+</span><span>        </span><span style="color:#93a1a1;">public </span><span style="color:#268bd2;">boolean </span><span style="color:#b58900;">test</span><span style="color:#657b83;">(</span><span style="color:#859900;">Author </span><span style="color:#268bd2;">author</span><span style="color:#657b83;">) {
+</span><span>            </span><span style="color:#859900;">return</span><span> author.</span><span style="color:#b58900;">getAge</span><span style="color:#657b83;">()&gt;</span><span style="color:#6c71c4;">17</span><span>;
+</span><span>        </span><span style="color:#657b83;">}
+</span><span>    </span><span style="color:#657b83;">}</span><span>.</span><span style="color:#b58900;">or</span><span style="color:#657b83;">(</span><span style="color:#859900;">new Predicate</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt;</span><span style="color:#657b83;">() {
+</span><span>        @</span><span style="color:#268bd2;">Override
+</span><span>        </span><span style="color:#93a1a1;">public </span><span style="color:#268bd2;">boolean </span><span style="color:#b58900;">test</span><span style="color:#657b83;">(</span><span style="color:#859900;">Author </span><span style="color:#268bd2;">author</span><span style="color:#657b83;">) {
+</span><span>            </span><span style="color:#859900;">return</span><span> author.</span><span style="color:#b58900;">getName</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">length</span><span style="color:#657b83;">()&lt;</span><span style="color:#6c71c4;">2</span><span>;
+</span><span>        </span><span style="color:#657b83;">}
+</span><span>    </span><span style="color:#657b83;">}))</span><span>.</span><span style="color:#b58900;">forEach</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">author -&gt; </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>author.</span><span style="color:#b58900;">getName</span><span style="color:#657b83;">()))</span><span>;
+</span></code></pre>
+<blockquote>
+<p>蒙多
+易
+易</p>
+</blockquote>
+<hr />
+<h4 id="-6">5.3.4 negate<a class="zola-anchor" href="#-6" aria-label="Anchor link for: -6">🔗</a></h4>
+<p><strong>Predicate接口中的方法。negate方法相当于是在判断添加前面加了个! 表示取反。</strong></p>
+<blockquote>
+<p>打印作家中年龄不大于17的作家。</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">List</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt; authors </span><span style="color:#657b83;">= </span><span style="color:#b58900;">getAuthors</span><span style="color:#657b83;">()</span><span>;
+</span><span>authors.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">()
+</span><span>    .</span><span style="color:#b58900;">filter</span><span style="color:#657b83;">(</span><span style="color:#859900;">new Predicate</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt;</span><span style="color:#657b83;">() {
+</span><span>        @</span><span style="color:#268bd2;">Override
+</span><span>        </span><span style="color:#93a1a1;">public </span><span style="color:#268bd2;">boolean </span><span style="color:#b58900;">test</span><span style="color:#657b83;">(</span><span style="color:#859900;">Author </span><span style="color:#268bd2;">author</span><span style="color:#657b83;">) {
+</span><span>            </span><span style="color:#859900;">return</span><span> author.</span><span style="color:#b58900;">getAge</span><span style="color:#657b83;">()&gt;</span><span style="color:#6c71c4;">17</span><span>;
+</span><span>        </span><span style="color:#657b83;">}
+</span><span>    </span><span style="color:#657b83;">}</span><span>.</span><span style="color:#b58900;">negate</span><span style="color:#657b83;">())</span><span>.</span><span style="color:#b58900;">forEach</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">author -&gt; </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>author.</span><span style="color:#b58900;">getAge</span><span style="color:#657b83;">()))</span><span>;
+</span></code></pre>
+<blockquote>
+<p>15</p>
+<p>14</p>
+<p>14</p>
+</blockquote>
+<hr />
+<h2 id="-7">6.方法引用<a class="zola-anchor" href="#-7" aria-label="Anchor link for: -7">🔗</a></h2>
+<p>我们在使用lambda时，如果方法体中只有一个方法的调用的话（包括构造方法）,我们可以用方法引用进一步简化代码。</p>
+<p>基本格式：</p>
+<blockquote>
+<p>类名或者对象名::方法名。</p>
+</blockquote>
+<hr />
+<h3 id="-8">6.1 语法详解<a class="zola-anchor" href="#-8" aria-label="Anchor link for: -8">🔗</a></h3>
+<h4 id="-9">6.1.1 引用类的静态方法<a class="zola-anchor" href="#-9" aria-label="Anchor link for: -9">🔗</a></h4>
+<p>其实就是引用类的静态方法。</p>
+<p>格式：</p>
+<blockquote>
+<p>类名::方法名</p>
+</blockquote>
+<p><strong>使用前提</strong></p>
+<p>如果我们在重写方法的时候，方法体中只有<strong>一行代码</strong>，并且这行代码就是<strong>调用了某个具体方法</strong>，并且我们要把重写的<strong>抽象方法中所有的参数都按顺序传入这个静态方法中</strong>，这时候就可以引用类的静态方法。</p>
+<blockquote>
+<p>比如对下面代码的优化。</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">List</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt; authors </span><span style="color:#657b83;">= </span><span style="color:#b58900;">getAuthors</span><span style="color:#657b83;">()</span><span>;
+</span><span style="color:#859900;">Stream</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt; authorStream </span><span style="color:#657b83;">=</span><span> authors.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">()</span><span>;
+</span><span>authorStream.</span><span style="color:#b58900;">map</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">author -&gt;</span><span> author.</span><span style="color:#b58900;">getAge</span><span style="color:#657b83;">())
+</span><span>    .</span><span style="color:#b58900;">map</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">age-&gt;</span><span style="color:#859900;">String</span><span>.</span><span style="color:#b58900;">valueOf</span><span style="color:#657b83;">(</span><span>age</span><span style="color:#657b83;">))</span><span>;
+</span></code></pre>
+<blockquote>
+<p>注意，如果我们所重写的方法是没有参数的，调用的方法也是没有参数的也相当于符合以上规则。</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">List</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt; authors </span><span style="color:#657b83;">= </span><span style="color:#b58900;">getAuthors</span><span style="color:#657b83;">()</span><span>;
+</span><span style="color:#859900;">Stream</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt; authorStream </span><span style="color:#657b83;">=</span><span> authors.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">()</span><span>;
+</span><span>authorStream
+</span><span>    .</span><span style="color:#b58900;">map</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">author-&gt;</span><span>author.</span><span style="color:#b58900;">getAge</span><span style="color:#657b83;">())
+</span><span>    .</span><span style="color:#b58900;">map</span><span style="color:#657b83;">(</span><span style="color:#859900;">String</span><span>::</span><span style="color:#b58900;">valueOf</span><span style="color:#657b83;">)</span><span>;
+</span></code></pre>
+<hr />
+<h4 id="-10">6.3.2 引用对象的实例方法<a class="zola-anchor" href="#-10" aria-label="Anchor link for: -10">🔗</a></h4>
+<p>格式：</p>
+<blockquote>
+<p>对象名::方法名</p>
+</blockquote>
+<h5 id="-11">使用前提<a class="zola-anchor" href="#-11" aria-label="Anchor link for: -11">🔗</a></h5>
+<p>​	如果我们在重写方法的时候，方法体中<strong>只有一行代码</strong>，并且这行代码是<strong>调用了某个对象的成员方法</strong>，并且我们把要重写的<strong>抽象方法中所有的参数都按照顺序传入了这个成员方法中</strong>，这个时候我们就可以引用对象的实例方法。</p>
+<blockquote>
+<p>优化下面代码</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">List</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt; authors </span><span style="color:#657b83;">= </span><span style="color:#b58900;">getAuthors</span><span style="color:#657b83;">()</span><span>;
+</span><span style="color:#859900;">Stream</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt; authorStream </span><span style="color:#657b83;">=</span><span> authors.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">()</span><span>;
+</span><span style="color:#859900;">StringBuilder</span><span> sb </span><span style="color:#657b83;">= </span><span style="color:#859900;">new StringBuilder</span><span style="color:#657b83;">()</span><span>;
+</span><span>authorStream.</span><span style="color:#b58900;">map</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">author -&gt;</span><span> author.</span><span style="color:#b58900;">getName</span><span style="color:#657b83;">())
+</span><span>    .</span><span style="color:#b58900;">forEach</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">name-&gt;</span><span>sb.</span><span style="color:#b58900;">append</span><span style="color:#657b83;">(</span><span>name</span><span style="color:#657b83;">))</span><span>;
+</span></code></pre>
+<blockquote>
+<p>优化后</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">List</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt; authors </span><span style="color:#657b83;">= </span><span style="color:#b58900;">getAuthors</span><span style="color:#657b83;">()</span><span>;
+</span><span style="color:#859900;">Stream</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt; authorStream </span><span style="color:#657b83;">=</span><span> authors.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">()</span><span>;
+</span><span style="color:#859900;">StringBuilder</span><span> sb </span><span style="color:#657b83;">= </span><span style="color:#859900;">new StringBuilder</span><span style="color:#657b83;">()</span><span>;
+</span><span>authorStream.</span><span style="color:#b58900;">map</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">author -&gt;</span><span> author.</span><span style="color:#b58900;">getName</span><span style="color:#657b83;">())
+</span><span>    .</span><span style="color:#b58900;">forEach</span><span style="color:#657b83;">(</span><span>sb::</span><span style="color:#b58900;">append</span><span style="color:#657b83;">)</span><span>;
+</span></code></pre>
+<hr />
+<h4 id="-12">6.3.3 引用类的实例方法<a class="zola-anchor" href="#-12" aria-label="Anchor link for: -12">🔗</a></h4>
+<p>格式:</p>
+<blockquote>
+<p>类名::方法名</p>
+</blockquote>
+<h5 id="-13">使用前提<a class="zola-anchor" href="#-13" aria-label="Anchor link for: -13">🔗</a></h5>
+<p>​	如果我们在重写方法的时候，方法体中<strong>只有一行代码</strong>，并且这行代码是<strong>调用了第一个参数的成员方法</strong>，并且我们把要<strong>重写的抽象方法中剩余的所有的参数都按照顺序传入了这个成员方法中</strong>，这个时候我们就可以引用类的实例方法。</p>
+<blockquote>
+<p>优化下面代码</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#268bd2;">interface </span><span style="color:#b58900;">UseString</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">String </span><span style="color:#b58900;">use</span><span style="color:#657b83;">(</span><span style="color:#859900;">String </span><span style="color:#268bd2;">str</span><span>,</span><span style="color:#268bd2;">int start</span><span>,</span><span style="color:#268bd2;">int length</span><span style="color:#657b83;">)</span><span>;
+</span><span style="color:#657b83;">}
+</span><span>
+</span><span style="color:#93a1a1;">public static </span><span style="color:#859900;">String </span><span style="color:#b58900;">subAuthorName</span><span style="color:#657b83;">(</span><span style="color:#859900;">String</span><span> str, </span><span style="color:#859900;">UseString</span><span> useString</span><span style="color:#657b83;">){
+</span><span>    </span><span style="color:#268bd2;">int</span><span> start </span><span style="color:#657b83;">= </span><span style="color:#6c71c4;">0</span><span>;
+</span><span>    </span><span style="color:#268bd2;">int</span><span> length </span><span style="color:#657b83;">= </span><span style="color:#6c71c4;">1</span><span>;
+</span><span>    </span><span style="color:#859900;">return</span><span> useString.</span><span style="color:#b58900;">use</span><span style="color:#657b83;">(</span><span>str,start,length</span><span style="color:#657b83;">)</span><span>;
+</span><span style="color:#657b83;">}
+</span><span style="color:#93a1a1;">public static</span><span> void </span><span style="color:#b58900;">main</span><span style="color:#657b83;">(</span><span style="color:#859900;">String</span><span style="color:#93a1a1;">[]</span><span> args</span><span style="color:#657b83;">) {
+</span><span>
+</span><span>    </span><span style="color:#b58900;">subAuthorName</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">八尺妖剑</span><span>&quot;, </span><span style="color:#859900;">new UseString</span><span style="color:#657b83;">() {
+</span><span>        @</span><span style="color:#268bd2;">Override
+</span><span>        </span><span style="color:#93a1a1;">public </span><span style="color:#859900;">String </span><span style="color:#b58900;">use</span><span style="color:#657b83;">(</span><span style="color:#859900;">String </span><span style="color:#268bd2;">str</span><span>, </span><span style="color:#268bd2;">int start</span><span>, </span><span style="color:#268bd2;">int length</span><span style="color:#657b83;">) {
+</span><span>            </span><span style="color:#859900;">return</span><span> str.</span><span style="color:#b58900;">substring</span><span style="color:#657b83;">(</span><span>start,length</span><span style="color:#657b83;">)</span><span>;
+</span><span>        </span><span style="color:#657b83;">}
+</span><span>    </span><span style="color:#657b83;">})</span><span>;
+</span><span>
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<blockquote>
+<p>优化后</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#93a1a1;">public static</span><span> void </span><span style="color:#b58900;">main</span><span style="color:#657b83;">(</span><span style="color:#859900;">String</span><span style="color:#93a1a1;">[]</span><span> args</span><span style="color:#657b83;">) {
+</span><span>    </span><span style="color:#b58900;">subAuthorName</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">八尺妖剑</span><span>&quot;, </span><span style="color:#859900;">String</span><span>::</span><span style="color:#b58900;">substring</span><span style="color:#657b83;">)</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<hr />
+<h4 id="-14">6.3.4 构造器引用<a class="zola-anchor" href="#-14" aria-label="Anchor link for: -14">🔗</a></h4>
+<p><strong>如果方法体中的一行代码是构造器的话就可以使用构造器引用。</strong></p>
+<p>格式：</p>
+<blockquote>
+<p>类名::new</p>
+</blockquote>
+<h5 id="-15">使用前提<a class="zola-anchor" href="#-15" aria-label="Anchor link for: -15">🔗</a></h5>
+<p>​	如果我们在重写方法的时候，方法体中<strong>只有一行代码</strong>，并且这行代码是<strong>调用了某个类的构造方法</strong>，并且我们把<strong>要重写的抽象方法中的所有的参数都按照顺序传入了这个构造方法中</strong>，这个时候我们就可以引用构造器。</p>
+<blockquote>
+<p>优化下面代码</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">List</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt; authors </span><span style="color:#657b83;">= </span><span style="color:#b58900;">getAuthors</span><span style="color:#657b83;">()</span><span>;
+</span><span>authors.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">()
+</span><span>    .</span><span style="color:#b58900;">map</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">author -&gt;</span><span> author.</span><span style="color:#b58900;">getName</span><span style="color:#657b83;">())
+</span><span>    .</span><span style="color:#b58900;">map</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">name-&gt;</span><span style="color:#859900;">new StringBuilder</span><span style="color:#657b83;">(</span><span>name</span><span style="color:#657b83;">))
+</span><span>    .</span><span style="color:#b58900;">map</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">sb-&gt;</span><span>sb.</span><span style="color:#b58900;">append</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">-三更</span><span>&quot;</span><span style="color:#657b83;">)</span><span>.</span><span style="color:#b58900;">toString</span><span style="color:#657b83;">())
+</span><span>    .</span><span style="color:#b58900;">forEach</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">str-&gt; </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>str</span><span style="color:#657b83;">))</span><span>;
+</span></code></pre>
+<blockquote>
+<p>优化后</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">List</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt; authors </span><span style="color:#657b83;">= </span><span style="color:#b58900;">getAuthors</span><span style="color:#657b83;">()</span><span>;
+</span><span>authors.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">()
+</span><span>    .</span><span style="color:#b58900;">map</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">author -&gt;</span><span> author.</span><span style="color:#b58900;">getName</span><span style="color:#657b83;">())
+</span><span>    .</span><span style="color:#b58900;">map</span><span style="color:#657b83;">(</span><span style="color:#859900;">StringBuilder</span><span>::</span><span style="color:#b58900;">new</span><span style="color:#657b83;">)
+</span><span>    .</span><span style="color:#b58900;">map</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">sb-&gt;</span><span>sb.</span><span style="color:#b58900;">append</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">-三更</span><span>&quot;</span><span style="color:#657b83;">)</span><span>.</span><span style="color:#b58900;">toString</span><span style="color:#657b83;">())
+</span><span>    .</span><span style="color:#b58900;">forEach</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">str-&gt; </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>str</span><span style="color:#657b83;">))</span><span>;
+</span></code></pre>
+<hr />
+<h2 id="-16">7.高级用法<a class="zola-anchor" href="#-16" aria-label="Anchor link for: -16">🔗</a></h2>
+<h3 id="-17">7.1 基本数据类型优化<a class="zola-anchor" href="#-17" aria-label="Anchor link for: -17">🔗</a></h3>
+<p>我们之前用到的很多<code>Stream</code>的方法由于都使用了泛型。所以涉及到的参数和返回值都是引用数据类型。</p>
+<p>​	即使我们操作的是<strong>整数小数，<strong>但是实际用的都是他们的</strong>包装类</strong>。<code>JDK5</code>中引入的自动装箱和自动拆箱让我们在使用对应的包装类时就好像使用基本数据类型一样方便。但是你一定要知道<strong>装箱和拆箱肯定是要消耗时间的</strong>。虽然这个时间消耗很下。但是在<strong>大量的数据不断的重复装箱拆箱的时候，你就不能无视这个时间损耗了</strong>。所以为了让我们能够对这部分的时间消耗进行优化。<code>Stream</code>还提供了很多专门针对基本数据类型的方法。</p>
+<blockquote>
+<p>例如：<code>mapToInt</code>,<code>mapToLong</code>,<code>mapToDouble</code>,<code>flatMapToInt</code>,<code>flatMapToDouble</code>等。</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#93a1a1;">private static</span><span> void </span><span style="color:#b58900;">test27</span><span style="color:#657b83;">() {
+</span><span>
+</span><span>    </span><span style="color:#859900;">List</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt; authors </span><span style="color:#657b83;">= </span><span style="color:#b58900;">getAuthors</span><span style="color:#657b83;">()</span><span>;
+</span><span>    authors.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">()
+</span><span>        .</span><span style="color:#b58900;">map</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">author -&gt;</span><span> author.</span><span style="color:#b58900;">getAge</span><span style="color:#657b83;">())
+</span><span>        .</span><span style="color:#b58900;">map</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">age -&gt;</span><span> age </span><span style="color:#657b83;">+ </span><span style="color:#6c71c4;">10</span><span style="color:#657b83;">)
+</span><span>        .</span><span style="color:#b58900;">filter</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">age-&gt;</span><span>age</span><span style="color:#657b83;">&gt;</span><span style="color:#6c71c4;">18</span><span style="color:#657b83;">)
+</span><span>        .</span><span style="color:#b58900;">map</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">age-&gt;</span><span>age</span><span style="color:#657b83;">+</span><span style="color:#6c71c4;">2</span><span style="color:#657b83;">)
+</span><span>        .</span><span style="color:#b58900;">forEach</span><span style="color:#657b83;">(</span><span style="color:#859900;">System</span><span>.out::</span><span style="color:#b58900;">println</span><span style="color:#657b83;">)</span><span>;
+</span><span style="color:#586e75;">//优化后的写法
+</span><span>    authors.</span><span style="color:#b58900;">stream</span><span style="color:#657b83;">()
+</span><span>        .</span><span style="color:#b58900;">mapToInt</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">author -&gt;</span><span> author.</span><span style="color:#b58900;">getAge</span><span style="color:#657b83;">())
+</span><span>        .</span><span style="color:#b58900;">map</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">age -&gt;</span><span> age </span><span style="color:#657b83;">+ </span><span style="color:#6c71c4;">10</span><span style="color:#657b83;">)
+</span><span>        .</span><span style="color:#b58900;">filter</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">age-&gt;</span><span>age</span><span style="color:#657b83;">&gt;</span><span style="color:#6c71c4;">18</span><span style="color:#657b83;">)
+</span><span>        .</span><span style="color:#b58900;">map</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">age-&gt;</span><span>age</span><span style="color:#657b83;">+</span><span style="color:#6c71c4;">2</span><span style="color:#657b83;">)
+</span><span>        .</span><span style="color:#b58900;">forEach</span><span style="color:#657b83;">(</span><span style="color:#859900;">System</span><span>.out::</span><span style="color:#b58900;">println</span><span style="color:#657b83;">)</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<hr />
+<h3 id="-18">7.2 并行流<a class="zola-anchor" href="#-18" aria-label="Anchor link for: -18">🔗</a></h3>
+<p>当流中有大量元素时，我们可以使用并行流去提高操作的效率。其实<strong>并行流就是把任务分配给多个线程去完全</strong>。如果我们自己去用代码实现的话其实会非常的复杂，并且要求你对并发编程有足够的理解和认识。而如果我们使用<code>Stream</code>的话，我们只需要修改一个方法的调用就可以使用并行流来帮我们实现，从而提高效率。</p>
+<blockquote>
+<p>​	parallel方法可以把串行流转换成并行流。</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#93a1a1;">private static</span><span> void </span><span style="color:#b58900;">test28</span><span style="color:#657b83;">() {
+</span><span>    </span><span style="color:#859900;">Stream</span><span>&lt;</span><span style="color:#859900;">Integer</span><span>&gt; stream </span><span style="color:#657b83;">= </span><span style="color:#859900;">Stream</span><span>.</span><span style="color:#b58900;">of</span><span style="color:#657b83;">(</span><span style="color:#6c71c4;">1</span><span>, </span><span style="color:#6c71c4;">2</span><span>, </span><span style="color:#6c71c4;">3</span><span>, </span><span style="color:#6c71c4;">4</span><span>, </span><span style="color:#6c71c4;">5</span><span>, </span><span style="color:#6c71c4;">6</span><span>, </span><span style="color:#6c71c4;">7</span><span>, </span><span style="color:#6c71c4;">8</span><span>, </span><span style="color:#6c71c4;">9</span><span>, </span><span style="color:#6c71c4;">10</span><span style="color:#657b83;">)</span><span>;
+</span><span>    </span><span style="color:#859900;">Integer</span><span> sum </span><span style="color:#657b83;">=</span><span> stream.</span><span style="color:#b58900;">parallel</span><span style="color:#657b83;">()
+</span><span>        .</span><span style="color:#b58900;">peek</span><span style="color:#657b83;">(</span><span style="color:#859900;">new Consumer</span><span>&lt;</span><span style="color:#859900;">Integer</span><span>&gt;</span><span style="color:#657b83;">() {
+</span><span>            @</span><span style="color:#268bd2;">Override
+</span><span>            </span><span style="color:#93a1a1;">public </span><span style="color:#268bd2;">void </span><span style="color:#b58900;">accept</span><span style="color:#657b83;">(</span><span style="color:#859900;">Integer </span><span style="color:#268bd2;">num</span><span style="color:#657b83;">) {
+</span><span>                </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>num</span><span style="color:#657b83;">+</span><span style="color:#859900;">Thread</span><span>.</span><span style="color:#b58900;">currentThread</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">getName</span><span style="color:#657b83;">())</span><span>;
+</span><span>            </span><span style="color:#657b83;">}
+</span><span>        </span><span style="color:#657b83;">})
+</span><span>        .</span><span style="color:#b58900;">filter</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">num -&gt;</span><span> num </span><span style="color:#657b83;">&gt; </span><span style="color:#6c71c4;">5</span><span style="color:#657b83;">)
+</span><span>        .</span><span style="color:#b58900;">reduce</span><span style="color:#657b83;">((</span><span style="color:#268bd2;">result</span><span>, </span><span style="color:#268bd2;">ele</span><span style="color:#657b83;">) </span><span style="color:#268bd2;">-&gt;</span><span> result </span><span style="color:#657b83;">+</span><span> ele</span><span style="color:#657b83;">)
+</span><span>        .</span><span style="color:#b58900;">get</span><span style="color:#657b83;">()</span><span>;
+</span><span>    </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>sum</span><span style="color:#657b83;">)</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<blockquote>
+<p>这里用到<code>peek()</code>方法来打印中间值，这是用来调试的一个方法，可以用在流操作的任何位置。</p>
+</blockquote>
+<hr />
+<blockquote>
+<p>也可以通过<code>parallelStream</code>直接获取并行流对象。</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">List</span><span>&lt;</span><span style="color:#859900;">Author</span><span>&gt; authors </span><span style="color:#657b83;">= </span><span style="color:#b58900;">getAuthors</span><span style="color:#657b83;">()</span><span>;
+</span><span>authors.</span><span style="color:#b58900;">parallelStream</span><span style="color:#657b83;">()
+</span><span>    .</span><span style="color:#b58900;">map</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">author -&gt;</span><span> author.</span><span style="color:#b58900;">getAge</span><span style="color:#657b83;">())
+</span><span>    .</span><span style="color:#b58900;">map</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">age -&gt;</span><span> age </span><span style="color:#657b83;">+ </span><span style="color:#6c71c4;">10</span><span style="color:#657b83;">)
+</span><span>    .</span><span style="color:#b58900;">filter</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">age-&gt;</span><span>age</span><span style="color:#657b83;">&gt;</span><span style="color:#6c71c4;">18</span><span style="color:#657b83;">)
+</span><span>    .</span><span style="color:#b58900;">map</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">age-&gt;</span><span>age</span><span style="color:#657b83;">+</span><span style="color:#6c71c4;">2</span><span style="color:#657b83;">)
+</span><span>    .</span><span style="color:#b58900;">forEach</span><span style="color:#657b83;">(</span><span style="color:#859900;">System</span><span>.out::</span><span style="color:#b58900;">println</span><span style="color:#657b83;">)</span><span>;
+</span></code></pre>
+<p><del>初更全文完…</del></p>
+
+      
+    </div><!--./card-body-->
+
+    <div class="card-footer">
+      <div class="columns">
+        <div class="column col-9 col-sm-7">
+          <div class="taxonomies text-left">
+            
+
+    
+          </div>
+        </div><!--./col-6-->
+        
+        </div><!--./columns-->
+    </div><!--./card-footer-->
+</div><!--./card-->
+</div>
+              <div id="sidebar" class="column col-4 col-md-12">
+                <div class="sidebar-content">
+                  
+                  
+<div class="sidebar-widget">
+  <div class="tile">
+    <div class="tile-icon">
+      <figure class="avatar avatar-xl">
+        <img src="https://ilikexff.cn/avatar.png" alt="author avatar image">
+      </figure>
+    </div>
+    <div class="tile-content">
+      <p class="tile-title" style="font-weight: 600;">慕予</p>
+      <p class="tile-subtitle">热爱编程，专注于技术分享和学习</p>
+    </div>
+</div><!--./tile-->
+</div>
+
+                  
+                  
+<div class="sidebar-widget">
+  欢迎来到<strong>八尺妖剑</strong>！这里分享技术文章和编程心得。
+</div><!-- end text widget -->
+
+                  
+
+                  
+<div class="sidebar-widget syndicate">
+<h4>Feed</h4>
+<a class="btn" href="/rss.xml">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-rss-fill" viewBox="0 0 16 16">
+  <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm1.5 2.5c5.523 0 10 4.477 10 10a1 1 0 1 1-2 0 8 8 0 0 0-8-8 1 1 0 0 1 0-2zm0 4a6 6 0 0 1 6 6 1 1 0 1 1-2 0 4 4 0 0 0-4-4 1 1 0 0 1 0-2zm.5 7a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+</svg>
+<span>RSS</span>
+</a>
+</div>
+
+                  </div><!--./sidebar-content-->
+              </div>
+            </div>
+            
+          </section>
+        </section></section>
+<section class="container grid-xl">
+<ul class="pagination paginator">
+  
+  
+</ul>
+</section>
+</div><!-- ./page-wrapper -->
+
+    
+<div class="mobile-container">
+        <div class="overlay" id="overlay">
+            <div style="padding: 1rem;">
+              
+<a class="site-logo" href="https:&#x2F;&#x2F;ilikexff.cn">
+  
+  <div class="col-mx-auto">
+    <figure style="margin: 8px">
+      <img class="img-responsive"
+           style="max-height: 45px"
+           alt="frontmatter image"
+           src="https://ilikexff.cn/./logo.svg">
+    </figure>
+  </div>
+  
+</a>
+
+            </div>
+            <nav class="overlay-menu">
+              
+
+<ul class="tree treemenu treemenu-root"><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/tags">标签</a>
+    </li><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/categories">分类</a>
+    </li><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/about">关于</a>
+    </li></ul>
+
+
+              </nav>
+        </div>
+    </div>
+
+<script type="text/javascript">
+  var overlay = document.getElementById('overlay');
+  var toggle = document.getElementById('toggle');
+
+  function openOverlay(){
+      // Open overlay
+      if (overlay.classList.contains("open")) {
+          overlay.classList.remove("open");
+      }
+      else {
+          overlay.classList.add("open");
+      }
+
+      // Button transition
+      if (toggle.classList.contains("active")) {
+          toggle.classList.remove("active");
+      }
+      else {
+          toggle.classList.add("active");
+      }
+    }
+</script>
+
+<section id="footer" class="bg-gray">
+  <div class="container grid-xl">
+    
+
+
+    <div class="columns">
+      
+      <div class="column col-6 col-lg-12 col-mx-auto" style="text-align: center;">
+        简单是效率的灵魂 | 黔ICP备2021010295号
+      </div>
+      
+      <div class="column col-6 col-lg-12 col-mx-auto" style="text-align: center;">
+        Made by <a href="https://github.com/gicrisf/">gicrisf</a> -
+        <strong>Zhuia</strong>&nbsp;<a href="https://github.com/gicrisf/zhuia">source code</a>
+        is licensed under <a href="http://opensource.org/licenses/mit-license.php" target="_blank">MIT</a>.
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

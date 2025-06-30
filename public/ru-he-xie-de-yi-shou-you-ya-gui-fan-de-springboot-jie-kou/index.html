@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh" data-theme="light" dir="ltr">
+  <head>
+    <title>如何写得一手优雅规范的SpringBoot 接口？ - 八尺妖剑</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="详细介绍如何编写优雅规范的Spring Boot接口，包括RESTful设计原则、注解使用、异常处理、安全性和版本控制等最佳实践。"/>
+
+    <meta property="og:title" content="八尺妖剑 -&nbsp;如何写得一手优雅规范的SpringBoot 接口？" />
+    <meta property="og:type" content="website"/><meta property="og:url" content="https:&#x2F;&#x2F;ilikexff.cn&#x2F;ru-he-xie-de-yi-shou-you-ya-gui-fan-de-springboot-jie-kou&#x2F;"/><meta property="og:description" content="详细介绍如何编写优雅规范的Spring Boot接口，包括RESTful设计原则、注解使用、异常处理、安全性和版本控制等最佳实践。"/>
+
+
+    <meta name="twitter:card" content="summary">
+
+
+    <link rel="stylesheet" href="https://ilikexff.cn/spectre/spectre.css">
+    <link rel="stylesheet" href="https://ilikexff.cn/theme.css"><link rel="stylesheet" href="https://ilikexff.cn/custom.css">
+    
+<link rel="alternate" type="application/rss+xml" title="八尺妖剑 RSS" href="https://ilikexff.cn/rss.xml">
+        
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script>
+        function doRenderMath() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false},
+                {left: "\\begin{equation}", right: "\\end{equation}", display: true},
+                {left: "\\begin{align}", right: "\\end{align}", display: true},
+                {left: "\\begin{alignat}", right: "\\end{alignat}", display: true},
+                {left: "\\begin{gather}", right: "\\end{gather}", display: true},
+                {left: "\\begin{CD}", right: "\\end{CD}", display: true},
+                {left: "\\[", right: "\\]", display: true}
+                ]
+            });
+        }
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+        onload="doRenderMath()"></script>
+
+      </head>
+  <body id="top" class="sticky-footer"><div id="page-wrapper">
+<header id="header" class="section">
+  <section class="container grid-xl">
+    <nav class="navbar">
+      <section class="navbar-section">
+        
+<a class="site-logo" href="https:&#x2F;&#x2F;ilikexff.cn">
+  
+  <div class="col-mx-auto">
+    <figure style="margin: 8px">
+      <img class="img-responsive"
+           style="max-height: 45px"
+           alt="frontmatter image"
+           src="https://ilikexff.cn/./logo.svg">
+    </figure>
+  </div>
+  
+</a>
+
+      </section><!-- ./home button -->
+
+      <section class="navbar-center hide-md"></section>
+
+      <section class="navbar-section">
+        <nav class="dropmenu animated hide-md">
+
+<ul><li>
+        <a href="https://ilikexff.cn/tags">标签</a>
+    </li><li>
+        <a href="https://ilikexff.cn/categories">分类</a>
+    </li><li>
+        <a href="https://ilikexff.cn/about">关于</a>
+    </li></ul>
+
+
+          </nav>
+      </section><!-- ./desktop-menu -->
+    </nav>
+  </section><!-- ./container -->
+</header>
+
+
+<div class="mobile-menu">
+  <div class="button_container" id="toggle" onclick="openOverlay()">
+    <span class="top"></span>
+    <span class="middle"></span>
+    <span class="bottom"></span>
+  </div>
+</div><!--./mobile-menu-->
+
+
+<section id="start"><section id="body-wrapper" class="section">
+          <section class="container grid-xl">
+<div id="breadcrumbs" itemtype="http://schema.org/BreadcrumbList" class="hide-sm">
+  
+    
+    <span><a href="https:&#x2F;&#x2F;ilikexff.cn&#x2F;">Home</a></span>
+  
+    <span><a href="https:&#x2F;&#x2F;ilikexff.cn&#x2F;ru-he-xie-de-yi-shou-you-ya-gui-fan-de-springboot-jie-kou&#x2F;">如何写得一手优雅规范的SpringBoot 接口？</a></span>
+</div>
+<div class="columns">
+              <div id="item" class="column col-8 col-md-12 extra-spacing">
+<div class="card">
+  
+
+    <div class="card-header">
+      <div class="card-title" style="margin-top: .25rem;"><div>
+          <h1 class="post-title">如何写得一手优雅规范的SpringBoot 接口？</h1>
+          
+    <div class="post-meta" style="display: inline-flex">
+        <span class="blog-date" style="display: inline-flex;">
+          <i class="gg-calendar" style="margin-right: 5px;"></i><time datetime="2024.04.20">
+          2024.04.20
+          </time></span><span class="post-author" style="margin-left: 5px; display: inline-flex;">
+          - 
+    慕予
+        </span></div>
+
+        </div></div>
+    </div><!--./card-header-->
+
+    <div class="card-body">
+      
+        <h2 id="dao-yu">导语<a class="zola-anchor" href="#dao-yu" aria-label="Anchor link for: dao-yu">🔗</a></h2>
+<blockquote>
+<p>优雅的代码赏心悦目，你的代码触目惊心。</p>
+</blockquote>
+<p>当编写 <code>Spring Boot</code> 接口时，优雅和规范是至关重要的。一个良好设计的接口能够提高代码的可读性、可维护性和可扩展性，从而为整个应用程序的开发和维护带来便利。</p>
+<p>在本文中，我们将探讨如何通过遵循最佳实践和设计原则，编写出优雅规范的<code> Spring Boot</code> 你的接口也可以像企业级项目接口一般规范且优雅。</p>
+<hr />
+<h2 id="yan-ge-zun-xun-restful-api-she-ji-yuan-ze">严格遵循<code>RESTful API </code>设计原则<a class="zola-anchor" href="#yan-ge-zun-xun-restful-api-she-ji-yuan-ze" aria-label="Anchor link for: yan-ge-zun-xun-restful-api-she-ji-yuan-ze">🔗</a></h2>
+<ul>
+<li>清晰一致的资源命名：使用准确反映 <code>API </code>管理的资源的名词（例如，<code>/articles、/users</code>）。</li>
+</ul>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span>@</span><span style="color:#268bd2;">GetMapping</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">/articles/{id}</span><span>&quot;</span><span style="color:#657b83;">)
+</span><span style="color:#93a1a1;">public </span><span style="color:#859900;">ResponseEntity</span><span>&lt;</span><span style="color:#859900;">Product</span><span>&gt; </span><span style="color:#b58900;">getArticleById</span><span style="color:#657b83;">(</span><span>@</span><span style="color:#859900;">PathVariable Long</span><span> id</span><span style="color:#657b83;">) {
+</span><span>    </span><span style="color:#586e75;">// ...
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<ul>
+<li>标准化 <code>HTTP </code>方法：遵循 <code>CRUD </code>操作的 <code>RESTful</code> 约定（<code>CREATE： POST、READ： GET、UPDATE： PUT、DELETE：DELETE</code>）。</li>
+</ul>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span>@</span><span style="color:#268bd2;">PostMapping</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">/users</span><span>&quot;</span><span style="color:#657b83;">)
+</span><span style="color:#93a1a1;">public </span><span style="color:#859900;">ResponseEntity</span><span>&lt;</span><span style="color:#859900;">User</span><span>&gt; </span><span style="color:#b58900;">createUser</span><span style="color:#657b83;">(</span><span>@</span><span style="color:#859900;">RequestBody User</span><span> user</span><span style="color:#657b83;">) {
+</span><span>    </span><span style="color:#586e75;">// ...
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<ul>
+<li>有意义的状态代码：返回相应的 <code>HTTP </code>状态代码,如成功 （<code>2xx</code>）、错误 （<code>4xx</code>） 或服务器问题 （<code>5xx</code>）。</li>
+</ul>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span>@</span><span style="color:#268bd2;">DeleteMapping</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">/articles/{id}</span><span>&quot;</span><span style="color:#657b83;">)
+</span><span style="color:#93a1a1;">public </span><span style="color:#859900;">ResponseEntity</span><span>&lt;</span><span style="color:#859900;">?</span><span>&gt; </span><span style="color:#b58900;">deleteArticle</span><span style="color:#657b83;">(</span><span>@</span><span style="color:#859900;">PathVariable Long</span><span> id</span><span style="color:#657b83;">) {
+</span><span>    </span><span style="color:#859900;">if </span><span style="color:#657b83;">(</span><span>productService.</span><span style="color:#b58900;">deleteArticle</span><span style="color:#657b83;">(</span><span>id</span><span style="color:#657b83;">)) {
+</span><span>        </span><span style="color:#859900;">return ResponseEntity</span><span>.</span><span style="color:#b58900;">noContent</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">build</span><span style="color:#657b83;">()</span><span>; </span><span style="color:#586e75;">// 204 No Content
+</span><span>    </span><span style="color:#657b83;">} </span><span style="color:#859900;">else </span><span style="color:#657b83;">{
+</span><span>        </span><span style="color:#859900;">return ResponseEntity</span><span>.</span><span style="color:#b58900;">notFound</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">build</span><span style="color:#657b83;">()</span><span>; </span><span style="color:#586e75;">// 404 Not Found
+</span><span>    </span><span style="color:#657b83;">}
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>关于更多<code>restful</code>标准，参考<a class="" href="https://en.wikipedia.org/wiki/REST"><code>https://en.wikipedia.org/wiki/REST</code></a></p>
+<hr />
+<h2 id="he-li-li-yong-hao-spring-boot-zhu-jie">合理利用好 Spring Boot 注解<a class="zola-anchor" href="#he-li-li-yong-hao-spring-boot-zhu-jie" aria-label="Anchor link for: he-li-li-yong-hao-spring-boot-zhu-jie">🔗</a></h2>
+<p>这里所谓得合理，不是很好定义，但本着高效、简洁、清晰得原则推荐。</p>
+<ul>
+<li><code>@RestController</code>：默认情况下，将控制器标记为返回 <code>JSON</code> 或其他结构化数据。</li>
+</ul>
+<blockquote>
+<p>这是一个综合注解，是<code>@Controller</code> 和 <code>@ResponseBody</code>的功能于一身，一个注解作两个注解的事情，简洁高效。</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span>@</span><span style="color:#268bd2;">RestController
+</span><span style="color:#93a1a1;">public </span><span style="color:#268bd2;">class </span><span style="color:#b58900;">HelloController </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#586e75;">// .....
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<ul>
+<li><code>@RequestMapping</code>：定义每个<code>controller</code>的基本路径。</li>
+</ul>
+<blockquote>
+<p>这样做可以使代码更加整洁和易于维护。不需要在每个方法上都重复写基本路径部分,在类级别定义基本路径可以带来更清晰、更简洁、更易维护的代码结构，同时也有助于提高开发效率和代码质量。</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span>@</span><span style="color:#268bd2;">RestController
+</span><span>@</span><span style="color:#268bd2;">RequestMapping</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">/user</span><span>&quot;</span><span style="color:#657b83;">)
+</span><span style="color:#93a1a1;">public </span><span style="color:#268bd2;">class </span><span style="color:#b58900;">HelloController </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#586e75;">// .....
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<ul>
+<li>使用简化的请求方式注解。</li>
+</ul>
+<blockquote>
+<p>在不同类型的方法上直接使用<code>@GetMapping、@PostMapping、@PutMapping@DeleteMapping</code>注解进行标识，而不是使用笼统的<code> @RequestMapping(method = RequestMethod.POST)</code>。</p>
+</blockquote>
+<ul>
+<li>使用<code>@PathVariable</code>获取请求的路径变量；</li>
+</ul>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span>@</span><span style="color:#268bd2;">RestController
+</span><span>@</span><span style="color:#268bd2;">RequestMapping</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">/articles</span><span>&quot;</span><span style="color:#657b83;">)
+</span><span style="color:#93a1a1;">public </span><span style="color:#268bd2;">class </span><span style="color:#b58900;">ArticleController </span><span style="color:#657b83;">{
+</span><span>
+</span><span>    @</span><span style="color:#268bd2;">GetMapping</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">/{id}</span><span>&quot;</span><span style="color:#657b83;">)
+</span><span>    </span><span style="color:#93a1a1;">public </span><span style="color:#859900;">ResponseEntity</span><span>&lt;</span><span style="color:#859900;">Article</span><span>&gt; </span><span style="color:#b58900;">getArticleById</span><span style="color:#657b83;">(</span><span>@</span><span style="color:#268bd2;">PathVariable </span><span style="color:#859900;">Long </span><span style="color:#268bd2;">id</span><span style="color:#657b83;">) {
+</span><span>        </span><span style="color:#586e75;">// 根据文章的id查询文章
+</span><span>        </span><span style="color:#859900;">Article</span><span> article </span><span style="color:#657b83;">=</span><span> articleService.</span><span style="color:#b58900;">findArticleById</span><span style="color:#657b83;">(</span><span>id</span><span style="color:#657b83;">)</span><span>;
+</span><span>
+</span><span>        </span><span style="color:#859900;">if </span><span style="color:#657b83;">(</span><span>article </span><span style="color:#657b83;">!= </span><span style="color:#b58900;">null</span><span style="color:#657b83;">) {
+</span><span>            </span><span style="color:#859900;">return ResponseEntity</span><span>.</span><span style="color:#b58900;">ok</span><span style="color:#657b83;">(</span><span>article</span><span style="color:#657b83;">)</span><span>;
+</span><span>        </span><span style="color:#657b83;">} </span><span style="color:#859900;">else </span><span style="color:#657b83;">{
+</span><span>            </span><span style="color:#859900;">return ResponseEntity</span><span>.</span><span style="color:#b58900;">notFound</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">build</span><span style="color:#657b83;">()</span><span>;
+</span><span>        </span><span style="color:#657b83;">}
+</span><span>    </span><span style="color:#657b83;">}
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<ul>
+<li>使用<code>@RequestBody</code>将请求正文内容反序列化为 Java 对象。</li>
+</ul>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span>@</span><span style="color:#268bd2;">RestController
+</span><span>@</span><span style="color:#268bd2;">RequestMapping</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">/api</span><span>&quot;</span><span style="color:#657b83;">)
+</span><span style="color:#93a1a1;">public </span><span style="color:#268bd2;">class </span><span style="color:#b58900;">UserController </span><span style="color:#657b83;">{
+</span><span>
+</span><span>    @</span><span style="color:#268bd2;">PostMapping</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">/users</span><span>&quot;</span><span style="color:#657b83;">)
+</span><span>    </span><span style="color:#93a1a1;">public </span><span style="color:#859900;">ResponseEntity</span><span>&lt;</span><span style="color:#859900;">User</span><span>&gt; </span><span style="color:#b58900;">createUser</span><span style="color:#657b83;">(</span><span>@</span><span style="color:#268bd2;">RequestBody </span><span style="color:#859900;">User </span><span style="color:#268bd2;">user</span><span style="color:#657b83;">) {
+</span><span>        </span><span style="color:#586e75;">// 这里的 User 对象会从请求的 JSON 数据中反序列化得到
+</span><span>        userService.</span><span style="color:#b58900;">saveUser</span><span style="color:#657b83;">(</span><span>user</span><span style="color:#657b83;">)</span><span>;
+</span><span>        </span><span style="color:#859900;">return ResponseEntity</span><span>.</span><span style="color:#b58900;">ok</span><span style="color:#657b83;">(</span><span>user</span><span style="color:#657b83;">)</span><span>;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<hr />
+<h2 id="guan-yu-yi-lai-zhu-ru-de-shi-yong-jian-yi">关于依赖注入的使用建议<a class="zola-anchor" href="#guan-yu-yi-lai-zhu-ru-de-shi-yong-jian-yi" aria-label="Anchor link for: guan-yu-yi-lai-zhu-ru-de-shi-yong-jian-yi">🔗</a></h2>
+<ul>
+<li>使用构造函数注入方式</li>
+</ul>
+<blockquote>
+<p>通过在类的构造函数中接受依赖对象作为参数来进行注入。这种方式可以确保依赖在对象创建时被注入，提高了代码的可测试性和可维护性。</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span>@</span><span style="color:#268bd2;">RestController
+</span><span style="color:#93a1a1;">public </span><span style="color:#268bd2;">class </span><span style="color:#b58900;">ProductController </span><span style="color:#657b83;">{
+</span><span>
+</span><span>    </span><span style="color:#93a1a1;">private final </span><span style="color:#859900;">ProductService </span><span>productService;
+</span><span>
+</span><span>    </span><span style="color:#93a1a1;">public </span><span style="color:#b58900;">ProductController</span><span style="color:#657b83;">(</span><span style="color:#859900;">ProductService </span><span style="color:#268bd2;">productService</span><span style="color:#657b83;">) {
+</span><span>        </span><span style="color:#d33682;">this</span><span>.productService </span><span style="color:#657b83;">=</span><span> productService;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span>    </span><span style="color:#586e75;">// ... other controller methods
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<hr />
+<h2 id="zhen-dui-jie-kou-de-yi-chang-chu-li">针对接口的异常处理<a class="zola-anchor" href="#zhen-dui-jie-kou-de-yi-chang-chu-li" aria-label="Anchor link for: zhen-dui-jie-kou-de-yi-chang-chu-li">🔗</a></h2>
+<ul>
+<li><code>@ControllerAdvice</code>的使用</li>
+</ul>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span>@</span><span style="color:#268bd2;">ControllerAdvice
+</span><span style="color:#93a1a1;">public </span><span style="color:#268bd2;">class </span><span style="color:#b58900;">ApiExceptionHandler </span><span style="color:#657b83;">{
+</span><span>    @</span><span style="color:#268bd2;">ExceptionHandler</span><span style="color:#657b83;">(</span><span style="color:#859900;">ArticleNotFoundException</span><span>.</span><span style="color:#d33682;">class</span><span style="color:#657b83;">)
+</span><span>    </span><span style="color:#93a1a1;">public </span><span style="color:#859900;">ResponseEntity</span><span>&lt;</span><span style="color:#859900;">ErrorResponse</span><span>&gt; </span><span style="color:#b58900;">handleArticleNotFound</span><span style="color:#657b83;">(</span><span style="color:#859900;">ArticleNotFoundException </span><span style="color:#268bd2;">ex</span><span style="color:#657b83;">) {
+</span><span>        </span><span style="color:#586e75;">// ... create error response with details
+</span><span>        </span><span style="color:#859900;">return ResponseEntity</span><span>.</span><span style="color:#b58900;">status</span><span style="color:#657b83;">(</span><span style="color:#859900;">HttpStatus</span><span>.</span><span style="color:#cb4b16;">NOT_FOUND</span><span style="color:#657b83;">)</span><span>.</span><span style="color:#b58900;">body</span><span style="color:#657b83;">(</span><span>errorResponse</span><span style="color:#657b83;">)</span><span>;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<hr />
+<h2 id="shi-yong-dtodai-ti-pojode-zhi-jie-shi-yong">使用<code>DTO</code>代替<code>POJO</code>的直接使用<a class="zola-anchor" href="#shi-yong-dtodai-ti-pojode-zhi-jie-shi-yong" aria-label="Anchor link for: shi-yong-dtodai-ti-pojode-zhi-jie-shi-yong">🔗</a></h2>
+<blockquote>
+<p>对于数据传输对象，建议对<code>pojo</code>进行<code>dto</code>的封装，而不是使用原实体。提高代码的可读性、可维护性和数据封装性。</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#93a1a1;">public </span><span style="color:#268bd2;">class </span><span style="color:#b58900;">ArticleDto </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#93a1a1;">private </span><span style="color:#859900;">Long </span><span>id;
+</span><span>    </span><span style="color:#93a1a1;">private </span><span style="color:#859900;">String </span><span>title;
+</span><span>    </span><span style="color:#93a1a1;">private </span><span style="color:#859900;">String </span><span>contents;
+</span><span>    </span><span style="color:#586e75;">// more
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<hr />
+<h2 id="jie-kou-an-quan-de-jian-yi">接口安全的建议<a class="zola-anchor" href="#jie-kou-an-quan-de-jian-yi" aria-label="Anchor link for: jie-kou-an-quan-de-jian-yi">🔗</a></h2>
+<ul>
+<li>使用<code>SpringSecurity</code>等安全框架进行认证授权，包括令牌机制的使用，如<code>JWT</code>。</li>
+<li>对接口进行常见的漏洞检查并采取防范措施，比如<code>XSS</code>和<code>SQL</code>注入等。</li>
+<li>使用<code>https</code>进行网络通信；</li>
+</ul>
+<hr />
+<h2 id="guan-yu-ban-ben-kong-zhi">关于版本控制<a class="zola-anchor" href="#guan-yu-ban-ben-kong-zhi" aria-label="Anchor link for: guan-yu-ban-ben-kong-zhi">🔗</a></h2>
+<ul>
+<li>使用路径版本控制（例如，<code>/api/v1/articles</code>）或基于标头的版本控制。</li>
+</ul>
+<blockquote>
+<p>使用版本控制 <code>API </code>来管理更改并保持与客户端的兼容性。</p>
+</blockquote>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span>@</span><span style="color:#268bd2;">RestController
+</span><span>@</span><span style="color:#268bd2;">RequestMapping</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">/api/products</span><span>&quot;</span><span style="color:#657b83;">)
+</span><span style="color:#93a1a1;">public </span><span style="color:#268bd2;">class </span><span style="color:#b58900;">ProductController </span><span style="color:#657b83;">{
+</span><span>
+</span><span>    @</span><span style="color:#268bd2;">GetMapping</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">/details</span><span>&quot;</span><span style="color:#657b83;">)
+</span><span>    </span><span style="color:#93a1a1;">public </span><span style="color:#859900;">ResponseEntity</span><span>&lt;</span><span style="color:#859900;">String</span><span>&gt; </span><span style="color:#b58900;">getProductDetails</span><span style="color:#657b83;">(</span><span>@</span><span style="color:#268bd2;">RequestHeader</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">Accept-Version</span><span>&quot;</span><span style="color:#657b83;">) </span><span style="color:#859900;">String </span><span style="color:#268bd2;">version</span><span style="color:#657b83;">) {
+</span><span>        </span><span style="color:#859900;">if </span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">v1</span><span>&quot;.</span><span style="color:#b58900;">equals</span><span style="color:#657b83;">(</span><span>version</span><span style="color:#657b83;">)) {
+</span><span>            </span><span style="color:#859900;">return ResponseEntity</span><span>.</span><span style="color:#b58900;">ok</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">Product details for version 1</span><span>&quot;</span><span style="color:#657b83;">)</span><span>;
+</span><span>        </span><span style="color:#657b83;">} </span><span style="color:#859900;">else if </span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">v2</span><span>&quot;.</span><span style="color:#b58900;">equals</span><span style="color:#657b83;">(</span><span>version</span><span style="color:#657b83;">)) {
+</span><span>            </span><span style="color:#859900;">return ResponseEntity</span><span>.</span><span style="color:#b58900;">ok</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">Product details for version 2</span><span>&quot;</span><span style="color:#657b83;">)</span><span>;
+</span><span>        </span><span style="color:#657b83;">} </span><span style="color:#859900;">else </span><span style="color:#657b83;">{
+</span><span>            </span><span style="color:#859900;">return ResponseEntity</span><span>.</span><span style="color:#b58900;">badRequest</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">body</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">Unsupported version</span><span>&quot;</span><span style="color:#657b83;">)</span><span>;
+</span><span>        </span><span style="color:#657b83;">}
+</span><span>    </span><span style="color:#657b83;">}
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<hr />
+<h2 id="wan-bei-de-jie-kou-ce-shi">完备的接口测试<a class="zola-anchor" href="#wan-bei-de-jie-kou-ce-shi" aria-label="Anchor link for: wan-bei-de-jie-kou-ce-shi">🔗</a></h2>
+<ul>
+<li>考虑使用 <code>Mockito </code>或 <code>JUnit </code>等工具对每个接口进行测试，保证接口的准确性和稳健性。</li>
+</ul>
+<hr />
+<h2 id="ben-wen-xiao-jie">本文小结<a class="zola-anchor" href="#ben-wen-xiao-jie" aria-label="Anchor link for: ben-wen-xiao-jie">🔗</a></h2>
+<p>上面虽然列举好几种编写接口的规范和建议，但这些不是一成不变的，在具体的项目，还需要根据业务和项目需求做出一些让步和改动，灵活运用这些建议，你的接口也可以很优雅。<strong>代码就是一行行蓝色的诗，而不是冰冷乏味的英文串</strong>.</p>
+
+      
+    </div><!--./card-body-->
+
+    <div class="card-footer">
+      <div class="columns">
+        <div class="column col-9 col-sm-7">
+          <div class="taxonomies text-left">
+            
+
+    
+          </div>
+        </div><!--./col-6-->
+        
+        </div><!--./columns-->
+    </div><!--./card-footer-->
+</div><!--./card-->
+</div>
+              <div id="sidebar" class="column col-4 col-md-12">
+                <div class="sidebar-content">
+                  
+                  
+<div class="sidebar-widget">
+  <div class="tile">
+    <div class="tile-icon">
+      <figure class="avatar avatar-xl">
+        <img src="https://ilikexff.cn/avatar.png" alt="author avatar image">
+      </figure>
+    </div>
+    <div class="tile-content">
+      <p class="tile-title" style="font-weight: 600;">慕予</p>
+      <p class="tile-subtitle">热爱编程，专注于技术分享和学习</p>
+    </div>
+</div><!--./tile-->
+</div>
+
+                  
+                  
+<div class="sidebar-widget">
+  欢迎来到<strong>八尺妖剑</strong>！这里分享技术文章和编程心得。
+</div><!-- end text widget -->
+
+                  
+
+                  
+<div class="sidebar-widget syndicate">
+<h4>Feed</h4>
+<a class="btn" href="/rss.xml">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-rss-fill" viewBox="0 0 16 16">
+  <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm1.5 2.5c5.523 0 10 4.477 10 10a1 1 0 1 1-2 0 8 8 0 0 0-8-8 1 1 0 0 1 0-2zm0 4a6 6 0 0 1 6 6 1 1 0 1 1-2 0 4 4 0 0 0-4-4 1 1 0 0 1 0-2zm.5 7a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+</svg>
+<span>RSS</span>
+</a>
+</div>
+
+                  </div><!--./sidebar-content-->
+              </div>
+            </div>
+            
+          </section>
+        </section></section>
+<section class="container grid-xl">
+<ul class="pagination paginator">
+  
+  
+</ul>
+</section>
+</div><!-- ./page-wrapper -->
+
+    
+<div class="mobile-container">
+        <div class="overlay" id="overlay">
+            <div style="padding: 1rem;">
+              
+<a class="site-logo" href="https:&#x2F;&#x2F;ilikexff.cn">
+  
+  <div class="col-mx-auto">
+    <figure style="margin: 8px">
+      <img class="img-responsive"
+           style="max-height: 45px"
+           alt="frontmatter image"
+           src="https://ilikexff.cn/./logo.svg">
+    </figure>
+  </div>
+  
+</a>
+
+            </div>
+            <nav class="overlay-menu">
+              
+
+<ul class="tree treemenu treemenu-root"><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/tags">标签</a>
+    </li><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/categories">分类</a>
+    </li><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/about">关于</a>
+    </li></ul>
+
+
+              </nav>
+        </div>
+    </div>
+
+<script type="text/javascript">
+  var overlay = document.getElementById('overlay');
+  var toggle = document.getElementById('toggle');
+
+  function openOverlay(){
+      // Open overlay
+      if (overlay.classList.contains("open")) {
+          overlay.classList.remove("open");
+      }
+      else {
+          overlay.classList.add("open");
+      }
+
+      // Button transition
+      if (toggle.classList.contains("active")) {
+          toggle.classList.remove("active");
+      }
+      else {
+          toggle.classList.add("active");
+      }
+    }
+</script>
+
+<section id="footer" class="bg-gray">
+  <div class="container grid-xl">
+    
+
+
+    <div class="columns">
+      
+      <div class="column col-6 col-lg-12 col-mx-auto" style="text-align: center;">
+        简单是效率的灵魂 | 黔ICP备2021010295号
+      </div>
+      
+      <div class="column col-6 col-lg-12 col-mx-auto" style="text-align: center;">
+        Made by <a href="https://github.com/gicrisf/">gicrisf</a> -
+        <strong>Zhuia</strong>&nbsp;<a href="https://github.com/gicrisf/zhuia">source code</a>
+        is licensed under <a href="http://opensource.org/licenses/mit-license.php" target="_blank">MIT</a>.
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

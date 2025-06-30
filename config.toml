@@ -1,6 +1,6 @@
 # 站点基础配置
 base_url = "https://ilikexff.cn"    # 站点基础URL（必须配置）
-title = "慕予博客"                      # 站点标题
+title = "八尺妖剑"                      # 站点标题
 description = "简单是效率的灵魂"            # 站点描述
 default_language = "zh"             # 默认语言（用于订阅源）
 theme = "zhuia"                     # 使用的主题名称
@@ -62,7 +62,7 @@ external_level = "error"                        # 外部链接错误级别
 # zhuia 主题配置
 [extra]
 # 博客名称
-blog_name = "慕予博客"
+blog_name = "八尺妖剑"
 
 # 订阅源文件名（兼容性）
 feed_filename = "rss.xml"
@@ -113,7 +113,7 @@ social_links = [
 active = true
 
 # 侧边栏文本片段
-text_snippet = "欢迎来到<strong>慕予博客</strong>！这里分享技术文章和编程心得。"
+text_snippet = "欢迎来到<strong>八尺妖剑</strong>！这里分享技术文章和编程心得。"
 
 # 作者信息
 author_bio = "热爱编程，专注于技术分享和学习"

@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="zh" data-theme="light" dir="ltr">
+  <head>
+    <title>C++游戏开发基础-深入解析this指针的应用与技巧 - 八尺妖剑</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="详细介绍C++面向对象编程中的this指针,包括隐藏的this指针、this的底层实现、显式引用this等最佳实践。"/>
+
+    <meta property="og:title" content="八尺妖剑 -&nbsp;C++游戏开发基础-深入解析this指针的应用与技巧" />
+    <meta property="og:type" content="website"/><meta property="og:url" content="https:&#x2F;&#x2F;ilikexff.cn&#x2F;c-you-xi-kai-fa-ji-chu-shen-ru-jie-xi-thiszhi-zhen-de-ying-yong-yu-ji-qiao&#x2F;"/><meta property="og:description" content="详细介绍C++面向对象编程中的this指针,包括隐藏的this指针、this的底层实现、显式引用this等最佳实践。"/>
+
+
+    <meta name="twitter:card" content="summary">
+
+
+    <link rel="stylesheet" href="https://ilikexff.cn/spectre/spectre.css">
+    <link rel="stylesheet" href="https://ilikexff.cn/theme.css"><link rel="stylesheet" href="https://ilikexff.cn/custom.css">
+    
+<link rel="alternate" type="application/rss+xml" title="八尺妖剑 RSS" href="https://ilikexff.cn/rss.xml">
+        
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script>
+        function doRenderMath() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false},
+                {left: "\\begin{equation}", right: "\\end{equation}", display: true},
+                {left: "\\begin{align}", right: "\\end{align}", display: true},
+                {left: "\\begin{alignat}", right: "\\end{alignat}", display: true},
+                {left: "\\begin{gather}", right: "\\end{gather}", display: true},
+                {left: "\\begin{CD}", right: "\\end{CD}", display: true},
+                {left: "\\[", right: "\\]", display: true}
+                ]
+            });
+        }
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+        onload="doRenderMath()"></script>
+
+      </head>
+  <body id="top" class="sticky-footer"><div id="page-wrapper">
+<header id="header" class="section">
+  <section class="container grid-xl">
+    <nav class="navbar">
+      <section class="navbar-section">
+        
+<a class="site-logo" href="https:&#x2F;&#x2F;ilikexff.cn">
+  
+  <div class="col-mx-auto">
+    <figure style="margin: 8px">
+      <img class="img-responsive"
+           style="max-height: 45px"
+           alt="frontmatter image"
+           src="https://ilikexff.cn/./logo.svg">
+    </figure>
+  </div>
+  
+</a>
+
+      </section><!-- ./home button -->
+
+      <section class="navbar-center hide-md"></section>
+
+      <section class="navbar-section">
+        <nav class="dropmenu animated hide-md">
+
+<ul><li>
+        <a href="https://ilikexff.cn/tags">标签</a>
+    </li><li>
+        <a href="https://ilikexff.cn/categories">分类</a>
+    </li><li>
+        <a href="https://ilikexff.cn/about">关于</a>
+    </li></ul>
+
+
+          </nav>
+      </section><!-- ./desktop-menu -->
+    </nav>
+  </section><!-- ./container -->
+</header>
+
+
+<div class="mobile-menu">
+  <div class="button_container" id="toggle" onclick="openOverlay()">
+    <span class="top"></span>
+    <span class="middle"></span>
+    <span class="bottom"></span>
+  </div>
+</div><!--./mobile-menu-->
+
+
+<section id="start"><section id="body-wrapper" class="section">
+          <section class="container grid-xl">
+<div id="breadcrumbs" itemtype="http://schema.org/BreadcrumbList" class="hide-sm">
+  
+    
+    <span><a href="https:&#x2F;&#x2F;ilikexff.cn&#x2F;">Home</a></span>
+  
+    <span><a href="https:&#x2F;&#x2F;ilikexff.cn&#x2F;c-you-xi-kai-fa-ji-chu-shen-ru-jie-xi-thiszhi-zhen-de-ying-yong-yu-ji-qiao&#x2F;">C++游戏开发基础-深入解析this指针的应用与技巧</a></span>
+</div>
+<div class="columns">
+              <div id="item" class="column col-8 col-md-12 extra-spacing">
+<div class="card">
+  
+
+    <div class="card-header">
+      <div class="card-title" style="margin-top: .25rem;"><div>
+          <h1 class="post-title">C++游戏开发基础-深入解析this指针的应用与技巧</h1>
+          
+    <div class="post-meta" style="display: inline-flex">
+        <span class="blog-date" style="display: inline-flex;">
+          <i class="gg-calendar" style="margin-right: 5px;"></i><time datetime="2024.12.15">
+          2024.12.15
+          </time></span><span class="post-author" style="margin-left: 5px; display: inline-flex;">
+          - 
+    慕予
+        </span></div>
+
+        </div></div>
+    </div><!--./card-header-->
+
+    <div class="card-body">
+      
+        <p>如果你没有其他面向对象的编程语言基础,比如<code>Java</code>、<code>c#</code>等,那么你在学习C++面向对象时可能会好奇,当一个成员函数被调用的时候,C++是如何跟踪它被调用的对象的?</p>
+<p>考虑下面的程序:</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span>
+</span><span style="color:#268bd2;">class </span><span style="color:#b58900;">Simple
+</span><span style="color:#657b83;">{
+</span><span style="color:#859900;">private</span><span style="color:#657b83;">:
+</span><span>    </span><span style="color:#268bd2;">int m_id</span><span style="color:#657b83;">{}</span><span>;
+</span><span>
+</span><span style="color:#859900;">public</span><span style="color:#657b83;">:
+</span><span>    </span><span style="color:#b58900;">Simple</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">int id</span><span style="color:#657b83;">)
+</span><span>        : </span><span style="color:#268bd2;">m_id</span><span style="color:#657b83;">{</span><span> id </span><span style="color:#657b83;">}
+</span><span>    </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#657b83;">}
+</span><span>
+</span><span>    </span><span style="color:#268bd2;">int </span><span style="color:#b58900;">getID</span><span style="color:#657b83;">() </span><span style="color:#859900;">const </span><span style="color:#657b83;">{ </span><span style="color:#859900;">return </span><span style="color:#268bd2;">m_id</span><span>; </span><span style="color:#657b83;">}
+</span><span>    </span><span style="color:#268bd2;">void </span><span style="color:#b58900;">setID</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">int id</span><span style="color:#657b83;">) { </span><span style="color:#268bd2;">m_id </span><span style="color:#657b83;">=</span><span> id; </span><span style="color:#657b83;">}
+</span><span>
+</span><span>    </span><span style="color:#268bd2;">void </span><span style="color:#b58900;">print</span><span style="color:#657b83;">() </span><span style="color:#859900;">const </span><span style="color:#657b83;">{</span><span> std::cout </span><span style="color:#657b83;">&lt;&lt; </span><span style="color:#268bd2;">m_id</span><span>; </span><span style="color:#657b83;">}
+</span><span style="color:#657b83;">}</span><span>;
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    Simple </span><span style="color:#b58900;">simple</span><span style="color:#657b83;">{</span><span style="color:#6c71c4;">1</span><span style="color:#657b83;">}</span><span>;
+</span><span>    simple.</span><span style="color:#b58900;">setID</span><span style="color:#657b83;">(</span><span style="color:#6c71c4;">2</span><span style="color:#657b83;">)</span><span>;
+</span><span>
+</span><span>    simple.</span><span style="color:#b58900;">print</span><span style="color:#657b83;">()</span><span>;
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>对于上述代码,当我们调用 <code>simple.setID（2）;</code> 时，C++知道函数 <code>setID（）</code> 应该对对象 <code>simple 进行</code>操作，并且 <code>m_id</code> 实际上引用了 <code>simple.m_id</code>。</p>
+<p>为什么会这样?这因为C++使用了一个名为<code>this</code>的隐藏指针。</p>
+<hr />
+<h2 id="yin-cang-de-thiszhi-zhen">隐藏的this指针<a class="zola-anchor" href="#yin-cang-de-thiszhi-zhen" aria-label="Anchor link for: yin-cang-de-thiszhi-zhen">🔗</a></h2>
+<p>在每一个成员函数中,关键字<code>this</code>是一个常量指针,它保存当前隐式对象的地址。因此,下面两种写法是等效的;</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#268bd2;">void </span><span style="color:#b58900;">print</span><span style="color:#657b83;">() </span><span style="color:#859900;">const </span><span style="color:#657b83;">{</span><span>std::cout </span><span style="color:#657b83;">&lt;&lt;</span><span style="color:#268bd2;">m_id</span><span>;</span><span style="color:#657b83;">}
+</span><span style="color:#268bd2;">void </span><span style="color:#b58900;">print</span><span style="color:#657b83;">() </span><span style="color:#859900;">const </span><span style="color:#657b83;">{</span><span>std::cout </span><span style="color:#657b83;">&lt;&lt;</span><span style="color:#d33682;">this</span><span>-&gt;</span><span style="color:#268bd2;">m_id</span><span>;</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>但是事实证明,前者是后者的简写。当我们程序编译时,编译器将隐式地在引用隐式对象的任何成员前面加上<code>this-&gt;</code> 。 这有助于我们的代码跟更简洁,而不需要一遍遍的重复<code>this-&gt;</code></p>
+<blockquote>
+<p>我们使用 <code>-&gt;</code> 从指向对象的指针中选择成员。<code>this-&gt;m_id</code> 相当于 <code>（*this）.m_id</code>。</p>
+</blockquote>
+<hr />
+<h2 id="thisdi-ceng-shi-xian">this底层实现<a class="zola-anchor" href="#thisdi-ceng-shi-xian" aria-label="Anchor link for: thisdi-ceng-shi-xian">🔗</a></h2>
+<p>回顾下面函数的调用:</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span>simple.</span><span style="color:#b58900;">setID</span><span style="color:#657b83;">(</span><span style="color:#6c71c4;">2</span><span style="color:#657b83;">)</span><span>;
+</span></code></pre>
+<p>虽然对函数<code>setID(2)</code>的调用表面上看起来好像就一个参数,但实际上有两个。在编译时,编译器会重写表达式<code>simple.setID(2)</code>:</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span>Simple::</span><span style="color:#b58900;">simple</span><span style="color:#657b83;">(</span><span style="color:#859900;">&amp;</span><span style="color:#268bd2;">simple</span><span>,</span><span style="color:#6c71c4;">2</span><span style="color:#657b83;">)</span><span>;
+</span></code></pre>
+<p>同理,由于函数的调用现在增加了一个参数,那么成员函数定义也需要进行调整以适应接受此参数。下面是<code>setID()</code>的原始定义:</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#268bd2;">void </span><span style="color:#b58900;">setID</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">int id</span><span style="color:#657b83;">) {</span><span style="color:#268bd2;">m_id </span><span style="color:#657b83;">=</span><span> id;</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>编译器重写之后的结果可能是下面这样的:</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#859900;">static </span><span style="color:#268bd2;">void </span><span style="color:#b58900;">setID</span><span style="color:#657b83;">(</span><span>Simple</span><span style="color:#859900;">* const </span><span style="color:#268bd2;">this</span><span>,</span><span style="color:#268bd2;">int id</span><span style="color:#657b83;">)
+</span><span style="color:#657b83;">{
+</span><span>  </span><span style="color:#d33682;">this</span><span>-&gt;</span><span style="color:#268bd2;">m_id </span><span style="color:#657b83;">=</span><span> id;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>⚠️注意,重写后的函数参数多了一个<code>this</code>参数,它是一个常量指针。使用<code>this</code>指针,<code>m_id</code>成员也被重写为<code>this-&gt;m_id</code>;</p>
+<blockquote>
+<p>在这种情况下,关键字<code>static</code>意味着函数与类的对象无关,而是被视为类作用域内的普通函数。</p>
+</blockquote>
+<p>所以总结一下就是:</p>
+<ul>
+<li>当我们调用 <code>simple.setID（2）</code> 时，编译器实际上调用 <code>Simple：：setID（simple，2）</code>，<code>simple</code> 通过地址传递给函数。</li>
+<li>函数有一个名为 <code>this 的</code>隐藏参数，它接收 <code>simple</code> 的地址。</li>
+<li><code>setID（）</code>中的成员变量以 <code>this-&gt; 为</code>前缀，它指向 <code>simple</code>。因此，当编译器<code>计算</code>-&gt;m_id时 ，它实际上是解析为 <code>simple.m_id</code>。</li>
+</ul>
+<blockquote>
+<p>在 C++ 中，所有非静态成员函数（即类的成员函数）都有一个隐含的指针 this，它指向当前对象（即调用该成员函数的对象）的地址。</p>
+</blockquote>
+<p><strong>非静态成员函数</strong>：</p>
+<p>非静态成员函数是与某个具体对象相关的函数，它们依赖于对象的状态（成员变量）。这些函数不能独立于类的对象存在，需要通过对象来调用。</p>
+<hr />
+<h2 id="xian-shi-de-yin-yong-this">显式的引用this<a class="zola-anchor" href="#xian-shi-de-yin-yong-this" aria-label="Anchor link for: xian-shi-de-yin-yong-this">🔗</a></h2>
+<p>大多数时候,我们不需要显式的引用<code>this</code>。 但是,在一些特定情况下这样做是个不错的选择。</p>
+<p>首先,如果你有一个成员函数,它有一个与数据成员同名的参数,那么你可以通过这种方式来消除歧义:</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#268bd2;">struct </span><span style="color:#b58900;">Something
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#268bd2;">int </span><span style="color:#b58900;">data</span><span style="color:#657b83;">{}</span><span>; 
+</span><span>
+</span><span>    </span><span style="color:#268bd2;">void </span><span style="color:#b58900;">setData</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">int data</span><span style="color:#657b83;">)
+</span><span>    </span><span style="color:#657b83;">{
+</span><span>        </span><span style="color:#d33682;">this</span><span>-&gt;</span><span style="color:#268bd2;">data </span><span style="color:#657b83;">=</span><span> data; 
+</span><span>    </span><span style="color:#657b83;">}
+</span><span style="color:#657b83;">}</span><span>;
+</span></code></pre>
+<p>这个 <code>Something</code> 类有一个名为 <code>data 的</code>成员。<code>setData（）</code> 的函数参数也被命名为 <code>data</code>。在 <code>setData（）</code> 函数中，<code>data</code> 引用函数参数（因为函数参数隐藏了数据成员），所以如果我们想引用<code>数据</code>成员，可以使用 <code>this-&gt;data</code>。</p>
+<p>有些程序员习惯使用这样的写法,可能是由于Java的习惯,但是在C++中,并不建议这样做,还是推荐之前说过的使用<code>m_</code>前缀来区分私有成员和非成员变量。</p>
+<p>其次,有时让成员函数将隐式对象作为返回值返回也是很有用的。这样做的主要原因是允许成员函数可以被链式调用。</p>
+<p>这被称为 <strong>函数链或者方法链</strong> ;</p>
+<p>考虑下面的例子:</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#268bd2;">class </span><span style="color:#b58900;">Calc
+</span><span style="color:#657b83;">{
+</span><span style="color:#859900;">private</span><span style="color:#657b83;">:
+</span><span>    </span><span style="color:#268bd2;">int m_value</span><span style="color:#657b83;">{}</span><span>;
+</span><span>
+</span><span style="color:#859900;">public</span><span style="color:#657b83;">:
+</span><span>
+</span><span>    </span><span style="color:#268bd2;">void </span><span style="color:#b58900;">add</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">int value</span><span style="color:#657b83;">) { </span><span style="color:#268bd2;">m_value </span><span style="color:#657b83;">+=</span><span> value; </span><span style="color:#657b83;">}
+</span><span>    </span><span style="color:#268bd2;">void </span><span style="color:#b58900;">sub</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">int value</span><span style="color:#657b83;">) { </span><span style="color:#268bd2;">m_value </span><span style="color:#657b83;">-=</span><span> value; </span><span style="color:#657b83;">}
+</span><span>    </span><span style="color:#268bd2;">void </span><span style="color:#b58900;">mult</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">int value</span><span style="color:#657b83;">) { </span><span style="color:#268bd2;">m_value </span><span style="color:#657b83;">*=</span><span> value; </span><span style="color:#657b83;">}
+</span><span>
+</span><span>    </span><span style="color:#268bd2;">int </span><span style="color:#b58900;">getValue</span><span style="color:#657b83;">() </span><span style="color:#859900;">const </span><span style="color:#657b83;">{ </span><span style="color:#859900;">return </span><span style="color:#268bd2;">m_value</span><span>; </span><span style="color:#657b83;">}
+</span><span style="color:#657b83;">}</span><span>;
+</span></code></pre>
+<p>基于上述写法,如果你现在想要执行加6减2乘以3,那么你必须这样做:</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    Calc </span><span style="color:#b58900;">calc</span><span style="color:#657b83;">{}</span><span>;
+</span><span>    calc.</span><span style="color:#b58900;">add</span><span style="color:#657b83;">(</span><span style="color:#6c71c4;">2</span><span style="color:#657b83;">)</span><span>; 
+</span><span>    calc.</span><span style="color:#b58900;">sub</span><span style="color:#657b83;">(</span><span style="color:#6c71c4;">2</span><span style="color:#657b83;">)</span><span>; 
+</span><span>    calc.</span><span style="color:#b58900;">mult</span><span style="color:#657b83;">(</span><span style="color:#6c71c4;">3</span><span style="color:#657b83;">)</span><span>; 
+</span><span>
+</span><span>    std::cout </span><span style="color:#657b83;">&lt;&lt;</span><span> calc.</span><span style="color:#b58900;">getValue</span><span style="color:#657b83;">() &lt;&lt; </span><span>&#39;</span><span style="color:#dc322f;">\n</span><span>&#39;;
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>但是,如果我们通过引用使每个函数返回<code>*this</code>,就可以将调用链接在一起。</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#268bd2;">class </span><span style="color:#b58900;">Calc
+</span><span style="color:#657b83;">{
+</span><span style="color:#859900;">private</span><span style="color:#657b83;">:
+</span><span>    </span><span style="color:#268bd2;">int m_value</span><span style="color:#657b83;">{}</span><span>;
+</span><span>
+</span><span style="color:#859900;">public</span><span style="color:#657b83;">:
+</span><span>    Calc</span><span style="color:#859900;">&amp; </span><span style="color:#b58900;">add</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">int value</span><span style="color:#657b83;">) { </span><span style="color:#268bd2;">m_value </span><span style="color:#657b83;">+=</span><span> value; </span><span style="color:#859900;">return *</span><span style="color:#d33682;">this</span><span>; </span><span style="color:#657b83;">}
+</span><span>    Calc</span><span style="color:#859900;">&amp; </span><span style="color:#b58900;">sub</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">int value</span><span style="color:#657b83;">) { </span><span style="color:#268bd2;">m_value </span><span style="color:#657b83;">-=</span><span> value; </span><span style="color:#859900;">return *</span><span style="color:#d33682;">this</span><span>; </span><span style="color:#657b83;">}
+</span><span>    Calc</span><span style="color:#859900;">&amp; </span><span style="color:#b58900;">mult</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">int value</span><span style="color:#657b83;">) { </span><span style="color:#268bd2;">m_value </span><span style="color:#657b83;">*=</span><span> value; </span><span style="color:#859900;">return *</span><span style="color:#d33682;">this</span><span>; </span><span style="color:#657b83;">}
+</span><span>
+</span><span>    </span><span style="color:#268bd2;">int </span><span style="color:#b58900;">getValue</span><span style="color:#657b83;">() </span><span style="color:#859900;">const </span><span style="color:#657b83;">{ </span><span style="color:#859900;">return </span><span style="color:#268bd2;">m_value</span><span>; </span><span style="color:#657b83;">}
+</span><span style="color:#657b83;">}</span><span>;
+</span></code></pre>
+<p>因此,我们可以像下面这样进行链式调用:</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    Calc </span><span style="color:#b58900;">calc</span><span style="color:#657b83;">{}</span><span>;
+</span><span>    calc.</span><span style="color:#b58900;">add</span><span style="color:#657b83;">(</span><span style="color:#6c71c4;">6</span><span style="color:#657b83;">)</span><span>.</span><span style="color:#b58900;">sub</span><span style="color:#657b83;">(</span><span style="color:#6c71c4;">2</span><span style="color:#657b83;">)</span><span>.</span><span style="color:#b58900;">mult</span><span style="color:#657b83;">(</span><span style="color:#6c71c4;">3</span><span style="color:#657b83;">)</span><span>; 
+</span><span>
+</span><span>    std::cout </span><span style="color:#657b83;">&lt;&lt;</span><span> calc.</span><span style="color:#b58900;">getValue</span><span style="color:#657b83;">() &lt;&lt; </span><span>&#39;</span><span style="color:#dc322f;">\n</span><span>&#39;;
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>首先，调用 <code>calc.add（5）</code>，它将 <code>m_value</code> 加上 <code>5</code>。<code>add（）</code> 然后返回一个对 <code>*this 的</code>引用，这是对隐式对象 <code>calc</code> 的引用，因此 <code>calc</code> 将是后续计算中使用的对象。下一个 <code>calc.sub（3）</code> 求值，从 <code>m_value</code> 中减去 <code>3</code>，并再次返回 <code>calc . sub</code>（3）。最后，<code>calc.mult（4）</code> 将 <code>m_value</code> 乘以 <code>4</code> 并返回 <code>calc</code>，它不会被进一步使用，因此被忽略。</p>
+<p>由于每个函数在执行时都会修改 <code>calc</code>，<code> 因此 calc</code> 的 <code>m_value</code> 现在包含值（0 + 5）- 3）* 4），即 <code>8</code>。</p>
+<blockquote>
+<p>因为<code>它</code>总是指向隐式对象，所以在解引用它之前，我们不需要检查它是否是空指针。</p>
+</blockquote>
+<hr />
+<h2 id="zhong-zhi-lei-de-mo-ren-zhuang-tai">重置类的默认状态<a class="zola-anchor" href="#zhong-zhi-lei-de-mo-ren-zhuang-tai" aria-label="Anchor link for: zhong-zhi-lei-de-mo-ren-zhuang-tai">🔗</a></h2>
+<p>如果你的类有一个默认的构造函数,你可能会提供一种方法来将现有的对象重置到它默认的状态。但是之前说过,构造函数仅用于初始化新对象,不应直接调用。这样做会导致意外的行为。</p>
+<p>所以要实现上面重置状态的需求,最佳的方法是创建一个类似于<code>reset()</code>这样的函数, 让该函数创建一个新对象(使用默认构造函数),然后将该新对象复制给当前隐式对象。</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#268bd2;">void </span><span style="color:#b58900;">reset</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>  </span><span style="color:#859900;">*</span><span style="color:#d33682;">this </span><span style="color:#657b83;">= {}</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>下面是一个完整的示例:</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span>
+</span><span style="color:#268bd2;">class </span><span style="color:#b58900;">Calc
+</span><span style="color:#657b83;">{
+</span><span style="color:#859900;">private</span><span style="color:#657b83;">:
+</span><span>    </span><span style="color:#268bd2;">int m_value</span><span style="color:#657b83;">{}</span><span>;
+</span><span>
+</span><span style="color:#859900;">public</span><span style="color:#657b83;">:
+</span><span>    Calc</span><span style="color:#859900;">&amp; </span><span style="color:#b58900;">add</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">int value</span><span style="color:#657b83;">) { </span><span style="color:#268bd2;">m_value </span><span style="color:#657b83;">+=</span><span> value; </span><span style="color:#859900;">return *</span><span style="color:#d33682;">this</span><span>; </span><span style="color:#657b83;">}
+</span><span>    Calc</span><span style="color:#859900;">&amp; </span><span style="color:#b58900;">sub</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">int value</span><span style="color:#657b83;">) { </span><span style="color:#268bd2;">m_value </span><span style="color:#657b83;">-=</span><span> value; </span><span style="color:#859900;">return *</span><span style="color:#d33682;">this</span><span>; </span><span style="color:#657b83;">}
+</span><span>    Calc</span><span style="color:#859900;">&amp; </span><span style="color:#b58900;">mult</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">int value</span><span style="color:#657b83;">) { </span><span style="color:#268bd2;">m_value </span><span style="color:#657b83;">*=</span><span> value; </span><span style="color:#859900;">return *</span><span style="color:#d33682;">this</span><span>; </span><span style="color:#657b83;">}
+</span><span>
+</span><span>    </span><span style="color:#268bd2;">int </span><span style="color:#b58900;">getValue</span><span style="color:#657b83;">() </span><span style="color:#859900;">const </span><span style="color:#657b83;">{ </span><span style="color:#859900;">return </span><span style="color:#268bd2;">m_value</span><span>; </span><span style="color:#657b83;">}
+</span><span>
+</span><span>    </span><span style="color:#268bd2;">void </span><span style="color:#b58900;">reset</span><span style="color:#657b83;">() { </span><span style="color:#859900;">*</span><span style="color:#d33682;">this </span><span style="color:#657b83;">= {}</span><span>; </span><span style="color:#657b83;">}
+</span><span style="color:#657b83;">}</span><span>;
+</span><span>
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    Calc </span><span style="color:#b58900;">calc</span><span style="color:#657b83;">{}</span><span>;
+</span><span>    calc.</span><span style="color:#b58900;">add</span><span style="color:#657b83;">(</span><span style="color:#6c71c4;">5</span><span style="color:#657b83;">)</span><span>.</span><span style="color:#b58900;">sub</span><span style="color:#657b83;">(</span><span style="color:#6c71c4;">3</span><span style="color:#657b83;">)</span><span>.</span><span style="color:#b58900;">mult</span><span style="color:#657b83;">(</span><span style="color:#6c71c4;">4</span><span style="color:#657b83;">)</span><span>;
+</span><span>
+</span><span>    std::cout </span><span style="color:#657b83;">&lt;&lt;</span><span> calc.</span><span style="color:#b58900;">getValue</span><span style="color:#657b83;">() &lt;&lt; </span><span>&#39;</span><span style="color:#dc322f;">\n</span><span>&#39;; </span><span style="color:#586e75;">// prints 8
+</span><span>
+</span><span>    calc.</span><span style="color:#b58900;">reset</span><span style="color:#657b83;">()</span><span>;
+</span><span>
+</span><span>    std::cout </span><span style="color:#657b83;">&lt;&lt;</span><span> calc.</span><span style="color:#b58900;">getValue</span><span style="color:#657b83;">() &lt;&lt; </span><span>&#39;</span><span style="color:#dc322f;">\n</span><span>&#39;; </span><span style="color:#586e75;">// prints 0
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<hr />
+<h2 id="thishe-constdui-xiang-de-guan-xi">this和const对象的关系<a class="zola-anchor" href="#thishe-constdui-xiang-de-guan-xi" aria-label="Anchor link for: thishe-constdui-xiang-de-guan-xi">🔗</a></h2>
+<ul>
+<li>
+<p>对于非<code>const</code>成员函数,<code>this</code>是一个指向非<code>const</code>值的<code>cosn</code>指针。(这意味着<code>this</code>不能指向其他对象,但指向的对象可以被修改)。</p>
+</li>
+<li>
+<p>对于<code>const</code>成员函数,<code>this</code>是一个指向<code>const</code>值的<code>const</code>指针(意味着指针不能指向其他对象,也不能修改被指向的对象)。</p>
+</li>
+</ul>
+<h2 id="wei-shen-me-thisshi-zhi-zhen-er-bu-shi-yin-yong">为什么this是指针而不是引用?<a class="zola-anchor" href="#wei-shen-me-thisshi-zhi-zhen-er-bu-shi-yin-yong" aria-label="Anchor link for: wei-shen-me-thisshi-zhi-zhen-er-bu-shi-yin-yong">🔗</a></h2>
+<p>和Java以及C#不同,<code>this</code>在C++中出现的时候,<code>C++</code>还没有引入引用这种东西(🤪)!</p>
+<hr />
+<h2 id="wang-qi-tui-jian">往期推荐<a class="zola-anchor" href="#wang-qi-tui-jian" aria-label="Anchor link for: wang-qi-tui-jian">🔗</a></h2>
+<ul>
+<li><a class="" href="https://www.ilikexff.cn/articles/163">游戏算法基础- A星寻路</a></li>
+<li><a class="" href="https://www.ilikexff.cn/articles/161">构造函数8000字长文浅析</a></li>
+</ul>
+
+      
+    </div><!--./card-body-->
+
+    <div class="card-footer">
+      <div class="columns">
+        <div class="column col-9 col-sm-7">
+          <div class="taxonomies text-left">
+            
+
+    
+          </div>
+        </div><!--./col-6-->
+        
+        </div><!--./columns-->
+    </div><!--./card-footer-->
+</div><!--./card-->
+</div>
+              <div id="sidebar" class="column col-4 col-md-12">
+                <div class="sidebar-content">
+                  
+                  
+<div class="sidebar-widget">
+  <div class="tile">
+    <div class="tile-icon">
+      <figure class="avatar avatar-xl">
+        <img src="https://ilikexff.cn/avatar.png" alt="author avatar image">
+      </figure>
+    </div>
+    <div class="tile-content">
+      <p class="tile-title" style="font-weight: 600;">慕予</p>
+      <p class="tile-subtitle">热爱编程，专注于技术分享和学习</p>
+    </div>
+</div><!--./tile-->
+</div>
+
+                  
+                  
+<div class="sidebar-widget">
+  欢迎来到<strong>八尺妖剑</strong>！这里分享技术文章和编程心得。
+</div><!-- end text widget -->
+
+                  
+
+                  
+<div class="sidebar-widget syndicate">
+<h4>Feed</h4>
+<a class="btn" href="/rss.xml">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-rss-fill" viewBox="0 0 16 16">
+  <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm1.5 2.5c5.523 0 10 4.477 10 10a1 1 0 1 1-2 0 8 8 0 0 0-8-8 1 1 0 0 1 0-2zm0 4a6 6 0 0 1 6 6 1 1 0 1 1-2 0 4 4 0 0 0-4-4 1 1 0 0 1 0-2zm.5 7a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+</svg>
+<span>RSS</span>
+</a>
+</div>
+
+                  </div><!--./sidebar-content-->
+              </div>
+            </div>
+            
+          </section>
+        </section></section>
+<section class="container grid-xl">
+<ul class="pagination paginator">
+  
+  
+</ul>
+</section>
+</div><!-- ./page-wrapper -->
+
+    
+<div class="mobile-container">
+        <div class="overlay" id="overlay">
+            <div style="padding: 1rem;">
+              
+<a class="site-logo" href="https:&#x2F;&#x2F;ilikexff.cn">
+  
+  <div class="col-mx-auto">
+    <figure style="margin: 8px">
+      <img class="img-responsive"
+           style="max-height: 45px"
+           alt="frontmatter image"
+           src="https://ilikexff.cn/./logo.svg">
+    </figure>
+  </div>
+  
+</a>
+
+            </div>
+            <nav class="overlay-menu">
+              
+
+<ul class="tree treemenu treemenu-root"><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/tags">标签</a>
+    </li><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/categories">分类</a>
+    </li><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/about">关于</a>
+    </li></ul>
+
+
+              </nav>
+        </div>
+    </div>
+
+<script type="text/javascript">
+  var overlay = document.getElementById('overlay');
+  var toggle = document.getElementById('toggle');
+
+  function openOverlay(){
+      // Open overlay
+      if (overlay.classList.contains("open")) {
+          overlay.classList.remove("open");
+      }
+      else {
+          overlay.classList.add("open");
+      }
+
+      // Button transition
+      if (toggle.classList.contains("active")) {
+          toggle.classList.remove("active");
+      }
+      else {
+          toggle.classList.add("active");
+      }
+    }
+</script>
+
+<section id="footer" class="bg-gray">
+  <div class="container grid-xl">
+    
+
+
+    <div class="columns">
+      
+      <div class="column col-6 col-lg-12 col-mx-auto" style="text-align: center;">
+        简单是效率的灵魂 | 黔ICP备2021010295号
+      </div>
+      
+      <div class="column col-6 col-lg-12 col-mx-auto" style="text-align: center;">
+        Made by <a href="https://github.com/gicrisf/">gicrisf</a> -
+        <strong>Zhuia</strong>&nbsp;<a href="https://github.com/gicrisf/zhuia">source code</a>
+        is licensed under <a href="http://opensource.org/licenses/mit-license.php" target="_blank">MIT</a>.
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

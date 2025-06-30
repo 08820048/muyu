@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh" data-theme="light" dir="ltr">
+  <head>
+    <title>PRD算法：听说你想凭运气抽一颗荣耀水晶? - 八尺妖剑</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="详解游戏开发中常用的伪随机分布(PRD)算法原理及其在抽奖系统中的应用"/>
+
+    <meta property="og:title" content="八尺妖剑 -&nbsp;PRD算法：听说你想凭运气抽一颗荣耀水晶?" />
+    <meta property="og:type" content="website"/><meta property="og:url" content="https:&#x2F;&#x2F;ilikexff.cn&#x2F;prdsuan-fa-ting-shuo-ni-xiang-ping-yun-qi-chou-yi-ke-rong-yao-shui-jing&#x2F;"/><meta property="og:description" content="详解游戏开发中常用的伪随机分布(PRD)算法原理及其在抽奖系统中的应用"/>
+
+
+    <meta name="twitter:card" content="summary">
+
+
+    <link rel="stylesheet" href="https://ilikexff.cn/spectre/spectre.css">
+    <link rel="stylesheet" href="https://ilikexff.cn/theme.css"><link rel="stylesheet" href="https://ilikexff.cn/custom.css">
+    
+<link rel="alternate" type="application/rss+xml" title="八尺妖剑 RSS" href="https://ilikexff.cn/rss.xml">
+        
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script>
+        function doRenderMath() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false},
+                {left: "\\begin{equation}", right: "\\end{equation}", display: true},
+                {left: "\\begin{align}", right: "\\end{align}", display: true},
+                {left: "\\begin{alignat}", right: "\\end{alignat}", display: true},
+                {left: "\\begin{gather}", right: "\\end{gather}", display: true},
+                {left: "\\begin{CD}", right: "\\end{CD}", display: true},
+                {left: "\\[", right: "\\]", display: true}
+                ]
+            });
+        }
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+        onload="doRenderMath()"></script>
+
+      </head>
+  <body id="top" class="sticky-footer"><div id="page-wrapper">
+<header id="header" class="section">
+  <section class="container grid-xl">
+    <nav class="navbar">
+      <section class="navbar-section">
+        
+<a class="site-logo" href="https:&#x2F;&#x2F;ilikexff.cn">
+  
+  <div class="col-mx-auto">
+    <figure style="margin: 8px">
+      <img class="img-responsive"
+           style="max-height: 45px"
+           alt="frontmatter image"
+           src="https://ilikexff.cn/./logo.svg">
+    </figure>
+  </div>
+  
+</a>
+
+      </section><!-- ./home button -->
+
+      <section class="navbar-center hide-md"></section>
+
+      <section class="navbar-section">
+        <nav class="dropmenu animated hide-md">
+
+<ul><li>
+        <a href="https://ilikexff.cn/tags">标签</a>
+    </li><li>
+        <a href="https://ilikexff.cn/categories">分类</a>
+    </li><li>
+        <a href="https://ilikexff.cn/about">关于</a>
+    </li></ul>
+
+
+          </nav>
+      </section><!-- ./desktop-menu -->
+    </nav>
+  </section><!-- ./container -->
+</header>
+
+
+<div class="mobile-menu">
+  <div class="button_container" id="toggle" onclick="openOverlay()">
+    <span class="top"></span>
+    <span class="middle"></span>
+    <span class="bottom"></span>
+  </div>
+</div><!--./mobile-menu-->
+
+
+<section id="start"><section id="body-wrapper" class="section">
+          <section class="container grid-xl">
+<div id="breadcrumbs" itemtype="http://schema.org/BreadcrumbList" class="hide-sm">
+  
+    
+    <span><a href="https:&#x2F;&#x2F;ilikexff.cn&#x2F;">Home</a></span>
+  
+    <span><a href="https:&#x2F;&#x2F;ilikexff.cn&#x2F;prdsuan-fa-ting-shuo-ni-xiang-ping-yun-qi-chou-yi-ke-rong-yao-shui-jing&#x2F;">PRD算法：听说你想凭运气抽一颗荣耀水晶?</a></span>
+</div>
+<div class="columns">
+              <div id="item" class="column col-8 col-md-12 extra-spacing">
+<div class="card">
+  
+
+    <div class="card-header">
+      <div class="card-title" style="margin-top: .25rem;"><div>
+          <h1 class="post-title">PRD算法：听说你想凭运气抽一颗荣耀水晶?</h1>
+          
+    <div class="post-meta" style="display: inline-flex">
+        <span class="blog-date" style="display: inline-flex;">
+          <i class="gg-calendar" style="margin-right: 5px;"></i><time datetime="2025.06.19">
+          2025.06.19
+          </time></span><span class="post-author" style="margin-left: 5px; display: inline-flex;">
+          - 
+    慕予
+        </span></div>
+
+        </div></div>
+    </div><!--./card-header-->
+
+    <div class="card-body">
+      
+        <p><img src="https://images.waer.ltd/notes/PRD.jpg" alt="PRD" loading="lazy" decoding="async" /></p>
+<p><code>PRD</code>算法全称<code>Pseudo-Random Distribution</code>。是概率分布中的一种常见算法，在游戏开发领域中很常用。</p>
+<p><code>PRD</code>用于控制随机事件的触发概率，使其表现得更加符合预期，相比于传统得随机数生成，<code>PRD</code>算法可以平滑得控制随机事件的触发次数，确保不会出现过于极端的情况，比如长时间未触发或者频繁触发。</p>
+<blockquote>
+<p>如果你觉得它离你很远，那么举个栗子，玩“王者荣耀”的多少都知道其中有一个道具叫<strong>荣耀水晶</strong>，这玩意就是靠抽奖的方式获得的，而根据官方抽奖的方式与概率公布等信息来看，抽取荣耀水晶的算法大概率也是<code>PRD</code>或者它的变种算法。</p>
+</blockquote>
+<p>在游戏中，<code>PRD</code>算法的主要应用场景包括掉落系统、抽奖系统等。这些场景下，开发者通常希望在随机事件的发生上保持某种平衡，而<code>PRD</code>算法正是为了解决这一问题。</p>
+<hr />
+<h2 id="">基本原理<a class="zola-anchor" href="#" aria-label="Anchor link for: ">🔗</a></h2>
+<p><code>PRD</code>算法通过调整事件发生的概率来实现分布平滑。简单来说，它会随着事件未触发的次数增加，动态提升触发的概率，直到事件发生。一旦事件触发，概率会重置为初始值，重新开始计算。</p>
+<p><code>PRD</code>的公式通常为：$ P(n) = \frac{1}{k-f(n)}$</p>
+<p>其中，<code>P(n)</code> 是事件在第 <code>n</code> 次尝试时的概率，<code>k</code> 是一个常数（通常设为 1），<code>f(n)</code> 是一个随尝试次数递增的函数，用于控制概率的增长。这个公式的作用是保证随着尝试次数的增加，概率不断增大，直至事件发生。</p>
+<hr />
+<h2 id="-1">基本实现<a class="zola-anchor" href="#-1" aria-label="Anchor link for: -1">🔗</a></h2>
+<blockquote>
+<p>下面就以使用<code>PRD</code>算法模拟抽取荣耀水晶的方式带着各位实现一下<code>PRD</code>算法吧!</p>
+</blockquote>
+<ul>
+<li>
+<p><strong>初始概率与递增概率</strong>：使用<code>PRD</code>算法，逐步提高未中奖后的中奖概率。</p>
+</li>
+<li>
+<p><strong>保底次数</strong>：设置一个保底的次数上限，在达到该上限时，无论当前概率如何，玩家都会中奖。</p>
+</li>
+<li>
+<p><strong>中奖后重置</strong>：当玩家中奖后，概率重置为初始值，并重新开始计算。</p>
+</li>
+</ul>
+<hr />
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include</span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span style="color:#cb4b16;">#include</span><span>&lt;</span><span style="color:#2aa198;">cstdlib</span><span>&gt;
+</span><span style="color:#cb4b16;">#include</span><span>&lt;</span><span style="color:#2aa198;">ctime</span><span>&gt;
+</span><span style="color:#268bd2;">class </span><span style="color:#b58900;">PRDWithPity
+</span><span style="color:#657b83;">{
+</span><span style="color:#859900;">private</span><span style="color:#657b83;">:
+</span><span>    </span><span style="color:#268bd2;">double</span><span> initialProb; </span><span style="color:#586e75;">// 初始中奖概率
+</span><span>    </span><span style="color:#268bd2;">double</span><span> increment; </span><span style="color:#586e75;">// 每次中奖时增加的概率
+</span><span>    </span><span style="color:#268bd2;">double</span><span> currentProb; </span><span style="color:#586e75;">// 当前中奖概率
+</span><span>    </span><span style="color:#268bd2;">int</span><span> pityLimit; </span><span style="color:#586e75;">// 保底次数
+</span><span>    </span><span style="color:#268bd2;">int</span><span> currentTry; </span><span style="color:#586e75;">// 当前抽奖次数
+</span><span>
+</span><span style="color:#859900;">public</span><span style="color:#657b83;">:
+</span><span>    </span><span style="color:#586e75;">// 构造函数、初始化初始概率、递增概率和保底次数
+</span><span>    </span><span style="color:#b58900;">PRDWithPity </span><span style="color:#657b83;">(</span><span style="color:#268bd2;">double initProb </span><span style="color:#657b83;">= </span><span style="color:#6c71c4;">0.05</span><span>,</span><span style="color:#268bd2;">double inc </span><span style="color:#657b83;">= </span><span style="color:#6c71c4;">0.02</span><span>,</span><span style="color:#268bd2;">int pity </span><span style="color:#657b83;">= </span><span style="color:#6c71c4;">10</span><span style="color:#657b83;">) </span><span>:
+</span><span>    </span><span style="color:#268bd2;">initialProb</span><span style="color:#657b83;">(</span><span>initProb</span><span style="color:#657b83;">)</span><span>,</span><span style="color:#268bd2;">increment</span><span style="color:#657b83;">(</span><span>inc</span><span style="color:#657b83;">)</span><span>,</span><span style="color:#268bd2;">currentProb</span><span style="color:#657b83;">(</span><span>initProb</span><span style="color:#657b83;">)</span><span>,</span><span style="color:#268bd2;">pityLimit</span><span style="color:#657b83;">(</span><span>pity</span><span style="color:#657b83;">)</span><span>,</span><span style="color:#268bd2;">currentTry</span><span style="color:#657b83;">(</span><span style="color:#6c71c4;">0</span><span style="color:#657b83;">) {}
+</span><span>
+</span><span>    </span><span style="color:#268bd2;">bool </span><span style="color:#b58900;">draw</span><span style="color:#657b83;">()
+</span><span>    </span><span style="color:#657b83;">{
+</span><span>        currentTry</span><span style="color:#657b83;">++</span><span>;
+</span><span>
+</span><span>        </span><span style="color:#586e75;">// 达到保底，直接中奖
+</span><span>        </span><span style="color:#859900;">if </span><span style="color:#657b83;">(</span><span>currentTry </span><span style="color:#657b83;">&gt;=</span><span> pityLimit</span><span style="color:#657b83;">)
+</span><span>        </span><span style="color:#657b83;">{
+</span><span>            </span><span style="color:#b58900;">reset</span><span style="color:#657b83;">()</span><span>;
+</span><span>            </span><span style="color:#859900;">return </span><span style="color:#b58900;">true</span><span>;
+</span><span>        </span><span style="color:#657b83;">}
+</span><span>
+</span><span>        </span><span style="color:#586e75;">// 生成0-1随机数
+</span><span>        </span><span style="color:#268bd2;">double</span><span> randNum </span><span style="color:#657b83;">= </span><span style="color:#859900;">static_cast</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">double</span><span style="color:#657b83;">&gt;(</span><span style="color:#859900;">rand</span><span style="color:#657b83;">()) /</span><span> RAND_MAX;
+</span><span>
+</span><span>        </span><span style="color:#586e75;">// 如果随机数小于当前概率、表示中奖
+</span><span>        </span><span style="color:#859900;">if </span><span style="color:#657b83;">(</span><span>randNum </span><span style="color:#657b83;">&lt;</span><span> currentProb</span><span style="color:#657b83;">)
+</span><span>        </span><span style="color:#657b83;">{
+</span><span>            </span><span style="color:#b58900;">reset</span><span style="color:#657b83;">()</span><span>;
+</span><span>            </span><span style="color:#859900;">return </span><span style="color:#b58900;">true</span><span>;
+</span><span>        </span><span style="color:#657b83;">}</span><span style="color:#859900;">else
+</span><span>        </span><span style="color:#657b83;">{
+</span><span>           currentProb </span><span style="color:#657b83;">+=</span><span> increment;
+</span><span>            </span><span style="color:#859900;">return </span><span style="color:#b58900;">false</span><span>;
+</span><span>        </span><span style="color:#657b83;">}
+</span><span>    </span><span style="color:#657b83;">}
+</span><span>
+</span><span>    </span><span style="color:#586e75;">// reset函数
+</span><span>    </span><span style="color:#268bd2;">void </span><span style="color:#b58900;">reset</span><span style="color:#657b83;">()
+</span><span>    </span><span style="color:#657b83;">{
+</span><span>        currentProb </span><span style="color:#657b83;">=</span><span> initialProb;
+</span><span>        currentTry </span><span style="color:#657b83;">= </span><span style="color:#6c71c4;">0</span><span>;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span style="color:#657b83;">}</span><span>;
+</span></code></pre>
+<blockquote>
+<p>实现代码大致如上，没什么复杂的逻辑，关键地方也都添加了注释，这里就不再赘述了。</p>
+</blockquote>
+<p>下面模拟测试一下看看效果</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">srand</span><span style="color:#657b83;">(</span><span style="color:#859900;">static_cast</span><span style="color:#657b83;">&lt;</span><span style="color:#268bd2;">unsigned</span><span style="color:#657b83;">&gt;(</span><span style="color:#859900;">time</span><span style="color:#657b83;">(</span><span style="color:#6c71c4;">0</span><span style="color:#657b83;">)))</span><span>;  </span><span style="color:#586e75;">// 初始化随机数种子
+</span><span>    PRDWithPity </span><span style="color:#b58900;">prd</span><span style="color:#657b83;">(</span><span style="color:#6c71c4;">0.000001</span><span>, </span><span style="color:#6c71c4;">0.0000002</span><span>, </span><span style="color:#6c71c4;">360</span><span style="color:#657b83;">)</span><span>;  </span><span style="color:#586e75;">// 初始中奖概率0.05，每次未中奖增加0.02，保底次数10次
+</span><span>    </span><span style="color:#859900;">for </span><span style="color:#657b83;">(</span><span style="color:#268bd2;">int</span><span> i </span><span style="color:#657b83;">= </span><span style="color:#6c71c4;">1</span><span>; i </span><span style="color:#657b83;">&lt;= </span><span style="color:#6c71c4;">365</span><span>; </span><span style="color:#657b83;">++</span><span>i</span><span style="color:#657b83;">) {
+</span><span>        </span><span style="color:#859900;">if </span><span style="color:#657b83;">(</span><span>prd.</span><span style="color:#b58900;">draw</span><span style="color:#657b83;">()) {
+</span><span>            std::cout </span><span style="color:#657b83;">&lt;&lt; </span><span>&quot;</span><span style="color:#2aa198;">恭喜屏幕前这位大佬第 </span><span>&quot; </span><span style="color:#657b83;">&lt;&lt;</span><span> i </span><span style="color:#657b83;">&lt;&lt; </span><span>&quot;</span><span style="color:#2aa198;"> 次抽中一颗[荣耀水晶]</span><span>&quot; </span><span style="color:#657b83;">&lt;&lt;</span><span> std::endl;
+</span><span>        </span><span style="color:#657b83;">} </span><span style="color:#859900;">else </span><span style="color:#657b83;">{
+</span><span>            std::cout </span><span style="color:#657b83;">&lt;&lt; </span><span>&quot;</span><span style="color:#2aa198;">第 </span><span>&quot; </span><span style="color:#657b83;">&lt;&lt;</span><span> i </span><span style="color:#657b83;">&lt;&lt; </span><span>&quot;</span><span style="color:#2aa198;"> 次抽奖未中奖，幸运值+1，幸运值为： </span><span>&quot;
+</span><span>                      </span><span style="color:#657b83;">&lt;&lt;</span><span> prd.</span><span style="color:#b58900;">getCurrentTry</span><span style="color:#657b83;">()
+</span><span>                      </span><span style="color:#657b83;">&lt;&lt; </span><span>&quot;</span><span style="color:#2aa198;">，幸运值达到360必中一颗[荣耀水晶]。</span><span>&quot; </span><span style="color:#657b83;">&lt;&lt;</span><span> std::endl;
+</span><span>        </span><span style="color:#657b83;">}
+</span><span>    </span><span style="color:#657b83;">}
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<blockquote>
+<p>由于我们必须保证在触发保底之前中奖的概率足够低，因此这里直接将初始中奖率设置为<code>0.000001</code>也就是十万分之一，每次抽奖后递增中奖率也不能过高，比如可以设置在<code>0.0000002</code>（百万分之一）。这样可以保证在触发保底之前你大概率是不会抽到 <strong>荣耀水晶</strong>的，只能通过氪金不断的获取抽奖机会，直到抽够<code>360</code>次触发保底。</p>
+</blockquote>
+<p><strong>下面是本次抽奖的模拟结果:</strong></p>
+<p>第 1 次抽奖未中奖，幸运值+1，幸运值为： 1，幸运值达到360必中一颗[荣耀水晶]。
+第 2 次抽奖未中奖，幸运值+1，幸运值为： 2，幸运值达到360必中一颗[荣耀水晶]。
+第 3 次抽奖未中奖，幸运值+1，幸运值为： 3，幸运值达到360必中一颗[荣耀水晶]。
+第 4 次抽奖未中奖，幸运值+1，幸运值为： 4，幸运值达到360必中一颗[荣耀水晶]。
+第 5 次抽奖未中奖，幸运值+1，幸运值为： 5，幸运值达到360必中一颗[荣耀水晶]。
+第 6 次抽奖未中奖，幸运值+1，幸运值为： 6，幸运值达到360必中一颗[荣耀水晶]。
+第 7 次抽奖未中奖，幸运值+1，幸运值为： 7，幸运值达到360必中一颗[荣耀水晶]。
+第 8 次抽奖未中奖，幸运值+1，幸运值为： 8，幸运值达到360必中一颗[荣耀水晶]。
+第 9 次抽奖未中奖，幸运值+1，幸运值为： 9，幸运值达到360必中一颗[荣耀水晶]。
+第 10 次抽奖未中奖，幸运值+1，幸运值为： 10，幸运值达到360必中一颗[荣耀水晶]。
+第 11 次抽奖未中奖，幸运值+1，幸运值为： 11，幸运值达到360必中一颗[荣耀水晶]。
+第 12 次抽奖未中奖，幸运值+1，幸运值为： 12，幸运值达到360必中一颗[荣耀水晶]。
+第 13 次抽奖未中奖，幸运值+1，幸运值为： 13，幸运值达到360必中一颗[荣耀水晶]。
+第 14 次抽奖未中奖，幸运值+1，幸运值为： 14，幸运值达到360必中一颗[荣耀水晶]。</p>
+<p>[次数省略好多行]…………………..</p>
+<p>第 348 次抽奖未中奖，幸运值+1，幸运值为： 348，幸运值达到360必中一颗[荣耀水晶]。
+第 349 次抽奖未中奖，幸运值+1，幸运值为： 349，幸运值达到360必中一颗[荣耀水晶]。
+第 350 次抽奖未中奖，幸运值+1，幸运值为： 350，幸运值达到360必中一颗[荣耀水晶]。
+第 351 次抽奖未中奖，幸运值+1，幸运值为： 351，幸运值达到360必中一颗[荣耀水晶]。
+第 352 次抽奖未中奖，幸运值+1，幸运值为： 352，幸运值达到360必中一颗[荣耀水晶]。
+第 353 次抽奖未中奖，幸运值+1，幸运值为： 353，幸运值达到360必中一颗[荣耀水晶]。
+第 354 次抽奖未中奖，幸运值+1，幸运值为： 354，幸运值达到360必中一颗[荣耀水晶]。
+第 355 次抽奖未中奖，幸运值+1，幸运值为： 355，幸运值达到360必中一颗[荣耀水晶]。
+第 356 次抽奖未中奖，幸运值+1，幸运值为： 356，幸运值达到360必中一颗[荣耀水晶]。
+第 357 次抽奖未中奖，幸运值+1，幸运值为： 357，幸运值达到360必中一颗[荣耀水晶]。
+第 358 次抽奖未中奖，幸运值+1，幸运值为： 358，幸运值达到360必中一颗[荣耀水晶]。
+第 359 次抽奖未中奖，幸运值+1，幸运值为： 359，幸运值达到360必中一颗[荣耀水晶]。
+<strong>恭喜屏幕前这位大佬第 360 次抽中一颗[荣耀水晶]</strong>
+第 361 次抽奖未中奖，幸运值+1，幸运值为： 1，幸运值达到360必中一颗[荣耀水晶]。
+第 362 次抽奖未中奖，幸运值+1，幸运值为： 2，幸运值达到360必中一颗[荣耀水晶]。
+第 363 次抽奖未中奖，幸运值+1，幸运值为： 3，幸运值达到360必中一颗[荣耀水晶]。
+第 364 次抽奖未中奖，幸运值+1，幸运值为： 4，幸运值达到360必中一颗[荣耀水晶]。
+第 365 次抽奖未中奖，幸运值+1，幸运值为： 5，幸运值达到360必中一颗[荣耀水晶]。</p>
+<hr />
+<h2 id="-2">PRD的优点<a class="zola-anchor" href="#-2" aria-label="Anchor link for: -2">🔗</a></h2>
+<p><strong>平衡性</strong>：<code>PRD</code>通过调整概率，使得随机事件更加平衡。例如，在掉落系统中，<code>PRD</code>确保物品不会长时间不掉落，也不会短时间内频繁掉落。</p>
+<p><strong>易于控制</strong>：开发者可以通过调节初始概率或递增函数的参数，来控制事件的发生频率和分布特性。</p>
+<p><strong>提升用户体验</strong>：<code>PRD</code>可以防止用户在面对纯粹的随机系统时感到挫败，尤其是游戏中的奖励机制，通过PRD可以避免极端运气差的情况。</p>
+<p>当然了，算法并非一成不变的，具体实现还得基于我们在开发业务中的具体需求来决定是否对原算法进行扩展、优化、变种。</p>
+<p>比如下面这些扩展建议：</p>
+<blockquote>
+<ol>
+<li><strong>递增机制</strong>：可以根据具体需求将递增值设计为动态调整，而不仅仅是固定值。</li>
+<li><strong>外部配置</strong>：如果<code>PRD</code>用于实际的游戏开发中，概率和递增值通常从外部配置表中读取，而不是硬编码在程序中。</li>
+</ol>
+</blockquote>
+<hr />
+<h2 id="-3">小结<a class="zola-anchor" href="#-3" aria-label="Anchor link for: -3">🔗</a></h2>
+<p>如果你不从事游戏开发相关领域工作，那么这篇文章可以帮你了解身边游戏抽奖的中奖机制和原理，在面对华丽的游戏虚拟道具抽奖时，请务必保持<strong>理性消费</strong>(有钱人忽略,因为本质就是来圈你们这些所谓有钱人的<strong>RMB</strong>滴!)代码面前，不要对自己的运气抱有过高的自信!</p>
+<p>如果你是一个即将或者是正在从事游戏开发工作，那么学无止境，共勉!</p>
+<blockquote>
+<p>这是一个连载的专题，欢迎持续关注哦！</p>
+</blockquote>
+
+      
+    </div><!--./card-body-->
+
+    <div class="card-footer">
+      <div class="columns">
+        <div class="column col-9 col-sm-7">
+          <div class="taxonomies text-left">
+            
+
+    
+          </div>
+        </div><!--./col-6-->
+        
+        </div><!--./columns-->
+    </div><!--./card-footer-->
+</div><!--./card-->
+</div>
+              <div id="sidebar" class="column col-4 col-md-12">
+                <div class="sidebar-content">
+                  
+                  
+<div class="sidebar-widget">
+  <div class="tile">
+    <div class="tile-icon">
+      <figure class="avatar avatar-xl">
+        <img src="https://ilikexff.cn/avatar.png" alt="author avatar image">
+      </figure>
+    </div>
+    <div class="tile-content">
+      <p class="tile-title" style="font-weight: 600;">慕予</p>
+      <p class="tile-subtitle">热爱编程，专注于技术分享和学习</p>
+    </div>
+</div><!--./tile-->
+</div>
+
+                  
+                  
+<div class="sidebar-widget">
+  欢迎来到<strong>八尺妖剑</strong>！这里分享技术文章和编程心得。
+</div><!-- end text widget -->
+
+                  
+
+                  
+<div class="sidebar-widget syndicate">
+<h4>Feed</h4>
+<a class="btn" href="/rss.xml">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-rss-fill" viewBox="0 0 16 16">
+  <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm1.5 2.5c5.523 0 10 4.477 10 10a1 1 0 1 1-2 0 8 8 0 0 0-8-8 1 1 0 0 1 0-2zm0 4a6 6 0 0 1 6 6 1 1 0 1 1-2 0 4 4 0 0 0-4-4 1 1 0 0 1 0-2zm.5 7a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+</svg>
+<span>RSS</span>
+</a>
+</div>
+
+                  </div><!--./sidebar-content-->
+              </div>
+            </div>
+            
+          </section>
+        </section></section>
+<section class="container grid-xl">
+<ul class="pagination paginator">
+  
+  
+</ul>
+</section>
+</div><!-- ./page-wrapper -->
+
+    
+<div class="mobile-container">
+        <div class="overlay" id="overlay">
+            <div style="padding: 1rem;">
+              
+<a class="site-logo" href="https:&#x2F;&#x2F;ilikexff.cn">
+  
+  <div class="col-mx-auto">
+    <figure style="margin: 8px">
+      <img class="img-responsive"
+           style="max-height: 45px"
+           alt="frontmatter image"
+           src="https://ilikexff.cn/./logo.svg">
+    </figure>
+  </div>
+  
+</a>
+
+            </div>
+            <nav class="overlay-menu">
+              
+
+<ul class="tree treemenu treemenu-root"><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/tags">标签</a>
+    </li><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/categories">分类</a>
+    </li><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/about">关于</a>
+    </li></ul>
+
+
+              </nav>
+        </div>
+    </div>
+
+<script type="text/javascript">
+  var overlay = document.getElementById('overlay');
+  var toggle = document.getElementById('toggle');
+
+  function openOverlay(){
+      // Open overlay
+      if (overlay.classList.contains("open")) {
+          overlay.classList.remove("open");
+      }
+      else {
+          overlay.classList.add("open");
+      }
+
+      // Button transition
+      if (toggle.classList.contains("active")) {
+          toggle.classList.remove("active");
+      }
+      else {
+          toggle.classList.add("active");
+      }
+    }
+</script>
+
+<section id="footer" class="bg-gray">
+  <div class="container grid-xl">
+    
+
+
+    <div class="columns">
+      
+      <div class="column col-6 col-lg-12 col-mx-auto" style="text-align: center;">
+        简单是效率的灵魂 | 黔ICP备2021010295号
+      </div>
+      
+      <div class="column col-6 col-lg-12 col-mx-auto" style="text-align: center;">
+        Made by <a href="https://github.com/gicrisf/">gicrisf</a> -
+        <strong>Zhuia</strong>&nbsp;<a href="https://github.com/gicrisf/zhuia">source code</a>
+        is licensed under <a href="http://opensource.org/licenses/mit-license.php" target="_blank">MIT</a>.
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

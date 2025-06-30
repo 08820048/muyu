@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="zh" data-theme="light" dir="ltr">
+  <head>
+    <title>邪恶的非常量全局变量 - 八尺妖剑</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="简单是效率的灵魂"/>
+
+    <meta property="og:title" content="八尺妖剑 -&nbsp;邪恶的非常量全局变量" />
+    <meta property="og:type" content="website"/><meta property="og:url" content="https:&#x2F;&#x2F;ilikexff.cn&#x2F;xie-e-de-fei-chang-liang-quan-ju-bian-liang&#x2F;"/><meta property="og:description" content="简单是效率的灵魂"/>
+
+
+    <meta name="twitter:card" content="summary">
+
+
+    <link rel="stylesheet" href="https://ilikexff.cn/spectre/spectre.css">
+    <link rel="stylesheet" href="https://ilikexff.cn/theme.css"><link rel="stylesheet" href="https://ilikexff.cn/custom.css">
+    
+<link rel="alternate" type="application/rss+xml" title="八尺妖剑 RSS" href="https://ilikexff.cn/rss.xml">
+        
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script>
+        function doRenderMath() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false},
+                {left: "\\begin{equation}", right: "\\end{equation}", display: true},
+                {left: "\\begin{align}", right: "\\end{align}", display: true},
+                {left: "\\begin{alignat}", right: "\\end{alignat}", display: true},
+                {left: "\\begin{gather}", right: "\\end{gather}", display: true},
+                {left: "\\begin{CD}", right: "\\end{CD}", display: true},
+                {left: "\\[", right: "\\]", display: true}
+                ]
+            });
+        }
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+        onload="doRenderMath()"></script>
+
+      </head>
+  <body id="top" class="sticky-footer"><div id="page-wrapper">
+<header id="header" class="section">
+  <section class="container grid-xl">
+    <nav class="navbar">
+      <section class="navbar-section">
+        
+<a class="site-logo" href="https:&#x2F;&#x2F;ilikexff.cn">
+  
+  <div class="col-mx-auto">
+    <figure style="margin: 8px">
+      <img class="img-responsive"
+           style="max-height: 45px"
+           alt="frontmatter image"
+           src="https://ilikexff.cn/./logo.svg">
+    </figure>
+  </div>
+  
+</a>
+
+      </section><!-- ./home button -->
+
+      <section class="navbar-center hide-md"></section>
+
+      <section class="navbar-section">
+        <nav class="dropmenu animated hide-md">
+
+<ul><li>
+        <a href="https://ilikexff.cn/tags">标签</a>
+    </li><li>
+        <a href="https://ilikexff.cn/categories">分类</a>
+    </li><li>
+        <a href="https://ilikexff.cn/about">关于</a>
+    </li></ul>
+
+
+          </nav>
+      </section><!-- ./desktop-menu -->
+    </nav>
+  </section><!-- ./container -->
+</header>
+
+
+<div class="mobile-menu">
+  <div class="button_container" id="toggle" onclick="openOverlay()">
+    <span class="top"></span>
+    <span class="middle"></span>
+    <span class="bottom"></span>
+  </div>
+</div><!--./mobile-menu-->
+
+
+<section id="start"><section id="body-wrapper" class="section">
+          <section class="container grid-xl">
+<div id="breadcrumbs" itemtype="http://schema.org/BreadcrumbList" class="hide-sm">
+  
+    
+    <span><a href="https:&#x2F;&#x2F;ilikexff.cn&#x2F;">Home</a></span>
+  
+    <span><a href="https:&#x2F;&#x2F;ilikexff.cn&#x2F;xie-e-de-fei-chang-liang-quan-ju-bian-liang&#x2F;">邪恶的非常量全局变量</a></span>
+</div>
+<div class="columns">
+              <div id="item" class="column col-8 col-md-12 extra-spacing">
+<div class="card">
+  
+
+    <div class="card-header">
+      <div class="card-title" style="margin-top: .25rem;"><div>
+          <h1 class="post-title">邪恶的非常量全局变量</h1>
+          
+    <div class="post-meta" style="display: inline-flex">
+        <span class="blog-date" style="display: inline-flex;">
+          <i class="gg-calendar" style="margin-right: 5px;"></i><time datetime="2023.06.15">
+          2023.06.15
+          </time></span><span class="post-author" style="margin-left: 5px; display: inline-flex;">
+          - 
+    慕予
+        </span></div>
+
+        </div></div>
+    </div><!--./card-header-->
+
+    <div class="card-body">
+      
+        <p>在编程过程中,避免使用全局变量是一个良好的编程实践建议。当然,这里的全局变量主要是指 <strong>非常量全局变量</strong>;</p>
+<p>尽管在小型项目中,这一点似乎看起来人畜无害,但是在大型项目中往往会出现很多问题。</p>
+<p>新手程序员往往比较喜欢使用大量的全局变量,因为这样使用起来方便直接,特别是当设计到不同函数的多次调用传递参数时。</p>
+<blockquote>
+<p>若无特别说明,本文后续内容中提到的全局变量均指 <strong>非常量全局变量</strong>。</p>
+</blockquote>
+<hr />
+<h2 id="quan-ju-bian-liang-de-qian-zai-wei-xian">全局变量的潜在危险<a class="zola-anchor" href="#quan-ju-bian-liang-de-qian-zai-wei-xian" aria-label="Anchor link for: quan-ju-bian-liang-de-qian-zai-wei-xian">🔗</a></h2>
+<p>到目前为止,全局变量危险的最大原因是因为他们的值可以在任何地方被任何调用的函数更改,并且程序员没有简单的方法知道这种情况的发生,考虑下面程序:</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span>
+</span><span style="color:#268bd2;">int</span><span> g_mode; </span><span style="color:#586e75;">// 声明全局变量（默认会被初始化为0）
+</span><span>
+</span><span style="color:#268bd2;">void </span><span style="color:#b58900;">doSomething</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    g_mode </span><span style="color:#657b83;">= </span><span style="color:#6c71c4;">2</span><span>; </span><span style="color:#586e75;">// 将全局变量 g_mode 设置为 2
+</span><span style="color:#657b83;">}
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    g_mode </span><span style="color:#657b83;">= </span><span style="color:#6c71c4;">1</span><span>; </span><span style="color:#586e75;">// 注意：这是将全局变量 g_mode 设置为 1，而不是声明一个局部的 g_mode 变量！
+</span><span>
+</span><span>    </span><span style="color:#b58900;">doSomething</span><span style="color:#657b83;">()</span><span>;
+</span><span>
+</span><span>    </span><span style="color:#586e75;">// 程序员可能仍然期望 g_mode 的值是 1
+</span><span>    </span><span style="color:#586e75;">// 但是 doSomething 函数已经将其更改为 2！
+</span><span>
+</span><span>    </span><span style="color:#859900;">if </span><span style="color:#657b83;">(</span><span>g_mode </span><span style="color:#657b83;">== </span><span style="color:#6c71c4;">1</span><span style="color:#657b83;">)
+</span><span>    </span><span style="color:#657b83;">{
+</span><span>        std::cout </span><span style="color:#657b83;">&lt;&lt; </span><span>&quot;</span><span style="color:#2aa198;">未检测到威胁。</span><span style="color:#dc322f;">\n</span><span>&quot;;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span>    </span><span style="color:#859900;">else
+</span><span>    </span><span style="color:#657b83;">{
+</span><span>        std::cout </span><span style="color:#657b83;">&lt;&lt; </span><span>&quot;</span><span style="color:#2aa198;">发射核导弹...</span><span style="color:#dc322f;">\n</span><span>&quot;;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>请注意，程序员将变量<code>g_mode</code>设置为<em>1</em> ，然后调用<code>doSomething()</code> 。除非程序员明确知道<code>doSomething()</code>将更改<code>g_mode</code>的值，否则他或她可能不会期望<code>doSomething()</code>更改该值！因此， <code>main()</code>的其余部分并不像程序员期望的那样工作,这就导致一枚无情的核弹被发射,恭喜你喜提一份 <strong>公牢</strong>。</p>
+<p>简而言之,全局变量使得程序的状态不可预测,每一个函数调用都具有潜在的危险,并且程序员没有简单的方法来查看和防范这些危险。那么,有什么理由不使用局部变量呢?</p>
+<p>除此之外,还有很多其他不推荐使用全局变量的充分理由。</p>
+<p>对于全局变量,下面的代码并不罕见:</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#268bd2;">void </span><span style="color:#b58900;">someFunction</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">if </span><span style="color:#657b83;">(</span><span>g_mode </span><span style="color:#657b83;">== </span><span style="color:#6c71c4;">4</span><span style="color:#657b83;">)
+</span><span>    </span><span style="color:#657b83;">{
+</span><span>        </span><span style="color:#586e75;">// do something good
+</span><span>    </span><span style="color:#657b83;">}
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>就短短的几行代码,假设此时你的程序出现错误无法工作,因为全局变量g_mode的值是3而不是4导致。你怎么解决?很好,你首先需要找到名为g_mode的全局变量可能存在的位置并追踪它的赋值等操作,这些工作不仅仅值涉及到你这点代码,很有可能存在于很多毫不相干的代码中!</p>
+<p>将局部变量声明为尽可能靠近其使用位置的关键原因之一是，这样做可以最大限度地减少您需要查看以了解变量的作用的代码量。</p>
+<p>全局变量处于相反的一端——因为它们可以在任何地方访问，您可能必须查看整个程序才能了解它们的用法。在小项目中，这可能不是问题。但在大项目中,谁说得准呢是吧?</p>
+<blockquote>
+<p>例如,你发现某个全局变量在你的项目中被引用了545次。如果你一开始没有很好的文档跟踪记录,那么你可能必须仔细查看这个变量在每一个地方的使用,以了解它在不同情况下的使用方式、生效条件、影响的逻辑功能等等。</p>
+</blockquote>
+<p>另外,全局变量还会降低程序模块化程度和灵活性 :</p>
+<ul>
+<li>
+<p>当函数依赖全局变量时，函数的行为可能受到外部状态的影响，无法单独测试或理解其逻辑。</p>
+<p>例如，函数可能隐式依赖某个全局变量的值，而这个值又可能在其他地方被改变，导致函数的行为不可预测。</p>
+</li>
+<li>
+<p>如果函数与全局变量绑定过紧，这个函数就无法在其他场景中复用，除非那些场景中也包含相同的全局变量。</p>
+</li>
+</ul>
+<hr />
+<h2 id="quan-ju-bian-liang-de-chu-shi-hua-wen-ti">全局变量的初始化问题<a class="zola-anchor" href="#quan-ju-bian-liang-de-chu-shi-hua-wen-ti" aria-label="Anchor link for: quan-ju-bian-liang-de-chu-shi-hua-wen-ti">🔗</a></h2>
+<p>静态变量(包括全局变量)的初始化时程序启动的一部分,在<code>main</code>函数执行之前,这分为两个阶段执行:</p>
+<p>第一阶段称为<strong>静态初始化</strong>。静态初始化分为两个步骤：</p>
+<ul>
+<li><strong>全局变量带有</strong> constexpr <strong>初始化器（包括字面值）的会被初始化为这些指定的值</strong>，这被称为<strong>常量初始化</strong>。</li>
+<li><strong>没有初始化器的全局变量会被初始化为零</strong>。由于零是一个 constexpr 值，因此零初始化也被认为是静态初始化的一种形式。</li>
+</ul>
+<p>第二个阶段被称为<strong>动态初始化</strong>。这一阶段更为复杂和细致，但其核心是：<strong>带有非</strong> constexpr <strong>初始化器的全局变量会在此阶段被初始化</strong>。</p>
+<p>以下是一个非 constexpr 初始化器的示例：</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#268bd2;">int </span><span style="color:#b58900;">init</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">5</span><span>;
+</span><span style="color:#657b83;">}
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">g_something</span><span style="color:#657b83;">{ </span><span style="color:#b58900;">init</span><span style="color:#657b83;">() }</span><span>; </span><span style="color:#586e75;">// non-constexpr initialization
+</span></code></pre>
+<p>在单个文件中，对于每个阶段，全局变量通常按定义顺序进行初始化（对于动态初始化阶段，此规则有一些例外）。鉴于此，需要小心，不要让变量依赖于稍后才会初始化的其他变量的初始化值。例如：</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">initX</span><span style="color:#657b83;">()</span><span>;  </span><span style="color:#586e75;">// forward declaration
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">initY</span><span style="color:#657b83;">()</span><span>;  </span><span style="color:#586e75;">// forward declaration
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">g_x</span><span style="color:#657b83;">{ </span><span style="color:#b58900;">initX</span><span style="color:#657b83;">() }</span><span>; </span><span style="color:#586e75;">// g_x is initialized first
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">g_y</span><span style="color:#657b83;">{ </span><span style="color:#b58900;">initY</span><span style="color:#657b83;">() }</span><span>;
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">initX</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">return</span><span> g_y; </span><span style="color:#586e75;">// g_y isn&#39;t initialized when this is called
+</span><span style="color:#657b83;">}
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">initY</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">5</span><span>;
+</span><span style="color:#657b83;">}
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    std::cout </span><span style="color:#657b83;">&lt;&lt;</span><span> g_x </span><span style="color:#657b83;">&lt;&lt; </span><span>&#39; &#39; </span><span style="color:#657b83;">&lt;&lt;</span><span> g_y </span><span style="color:#657b83;">&lt;&lt; </span><span>&#39;</span><span style="color:#dc322f;">\n</span><span>&#39;;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<blockquote>
+<p>更严重的问题是,静态对象在不同翻译单元之间的初始化顺序是不明确的。</p>
+</blockquote>
+<p>给定两个.cpp文件,任意一个文件都可以首先初始化全局变量。如果其中a.cpp中某个具有静态持续时间的变量使用b.cpp中定义的静态持续时间进行变量初始化,则b.cpp中的变量有50%的几率尚未初始化。</p>
+<hr />
+<h2 id="shi-yong-quan-ju-bian-liang-de-yi-xie-jian-yi">使用全局变量的一些建议<a class="zola-anchor" href="#shi-yong-quan-ju-bian-liang-de-yi-xie-jian-yi" aria-label="Anchor link for: shi-yong-quan-ju-bian-liang-de-yi-xie-jian-yi">🔗</a></h2>
+<ul>
+<li>首先,在全局变量名加上<code>g_</code>前缀,或者更好的做法是将他们放在命名空间中,以减少出现命名冲突的可能性:</li>
+</ul>
+<p>例如,下面的代码;</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span>
+</span><span style="color:#859900;">constexpr </span><span style="color:#268bd2;">double</span><span> gravity </span><span style="color:#657b83;">{ </span><span style="color:#6c71c4;">9.8 </span><span style="color:#657b83;">}</span><span>; 
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    std::cout </span><span style="color:#657b83;">&lt;&lt;</span><span> gravity </span><span style="color:#657b83;">&lt;&lt; </span><span>&#39;</span><span style="color:#dc322f;">\n</span><span>&#39;; 
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>可以调整为:</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span>
+</span><span style="color:#859900;">namespace </span><span style="color:#b58900;">constants
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">constexpr </span><span style="color:#268bd2;">double</span><span> gravity </span><span style="color:#657b83;">{ </span><span style="color:#6c71c4;">9.8 </span><span style="color:#657b83;">}</span><span>; 
+</span><span style="color:#657b83;">}
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    std::cout </span><span style="color:#657b83;">&lt;&lt;</span><span> constants::gravity </span><span style="color:#657b83;">&lt;&lt; </span><span>&#39;</span><span style="color:#dc322f;">\n</span><span>&#39;; are global</span><span style="background-color:#6e2e32;color:#839496;">)</span><span>
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<ul>
+<li>其次,一个不错的做法是对变量进行“封装化”,而不是允许直接访问全局变量。</li>
+</ul>
+<p>确保变量只能从声明文件内访问,例如将其设置为static或者const,然后提供外部访问函数来处理该变量。这些功能可以确保维护正确的使用,例如进行输入验证、范围检测等。</p>
+<ul>
+<li>在编写使用全局变量的独立函数时,不要直接在函数体中使用该变量,相反,我们应该将其作为函数参数传递使用。这样一来,如果你的函数需要在某些情况下使用不同的值,只需要修改参数即可,这也是模块化编程的一种良好实践。</li>
+</ul>
+<p>例如:</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span>
+</span><span style="color:#859900;">namespace </span><span style="color:#b58900;">constants
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">constexpr </span><span style="color:#268bd2;">double</span><span> gravity </span><span style="color:#657b83;">{ </span><span style="color:#6c71c4;">9.8 </span><span style="color:#657b83;">}</span><span>;
+</span><span style="color:#657b83;">}
+</span><span>
+</span><span style="color:#268bd2;">double </span><span style="color:#b58900;">instantVelocity</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">int time</span><span style="color:#657b83;">)
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">return</span><span> constants::gravity </span><span style="color:#859900;">*</span><span> time;
+</span><span style="color:#657b83;">}
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    std::cout </span><span style="color:#657b83;">&lt;&lt; </span><span style="color:#b58900;">instantVelocity</span><span style="color:#657b83;">(</span><span style="color:#6c71c4;">5</span><span style="color:#657b83;">) &lt;&lt; </span><span>&#39;</span><span style="color:#dc322f;">\n</span><span>&#39;;
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span>
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>建议的写法是:</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span>
+</span><span style="color:#859900;">namespace </span><span style="color:#b58900;">constants
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">constexpr </span><span style="color:#268bd2;">double</span><span> gravity </span><span style="color:#657b83;">{ </span><span style="color:#6c71c4;">9.8 </span><span style="color:#657b83;">}</span><span>;
+</span><span style="color:#657b83;">}
+</span><span>
+</span><span style="color:#268bd2;">double </span><span style="color:#b58900;">instantVelocity</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">int time</span><span>, </span><span style="color:#268bd2;">double gravity</span><span style="color:#657b83;">)
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">return</span><span> gravity </span><span style="color:#859900;">*</span><span> time;
+</span><span style="color:#657b83;">}
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    std::cout </span><span style="color:#657b83;">&lt;&lt; </span><span style="color:#b58900;">instantVelocity</span><span style="color:#657b83;">(</span><span style="color:#6c71c4;">5</span><span>, constants::gravity</span><span style="color:#657b83;">) &lt;&lt; </span><span>&#39;</span><span style="color:#dc322f;">\n</span><span>&#39;; 
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<blockquote>
+<p>感谢阅读!</p>
+</blockquote>
+
+      
+    </div><!--./card-body-->
+
+    <div class="card-footer">
+      <div class="columns">
+        <div class="column col-9 col-sm-7">
+          <div class="taxonomies text-left">
+            
+
+    
+          </div>
+        </div><!--./col-6-->
+        
+        </div><!--./columns-->
+    </div><!--./card-footer-->
+</div><!--./card-->
+</div>
+              <div id="sidebar" class="column col-4 col-md-12">
+                <div class="sidebar-content">
+                  
+                  
+<div class="sidebar-widget">
+  <div class="tile">
+    <div class="tile-icon">
+      <figure class="avatar avatar-xl">
+        <img src="https://ilikexff.cn/avatar.png" alt="author avatar image">
+      </figure>
+    </div>
+    <div class="tile-content">
+      <p class="tile-title" style="font-weight: 600;">慕予</p>
+      <p class="tile-subtitle">热爱编程，专注于技术分享和学习</p>
+    </div>
+</div><!--./tile-->
+</div>
+
+                  
+                  
+<div class="sidebar-widget">
+  欢迎来到<strong>八尺妖剑</strong>！这里分享技术文章和编程心得。
+</div><!-- end text widget -->
+
+                  
+
+                  
+<div class="sidebar-widget syndicate">
+<h4>Feed</h4>
+<a class="btn" href="/rss.xml">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-rss-fill" viewBox="0 0 16 16">
+  <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm1.5 2.5c5.523 0 10 4.477 10 10a1 1 0 1 1-2 0 8 8 0 0 0-8-8 1 1 0 0 1 0-2zm0 4a6 6 0 0 1 6 6 1 1 0 1 1-2 0 4 4 0 0 0-4-4 1 1 0 0 1 0-2zm.5 7a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+</svg>
+<span>RSS</span>
+</a>
+</div>
+
+                  </div><!--./sidebar-content-->
+              </div>
+            </div>
+            
+          </section>
+        </section></section>
+<section class="container grid-xl">
+<ul class="pagination paginator">
+  
+  
+</ul>
+</section>
+</div><!-- ./page-wrapper -->
+
+    
+<div class="mobile-container">
+        <div class="overlay" id="overlay">
+            <div style="padding: 1rem;">
+              
+<a class="site-logo" href="https:&#x2F;&#x2F;ilikexff.cn">
+  
+  <div class="col-mx-auto">
+    <figure style="margin: 8px">
+      <img class="img-responsive"
+           style="max-height: 45px"
+           alt="frontmatter image"
+           src="https://ilikexff.cn/./logo.svg">
+    </figure>
+  </div>
+  
+</a>
+
+            </div>
+            <nav class="overlay-menu">
+              
+
+<ul class="tree treemenu treemenu-root"><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/tags">标签</a>
+    </li><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/categories">分类</a>
+    </li><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/about">关于</a>
+    </li></ul>
+
+
+              </nav>
+        </div>
+    </div>
+
+<script type="text/javascript">
+  var overlay = document.getElementById('overlay');
+  var toggle = document.getElementById('toggle');
+
+  function openOverlay(){
+      // Open overlay
+      if (overlay.classList.contains("open")) {
+          overlay.classList.remove("open");
+      }
+      else {
+          overlay.classList.add("open");
+      }
+
+      // Button transition
+      if (toggle.classList.contains("active")) {
+          toggle.classList.remove("active");
+      }
+      else {
+          toggle.classList.add("active");
+      }
+    }
+</script>
+
+<section id="footer" class="bg-gray">
+  <div class="container grid-xl">
+    
+
+
+    <div class="columns">
+      
+      <div class="column col-6 col-lg-12 col-mx-auto" style="text-align: center;">
+        简单是效率的灵魂 | 黔ICP备2021010295号
+      </div>
+      
+      <div class="column col-6 col-lg-12 col-mx-auto" style="text-align: center;">
+        Made by <a href="https://github.com/gicrisf/">gicrisf</a> -
+        <strong>Zhuia</strong>&nbsp;<a href="https://github.com/gicrisf/zhuia">source code</a>
+        is licensed under <a href="http://opensource.org/licenses/mit-license.php" target="_blank">MIT</a>.
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

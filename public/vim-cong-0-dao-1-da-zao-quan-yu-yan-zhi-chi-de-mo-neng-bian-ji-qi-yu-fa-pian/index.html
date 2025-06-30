@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh" data-theme="light" dir="ltr">
+  <head>
+    <title>Vim从0到1打造全语言支持的万能编辑器-语法篇 - 八尺妖剑</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="简单是效率的灵魂"/>
+
+    <meta property="og:title" content="八尺妖剑 -&nbsp;Vim从0到1打造全语言支持的万能编辑器-语法篇" />
+    <meta property="og:type" content="website"/><meta property="og:url" content="https:&#x2F;&#x2F;ilikexff.cn&#x2F;vim-cong-0-dao-1-da-zao-quan-yu-yan-zhi-chi-de-mo-neng-bian-ji-qi-yu-fa-pian&#x2F;"/><meta property="og:description" content="简单是效率的灵魂"/>
+
+
+    <meta name="twitter:card" content="summary">
+
+
+    <link rel="stylesheet" href="https://ilikexff.cn/spectre/spectre.css">
+    <link rel="stylesheet" href="https://ilikexff.cn/theme.css"><link rel="stylesheet" href="https://ilikexff.cn/custom.css">
+    
+<link rel="alternate" type="application/rss+xml" title="八尺妖剑 RSS" href="https://ilikexff.cn/rss.xml">
+        
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script>
+        function doRenderMath() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false},
+                {left: "\\begin{equation}", right: "\\end{equation}", display: true},
+                {left: "\\begin{align}", right: "\\end{align}", display: true},
+                {left: "\\begin{alignat}", right: "\\end{alignat}", display: true},
+                {left: "\\begin{gather}", right: "\\end{gather}", display: true},
+                {left: "\\begin{CD}", right: "\\end{CD}", display: true},
+                {left: "\\[", right: "\\]", display: true}
+                ]
+            });
+        }
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+        onload="doRenderMath()"></script>
+
+      </head>
+  <body id="top" class="sticky-footer"><div id="page-wrapper">
+<header id="header" class="section">
+  <section class="container grid-xl">
+    <nav class="navbar">
+      <section class="navbar-section">
+        
+<a class="site-logo" href="https:&#x2F;&#x2F;ilikexff.cn">
+  
+  <div class="col-mx-auto">
+    <figure style="margin: 8px">
+      <img class="img-responsive"
+           style="max-height: 45px"
+           alt="frontmatter image"
+           src="https://ilikexff.cn/./logo.svg">
+    </figure>
+  </div>
+  
+</a>
+
+      </section><!-- ./home button -->
+
+      <section class="navbar-center hide-md"></section>
+
+      <section class="navbar-section">
+        <nav class="dropmenu animated hide-md">
+
+<ul><li>
+        <a href="https://ilikexff.cn/tags">标签</a>
+    </li><li>
+        <a href="https://ilikexff.cn/categories">分类</a>
+    </li><li>
+        <a href="https://ilikexff.cn/about">关于</a>
+    </li></ul>
+
+
+          </nav>
+      </section><!-- ./desktop-menu -->
+    </nav>
+  </section><!-- ./container -->
+</header>
+
+
+<div class="mobile-menu">
+  <div class="button_container" id="toggle" onclick="openOverlay()">
+    <span class="top"></span>
+    <span class="middle"></span>
+    <span class="bottom"></span>
+  </div>
+</div><!--./mobile-menu-->
+
+
+<section id="start"><section id="body-wrapper" class="section">
+          <section class="container grid-xl">
+<div id="breadcrumbs" itemtype="http://schema.org/BreadcrumbList" class="hide-sm">
+  
+    
+    <span><a href="https:&#x2F;&#x2F;ilikexff.cn&#x2F;">Home</a></span>
+  
+    <span><a href="https:&#x2F;&#x2F;ilikexff.cn&#x2F;vim-cong-0-dao-1-da-zao-quan-yu-yan-zhi-chi-de-mo-neng-bian-ji-qi-yu-fa-pian&#x2F;">Vim从0到1打造全语言支持的万能编辑器-语法篇</a></span>
+</div>
+<div class="columns">
+              <div id="item" class="column col-8 col-md-12 extra-spacing">
+<div class="card">
+  
+
+    <div class="card-header">
+      <div class="card-title" style="margin-top: .25rem;"><div>
+          <h1 class="post-title">Vim从0到1打造全语言支持的万能编辑器-语法篇</h1>
+          
+    <div class="post-meta" style="display: inline-flex">
+        <span class="blog-date" style="display: inline-flex;">
+          <i class="gg-calendar" style="margin-right: 5px;"></i><time datetime="2025.05.13">
+          2025.05.13
+          </time></span><span class="post-author" style="margin-left: 5px; display: inline-flex;">
+          - 
+    慕予
+        </span></div>
+
+        </div></div>
+    </div><!--./card-header-->
+
+    <div class="card-body">
+      
+        <p><img src="https://images.waer.ltd/notes/vim.jpg" alt="vim" loading="lazy" decoding="async" /></p>
+<ul>
+<li><strong>本期内容:</strong></li>
+</ul>
+<blockquote>
+<ul>
+<li><code>Vim</code>的简单概述</li>
+<li><code>Vim</code>的基础语法</li>
+<li><code>Vim</code>学习方法论</li>
+</ul>
+</blockquote>
+<hr />
+<h2 id="">1. Vim概述<a class="zola-anchor" href="#" aria-label="Anchor link for: ">🔗</a></h2>
+<p><a class="" href="https://www.vim.org/">Vim官方网站</a></p>
+<p><code>Vim（Vi IMproved）</code>是一款流行的文本编辑器，是 <code>Unix </code>和类 <code>Unix </code>系统下的一种强大工具。</p>
+<hr />
+<blockquote>
+<p>你的鼠标有点像医生在你很小的时候就植入你的身体，告诉你的父母这是在电脑上做某事的最佳设备。你喜欢它是因为你已经深深地习惯了它，而且已经习惯了很长一段时间。</p>
+</blockquote>
+<blockquote>
+<p>问问自己：如果鼠标如此完美，为什么你最喜欢的 <code>IDE </code>有 <code>341324</code> 个键盘快捷键？也许是因为使用键盘速度更快？更轻松？更高效？更舒服吗？</p>
+</blockquote>
+<blockquote>
+<p>你的鼠标不是你最好的朋友。这只是一个朋友。你的键盘才是你真正的异母兄弟。力量来自于它，而 Vim 非常适合您驾驭和释放这种力量。</p>
+</blockquote>
+<hr />
+<h2 id="-1">2. Vim基础语法<a class="zola-anchor" href="#-1" aria-label="Anchor link for: -1">🔗</a></h2>
+<h3 id="-2">2.1 模式<a class="zola-anchor" href="#-2" aria-label="Anchor link for: -2">🔗</a></h3>
+<p>学习<code>Vim</code>必须了解它的一些基本规则。<code>vim</code>和常规编辑器最大的区别之一是它分为四种基本模式: <strong>正常模式</strong> <strong>插入模式</strong> <strong>视觉模式</strong> <strong>命令行模式</strong>：</p>
+<ul>
+<li><strong>Normal Mode 正常模式</strong></li>
+</ul>
+<p>正常模式下，我们不能对文件内容进行编辑操作，包括插入、删除、替换等。只能移动光标来浏览内容：</p>
+<p><img src="https://images.waer.ltd/notes/image-20240429175654469.png" alt="image-20240429175654469" loading="lazy" decoding="async" /></p>
+<p>该模式下，我们可以通过下面的按键来移动光标：</p>
+<blockquote>
+<p>按下 <kbd>h</kbd> 向左移动一个字符。
+按下 <kbd>j</kbd> 向下移动一个字符。
+按下 <kbd>k</kbd> 向上移动一个字符。
+按下 <kbd>l</kbd> 向右移动一个字符。</p>
+</blockquote>
+<hr />
+<p><strong>Insert Mode 插入模式</strong></p>
+<p>在默认的正常模式下，我们可以通过按下<kbd>i</kbd>来切换到插入模式，注意是大小写，既然这里提到了大小写问题，那就顺带说了，<code>Vim</code>对大小写非常敏感，比敏感肌还敏感，同一个字符大小写不同可能造成的功能差异天壤之别。</p>
+<p><img src="https://images.waer.ltd/notes/image-20240429180820758.png" alt="image-20240429180820758" loading="lazy" decoding="async" /></p>
+<p>观察上图，当我们按下<kbd>i</kbd>时，左下角会有一个<code>-- INSERT --</code>模式提示，光标样式也会发生变化。当然，切换到插入模式的命令很多，不要着急，当下的重点在于理解这几种模式，具体的其他命令后面都会一一讲解。</p>
+<p>在插入模式下，我们可以通过<kbd>Esc</kbd>来切换到正常模式。</p>
+<hr />
+<p><strong>Visual Mode 视觉模式</strong></p>
+<p>这个模式主要在选择内容是切换。</p>
+<p><img src="https://images.waer.ltd/notes/image-20240429182144541.png" alt="image-20240429182144541" loading="lazy" decoding="async" /></p>
+<p>在<strong>正常模式</strong>下，通过下面的按键执行切换：</p>
+<ul>
+<li><kbd>V</kbd> 切换到视觉模式并以行为选择单位；</li>
+<li><kbd>v</kbd> 切换到视觉模式以字符为选择单位；</li>
+<li><kbd>Ctrl+v</kbd> 切换视觉模式以块为选择单位；</li>
+</ul>
+<hr />
+<p><strong>Command-Line Mode 命令行模式</strong></p>
+<p>如果你在 <code>NORMAL </code>模式下输入 <code>:</code> ，你的光标会自动停在 <code>Vim </code>的底部。从那里，您可以输入任何您想要的命令。这些命令也称为 <code>Ex </code>命令。</p>
+<p>比如下图中的例子就是使用命令行模式的搜索命令</p>
+<p><img src="https://images.waer.ltd/notes/image-20240429193331309.png" alt="image-20240429193331309" loading="lazy" decoding="async" /></p>
+<p>该模式下的高频命令:</p>
+<ul>
+<li><kbd>:help</kbd></li>
+</ul>
+<blockquote>
+<p>打开 <code>Vim </code>的帮助。可以说是最有用的命令。这个帮助非常完整。例如，如果您不记得如何退出 <code>Vim</code>，可以输入 <code>:help quit</code> 。</p>
+</blockquote>
+<ul>
+<li><kbd>:q</kbd></li>
+</ul>
+<blockquote>
+<p>退出当前窗口。如果只有一个窗口（这是默认的），你最终将退出 <code>Vim</code>。</p>
+</blockquote>
+<ul>
+<li><kbd>:q!</kbd></li>
+</ul>
+<blockquote>
+<p>退出而不保存。有强制效果。</p>
+</blockquote>
+<ul>
+<li><kbd>:w</kbd></li>
+</ul>
+<blockquote>
+<p>保持当前文件</p>
+</blockquote>
+<ul>
+<li><kbd>:wq</kbd></li>
+</ul>
+<blockquote>
+<p>保存并退出当前文件，这是组合命令。拥有同样功能但更加简化的另外一个命令是<code>:x</code></p>
+</blockquote>
+<hr />
+<blockquote>
+<p>上面几种模式的切换都是在正常模式下进行。</p>
+</blockquote>
+<hr />
+<h3 id="-3">2.2 通用命令<a class="zola-anchor" href="#-3" aria-label="Anchor link for: -3">🔗</a></h3>
+<p>该部分主要列一些通用的的基础命令，不仅仅是针对这部分内容是这样，其他部分的命令也只会列一部常用的，其他的东西需要自己用到时候或者当下就很好奇，那就可以通过查询文档获得帮助，这也是学习<code>Vim</code>的核心方法，<strong>随用随查随记</strong>。</p>
+<p>千万不要可以的去记忆或者尝试背下来这些命令，那会是一件很恐怖的事情。</p>
+<h4 id="-4">2.2.1 搜索<a class="zola-anchor" href="#-4" aria-label="Anchor link for: -4">🔗</a></h4>
+<p>简单的搜索，使用<code>/</code>就够用了，在命令行模式下使用。确定搜索内容之后按下回车就可以了。下面是针对搜索结果的操作：</p>
+<ul>
+<li><kbd>n</kbd>：转到下一个搜索结果</li>
+<li><kbd>N</kbd>：转到上一个搜索结果</li>
+</ul>
+<p><img src="https://images.waer.ltd/notes/image-20240429210746138.png" alt="image-20240429210746138" loading="lazy" decoding="async" /></p>
+<p>除了这种方式，还有一种基于正常模式下的搜索，在正常模式下使用这两个按键来搜索光标下的单词</p>
+<p><kbd>*</kbd>:向前搜索</p>
+<p><kbd>#</kbd>:向后搜索</p>
+<p><img src="https://images.waer.ltd/notes/image-20240429210517956.png" alt="image-20240429210517956" loading="lazy" decoding="async" /></p>
+<blockquote>
+<p>您可以通过输入 <code>n</code> 转到 下一个搜索结果。要转到上一个，请使用 <code>N</code></p>
+</blockquote>
+<hr />
+<h4 id="-5">2.2.2 撤消&amp;重做<a class="zola-anchor" href="#-5" aria-label="Anchor link for: -5">🔗</a></h4>
+<p>撤销的功能类似于普通编辑器下的<kbd>Ctrl+z</kbd>,明白?</p>
+<p><kbd>u</kbd> ：撤销到上一次编辑操作</p>
+<p><kbd>Ctrl+r</kbd>:重做当下的操作</p>
+<blockquote>
+<p>怎么理解呢，比如说我上一步刚刚写了一行代码，下一刻发现没必要，于是我执行了撤销，此时这行代码将会回退到没写之前，欧克，现在我又后知后觉觉得上一步执行的撤销操作没必要了，我可以执行重做命令，恢复这行代码。</p>
+</blockquote>
+<hr />
+<h4 id="-6">2.2.3 常见插入<a class="zola-anchor" href="#-6" aria-label="Anchor link for: -6">🔗</a></h4>
+<p>上面提过的<kbd>i</kbd>就不再列了。下面是其他一些常用的插入模式命令：</p>
+<p><kbd>a</kbd>:在当前字符后插入内容</p>
+<p><kbd>A</kbd>:在当前光标所有内容之后插入内容</p>
+<blockquote>
+<p>比如我有一段内容“<code>are you ok</code>?“此时我光标位于这段句子的任何一个位置，当我按下<kbd>A</kbd>之后光标会跳到句末并开启插入模式。</p>
+</blockquote>
+<p><kbd>o</kbd>:在当前行下方新建一行并开启插入模式</p>
+<p><kbd>O</kbd>:在当前行上方新建一行并开启插入模式</p>
+<hr />
+<h4 id="-7">2.2.4 其他杂项<a class="zola-anchor" href="#-7" aria-label="Anchor link for: -7">🔗</a></h4>
+<p><kbd>$</kbd>:光标移动到行尾</p>
+<p><kbd>0</kbd>:光标移动到行首(这种方式包含空格)</p>
+<p><kbd>^</kbd>也是光标移动到行首(不包含空格)</p>
+<hr />
+<h2 id="-8">2.3 常用组合命令<a class="zola-anchor" href="#-8" aria-label="Anchor link for: -8">🔗</a></h2>
+<h3 id="-9">2.3.1 常用组合<a class="zola-anchor" href="#-9" aria-label="Anchor link for: -9">🔗</a></h3>
+<p><kbd>:%d</kbd>:清空整个文件内容，包括缓冲区(理解为剪切板)</p>
+<p><kbd>dG</kbd>：删除当前行及其以下内容</p>
+<p><kbd>ggVG</kbd>:全选文件内容</p>
+<blockquote>
+<ul>
+<li><code>gg</code>：将光标移动到文件的第一行。</li>
+<li><code>V</code>：进入可视模式，开始选择文本。</li>
+<li><code>G</code>：将光标移动到文件的最后一行，这样就会选择整个文本。</li>
+</ul>
+</blockquote>
+<p><kbd>dw</kbd>:删除当前单词</p>
+<p><kbd>dd</kbd>:删除当前行</p>
+<p><kbd>d$</kbd>:从光标处删除到行尾</p>
+<p><kbd>dgg</kbd>:删除从光标到文件开头的所有内容</p>
+<p><kbd>ggdG</kbd>:将删除文件中的所有内容</p>
+<p><kbd>ciw</kbd>:将删除光标下的当前单词并切换到 INSERT 模式</p>
+<p><kbd>diw</kbd>:删除光标下的当前单词</p>
+<p><kbd>nG</kbd>：将光标移动到指定行开头，这里的<code>n</code>是概数，可以是任意可达数字，比如跳到第12行开头命令是<kbd>10G</kbd></p>
+<hr />
+<h3 id="-10">2.3.2 复制粘贴相关<a class="zola-anchor" href="#-10" aria-label="Anchor link for: -10">🔗</a></h3>
+<p><strong>复制</strong></p>
+<ul>
+<li>
+<p>按<kbd>v</kbd>进入视图模式</p>
+</li>
+<li>
+<p>方向键选择需要复制的内容</p>
+</li>
+<li>
+<p>按下<kbd>y</kbd>复制选中的内容</p>
+</li>
+<li>
+<p><kbd>yy</kbd>：复制整行</p>
+</li>
+</ul>
+<p><strong>粘贴</strong></p>
+<ul>
+<li>将光标移动到需要粘贴的位置</li>
+<li>按下<kbd>y</kbd>粘贴复制的内容，如果要在当前光标之前粘贴，可以使用<kbd>P</kbd></li>
+</ul>
+<hr />
+<p><strong>窗口滚动</strong></p>
+<ul>
+<li><kbd>Ctrl+e</kbd>:向下滚动窗口</li>
+<li><kbd>Ctrl+u</kbd>：将光标 向前移动半个屏幕(会优先滚动屏幕)</li>
+<li><kbd>&lt;Ctrl+d&gt;</kbd>:将光标向自己移动半个屏幕(会优先滚动屏幕)</li>
+</ul>
+<p>关于常用命令就到这里告一段落了，这些都是<code>Vim</code>必会而且也是最常用的命令，当然也是最基础的东西，更是冰山一角。</p>
+<p>更多高阶的内容将会作为本专栏的最后一篇文章发表，欢迎关注。</p>
+<hr />
+<h2 id="-11">3. Vim学习方法论<a class="zola-anchor" href="#-11" aria-label="Anchor link for: -11">🔗</a></h2>
+<p>这里是什么呢，简单说一下怎么学<code>Vim</code>吧，或者说分享一些我自己的学习方法。</p>
+<ul>
+<li>前面提到的 <strong>随用随查随记</strong> 不要可以去被命令，这些单词不需要听写，也不考试，戒骄戒躁慢慢来。</li>
+</ul>
+<blockquote>
+<p>为什么把这个作为第一条方法呢，其实很多人都接触过这个东西，可能在某些时刻也曾经立下山盟海誓，不学好<code>Vim</code>，是不为人，结果一入门即是劝退，骂骂咧咧的走了。目前为止，对我来说可能最难搞的有两件事：</p>
+<ul>
+<li>坚持使用<code>Vim</code>并不断学习</li>
+<li>学习<code>Rust</code></li>
+</ul>
+<p>当然，还是那句话，坚持下来了才是赢家。</p>
+</blockquote>
+<ul>
+<li>大量练习！大量练习！大量练习！</li>
+</ul>
+<blockquote>
+<p>如果你觉得特意去准备一篇内容来练习这些命令很枯燥，那么我不妨采用我的方法：</p>
+<ul>
+<li>在<code>Linux</code>环境下只使用<code>Vim</code>编辑器</li>
+<li>其他环境下，比如<code>windows</code>环境，尽可能使用<code>Vim</code>插件或者有选择的情况下选中<code>Vim</code>模式，旧我自己来说，我所有的编程工具和编辑器都安装了<code>Vim</code>插件(有的话)，而且几乎任何时候都是坚持使用<code>Vim</code>模式，写代码，看源码什么的，只要这个工具打开 了，那么就只有<code>Vim</code>。</li>
+<li>坚持刷题的朋友都知道，一些<code>OJ</code>上也提供了<code>Vim</code>的模式，请毫不犹豫的打开它。</li>
+</ul>
+</blockquote>
+<ul>
+<li>刻意练习</li>
+</ul>
+<blockquote>
+<p>不要觉得我两面三刀，我这里说的可以练习和上面说的含义不同，这里的可以练习是建立在坚持在<code>Vim</code>环境下开发的前提下的。</p>
+<ul>
+<li>每当有任何操作需求时，尽可能不要想着去动鼠标，第一时间去看文档或者问<code>AI</code>都可以，优先考虑这种方式使用<code>Vim</code>如何完成。</li>
+<li>通过上一步之后，必然会获得一些自己遗忘的或者说没接触过的新操作，新命令，要建立一个随手记的小本本，比如记事本，把刚才学到的新东西记录下来，以备后续统一整理和复习查阅。</li>
+</ul>
+</blockquote>
+<ul>
+<li>板正心态</li>
+</ul>
+<blockquote>
+<p>我知道有一部分人头热学习<code>Vim</code>就是为了想装个B，毕竟这玩意会用的人确实不多，看起来花里胡哨的牛逼克拉斯的，就跳出了为装逼学习的念头。</p>
+<p>但我告诉你，这是一种病态的想法，你的初衷决定了你的上限。只有真心热爱并且想学好<code>Vim</code>来提升自己工作开发效率的人，才有希望坚持下来，这毕竟是个长期活，没有什么速成大法，也没有捷径可走。</p>
+<p>当然，那些真心想学习的也不要在意别人的眼光和非议，不要觉得在公司或者一些公共场合不敢使用<code>Vim</code>，怕自己不够熟练被嘲笑，那可真不必，毕竟大部分人的看法都是依托答辩！</p>
+</blockquote>
+<hr />
+<p>本文的内容到这里就结束了，感谢阅读，欢迎指正，共同进步!</p>
+
+      
+    </div><!--./card-body-->
+
+    <div class="card-footer">
+      <div class="columns">
+        <div class="column col-9 col-sm-7">
+          <div class="taxonomies text-left">
+            
+
+    
+          </div>
+        </div><!--./col-6-->
+        
+        </div><!--./columns-->
+    </div><!--./card-footer-->
+</div><!--./card-->
+</div>
+              <div id="sidebar" class="column col-4 col-md-12">
+                <div class="sidebar-content">
+                  
+                  
+<div class="sidebar-widget">
+  <div class="tile">
+    <div class="tile-icon">
+      <figure class="avatar avatar-xl">
+        <img src="https://ilikexff.cn/avatar.png" alt="author avatar image">
+      </figure>
+    </div>
+    <div class="tile-content">
+      <p class="tile-title" style="font-weight: 600;">慕予</p>
+      <p class="tile-subtitle">热爱编程，专注于技术分享和学习</p>
+    </div>
+</div><!--./tile-->
+</div>
+
+                  
+                  
+<div class="sidebar-widget">
+  欢迎来到<strong>八尺妖剑</strong>！这里分享技术文章和编程心得。
+</div><!-- end text widget -->
+
+                  
+
+                  
+<div class="sidebar-widget syndicate">
+<h4>Feed</h4>
+<a class="btn" href="/rss.xml">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-rss-fill" viewBox="0 0 16 16">
+  <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm1.5 2.5c5.523 0 10 4.477 10 10a1 1 0 1 1-2 0 8 8 0 0 0-8-8 1 1 0 0 1 0-2zm0 4a6 6 0 0 1 6 6 1 1 0 1 1-2 0 4 4 0 0 0-4-4 1 1 0 0 1 0-2zm.5 7a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+</svg>
+<span>RSS</span>
+</a>
+</div>
+
+                  </div><!--./sidebar-content-->
+              </div>
+            </div>
+            
+          </section>
+        </section></section>
+<section class="container grid-xl">
+<ul class="pagination paginator">
+  
+  
+</ul>
+</section>
+</div><!-- ./page-wrapper -->
+
+    
+<div class="mobile-container">
+        <div class="overlay" id="overlay">
+            <div style="padding: 1rem;">
+              
+<a class="site-logo" href="https:&#x2F;&#x2F;ilikexff.cn">
+  
+  <div class="col-mx-auto">
+    <figure style="margin: 8px">
+      <img class="img-responsive"
+           style="max-height: 45px"
+           alt="frontmatter image"
+           src="https://ilikexff.cn/./logo.svg">
+    </figure>
+  </div>
+  
+</a>
+
+            </div>
+            <nav class="overlay-menu">
+              
+
+<ul class="tree treemenu treemenu-root"><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/tags">标签</a>
+    </li><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/categories">分类</a>
+    </li><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/about">关于</a>
+    </li></ul>
+
+
+              </nav>
+        </div>
+    </div>
+
+<script type="text/javascript">
+  var overlay = document.getElementById('overlay');
+  var toggle = document.getElementById('toggle');
+
+  function openOverlay(){
+      // Open overlay
+      if (overlay.classList.contains("open")) {
+          overlay.classList.remove("open");
+      }
+      else {
+          overlay.classList.add("open");
+      }
+
+      // Button transition
+      if (toggle.classList.contains("active")) {
+          toggle.classList.remove("active");
+      }
+      else {
+          toggle.classList.add("active");
+      }
+    }
+</script>
+
+<section id="footer" class="bg-gray">
+  <div class="container grid-xl">
+    
+
+
+    <div class="columns">
+      
+      <div class="column col-6 col-lg-12 col-mx-auto" style="text-align: center;">
+        简单是效率的灵魂 | 黔ICP备2021010295号
+      </div>
+      
+      <div class="column col-6 col-lg-12 col-mx-auto" style="text-align: center;">
+        Made by <a href="https://github.com/gicrisf/">gicrisf</a> -
+        <strong>Zhuia</strong>&nbsp;<a href="https://github.com/gicrisf/zhuia">source code</a>
+        is licensed under <a href="http://opensource.org/licenses/mit-license.php" target="_blank">MIT</a>.
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

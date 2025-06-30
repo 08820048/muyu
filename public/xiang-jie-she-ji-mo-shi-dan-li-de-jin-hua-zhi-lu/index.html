@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="zh" data-theme="light" dir="ltr">
+  <head>
+    <title>详解设计模式_单例的进化之路 - 八尺妖剑</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="深入解析单例模式的各种实现方式，从饿汉式到懒汉式，从线程安全到防反射破坏，详细介绍单例模式的进化历程和最佳实践。"/>
+
+    <meta property="og:title" content="八尺妖剑 -&nbsp;详解设计模式_单例的进化之路" />
+    <meta property="og:type" content="website"/><meta property="og:url" content="https:&#x2F;&#x2F;ilikexff.cn&#x2F;xiang-jie-she-ji-mo-shi-dan-li-de-jin-hua-zhi-lu&#x2F;"/><meta property="og:description" content="深入解析单例模式的各种实现方式，从饿汉式到懒汉式，从线程安全到防反射破坏，详细介绍单例模式的进化历程和最佳实践。"/>
+
+
+    <meta name="twitter:card" content="summary">
+
+
+    <link rel="stylesheet" href="https://ilikexff.cn/spectre/spectre.css">
+    <link rel="stylesheet" href="https://ilikexff.cn/theme.css"><link rel="stylesheet" href="https://ilikexff.cn/custom.css">
+    
+<link rel="alternate" type="application/rss+xml" title="八尺妖剑 RSS" href="https://ilikexff.cn/rss.xml">
+        
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script>
+        function doRenderMath() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false},
+                {left: "\\begin{equation}", right: "\\end{equation}", display: true},
+                {left: "\\begin{align}", right: "\\end{align}", display: true},
+                {left: "\\begin{alignat}", right: "\\end{alignat}", display: true},
+                {left: "\\begin{gather}", right: "\\end{gather}", display: true},
+                {left: "\\begin{CD}", right: "\\end{CD}", display: true},
+                {left: "\\[", right: "\\]", display: true}
+                ]
+            });
+        }
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+        onload="doRenderMath()"></script>
+
+      </head>
+  <body id="top" class="sticky-footer"><div id="page-wrapper">
+<header id="header" class="section">
+  <section class="container grid-xl">
+    <nav class="navbar">
+      <section class="navbar-section">
+        
+<a class="site-logo" href="https:&#x2F;&#x2F;ilikexff.cn">
+  
+  <div class="col-mx-auto">
+    <figure style="margin: 8px">
+      <img class="img-responsive"
+           style="max-height: 45px"
+           alt="frontmatter image"
+           src="https://ilikexff.cn/./logo.svg">
+    </figure>
+  </div>
+  
+</a>
+
+      </section><!-- ./home button -->
+
+      <section class="navbar-center hide-md"></section>
+
+      <section class="navbar-section">
+        <nav class="dropmenu animated hide-md">
+
+<ul><li>
+        <a href="https://ilikexff.cn/tags">标签</a>
+    </li><li>
+        <a href="https://ilikexff.cn/categories">分类</a>
+    </li><li>
+        <a href="https://ilikexff.cn/about">关于</a>
+    </li></ul>
+
+
+          </nav>
+      </section><!-- ./desktop-menu -->
+    </nav>
+  </section><!-- ./container -->
+</header>
+
+
+<div class="mobile-menu">
+  <div class="button_container" id="toggle" onclick="openOverlay()">
+    <span class="top"></span>
+    <span class="middle"></span>
+    <span class="bottom"></span>
+  </div>
+</div><!--./mobile-menu-->
+
+
+<section id="start"><section id="body-wrapper" class="section">
+          <section class="container grid-xl">
+<div id="breadcrumbs" itemtype="http://schema.org/BreadcrumbList" class="hide-sm">
+  
+    
+    <span><a href="https:&#x2F;&#x2F;ilikexff.cn&#x2F;">Home</a></span>
+  
+    <span><a href="https:&#x2F;&#x2F;ilikexff.cn&#x2F;xiang-jie-she-ji-mo-shi-dan-li-de-jin-hua-zhi-lu&#x2F;">详解设计模式_单例的进化之路</a></span>
+</div>
+<div class="columns">
+              <div id="item" class="column col-8 col-md-12 extra-spacing">
+<div class="card">
+  
+
+    <div class="card-header">
+      <div class="card-title" style="margin-top: .25rem;"><div>
+          <h1 class="post-title">详解设计模式_单例的进化之路</h1>
+          
+    <div class="post-meta" style="display: inline-flex">
+        <span class="blog-date" style="display: inline-flex;">
+          <i class="gg-calendar" style="margin-right: 5px;"></i><time datetime="2023.01.31">
+          2023.01.31
+          </time></span><span class="post-author" style="margin-left: 5px; display: inline-flex;">
+          - 
+    慕予
+        </span></div>
+
+        </div></div>
+    </div><!--./card-header-->
+
+    <div class="card-body">
+      
+        <h2 id="gai-nian">概念<a class="zola-anchor" href="#gai-nian" aria-label="Anchor link for: gai-nian">🔗</a></h2>
+<p><strong>单例模式</strong>(<code>Singleton Pattern</code>)是设计模式中一个重要的模式之一，是确保一个类在任何情况下都绝对<strong>只有一个实例。<strong>单例模式一般会屏</strong>蔽构造器</strong>，单例对象提供一个全局访问点，属于<a class="" href="https://baike.baidu.com/item/%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/22912595?fr=aladdin">创建型模式</a>。</p>
+<p>根据初始化时间的不同，可以将单例模式分为两类：</p>
+<ul>
+<li>饿汉式单例</li>
+<li>懒汉式单例</li>
+</ul>
+<p>当然，除了上面的两个分类之外，处于对性能、安全等方面的考量，单例模式还演化出了各种实现版本，每一种版本的演进，都是单例的一次**进化与升级，**下面就来看看单例模式的进化之路上都经历了哪些挑战与对抗。</p>
+<hr />
+<h2 id="e-yi-shi-dan-li">饿汉式单例<a class="zola-anchor" href="#e-yi-shi-dan-li" aria-label="Anchor link for: e-yi-shi-dan-li">🔗</a></h2>
+<blockquote>
+<p>饿汉式单例，特指在 <strong>类加载的时候就立即初始化并创建单例对象</strong>的一种单例模式写法。由于是在<strong>线程还没有出现之前</strong>就被实例化了，所以这种模式下的单例是线程绝对安全的，不存在访问安全的问题。</p>
+</blockquote>
+<p>根据具体的实现方式划分，饿汉式单例可以通过 <strong>私有化构造器</strong>以及 <strong>使用静态代码块</strong>的方式具体实现。</p>
+<ul>
+<li>私有化构造器写法：<code>HungrySingleton.java</code></li>
+</ul>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#586e75;">/**
+</span><span style="color:#586e75;"> * </span><span style="color:#859900;">@author</span><span style="color:#586e75;">: 八尺妖剑
+</span><span style="color:#586e75;"> * @date: 2023/1/31 9:32
+</span><span style="color:#586e75;"> * @email: ilikexff@gmail.com
+</span><span style="color:#586e75;"> * @blog: https://www.waer.ltd
+</span><span style="color:#586e75;"> * @Description: 饿汉式单例-构造器私有化写法
+</span><span style="color:#586e75;"> */
+</span><span style="color:#93a1a1;">public </span><span style="color:#268bd2;">class </span><span style="color:#b58900;">HungrySingleton </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#93a1a1;">private static final </span><span style="color:#859900;">HungrySingleton </span><span>hungrSingleton  </span><span style="color:#657b83;">= </span><span style="color:#859900;">new HungrySingleton</span><span style="color:#657b83;">()</span><span>;
+</span><span>
+</span><span>    </span><span style="color:#93a1a1;">private </span><span style="color:#b58900;">HungrySingleton</span><span style="color:#657b83;">() {}</span><span>;
+</span><span>
+</span><span>    </span><span style="color:#93a1a1;">public static </span><span style="color:#859900;">HungrySingleton </span><span style="color:#b58900;">getInstance</span><span style="color:#657b83;">() {
+</span><span>        </span><span style="color:#859900;">return</span><span> hungrSingleton;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>上面的代码中，我们将构造器进行了私有化之后，无法再通过<code>new</code>来创建对象，这种实现下，只能通过提供的<code>getInstance()</code>方法来获得单例对象。</p>
+<ul>
+<li>静态代码块写法:<code>HungryStaticSingleton.java</code></li>
+</ul>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">package </span><span style="color:#b58900;">设计模式.单例模式.饿汉式单例</span><span>;
+</span><span>
+</span><span style="color:#586e75;">/**
+</span><span style="color:#586e75;"> * </span><span style="color:#859900;">@author</span><span style="color:#586e75;">: 八尺妖剑
+</span><span style="color:#586e75;"> * @date: 2022/4/23 8:36
+</span><span style="color:#586e75;"> * @description: 饿汉式单例静态块写法
+</span><span style="color:#586e75;"> * @blog:www.waer.ltd
+</span><span style="color:#586e75;"> */
+</span><span>@</span><span style="color:#268bd2;">SuppressWarnings</span><span style="color:#657b83;">({</span><span>&quot;</span><span style="color:#2aa198;">all</span><span>&quot;</span><span style="color:#657b83;">})
+</span><span style="color:#93a1a1;">public </span><span style="color:#268bd2;">class </span><span style="color:#b58900;">HungryStaticSingleton </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#93a1a1;">private static final </span><span style="color:#859900;">HungryStaticSingleton </span><span>hungryStaticSingleton;
+</span><span>
+</span><span>
+</span><span>    </span><span style="color:#93a1a1;">static </span><span style="color:#657b83;">{
+</span><span>        hungryStaticSingleton </span><span style="color:#657b83;">= </span><span style="color:#859900;">new HungryStaticSingleton</span><span style="color:#657b83;">()</span><span>;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span>
+</span><span>    </span><span style="color:#93a1a1;">private </span><span style="color:#b58900;">HungryStaticSingleton</span><span style="color:#657b83;">(){
+</span><span>
+</span><span>    </span><span style="color:#657b83;">}
+</span><span>
+</span><span>    </span><span style="color:#93a1a1;">public static </span><span style="color:#859900;">HungryStaticSingleton </span><span style="color:#b58900;">getInstance</span><span style="color:#657b83;">(){
+</span><span>        </span><span style="color:#859900;">return</span><span> hungryStaticSingleton;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<ul>
+<li>测试类</li>
+</ul>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">package </span><span style="color:#b58900;">ltd.waer.javabaseforio.PatternDesign</span><span>;
+</span><span>
+</span><span>@</span><span style="color:#268bd2;">SuppressWarnings</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">all</span><span>&quot;</span><span style="color:#657b83;">)
+</span><span style="color:#586e75;">/**
+</span><span style="color:#586e75;"> * </span><span style="color:#859900;">@author</span><span style="color:#586e75;">: 八尺妖剑
+</span><span style="color:#586e75;"> * @date: 2023/1/31 9:42
+</span><span style="color:#586e75;"> * @email: ilikexff@gmail.com
+</span><span style="color:#586e75;"> * @blog: https://www.waer.ltd
+</span><span style="color:#586e75;"> * @Description: 饿汉式单例测试类
+</span><span style="color:#586e75;"> */
+</span><span style="color:#93a1a1;">public </span><span style="color:#268bd2;">class </span><span style="color:#b58900;">HungrySingletonTest </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#93a1a1;">public static </span><span style="color:#268bd2;">void </span><span style="color:#b58900;">main</span><span style="color:#657b83;">(</span><span style="color:#859900;">String</span><span style="color:#93a1a1;">[] </span><span style="color:#268bd2;">args</span><span style="color:#657b83;">) {
+</span><span>        </span><span style="color:#586e75;">//私有构造器写法
+</span><span>        </span><span style="color:#859900;">HungrySingleton</span><span> hungrySingleton1 </span><span style="color:#657b83;">= </span><span style="color:#859900;">HungrySingleton</span><span>.</span><span style="color:#b58900;">getInstance</span><span style="color:#657b83;">()</span><span>;
+</span><span>        </span><span style="color:#859900;">HungrySingleton</span><span> hungrySingleton2 </span><span style="color:#657b83;">= </span><span style="color:#859900;">HungrySingleton</span><span>.</span><span style="color:#b58900;">getInstance</span><span style="color:#657b83;">()</span><span>;
+</span><span>        </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>hungrySingleton1 </span><span style="color:#657b83;">==</span><span> hungrySingleton2</span><span style="color:#657b83;">)</span><span>;
+</span><span>
+</span><span>        </span><span style="color:#586e75;">//静态块初始化写法
+</span><span>        </span><span style="color:#859900;">HungryStaticSingleton</span><span> singleton3 </span><span style="color:#657b83;">= </span><span style="color:#859900;">HungryStaticSingleton</span><span>.</span><span style="color:#b58900;">getInstance</span><span style="color:#657b83;">()</span><span>;
+</span><span>        </span><span style="color:#859900;">HungryStaticSingleton</span><span> singleton4 </span><span style="color:#657b83;">= </span><span style="color:#859900;">HungryStaticSingleton</span><span>.</span><span style="color:#b58900;">getInstance</span><span style="color:#657b83;">()</span><span>;
+</span><span>        </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>singleton3</span><span style="color:#657b83;">==</span><span>singleton4</span><span style="color:#657b83;">)</span><span>;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<blockquote>
+<p>测试结果:true。说明两种方式实现的单例都是有效的，因为不论我们调用多少次 <code>getInstance </code>方法最后<strong>返回的就是同一个对象</strong>。</p>
+</blockquote>
+<p><strong>优缺点：</strong></p>
+<p>创建的对象没有添加任何锁，执行效率高。</p>
+<p>由于是在类加载的时候就初始化了，所以不管我们使用与否，它都将占有一定的内存空间，这种情况下，通过项目中存在了大量的单例，那么所占用的内存量就<strong>很可观了</strong>，着实浪费。</p>
+<hr />
+<h2 id="lan-yi-shi-dan-li">懒汉式单例<a class="zola-anchor" href="#lan-yi-shi-dan-li" aria-label="Anchor link for: lan-yi-shi-dan-li">🔗</a></h2>
+<blockquote>
+<p>那么针对上述<strong>饿汉式单例</strong>存在的空间占用问题，有没有合适的替换或者解决方案呢？那么有请<strong>懒汉</strong>出场。</p>
+<p>见名知意， <strong>懒汉式单例</strong>与<strong>饿汉式单例</strong>的理念刚好相反。它不会在 <strong>类加载的时候就初始化</strong>，而是等到用到了才会初始化，就这点来说，确实很 <strong>懒汉</strong>，不饿不吃饭(<del>似乎有点道理??我不饿的时候也不想吃饭</del>)。</p>
+</blockquote>
+<p>到这里，单例模式就开始自己的进化之路了，下面列一下<strong>进化路线</strong>。</p>
+<p>进化主线：</p>
+<blockquote>
+<ul>
+<li>普通非线程安全单例
+<ul>
+<li>sync线程安全单例
+<ul>
+<li>双重检查锁单例
+<ul>
+<li>内部类单例
+<ul>
+<li>枚举式单例</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p>打野副本:</p>
+<blockquote>
+<ul>
+<li>内部类单例
+<ul>
+<li>注册式单例</li>
+<li>单线程安全单例
+<ul>
+<li>枚举式单例</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h3 id="1-pu-tong-fei-xian-cheng-an-quan-dan-li">1. <strong>普通非线程安全单例</strong><a class="zola-anchor" href="#1-pu-tong-fei-xian-cheng-an-quan-dan-li" aria-label="Anchor link for: 1-pu-tong-fei-xian-cheng-an-quan-dan-li">🔗</a></h3>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">package </span><span style="color:#b58900;">ltd.waer.javabaseforio.PatternDesign.LazySingleton</span><span>;
+</span><span>@</span><span style="color:#268bd2;">SuppressWarnings</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">all</span><span>&quot;</span><span style="color:#657b83;">)
+</span><span style="color:#586e75;">/**
+</span><span style="color:#586e75;"> * </span><span style="color:#859900;">@author</span><span style="color:#586e75;">: 八尺妖剑
+</span><span style="color:#586e75;"> * @date: 2023/1/31 9:47
+</span><span style="color:#586e75;"> * @email: ilikexff@gmail.com
+</span><span style="color:#586e75;"> * @blog: https://www.waer.ltd
+</span><span style="color:#586e75;"> * @Description: 版本一:非线程安全
+</span><span style="color:#586e75;"> */
+</span><span style="color:#93a1a1;">public </span><span style="color:#268bd2;">class </span><span style="color:#b58900;">LazySingleton </span><span style="color:#657b83;">{
+</span><span>   </span><span style="color:#93a1a1;">private static </span><span style="color:#859900;">LazySingleton </span><span>lazySingleton </span><span style="color:#657b83;">= </span><span style="color:#b58900;">null</span><span>;
+</span><span>
+</span><span>   </span><span style="color:#93a1a1;">private </span><span style="color:#b58900;">LazySingleton</span><span style="color:#657b83;">() {
+</span><span>
+</span><span>   </span><span style="color:#657b83;">}</span><span>;
+</span><span>
+</span><span>   </span><span style="color:#93a1a1;">public static </span><span style="color:#859900;">LazySingleton </span><span style="color:#b58900;">getInstance</span><span style="color:#657b83;">() {
+</span><span>       </span><span style="color:#859900;">if </span><span style="color:#657b83;">(</span><span style="color:#b58900;">null </span><span style="color:#657b83;">==</span><span> lazySingleton</span><span style="color:#657b83;">) {
+</span><span>           lazySingleton </span><span style="color:#657b83;">= </span><span style="color:#859900;">new LazySingleton</span><span style="color:#657b83;">()</span><span>;
+</span><span>       </span><span style="color:#657b83;">}
+</span><span>       </span><span style="color:#859900;">return</span><span> lazySingleton;
+</span><span>   </span><span style="color:#657b83;">}
+</span><span>
+</span><span>    </span><span style="color:#93a1a1;">public static </span><span style="color:#268bd2;">void </span><span style="color:#b58900;">main</span><span style="color:#657b83;">(</span><span style="color:#859900;">String</span><span style="color:#93a1a1;">[] </span><span style="color:#268bd2;">args</span><span style="color:#657b83;">) {
+</span><span>        </span><span style="color:#859900;">LazySingleton</span><span> instance1 </span><span style="color:#657b83;">= </span><span style="color:#859900;">LazySingleton</span><span>.</span><span style="color:#b58900;">getInstance</span><span style="color:#657b83;">()</span><span>;
+</span><span>        </span><span style="color:#859900;">LazySingleton</span><span> instance2 </span><span style="color:#657b83;">= </span><span style="color:#859900;">LazySingleton</span><span>.</span><span style="color:#b58900;">getInstance</span><span style="color:#657b83;">()</span><span>;
+</span><span>        </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>instance1 </span><span style="color:#657b83;">==</span><span> instance2</span><span style="color:#657b83;">)</span><span>;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>上面是单例的最简单写法，也是最初的一种版本，在开始时将实例赋值为<code>null</code>，并没有进行初始化，而是在调用<code>getInstance</code>方法的时候才会初始化，虽然实现简单，但也存在线程安全问题，<strong>多线程环境下有一定几率会返回多个单例对象</strong>，这显然违背了单例的原则，进一步的解决办法就是下面这种实现。使用<code>synchronizeed</code>关键字保证线程安全。</p>
+<h3 id="2-syncxian-cheng-an-quan-dan-li">2. <code>sync</code><strong>线程安全单例</strong><a class="zola-anchor" href="#2-syncxian-cheng-an-quan-dan-li" aria-label="Anchor link for: 2-syncxian-cheng-an-quan-dan-li">🔗</a></h3>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">package </span><span style="color:#b58900;">ltd.waer.javabaseforio.PatternDesign.LazySingleton</span><span>;
+</span><span>@</span><span style="color:#268bd2;">SuppressWarnings</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">all</span><span>&quot;</span><span style="color:#657b83;">)
+</span><span style="color:#586e75;">/**
+</span><span style="color:#586e75;"> * </span><span style="color:#859900;">@author</span><span style="color:#586e75;">: 八尺妖剑
+</span><span style="color:#586e75;"> * @date: 2023/1/31 9:51
+</span><span style="color:#586e75;"> * @email: ilikexff@gmail.com
+</span><span style="color:#586e75;"> * @blog: https://www.waer.ltd
+</span><span style="color:#586e75;"> * @Description: 线程安全的懒汉式单例-synchronized
+</span><span style="color:#586e75;"> */
+</span><span style="color:#93a1a1;">public </span><span style="color:#268bd2;">class </span><span style="color:#b58900;">LazySyncSingleton </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#93a1a1;">private static </span><span style="color:#859900;">LazySyncSingleton </span><span>lazySyncSingleton </span><span style="color:#657b83;">= </span><span style="color:#b58900;">null</span><span>;
+</span><span>
+</span><span>    </span><span style="color:#93a1a1;">private </span><span style="color:#b58900;">LazySyncSingleton</span><span style="color:#657b83;">() {}</span><span>;
+</span><span>
+</span><span>    </span><span style="color:#93a1a1;">public synchronized </span><span style="color:#859900;">LazySyncSingleton </span><span style="color:#b58900;">getInstance </span><span style="color:#657b83;">() {
+</span><span>        </span><span style="color:#859900;">if </span><span style="color:#657b83;">(</span><span style="color:#b58900;">null </span><span style="color:#657b83;">==</span><span> lazySyncSingleton</span><span style="color:#657b83;">) {
+</span><span>            lazySyncSingleton </span><span style="color:#657b83;">= </span><span style="color:#859900;">new LazySyncSingleton</span><span style="color:#657b83;">()</span><span>;
+</span><span>        </span><span style="color:#657b83;">}
+</span><span>        </span><span style="color:#859900;">return</span><span> lazySyncSingleton;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>上面的实现也非常简单，在前面一种写法的基础山加了一个<code>synchronized</code>关键字即可，这样确实解决了线程安全的问题，但也引出了一个新的问题，<strong>假如单例对象的创建非常复杂耗时的情况下，一旦并发量上来了，CPU压力上升，那么可能会导致大批量线程出现阻塞的情况，从而导致程序的允许性能大幅下降</strong>，解决方法是**双重检查锁(double-checked locking)**单例写法，如下：</p>
+<h3 id="3-shuang-zhong-jian-cha-suo-dan-li">3. <strong>双重检查锁单例</strong><a class="zola-anchor" href="#3-shuang-zhong-jian-cha-suo-dan-li" aria-label="Anchor link for: 3-shuang-zhong-jian-cha-suo-dan-li">🔗</a></h3>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">package </span><span style="color:#b58900;">ltd.waer.javabaseforio.PatternDesign.LazySingleton</span><span>;
+</span><span>@</span><span style="color:#268bd2;">SuppressWarnings</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">all</span><span>&quot;</span><span style="color:#657b83;">)
+</span><span style="color:#586e75;">/**
+</span><span style="color:#586e75;"> * </span><span style="color:#859900;">@author</span><span style="color:#586e75;">: 八尺妖剑
+</span><span style="color:#586e75;"> * @date: 2023/1/31 9:59
+</span><span style="color:#586e75;"> * @email: ilikexff@gmail.com
+</span><span style="color:#586e75;"> * @blog: https://www.waer.ltd
+</span><span style="color:#586e75;"> * @Description: 解决写法2的问题，双重检查锁写法
+</span><span style="color:#586e75;"> */
+</span><span style="color:#93a1a1;">public </span><span style="color:#268bd2;">class </span><span style="color:#b58900;">LazyDoubleCheckSingleton </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#93a1a1;">private volatile static </span><span style="color:#859900;">LazyDoubleCheckSingleton </span><span>lazyDoubleCheckSingleton </span><span style="color:#657b83;">= </span><span style="color:#b58900;">null</span><span>;
+</span><span>
+</span><span>    </span><span style="color:#93a1a1;">private </span><span style="color:#b58900;">LazyDoubleCheckSingleton </span><span style="color:#657b83;">() {
+</span><span>
+</span><span>    </span><span style="color:#657b83;">}</span><span>;
+</span><span>
+</span><span>    </span><span style="color:#93a1a1;">public static </span><span style="color:#859900;">LazyDoubleCheckSingleton </span><span style="color:#b58900;">getInstance</span><span style="color:#657b83;">() {
+</span><span>        </span><span style="color:#859900;">if </span><span style="color:#657b83;">( </span><span style="color:#b58900;">null </span><span style="color:#657b83;">==</span><span> lazyDoubleCheckSingleton</span><span style="color:#657b83;">) {
+</span><span>            </span><span style="color:#93a1a1;">synchronized </span><span style="color:#657b83;">(</span><span style="color:#859900;">LazyDoubleCheckSingleton</span><span>.</span><span style="color:#d33682;">class</span><span style="color:#657b83;">) {
+</span><span>                </span><span style="color:#859900;">if </span><span style="color:#657b83;">(</span><span style="color:#b58900;">null </span><span style="color:#657b83;">==</span><span> lazyDoubleCheckSingleton</span><span style="color:#657b83;">) {
+</span><span>                    lazyDoubleCheckSingleton </span><span style="color:#657b83;">= </span><span style="color:#859900;">new LazyDoubleCheckSingleton</span><span style="color:#657b83;">()</span><span>;
+</span><span>                </span><span style="color:#657b83;">}
+</span><span>            </span><span style="color:#657b83;">}
+</span><span>        </span><span style="color:#657b83;">}
+</span><span>        </span><span style="color:#859900;">return</span><span> lazyDoubleCheckSingleton;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>这种写法中，较于上面的写法做了两个地方的改变。</p>
+<ul>
+<li>
+<p>在<code>lazyDoubleCheckSingleton</code>属性加上了<code>volatile</code>关键字，原因就是为了解决<strong>多线程下可见性问题</strong>，因为我们的<code>getInstance</code>方法在判断<code>lazyDoubleCheckSingleton</code>是否为<code>null</code>时并没有加锁，所以假如线程<code>1</code>初始化了对象，另外线程<code>2</code>是无法感知的，而加上了<code>volatile</code>之后便可以解决这个问题。</p>
+</li>
+<li>
+<p>把<code>synchronized</code><strong>关键字移到了方法内部，尽可能缩小加锁的代码块，提升效率</strong>。</p>
+</li>
+</ul>
+<p>迭代了这几个版本，到这里是否就已经完美了呢？其实不是，这种写法依旧存在问题，那就是<strong>指令重排</strong>问题。</p>
+<p>上面<code>new</code>对象只有一行代码，然而这行代码在<code>JVM</code>底层却分成了3步：</p>
+<ol>
+<li>分配内存来创建对象，即<code>new</code>操作。</li>
+<li>创建一个对象<code>lazyDoubleCheckSingleton</code>此时<code>lazyDoubleCheckSingleton==nul</code>。</li>
+<li>将<code>new</code>出来的对象赋给<code>lazyDoubleCheckSingleton</code>。</li>
+</ol>
+<p>但实际运行的时候为了提升效率，这<code>3</code>步并<strong>不会按照实际顺序</strong>来运行。</p>
+<blockquote>
+<p>假如线程<code>t1</code>进入同步代码块正在创建对象，而此时执行了后面<code>2</code>步，也即是此时<code>lazyDoubleCheckSingleton</code>依已经不为<code>null</code>了，但是对象却没有创建结束，这时候又来了一个线程<code>t2</code>进入<code>getInstance</code>方法，这时候<code>if</code>条件不再成立，线程<code>t2</code>会直接返回一个<strong>残缺不全的对象</strong>，自然会出现报错。</p>
+</blockquote>
+<p>为了解决这个问题，下面引出了第四个单例版本，即</p>
+<h3 id="4-nei-bu-lei-dan-li">4. <strong>内部类单例</strong><a class="zola-anchor" href="#4-nei-bu-lei-dan-li" aria-label="Anchor link for: 4-nei-bu-lei-dan-li">🔗</a></h3>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">package </span><span style="color:#b58900;">ltd.waer.javabaseforio.PatternDesign.LazySingleton</span><span>;
+</span><span style="color:#cb4b16;">import </span><span style="color:#859900;">java</span><span>.</span><span style="color:#859900;">io</span><span>.</span><span style="color:#859900;">Serializable</span><span>;
+</span><span style="color:#cb4b16;">import </span><span style="color:#859900;">java</span><span>.</span><span style="color:#859900;">lang</span><span>.</span><span style="color:#859900;">reflect</span><span>.</span><span style="color:#859900;">Constructor</span><span>;
+</span><span>@</span><span style="color:#268bd2;">SuppressWarnings</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">all</span><span>&quot;</span><span style="color:#657b83;">)
+</span><span style="color:#586e75;">/**
+</span><span style="color:#586e75;"> * </span><span style="color:#859900;">@author</span><span style="color:#586e75;">: 八尺妖剑
+</span><span style="color:#586e75;"> * @date: 2023/1/31 10:48
+</span><span style="color:#586e75;"> * @email: ilikexff@gmail.com
+</span><span style="color:#586e75;"> * @blog: https://www.waer.ltd
+</span><span style="color:#586e75;"> * @Description: 内部类懒汉式单例-解决指令重排问题
+</span><span style="color:#586e75;"> */
+</span><span style="color:#93a1a1;">public </span><span style="color:#268bd2;">class </span><span style="color:#b58900;">LazyInnerClassSingleton  </span><span style="color:#859900;">implements </span><span style="color:#268bd2;">Serializable </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#93a1a1;">private </span><span style="color:#b58900;">LazyInnerClassSingleton </span><span style="color:#657b83;">() {
+</span><span>
+</span><span>    </span><span style="color:#657b83;">}</span><span>;
+</span><span>
+</span><span>    </span><span style="color:#93a1a1;">public static final </span><span style="color:#859900;">LazyInnerClassSingleton </span><span style="color:#b58900;">getInstance</span><span style="color:#657b83;">() {
+</span><span>        </span><span style="color:#859900;">return InnerLazy</span><span>.</span><span style="color:#cb4b16;">LAZY</span><span>;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span>
+</span><span>    </span><span style="color:#93a1a1;">private static </span><span style="color:#268bd2;">class </span><span style="color:#b58900;">InnerLazy </span><span style="color:#657b83;">{
+</span><span>        </span><span style="color:#93a1a1;">private static final </span><span style="color:#859900;">LazyInnerClassSingleton </span><span style="color:#b58900;">LAZY </span><span style="color:#657b83;">=</span><span style="color:#859900;">new LazyInnerClassSingleton</span><span style="color:#657b83;">()</span><span>;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>这种写法巧妙的利用了<strong>内部类会等到外部调用时才会被初始化的特性</strong>，用饿汉式单例的思想实现了懒汉式单例。</p>
+<p>这种写法看起来已经是高效完美，但其实存在安全隐患，比如可以通过<strong>反射</strong>的方式破坏这种写法，测试代码如下：</p>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#93a1a1;">public static</span><span> void </span><span style="color:#b58900;">main</span><span style="color:#657b83;">(</span><span style="color:#859900;">String</span><span style="color:#93a1a1;">[]</span><span> args</span><span style="color:#657b83;">)</span><span> throws </span><span style="color:#859900;">Exception </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">Class</span><span>&lt;</span><span style="color:#859900;">?</span><span>&gt; clazz </span><span style="color:#657b83;">= </span><span style="color:#859900;">LazyInnerClassSingleton</span><span>.</span><span style="color:#d33682;">class</span><span>;
+</span><span>    </span><span style="color:#859900;">Constructor</span><span> constructor </span><span style="color:#657b83;">=</span><span> clazz.</span><span style="color:#b58900;">getDeclaredConstructor</span><span style="color:#657b83;">()</span><span>;
+</span><span>    constructor.</span><span style="color:#b58900;">setAccessible</span><span style="color:#657b83;">(</span><span style="color:#b58900;">true</span><span style="color:#657b83;">)</span><span>;
+</span><span>    </span><span style="color:#859900;">Object</span><span> o1 </span><span style="color:#657b83;">=</span><span> constructor.</span><span style="color:#b58900;">newInstance</span><span style="color:#657b83;">()</span><span>;
+</span><span>    </span><span style="color:#859900;">Object</span><span> o2 </span><span style="color:#657b83;">= </span><span style="color:#859900;">LazyInnerClassSingleton</span><span>.</span><span style="color:#b58900;">getInstance</span><span style="color:#657b83;">()</span><span>;
+</span><span>    </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>o1 </span><span style="color:#657b83;">==</span><span> o2</span><span style="color:#657b83;">)</span><span>; </span><span style="color:#586e75;">//false
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<blockquote>
+<p>可以看到，虽然构造方法被私有化了，但是我们仍然可以<strong>利用反射来破坏单例</strong>。为了防止反射破坏单例，我们将上面的写法再改造一下。</p>
+</blockquote>
+<h3 id="5-gai-jin-ban-de-nei-bu-lei-dan-li">5. 改进版的内部类单例<a class="zola-anchor" href="#5-gai-jin-ban-de-nei-bu-lei-dan-li" aria-label="Anchor link for: 5-gai-jin-ban-de-nei-bu-lei-dan-li">🔗</a></h3>
+<p>``java
+public class LazyInnerClassSingleton {</p>
+<pre style="background-color:#002b36;color:#839496;"><code><span>private LazyInnerClassSingleton(){
+</span><span>    //防止反射破坏单例
+</span><span>     if(null != InnerLazy.LAZY){
+</span><span>       throw new RuntimeException(&quot;不允许通过反射类构造单例对象&quot;);
+</span><span>     }
+</span><span>}
+</span><span>
+</span><span>public static final LazyInnerClassSingleton getInstance(){
+</span><span>    return InnerLazy.LAZY;
+</span><span>}
+</span><span>
+</span><span>private static class InnerLazy{
+</span><span>    private static final LazyInnerClassSingleton LAZY = new LazyInnerClassSingleton();
+</span><span>}
+</span></code></pre>
+<p>}</p>
+<pre style="background-color:#002b36;color:#839496;"><code><span>
+</span><span>尽管如此，但假如我们的单例对象实现了 `Serializable `接口，那么内部类的写法就还是能**通过序列化来破坏**。
+</span><span>
+</span><span>### 6. 实现了`Serializable`接口的内部类单例
+</span><span>
+</span><span>``java
+</span><span>package singleton.lazy;
+</span><span>
+</span><span>import java.io.Serializable;
+</span><span>
+</span><span>public class LazyInnerClassSingleton implements Serializable {
+</span><span>
+</span><span>    private LazyInnerClassSingleton(){
+</span><span>        //防止反射破坏单例
+</span><span>         if(null != InnerLazy.LAZY){
+</span><span>           throw new RuntimeException(&quot;不允许通过反射类构造单例对象&quot;);
+</span><span>         }
+</span><span>    }
+</span><span>
+</span><span>    public static final LazyInnerClassSingleton getInstance(){
+</span><span>        return InnerLazy.LAZY;
+</span><span>    }
+</span><span>
+</span><span>    private static class InnerLazy {
+</span><span>        private static final LazyInnerClassSingleton LAZY = new LazyInnerClassSingleton();
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<p>由于实现了序列化的接口，所以内部类的写法依然可以通过序列化来进行破坏，比如使用下面这段测试代码。</p>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">package </span><span style="color:#b58900;">singleton.lazy</span><span>;
+</span><span style="color:#cb4b16;">import </span><span style="color:#859900;">java</span><span>.</span><span style="color:#859900;">io</span><span>.</span><span style="color:#859900;">FileInputStream</span><span>;
+</span><span style="color:#cb4b16;">import </span><span style="color:#859900;">java</span><span>.</span><span style="color:#859900;">io</span><span>.</span><span style="color:#859900;">FileOutputStream</span><span>;
+</span><span style="color:#cb4b16;">import </span><span style="color:#859900;">java</span><span>.</span><span style="color:#859900;">io</span><span>.</span><span style="color:#859900;">ObjectInputStream</span><span>;
+</span><span style="color:#cb4b16;">import </span><span style="color:#859900;">java</span><span>.</span><span style="color:#859900;">io</span><span>.</span><span style="color:#859900;">ObjectOutputStream</span><span>;
+</span><span>
+</span><span style="color:#93a1a1;">public </span><span style="color:#268bd2;">class </span><span style="color:#b58900;">TestLazyInnerClassSingleton2 </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#93a1a1;">public static </span><span style="color:#268bd2;">void </span><span style="color:#b58900;">main</span><span style="color:#657b83;">(</span><span style="color:#859900;">String</span><span style="color:#93a1a1;">[] </span><span style="color:#268bd2;">args</span><span style="color:#657b83;">) {
+</span><span>        </span><span style="color:#586e75;">//序列化攻击内部类式单例
+</span><span>        </span><span style="color:#859900;">LazyInnerClassSingleton</span><span> s1 </span><span style="color:#657b83;">= </span><span style="color:#b58900;">null</span><span>;
+</span><span>        </span><span style="color:#859900;">LazyInnerClassSingleton</span><span> s2 </span><span style="color:#657b83;">= </span><span style="color:#859900;">LazyInnerClassSingleton</span><span>.</span><span style="color:#b58900;">getInstance</span><span style="color:#657b83;">()</span><span>;
+</span><span>
+</span><span>        </span><span style="color:#859900;">FileOutputStream</span><span> fos </span><span style="color:#657b83;">= </span><span style="color:#b58900;">null</span><span>;
+</span><span>
+</span><span>        </span><span style="color:#859900;">try </span><span style="color:#657b83;">{
+</span><span>            fos </span><span style="color:#657b83;">= </span><span style="color:#859900;">new FileOutputStream</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">LazyInnerClassSingleton.text</span><span>&quot;</span><span style="color:#657b83;">)</span><span>;
+</span><span>            </span><span style="color:#859900;">ObjectOutputStream</span><span> oos </span><span style="color:#657b83;">= </span><span style="color:#859900;">new ObjectOutputStream</span><span style="color:#657b83;">(</span><span>fos</span><span style="color:#657b83;">)</span><span>;
+</span><span>            oos.</span><span style="color:#b58900;">writeObject</span><span style="color:#657b83;">(</span><span>s2</span><span style="color:#657b83;">)</span><span>;
+</span><span>            oos.</span><span style="color:#b58900;">flush</span><span style="color:#657b83;">()</span><span>;
+</span><span>            oos.</span><span style="color:#b58900;">close</span><span style="color:#657b83;">()</span><span>;
+</span><span>
+</span><span>            </span><span style="color:#859900;">FileInputStream</span><span> fis </span><span style="color:#657b83;">= </span><span style="color:#859900;">new FileInputStream</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">LazyInnerClassSingleton.text</span><span>&quot;</span><span style="color:#657b83;">)</span><span>;
+</span><span>            </span><span style="color:#859900;">ObjectInputStream</span><span> ois </span><span style="color:#657b83;">= </span><span style="color:#859900;">new ObjectInputStream</span><span style="color:#657b83;">(</span><span>fis</span><span style="color:#657b83;">)</span><span>;
+</span><span>            s1 </span><span style="color:#657b83;">= (</span><span style="color:#859900;">LazyInnerClassSingleton</span><span style="color:#657b83;">)</span><span>ois.</span><span style="color:#b58900;">readObject</span><span style="color:#657b83;">()</span><span>;
+</span><span>            ois.</span><span style="color:#b58900;">close</span><span style="color:#657b83;">()</span><span>;
+</span><span>            </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>s1 </span><span style="color:#657b83;">==</span><span> s2</span><span style="color:#657b83;">)</span><span>;</span><span style="color:#586e75;">//输出：false
+</span><span>        </span><span style="color:#657b83;">}</span><span style="color:#859900;">catch </span><span style="color:#657b83;">(</span><span style="color:#859900;">Exception </span><span style="color:#268bd2;">e</span><span style="color:#657b83;">){
+</span><span>            e.</span><span style="color:#b58900;">printStackTrace</span><span style="color:#657b83;">()</span><span>;
+</span><span>        </span><span style="color:#657b83;">}
+</span><span>    </span><span style="color:#657b83;">}
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<blockquote>
+<p>上面示例中 <code>s1</code> 是通过我们自己提供的全局入口创建的对象，而 <code>s2</code> 是通过序列化的方式创建的对象，不相等说明这是两个对象，也就是说序列化破坏了单例模式。</p>
+</blockquote>
+<p>解决办法就是在 <code>LazyInnerClassSingleton</code> 类中加一个 <code>readResolve</code> 方法，防止序列化破坏单例。</p>
+<h3 id="7-zai-gai-jin-ban-de-nei-bu-lei-dan-li">7. 再改进版的内部类单例<a class="zola-anchor" href="#7-zai-gai-jin-ban-de-nei-bu-lei-dan-li" aria-label="Anchor link for: 7-zai-gai-jin-ban-de-nei-bu-lei-dan-li">🔗</a></h3>
+<p>``java
+package singleton.lazy;</p>
+<p>import java.io.Serializable;</p>
+<p>public class LazyInnerClassSingleton implements Serializable {</p>
+<pre style="background-color:#002b36;color:#839496;"><code><span>private LazyInnerClassSingleton(){
+</span><span>    //防止反射破坏单例
+</span><span>     if(null != InnerLazy.LAZY){
+</span><span>       throw new RuntimeException(&quot;不允许通过反射类构造单例对象&quot;);
+</span><span>     }
+</span><span>}
+</span><span>
+</span><span>public static final LazyInnerClassSingleton getInstance(){
+</span><span>    return InnerLazy.LAZY;
+</span><span>}
+</span><span>
+</span><span>private static class InnerLazy {
+</span><span>    private static final LazyInnerClassSingleton LAZY = new LazyInnerClassSingleton();
+</span><span>}
+</span><span>
+</span><span>//防止通过序列化破坏单例
+</span><span>private Object readResolve(){
+</span><span>    return InnerLazy.LAZY;
+</span><span>}
+</span></code></pre>
+<p>}</p>
+<pre style="background-color:#002b36;color:#839496;"><code><span>
+</span><span>这次返回了 `true`，也就是序列化没有破坏单例了。原因是因为 `JDK `源码中在序列化的时候会检验一个类中是否存在一个 `readResolve` 方法，如果存在，则会放弃通过序列化产生的对象，而返回原本的对象。
+</span><span>
+</span><span>这种方式虽然保证了单例，但是在校验是否存在 `readResolve` 方法前还是会产生一个对象，只不过这个对象会在发现类中存在 `readResolve` 方法后丢掉，然后返回原本的单例对象。这种写法只是保证了结果的唯一，但是过程中依然会**被实例化多次**，假如创建对象的频率增大，**就意味着内存分配的开销也随之增大。**
+</span><span>
+</span><span>**上面介绍了这么多种写法，看起来每种写法似乎都存在问题，难道就没有一种最优雅、安全、高效的方法吗？这就是我们最后要介绍的枚举式单例，不过在介绍枚举式单例之前，我们先刷一下副本，看看其它写法。**
+</span><span>
+</span><span>### 8. 注册式单例
+</span><span>
+</span><span>将每一个实例都保存起来，然后在需要使用的时候直接通过唯一的标识获取实例，这便是注册式单例。
+</span><span>
+</span><span>```java
+</span><span>import java.util.Map;
+</span><span>import java.util.concurrent.ConcurrentHashMap;
+</span><span>
+</span><span>public class ContainerSingleton {
+</span><span>    private ContainerSingleton(){
+</span><span>
+</span><span>    }
+</span><span>
+</span><span>    private static Map&lt;String,Object&gt; ioc = new ConcurrentHashMap&lt;&gt;();
+</span><span>
+</span><span>    public static Object getBean(String className){
+</span><span>        synchronized (ioc){
+</span><span>            //如果容器中不存在当前对象
+</span><span>            if(!ioc.containsKey(className)){
+</span><span>                Object obj = null;
+</span><span>                try {
+</span><span>                    obj = Class.forName(className).newInstance();
+</span><span>                    //将className作为唯一标识存入容器
+</span><span>                    ioc.put(className,obj);
+</span><span>                }catch (Exception e) {
+</span><span>                    e.printStackTrace();
+</span><span>                }
+</span><span>                return obj;
+</span><span>            }
+</span><span>        }
+</span><span>        //如果容器中已经存在了单例对象，则直接返回
+</span><span>        return ioc.get(className);
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<p>新建一个空对象 <code>MyObject.java</code>，用来测试单例。</p>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">package </span><span style="color:#b58900;">singleton.register</span><span>;
+</span><span>
+</span><span style="color:#93a1a1;">public </span><span style="color:#268bd2;">class </span><span style="color:#b58900;">MyObject </span><span style="color:#657b83;">{
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>新建一个测试类 <code>TestContainerSingleton.java</code>。</p>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">package </span><span style="color:#b58900;">singleton.register</span><span>;
+</span><span>
+</span><span style="color:#93a1a1;">public </span><span style="color:#268bd2;">class </span><span style="color:#b58900;">TestContainerSingleton </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#93a1a1;">public static </span><span style="color:#268bd2;">void </span><span style="color:#b58900;">main</span><span style="color:#657b83;">(</span><span style="color:#859900;">String</span><span style="color:#93a1a1;">[] </span><span style="color:#268bd2;">args</span><span style="color:#657b83;">) {
+</span><span>        </span><span style="color:#859900;">MyObject</span><span> myObject1 </span><span style="color:#657b83;">= (</span><span style="color:#859900;">MyObject</span><span style="color:#657b83;">) </span><span style="color:#859900;">ContainerSingleton</span><span>.</span><span style="color:#b58900;">getBean</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">singleton.register.MyObject</span><span>&quot;</span><span style="color:#657b83;">)</span><span>;
+</span><span>        </span><span style="color:#859900;">MyObject</span><span> myObject2 </span><span style="color:#657b83;">= (</span><span style="color:#859900;">MyObject</span><span style="color:#657b83;">) </span><span style="color:#859900;">ContainerSingleton</span><span>.</span><span style="color:#b58900;">getBean</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">singleton.register.MyObject</span><span>&quot;</span><span style="color:#657b83;">)</span><span>;
+</span><span>
+</span><span>        </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>myObject1 </span><span style="color:#657b83;">==</span><span> myObject2</span><span style="color:#657b83;">)</span><span>;</span><span style="color:#586e75;">//输出：true
+</span><span>    </span><span style="color:#657b83;">}
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>上面返回 <code>true</code> 是因为我们加了 <code>synchronized</code> 关键字，实际上 <code>Spring </code>框架中用的就是容器式单例，默认是线程不安全的。</p>
+<h3 id="9-dan-xian-cheng-an-quan-dan-li">9. 单线程安全单例<a class="zola-anchor" href="#9-dan-xian-cheng-an-quan-dan-li" aria-label="Anchor link for: 9-dan-xian-cheng-an-quan-dan-li">🔗</a></h3>
+<p>基于<code>ThreadLocal</code>实现，该单例不能保证其创建的对象是全局唯一，但是能保证在单个线程中是唯一的，在单线程环境下线程天生安全。</p>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#cb4b16;">import </span><span style="color:#859900;">java</span><span>.</span><span style="color:#859900;">util</span><span>.</span><span style="color:#859900;">concurrent</span><span>.</span><span style="color:#859900;">ThreadFactory</span><span>;
+</span><span style="color:#93a1a1;">public </span><span style="color:#268bd2;">class </span><span style="color:#b58900;">ThreadLocalSingleton </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#93a1a1;">private </span><span style="color:#b58900;">ThreadLocalSingleton</span><span style="color:#657b83;">(){
+</span><span>
+</span><span>    </span><span style="color:#657b83;">}
+</span><span>
+</span><span>    </span><span style="color:#93a1a1;">private static final </span><span style="color:#859900;">ThreadLocal</span><span>&lt;</span><span style="color:#859900;">ThreadLocalSingleton</span><span>&gt; singleton </span><span style="color:#657b83;">= </span><span style="color:#859900;">new ThreadLocal</span><span>&lt;</span><span style="color:#859900;">ThreadLocalSingleton</span><span>&gt;</span><span style="color:#657b83;">(){
+</span><span>        @</span><span style="color:#268bd2;">Override
+</span><span>        </span><span style="color:#93a1a1;">protected </span><span style="color:#859900;">ThreadLocalSingleton </span><span style="color:#b58900;">initialValue</span><span style="color:#657b83;">() {
+</span><span>            </span><span style="color:#859900;">return new ThreadLocalSingleton</span><span style="color:#657b83;">()</span><span>;
+</span><span>        </span><span style="color:#657b83;">}
+</span><span>    </span><span style="color:#657b83;">}</span><span>;
+</span><span>    
+</span><span>    </span><span style="color:#93a1a1;">public static </span><span style="color:#859900;">ThreadLocalSingleton </span><span style="color:#b58900;">getInstance</span><span style="color:#657b83;">(){
+</span><span>        </span><span style="color:#859900;">return</span><span> singleton.</span><span style="color:#b58900;">get</span><span style="color:#657b83;">()</span><span>;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>测试类:</p>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#93a1a1;">public </span><span style="color:#268bd2;">class </span><span style="color:#b58900;">TestThreadLocalSingleton </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#93a1a1;">public static </span><span style="color:#268bd2;">void </span><span style="color:#b58900;">main</span><span style="color:#657b83;">(</span><span style="color:#859900;">String</span><span style="color:#93a1a1;">[] </span><span style="color:#268bd2;">args</span><span style="color:#657b83;">) {
+</span><span>        </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span style="color:#859900;">ThreadLocalSingleton</span><span>.</span><span style="color:#b58900;">getInstance</span><span style="color:#657b83;">())</span><span>;</span><span style="color:#586e75;">//主线程输出
+</span><span>        </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span style="color:#859900;">ThreadLocalSingleton</span><span>.</span><span style="color:#b58900;">getInstance</span><span style="color:#657b83;">())</span><span>;</span><span style="color:#586e75;">//主线程输出
+</span><span>
+</span><span>        </span><span style="color:#859900;">Thread</span><span> t1 </span><span style="color:#657b83;">= </span><span style="color:#859900;">new Thread</span><span style="color:#657b83;">(()</span><span style="color:#268bd2;">-&gt;</span><span style="color:#657b83;">{
+</span><span>           </span><span style="color:#859900;">ThreadLocalSingleton</span><span> singleton </span><span style="color:#657b83;">= </span><span style="color:#859900;">ThreadLocalSingleton</span><span>.</span><span style="color:#b58900;">getInstance</span><span style="color:#657b83;">()</span><span>;
+</span><span>            </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span style="color:#859900;">Thread</span><span>.</span><span style="color:#b58900;">currentThread</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">getName</span><span style="color:#657b83;">() + </span><span>&quot;</span><span style="color:#2aa198;">:</span><span>&quot; </span><span style="color:#657b83;">+</span><span> singleton</span><span style="color:#657b83;">)</span><span>;
+</span><span>        </span><span style="color:#657b83;">})</span><span>;
+</span><span>        t1.</span><span style="color:#b58900;">start</span><span style="color:#657b83;">()</span><span>;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p><img src="https://s2.loli.net/2022/04/23/MZraX8gnyDBl5cS.png" alt="image-20220423105451698" loading="lazy" decoding="async" /></p>
+<p>从上图可以看到，<code>main</code> 线程输出的和 <code>t1</code> 线程输出的并不是同一个对象，故而 <code>ThreadLocal</code> 式示例仅对单线程是安全的。</p>
+<h3 id="">10. 枚举式单例<a class="zola-anchor" href="#" aria-label="Anchor link for: ">🔗</a></h3>
+<p>枚举式单例充分利用了枚举类的特性来创建单例对象，<strong>目前来说这是最优雅的一种写法。</strong></p>
+<p>照例我们新建一个空的对象 <code>MyObject.java</code> 来测试单例。</p>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">package </span><span style="color:#b58900;">singleton.meiju</span><span>;
+</span><span>
+</span><span style="color:#93a1a1;">public </span><span style="color:#268bd2;">class </span><span style="color:#b58900;">MyObject </span><span style="color:#657b83;">{
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#93a1a1;">public </span><span style="color:#268bd2;">class </span><span style="color:#b58900;">EnumSingleton </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">INSTANCE</span><span>;
+</span><span>    </span><span style="color:#93a1a1;">private </span><span style="color:#859900;">MyObject </span><span>myObject;
+</span><span>
+</span><span>    </span><span style="color:#b58900;">EnumSingleton</span><span style="color:#657b83;">(){
+</span><span>        </span><span style="color:#d33682;">this</span><span>.myObject </span><span style="color:#657b83;">= </span><span style="color:#859900;">new MyObject</span><span style="color:#657b83;">()</span><span>;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span>
+</span><span>    </span><span style="color:#93a1a1;">public </span><span style="color:#859900;">Object </span><span style="color:#b58900;">getData</span><span style="color:#657b83;">() {
+</span><span>        </span><span style="color:#859900;">return</span><span> myObject;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span>
+</span><span>    </span><span style="color:#93a1a1;">public static </span><span style="color:#859900;">EnumSingleton </span><span style="color:#b58900;">getInstance</span><span style="color:#657b83;">(){
+</span><span>        </span><span style="color:#859900;">return </span><span style="color:#cb4b16;">INSTANCE</span><span>;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<ul>
+<li>新建测试类 <code>TestEnumSingleton.java</code> 进行测试。</li>
+</ul>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#859900;">package </span><span style="color:#b58900;">singleton.meiju</span><span>;
+</span><span>
+</span><span style="color:#93a1a1;">public </span><span style="color:#268bd2;">class </span><span style="color:#b58900;">TestEnumSingleton </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#93a1a1;">public static </span><span style="color:#268bd2;">void </span><span style="color:#b58900;">main</span><span style="color:#657b83;">(</span><span style="color:#859900;">String</span><span style="color:#93a1a1;">[] </span><span style="color:#268bd2;">args</span><span style="color:#657b83;">) </span><span style="color:#859900;">throws Exception</span><span style="color:#657b83;">{
+</span><span>        </span><span style="color:#859900;">EnumSingleton</span><span> enumSingleton </span><span style="color:#657b83;">= </span><span style="color:#859900;">EnumSingleton</span><span>.</span><span style="color:#b58900;">getInstance</span><span style="color:#657b83;">()</span><span>;
+</span><span>        </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>enumSingleton.</span><span style="color:#b58900;">getData</span><span style="color:#657b83;">() ==</span><span> enumSingleton.</span><span style="color:#b58900;">getData</span><span style="color:#657b83;">())</span><span>;</span><span style="color:#586e75;">//输出：true
+</span><span>    </span><span style="color:#657b83;">}
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>输出结果为 <code>true</code>，枚举式单例写法能有效的防止通过反射以及序列化手段的破坏，确实为目前最佳的单例实践之选。</p>
+<hr />
+<h2 id="-1">小结<a class="zola-anchor" href="#-1" aria-label="Anchor link for: -1">🔗</a></h2>
+<p>尽管实现单例模式的具体思想和方法多种多样，也各有千秋和不足，但在实际的使用中，并不是最优的就是最合适的，在使用单例模式时，应该结合具体的项目需求以及场景来选择合适的实现方式。比如小项目追求线程安全又拥有足够空间的情况下使用<strong>饿汉式单例</strong>又何尝不可？</p>
+<hr />
+<p>致谢&amp;引用:</p>
+<ul>
+<li><a class="" href="https://dzone.com/articles/java-singletons-using-enum">Java Singletons Using Enum</a></li>
+<li><a class="" href="https://www.geeksforgeeks.org/advantages-and-disadvantages-of-using-enum-as-singleton-in-java/">Advantages and Disadvantages of using Enum as Singleton in Java</a></li>
+<li><a class="" href="https://baike.baidu.com/item/%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/22912595?fr=aladdin">百度百科</a></li>
+</ul>
+
+      
+    </div><!--./card-body-->
+
+    <div class="card-footer">
+      <div class="columns">
+        <div class="column col-9 col-sm-7">
+          <div class="taxonomies text-left">
+            
+
+    
+          </div>
+        </div><!--./col-6-->
+        
+        </div><!--./columns-->
+    </div><!--./card-footer-->
+</div><!--./card-->
+</div>
+              <div id="sidebar" class="column col-4 col-md-12">
+                <div class="sidebar-content">
+                  
+                  
+<div class="sidebar-widget">
+  <div class="tile">
+    <div class="tile-icon">
+      <figure class="avatar avatar-xl">
+        <img src="https://ilikexff.cn/avatar.png" alt="author avatar image">
+      </figure>
+    </div>
+    <div class="tile-content">
+      <p class="tile-title" style="font-weight: 600;">慕予</p>
+      <p class="tile-subtitle">热爱编程，专注于技术分享和学习</p>
+    </div>
+</div><!--./tile-->
+</div>
+
+                  
+                  
+<div class="sidebar-widget">
+  欢迎来到<strong>八尺妖剑</strong>！这里分享技术文章和编程心得。
+</div><!-- end text widget -->
+
+                  
+
+                  
+<div class="sidebar-widget syndicate">
+<h4>Feed</h4>
+<a class="btn" href="/rss.xml">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-rss-fill" viewBox="0 0 16 16">
+  <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm1.5 2.5c5.523 0 10 4.477 10 10a1 1 0 1 1-2 0 8 8 0 0 0-8-8 1 1 0 0 1 0-2zm0 4a6 6 0 0 1 6 6 1 1 0 1 1-2 0 4 4 0 0 0-4-4 1 1 0 0 1 0-2zm.5 7a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+</svg>
+<span>RSS</span>
+</a>
+</div>
+
+                  </div><!--./sidebar-content-->
+              </div>
+            </div>
+            
+          </section>
+        </section></section>
+<section class="container grid-xl">
+<ul class="pagination paginator">
+  
+  
+</ul>
+</section>
+</div><!-- ./page-wrapper -->
+
+    
+<div class="mobile-container">
+        <div class="overlay" id="overlay">
+            <div style="padding: 1rem;">
+              
+<a class="site-logo" href="https:&#x2F;&#x2F;ilikexff.cn">
+  
+  <div class="col-mx-auto">
+    <figure style="margin: 8px">
+      <img class="img-responsive"
+           style="max-height: 45px"
+           alt="frontmatter image"
+           src="https://ilikexff.cn/./logo.svg">
+    </figure>
+  </div>
+  
+</a>
+
+            </div>
+            <nav class="overlay-menu">
+              
+
+<ul class="tree treemenu treemenu-root"><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/tags">标签</a>
+    </li><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/categories">分类</a>
+    </li><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/about">关于</a>
+    </li></ul>
+
+
+              </nav>
+        </div>
+    </div>
+
+<script type="text/javascript">
+  var overlay = document.getElementById('overlay');
+  var toggle = document.getElementById('toggle');
+
+  function openOverlay(){
+      // Open overlay
+      if (overlay.classList.contains("open")) {
+          overlay.classList.remove("open");
+      }
+      else {
+          overlay.classList.add("open");
+      }
+
+      // Button transition
+      if (toggle.classList.contains("active")) {
+          toggle.classList.remove("active");
+      }
+      else {
+          toggle.classList.add("active");
+      }
+    }
+</script>
+
+<section id="footer" class="bg-gray">
+  <div class="container grid-xl">
+    
+
+
+    <div class="columns">
+      
+      <div class="column col-6 col-lg-12 col-mx-auto" style="text-align: center;">
+        简单是效率的灵魂 | 黔ICP备2021010295号
+      </div>
+      
+      <div class="column col-6 col-lg-12 col-mx-auto" style="text-align: center;">
+        Made by <a href="https://github.com/gicrisf/">gicrisf</a> -
+        <strong>Zhuia</strong>&nbsp;<a href="https://github.com/gicrisf/zhuia">source code</a>
+        is licensed under <a href="http://opensource.org/licenses/mit-license.php" target="_blank">MIT</a>.
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh" data-theme="light" dir="ltr">
+  <head>
+    <title>O操作符,实现枚举的输入输出 - 八尺妖剑</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="详细介绍如何在C++中重载输入输出操作符来实现枚举类型的输入输出功能，提升代码的可读性和易用性。"/>
+
+    <meta property="og:title" content="八尺妖剑 -&nbsp;O操作符,实现枚举的输入输出" />
+    <meta property="og:type" content="website"/><meta property="og:url" content="https:&#x2F;&#x2F;ilikexff.cn&#x2F;ocao-zuo-fu-shi-xian-mei-ju-de-shu-ru-shu-chu&#x2F;"/><meta property="og:description" content="详细介绍如何在C++中重载输入输出操作符来实现枚举类型的输入输出功能，提升代码的可读性和易用性。"/>
+
+
+    <meta name="twitter:card" content="summary">
+
+
+    <link rel="stylesheet" href="https://ilikexff.cn/spectre/spectre.css">
+    <link rel="stylesheet" href="https://ilikexff.cn/theme.css"><link rel="stylesheet" href="https://ilikexff.cn/custom.css">
+    
+<link rel="alternate" type="application/rss+xml" title="八尺妖剑 RSS" href="https://ilikexff.cn/rss.xml">
+        
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script>
+        function doRenderMath() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false},
+                {left: "\\begin{equation}", right: "\\end{equation}", display: true},
+                {left: "\\begin{align}", right: "\\end{align}", display: true},
+                {left: "\\begin{alignat}", right: "\\end{alignat}", display: true},
+                {left: "\\begin{gather}", right: "\\end{gather}", display: true},
+                {left: "\\begin{CD}", right: "\\end{CD}", display: true},
+                {left: "\\[", right: "\\]", display: true}
+                ]
+            });
+        }
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+        onload="doRenderMath()"></script>
+
+      </head>
+  <body id="top" class="sticky-footer"><div id="page-wrapper">
+<header id="header" class="section">
+  <section class="container grid-xl">
+    <nav class="navbar">
+      <section class="navbar-section">
+        
+<a class="site-logo" href="https:&#x2F;&#x2F;ilikexff.cn">
+  
+  <div class="col-mx-auto">
+    <figure style="margin: 8px">
+      <img class="img-responsive"
+           style="max-height: 45px"
+           alt="frontmatter image"
+           src="https://ilikexff.cn/./logo.svg">
+    </figure>
+  </div>
+  
+</a>
+
+      </section><!-- ./home button -->
+
+      <section class="navbar-center hide-md"></section>
+
+      <section class="navbar-section">
+        <nav class="dropmenu animated hide-md">
+
+<ul><li>
+        <a href="https://ilikexff.cn/tags">标签</a>
+    </li><li>
+        <a href="https://ilikexff.cn/categories">分类</a>
+    </li><li>
+        <a href="https://ilikexff.cn/about">关于</a>
+    </li></ul>
+
+
+          </nav>
+      </section><!-- ./desktop-menu -->
+    </nav>
+  </section><!-- ./container -->
+</header>
+
+
+<div class="mobile-menu">
+  <div class="button_container" id="toggle" onclick="openOverlay()">
+    <span class="top"></span>
+    <span class="middle"></span>
+    <span class="bottom"></span>
+  </div>
+</div><!--./mobile-menu-->
+
+
+<section id="start"><section id="body-wrapper" class="section">
+          <section class="container grid-xl">
+<div id="breadcrumbs" itemtype="http://schema.org/BreadcrumbList" class="hide-sm">
+  
+    
+    <span><a href="https:&#x2F;&#x2F;ilikexff.cn&#x2F;">Home</a></span>
+  
+    <span><a href="https:&#x2F;&#x2F;ilikexff.cn&#x2F;ocao-zuo-fu-shi-xian-mei-ju-de-shu-ru-shu-chu&#x2F;">O操作符,实现枚举的输入输出</a></span>
+</div>
+<div class="columns">
+              <div id="item" class="column col-8 col-md-12 extra-spacing">
+<div class="card">
+  
+
+    <div class="card-header">
+      <div class="card-title" style="margin-top: .25rem;"><div>
+          <h1 class="post-title">O操作符,实现枚举的输入输出</h1>
+          
+    <div class="post-meta" style="display: inline-flex">
+        <span class="blog-date" style="display: inline-flex;">
+          <i class="gg-calendar" style="margin-right: 5px;"></i><time datetime="2024.04.28">
+          2024.04.28
+          </time></span><span class="post-author" style="margin-left: 5px; display: inline-flex;">
+          - 
+    慕予
+        </span></div>
+
+        </div></div>
+    </div><!--./card-header-->
+
+    <div class="card-body">
+      
+        <p>在上一篇关于枚举的文章<a class="" href="https://www.ilikexff.cn/articles/154">[通俗易懂C++]:枚举篇一,无范围枚举</a>中,我们提到了一个例子,使用一个函数将枚举转换为等效字符串的方法:</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">string_view</span><span>&gt;
+</span><span>
+</span><span style="color:#268bd2;">enum </span><span style="color:#b58900;">Color
+</span><span style="color:#657b83;">{
+</span><span>    black,
+</span><span>    red,
+</span><span>    blue,
+</span><span style="color:#657b83;">}</span><span>;
+</span><span>
+</span><span style="color:#859900;">constexpr</span><span> std::string_view </span><span style="color:#b58900;">getColorName</span><span style="color:#657b83;">(</span><span>Color </span><span style="color:#268bd2;">color</span><span style="color:#657b83;">)
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">switch </span><span style="color:#657b83;">(</span><span>color</span><span style="color:#657b83;">)
+</span><span>    </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">case</span><span> black: </span><span style="color:#859900;">return </span><span>&quot;</span><span style="color:#2aa198;">black</span><span>&quot;;
+</span><span>    </span><span style="color:#859900;">case</span><span> red:   </span><span style="color:#859900;">return </span><span>&quot;</span><span style="color:#2aa198;">red</span><span>&quot;;
+</span><span>    </span><span style="color:#859900;">case</span><span> blue:  </span><span style="color:#859900;">return </span><span>&quot;</span><span style="color:#2aa198;">blue</span><span>&quot;;
+</span><span>    </span><span style="color:#859900;">default</span><span>:    </span><span style="color:#859900;">return </span><span>&quot;</span><span style="color:#2aa198;">???</span><span>&quot;;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span style="color:#657b83;">}
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">constexpr</span><span> Color </span><span style="color:#b58900;">shirt</span><span style="color:#657b83;">{</span><span> blue </span><span style="color:#657b83;">}</span><span>;
+</span><span>
+</span><span>    std::cout </span><span style="color:#657b83;">&lt;&lt; </span><span>&quot;</span><span style="color:#2aa198;">Your shirt is </span><span>&quot; </span><span style="color:#657b83;">&lt;&lt; </span><span style="color:#b58900;">getColorName</span><span style="color:#657b83;">(</span><span>shirt</span><span style="color:#657b83;">) &lt;&lt; </span><span>&#39;</span><span style="color:#dc322f;">\n</span><span>&#39;;
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<p>尽管上面的例子可以正常实现需求,但存在一些不足:</p>
+<ul>
+<li>我们必须记住创建的函数名称;</li>
+<li>每次输出时必须调用这样一个函数才能打印我们需要的枚举字符串,这会给单纯的输出语句造成混乱。</li>
+</ul>
+<p>一种比较理想的情况是,如果我们可以使用像系统提供的<code>std::cout&lt;&lt;</code>类似的方法来输出枚举,岂不是美滋滋?</p>
+<hr />
+<h2 id="cao-zuo-fu-zhong-zai-jian-jie">操作符重载简介<a class="zola-anchor" href="#cao-zuo-fu-zhong-zai-jian-jie" aria-label="Anchor link for: cao-zuo-fu-zhong-zai-jian-jie">🔗</a></h2>
+<p>在C++中,使用函数重载,我们可以创建一个同名函数的变体,这些变体可以处理不同的数据类型,而不必为每一个变体起一个唯一的名称。</p>
+<p>类似地,C++也支持运算符的重载, 这允许我们定义现有运算符的重载格式,以便于我们可以使这些运算符与我们的程序定义的数据类型一起工作。</p>
+<p>需要注意的是,这里暂不会详细介绍运算符的重载,更详细的内容也许会在后面的文章中介绍。</p>
+<p>基本的运算符重载相当简单:</p>
+<ul>
+<li>使用运算符的名称来作为函数名称定义函数。</li>
+<li>为每一个运算符添加适当类型的参数(从左到右的顺序)。其中一个参数必须是用户定义的类型(比如类类型或者枚举类型),否则编译器会出错。</li>
+<li>返回类型可以设置为任何有意义的类型。</li>
+<li>使用<code>return</code>返回运算结果。</li>
+</ul>
+<blockquote>
+<p>当编译器在表达式中遇到对应的运算符并且存在一个或者多个操作数是用户定义的类型时,编译器会检查是否存在一个重载的运算符来解析该调用。例如,对于表达式<code>x+y</code>,编译器会使用函数重载解析来查看是否存在一个<code>operator+(x, y)</code>函数来实现该操作。如果能找到一个唯一性的<code>operator+</code>函数,那它就会被调用并将结果作为返回值返回。</p>
+</blockquote>
+<hr />
+<h2 id="zhong-zai-yun-suan-fu-da-yin-mei-ju">重载<code>&lt;&lt;</code>运算符打印枚举<a class="zola-anchor" href="#zhong-zai-yun-suan-fu-da-yin-mei-ju" aria-label="Anchor link for: zhong-zai-yun-suan-fu-da-yin-mei-ju">🔗</a></h2>
+<p>在正片开始之前,我们先快速回顾一下运算符&lt;&lt;在被用于输出时的工作方式。</p>
+<p>考虑像<code>std::cout &lt;&lt; 10</code>这样的简单输出表达式。其中的<code>std::cout</code>的类型为<code>std::ostream</code>(标准库中的用户定义类型),而10是<code>int</code>基本数据类型。</p>
+<p>在计算这个表达式时,编译器将查找可以处理<code>std：：ostream</code>和<code>int</code>类型参数的<code>operator&lt;&lt;</code>重载函数。由于这个函数确实在I/O标准库中实现了,所以它将会被 调用。在该函数中,这个<code>std::cout</code>用于将x输出到控制台,最后,<code>operator&lt;&lt;</code>函数返回其左操作数（在本例中为<code>std：：cout</code>），以便于支持链式调用。</p>
+<p>基于此,让我们实现一个<code>operator&lt;&lt;</code>的重载来打印<code>Color</code>：</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">string_view</span><span>&gt;
+</span><span>
+</span><span style="color:#268bd2;">enum </span><span style="color:#b58900;">Color
+</span><span style="color:#657b83;">{
+</span><span>	black,
+</span><span>	red,
+</span><span>	blue,
+</span><span style="color:#657b83;">}</span><span>;
+</span><span>
+</span><span style="color:#859900;">constexpr</span><span> std::string_view </span><span style="color:#b58900;">getColorName</span><span style="color:#657b83;">(</span><span>Color </span><span style="color:#268bd2;">color</span><span style="color:#657b83;">)
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">switch </span><span style="color:#657b83;">(</span><span>color</span><span style="color:#657b83;">)
+</span><span>    </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">case</span><span> black: </span><span style="color:#859900;">return </span><span>&quot;</span><span style="color:#2aa198;">black</span><span>&quot;;
+</span><span>    </span><span style="color:#859900;">case</span><span> red:   </span><span style="color:#859900;">return </span><span>&quot;</span><span style="color:#2aa198;">red</span><span>&quot;;
+</span><span>    </span><span style="color:#859900;">case</span><span> blue:  </span><span style="color:#859900;">return </span><span>&quot;</span><span style="color:#2aa198;">blue</span><span>&quot;;
+</span><span>    </span><span style="color:#859900;">default</span><span>:    </span><span style="color:#859900;">return </span><span>&quot;</span><span style="color:#2aa198;">???</span><span>&quot;;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span style="color:#657b83;">}
+</span><span style="color:#586e75;">// operator&lt;&lt; 如何打印 Color 类型
+</span><span style="color:#586e75;">// 返回类型和参数类型是引用（以防止创建副本）
+</span><span>std::ostream</span><span style="color:#859900;">&amp; </span><span style="color:#b58900;">operator&lt;&lt;</span><span style="color:#657b83;">(</span><span>std::ostream</span><span style="color:#859900;">&amp; </span><span style="color:#268bd2;">out</span><span>,Color </span><span style="color:#268bd2;">color</span><span style="color:#657b83;">)
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">return</span><span> out </span><span style="color:#657b83;">&lt;&lt; </span><span style="color:#b58900;">getColorName</span><span style="color:#657b83;">(</span><span>color</span><span style="color:#657b83;">)</span><span>;
+</span><span style="color:#657b83;">}</span><span>;
+</span><span>
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    Color </span><span style="color:#b58900;">shirt </span><span style="color:#657b83;">{</span><span>blue</span><span style="color:#657b83;">}</span><span>;
+</span><span>    std::cout </span><span style="color:#657b83;">&lt;&lt;</span><span>&quot;</span><span style="color:#2aa198;">Your shirt is </span><span>&quot; </span><span style="color:#657b83;">&lt;&lt;</span><span> shirt </span><span style="color:#657b83;">&lt;&lt; </span><span>&#39;</span><span style="color:#dc322f;">\n</span><span>&#39;;
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span> </span><span style="color:#657b83;">}
+</span></code></pre>
+<p><img src="https://images.waer.ltd/notes/202503111501353.png" alt="image-20250311150019525" loading="lazy" decoding="async" /></p>
+<p>让我们稍微解析一下这个重载的运算符函数。</p>
+<ul>
+<li>首先，函数的名称是 <code>operator&lt;&lt;</code>，因为我们正在重载 <code>&lt;&lt;</code> 运算符。<code>operator&lt;&lt;</code> 有两个参数。</li>
+<li>左侧的参数（与左操作数匹配）是我们的输出流，类型为 <code>std::ostream</code>。我们使用 <strong>非 const 引用</strong> 传递它，因为我们不希望在调用函数时复制 <code>std::ostream</code> 对象。右侧的参数（与右操作数匹配）是我们的 <code>Color</code>枚举类型对象。</li>
+</ul>
+<blockquote>
+<p>当我们使用 std::ostream 输出操作时，例如通过 &lt;&lt; 运算符写入数据到输出流时，std::ostream 对象的内部状态会发生变化。例如，数据可能会被存入缓冲区或修改流的状态（如错误标志）。为了在调用者中看到这些变化，必须传递非 const 引用，而不是复制或常量引用。因为输出操作会修改这个流的内部状态，所以我们需要它是可修改的。</p>
+</blockquote>
+<p>回过来看看我们的实现,本质上就是使用<code>std::ostream</code>对象使用操作符<code>&lt;&lt;</code>来打印一个<code>std：：string_view</code>。所以<code>out &lt;&lt; getColorName（color）</code>只是获取我们的颜色名称作为<code>std：：string_view</code>，然后将其打印到输出流。</p>
+<p>所以,当我们调用<code>std：：cout &lt;&lt; shirt</code>时，编译器将看到我们重载了<code>operator&lt;&lt;</code>来处理<code>Color</code>类型的对象。然后调用重载的<code>operator&lt;&lt;</code>函数，使用<code>std：：cout</code>作为<code>out</code>参数，使用<code>shirt</code>变量（值为<code>blue</code>）作为<code>color参数</code>。由于<code>out</code>是对<code>std：：cout</code>的引用，而<code>color</code>是枚举数<code>blue</code>的副本，因此表达式<code>out &lt;&lt; getColorName（color）</code>将<code>“blue”</code>打印到控制台。最后，<code>out</code>返回给调用者，便于后续的链式调用。</p>
+<hr />
+<h2 id="">重载&gt;&gt;运算符,实现枚举的输入<a class="zola-anchor" href="#" aria-label="Anchor link for: ">🔗</a></h2>
+<p>类似于上面重载<code>&lt;&lt;</code>输出枚举一样,下面是对枚举输入的重载实现:</p>
+<pre data-lang="cpp" style="background-color:#002b36;color:#839496;" class="language-cpp "><code class="language-cpp" data-lang="cpp"><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">iostream</span><span>&gt;
+</span><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">limits</span><span>&gt;
+</span><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">optional</span><span>&gt;
+</span><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">string</span><span>&gt;
+</span><span style="color:#cb4b16;">#include </span><span>&lt;</span><span style="color:#2aa198;">string_view</span><span>&gt;
+</span><span>
+</span><span style="color:#586e75;">// 定义一个枚举类型 Pet，表示不同的宠物
+</span><span style="color:#268bd2;">enum </span><span style="color:#b58900;">Pet
+</span><span style="color:#657b83;">{
+</span><span>    cat,   </span><span style="color:#586e75;">// 0
+</span><span>    dog,   </span><span style="color:#586e75;">// 1
+</span><span>    pig,   </span><span style="color:#586e75;">// 2
+</span><span>    whale, </span><span style="color:#586e75;">// 3
+</span><span style="color:#657b83;">}</span><span>;
+</span><span>
+</span><span style="color:#586e75;">// 这个函数根据 Pet 枚举值返回对应的宠物名称
+</span><span style="color:#859900;">constexpr</span><span> std::string_view </span><span style="color:#b58900;">getPetName</span><span style="color:#657b83;">(</span><span>Pet </span><span style="color:#268bd2;">pet</span><span style="color:#657b83;">)
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">switch </span><span style="color:#657b83;">(</span><span>pet</span><span style="color:#657b83;">)
+</span><span>    </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">case</span><span> cat:   </span><span style="color:#859900;">return </span><span>&quot;</span><span style="color:#2aa198;">cat</span><span>&quot;;
+</span><span>    </span><span style="color:#859900;">case</span><span> dog:   </span><span style="color:#859900;">return </span><span>&quot;</span><span style="color:#2aa198;">dog</span><span>&quot;;
+</span><span>    </span><span style="color:#859900;">case</span><span> pig:   </span><span style="color:#859900;">return </span><span>&quot;</span><span style="color:#2aa198;">pig</span><span>&quot;;
+</span><span>    </span><span style="color:#859900;">case</span><span> whale: </span><span style="color:#859900;">return </span><span>&quot;</span><span style="color:#2aa198;">whale</span><span>&quot;;
+</span><span>    </span><span style="color:#859900;">default</span><span>:    </span><span style="color:#859900;">return </span><span>&quot;</span><span style="color:#2aa198;">???</span><span>&quot;; </span><span style="color:#586e75;">// 未知的宠物类型
+</span><span>    </span><span style="color:#657b83;">}
+</span><span style="color:#657b83;">}
+</span><span>
+</span><span style="color:#586e75;">// 这个函数根据字符串返回对应的 Pet 枚举值，如果找不到匹配项，返回 std::nullopt
+</span><span style="color:#859900;">constexpr</span><span> std::optional</span><span style="color:#657b83;">&lt;</span><span>Pet</span><span style="color:#657b83;">&gt; </span><span style="color:#b58900;">getPetFromString</span><span style="color:#657b83;">(</span><span>std::string_view </span><span style="color:#268bd2;">sv</span><span style="color:#657b83;">)
+</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">if </span><span style="color:#657b83;">(</span><span>sv </span><span style="color:#657b83;">== </span><span>&quot;</span><span style="color:#2aa198;">cat</span><span>&quot;</span><span style="color:#657b83;">)   </span><span style="color:#859900;">return</span><span> cat;
+</span><span>    </span><span style="color:#859900;">if </span><span style="color:#657b83;">(</span><span>sv </span><span style="color:#657b83;">== </span><span>&quot;</span><span style="color:#2aa198;">dog</span><span>&quot;</span><span style="color:#657b83;">)   </span><span style="color:#859900;">return</span><span> dog;
+</span><span>    </span><span style="color:#859900;">if </span><span style="color:#657b83;">(</span><span>sv </span><span style="color:#657b83;">== </span><span>&quot;</span><span style="color:#2aa198;">pig</span><span>&quot;</span><span style="color:#657b83;">)   </span><span style="color:#859900;">return</span><span> pig;
+</span><span>    </span><span style="color:#859900;">if </span><span style="color:#657b83;">(</span><span>sv </span><span style="color:#657b83;">== </span><span>&quot;</span><span style="color:#2aa198;">whale</span><span>&quot;</span><span style="color:#657b83;">) </span><span style="color:#859900;">return</span><span> whale;
+</span><span>
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#657b83;">{}</span><span>; </span><span style="color:#586e75;">// 返回空值，表示没有找到匹配的 Pet
+</span><span style="color:#657b83;">}
+</span><span>
+</span><span>std::istream</span><span style="color:#859900;">&amp; </span><span style="color:#b58900;">operator&gt;&gt;</span><span style="color:#657b83;">(</span><span>std::istream</span><span style="color:#859900;">&amp; </span><span style="color:#268bd2;">in</span><span>,Pet</span><span style="color:#859900;">&amp; </span><span style="color:#268bd2;">pet</span><span style="color:#657b83;">)
+</span><span style="color:#657b83;">{
+</span><span>    std::string </span><span style="color:#b58900;">s </span><span style="color:#657b83;">{}</span><span>;
+</span><span>    in </span><span style="color:#657b83;">&gt;&gt;</span><span> s;
+</span><span>    std::optional</span><span style="color:#657b83;">&lt;</span><span>Pet</span><span style="color:#657b83;">&gt; </span><span style="color:#b58900;">match </span><span style="color:#657b83;">{</span><span style="color:#b58900;">getPetFromString</span><span style="color:#657b83;">(</span><span>s</span><span style="color:#657b83;">)}</span><span>;
+</span><span>    </span><span style="color:#859900;">if </span><span style="color:#657b83;">(</span><span>match</span><span style="color:#657b83;">)
+</span><span>    </span><span style="color:#657b83;">{
+</span><span>        pet </span><span style="color:#657b83;">= </span><span style="color:#859900;">*</span><span>match;
+</span><span>        </span><span style="color:#859900;">return</span><span> in;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span>
+</span><span>    </span><span style="color:#586e75;">// 如果输入无效（没有找到匹配项）
+</span><span>    </span><span style="color:#586e75;">// 将输入流状态设置为失败状态（failbit）
+</span><span>    in.</span><span style="color:#b58900;">setstate</span><span style="color:#657b83;">(</span><span>std::ios_base::failbit</span><span style="color:#657b83;">)</span><span>;
+</span><span>    </span><span style="color:#859900;">return</span><span> in;
+</span><span style="color:#657b83;">}
+</span><span style="color:#268bd2;">int </span><span style="color:#b58900;">main</span><span style="color:#657b83;">()
+</span><span style="color:#657b83;">{
+</span><span>    std::cout </span><span style="color:#657b83;">&lt;&lt; </span><span>&quot;</span><span style="color:#2aa198;">Enter a pet: cat, dog, pig, or whale: </span><span>&quot;;
+</span><span>       Pet </span><span style="color:#b58900;">pet</span><span style="color:#657b83;">{}</span><span>;
+</span><span>       std::cin </span><span style="color:#657b83;">&gt;&gt;</span><span> pet; </span><span style="color:#586e75;">// 读取用户输入
+</span><span>
+</span><span>       </span><span style="color:#859900;">if </span><span style="color:#657b83;">(</span><span>std::cin</span><span style="color:#657b83;">) </span><span style="color:#586e75;">// 如果输入有效（找到了匹配项）
+</span><span>           std::cout </span><span style="color:#657b83;">&lt;&lt; </span><span>&quot;</span><span style="color:#2aa198;">You chose: </span><span>&quot; </span><span style="color:#657b83;">&lt;&lt; </span><span style="color:#b58900;">getPetName</span><span style="color:#657b83;">(</span><span>pet</span><span style="color:#657b83;">) &lt;&lt; </span><span>&#39;</span><span style="color:#dc322f;">\n</span><span>&#39;;
+</span><span>       </span><span style="color:#859900;">else
+</span><span>       </span><span style="color:#657b83;">{
+</span><span>           std::cin.</span><span style="color:#b58900;">clear</span><span style="color:#657b83;">()</span><span>; </span><span style="color:#586e75;">// 重置输入流，使其恢复到可用状态
+</span><span>           std::cin.</span><span style="color:#b58900;">ignore</span><span style="color:#657b83;">(</span><span>std::numeric_limits</span><span style="color:#657b83;">&lt;</span><span>std::streamsize</span><span style="color:#657b83;">&gt;</span><span>::</span><span style="color:#b58900;">max</span><span style="color:#657b83;">()</span><span>, &#39;</span><span style="color:#dc322f;">\n</span><span>&#39;</span><span style="color:#657b83;">)</span><span>; </span><span style="color:#586e75;">// 忽略剩余输入
+</span><span>           std::cout </span><span style="color:#657b83;">&lt;&lt; </span><span>&quot;</span><span style="color:#2aa198;">Your pet was not valid</span><span style="color:#dc322f;">\n</span><span>&quot;; </span><span style="color:#586e75;">// 提示用户输入无效
+</span><span>       </span><span style="color:#657b83;">}
+</span><span>    </span><span style="color:#859900;">return </span><span style="color:#6c71c4;">0</span><span>;
+</span><span> </span><span style="color:#657b83;">}
+</span><span>
+</span></code></pre>
+<p><img src="https://images.waer.ltd/notes/202503111524108.png" alt="image-20250311152402041" loading="lazy" decoding="async" /></p>
+<p>这里有一些与输出情况的不同之处值得注意。首先，<code>std：：cin</code>的类型是<code>std：：istream</code>，所以我们使用<code>std：：istream&amp;</code>作为左参数和返回值的类型，而不是<code>std：：ostream&amp;</code>。其次，<code>pet</code>参数是一个非常量引用。这允许我们的运算符<code>&gt;&gt;</code>修改右操作数的值，如果我们的提取结果匹配，则传入右操作数。</p>
+<ul>
+<li>在函数内部，我们使用<code>operator&gt;&gt;</code>来输入一个<code>std：：string</code>（它已经知道如何做）。如果用户输入的值与我们的一个pet匹配，那么我们可以为<code>pet</code>分配适当的枚举数并返回左操作数（<code>in</code>）。</li>
+<li>如果用户没有输入一个有效的pet，那么我们通过将<code>std：：cin</code>设置为“failure mode”来处理这种情况。这是提取失败时<code>std：：cin</code>通常进入的状态。然后调用者可以检查<code>std：：cin</code>以查看提取成功还是失败。</li>
+</ul>
+
+      
+    </div><!--./card-body-->
+
+    <div class="card-footer">
+      <div class="columns">
+        <div class="column col-9 col-sm-7">
+          <div class="taxonomies text-left">
+            
+
+    
+          </div>
+        </div><!--./col-6-->
+        
+        </div><!--./columns-->
+    </div><!--./card-footer-->
+</div><!--./card-->
+</div>
+              <div id="sidebar" class="column col-4 col-md-12">
+                <div class="sidebar-content">
+                  
+                  
+<div class="sidebar-widget">
+  <div class="tile">
+    <div class="tile-icon">
+      <figure class="avatar avatar-xl">
+        <img src="https://ilikexff.cn/avatar.png" alt="author avatar image">
+      </figure>
+    </div>
+    <div class="tile-content">
+      <p class="tile-title" style="font-weight: 600;">慕予</p>
+      <p class="tile-subtitle">热爱编程，专注于技术分享和学习</p>
+    </div>
+</div><!--./tile-->
+</div>
+
+                  
+                  
+<div class="sidebar-widget">
+  欢迎来到<strong>八尺妖剑</strong>！这里分享技术文章和编程心得。
+</div><!-- end text widget -->
+
+                  
+
+                  
+<div class="sidebar-widget syndicate">
+<h4>Feed</h4>
+<a class="btn" href="/rss.xml">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-rss-fill" viewBox="0 0 16 16">
+  <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm1.5 2.5c5.523 0 10 4.477 10 10a1 1 0 1 1-2 0 8 8 0 0 0-8-8 1 1 0 0 1 0-2zm0 4a6 6 0 0 1 6 6 1 1 0 1 1-2 0 4 4 0 0 0-4-4 1 1 0 0 1 0-2zm.5 7a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+</svg>
+<span>RSS</span>
+</a>
+</div>
+
+                  </div><!--./sidebar-content-->
+              </div>
+            </div>
+            
+          </section>
+        </section></section>
+<section class="container grid-xl">
+<ul class="pagination paginator">
+  
+  
+</ul>
+</section>
+</div><!-- ./page-wrapper -->
+
+    
+<div class="mobile-container">
+        <div class="overlay" id="overlay">
+            <div style="padding: 1rem;">
+              
+<a class="site-logo" href="https:&#x2F;&#x2F;ilikexff.cn">
+  
+  <div class="col-mx-auto">
+    <figure style="margin: 8px">
+      <img class="img-responsive"
+           style="max-height: 45px"
+           alt="frontmatter image"
+           src="https://ilikexff.cn/./logo.svg">
+    </figure>
+  </div>
+  
+</a>
+
+            </div>
+            <nav class="overlay-menu">
+              
+
+<ul class="tree treemenu treemenu-root"><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/tags">标签</a>
+    </li><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/categories">分类</a>
+    </li><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/about">关于</a>
+    </li></ul>
+
+
+              </nav>
+        </div>
+    </div>
+
+<script type="text/javascript">
+  var overlay = document.getElementById('overlay');
+  var toggle = document.getElementById('toggle');
+
+  function openOverlay(){
+      // Open overlay
+      if (overlay.classList.contains("open")) {
+          overlay.classList.remove("open");
+      }
+      else {
+          overlay.classList.add("open");
+      }
+
+      // Button transition
+      if (toggle.classList.contains("active")) {
+          toggle.classList.remove("active");
+      }
+      else {
+          toggle.classList.add("active");
+      }
+    }
+</script>
+
+<section id="footer" class="bg-gray">
+  <div class="container grid-xl">
+    
+
+
+    <div class="columns">
+      
+      <div class="column col-6 col-lg-12 col-mx-auto" style="text-align: center;">
+        简单是效率的灵魂 | 黔ICP备2021010295号
+      </div>
+      
+      <div class="column col-6 col-lg-12 col-mx-auto" style="text-align: center;">
+        Made by <a href="https://github.com/gicrisf/">gicrisf</a> -
+        <strong>Zhuia</strong>&nbsp;<a href="https://github.com/gicrisf/zhuia">source code</a>
+        is licensed under <a href="http://opensource.org/licenses/mit-license.php" target="_blank">MIT</a>.
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

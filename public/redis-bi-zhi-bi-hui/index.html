@@ -1,0 +1,2635 @@
+<!DOCTYPE html>
+<html lang="zh" data-theme="light" dir="ltr">
+  <head>
+    <title>Redis必知必会 - 八尺妖剑</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="简单是效率的灵魂"/>
+
+    <meta property="og:title" content="八尺妖剑 -&nbsp;Redis必知必会" />
+    <meta property="og:type" content="website"/><meta property="og:url" content="https:&#x2F;&#x2F;ilikexff.cn&#x2F;redis-bi-zhi-bi-hui&#x2F;"/><meta property="og:description" content="简单是效率的灵魂"/>
+
+
+    <meta name="twitter:card" content="summary">
+
+
+    <link rel="stylesheet" href="https://ilikexff.cn/spectre/spectre.css">
+    <link rel="stylesheet" href="https://ilikexff.cn/theme.css"><link rel="stylesheet" href="https://ilikexff.cn/custom.css">
+    
+<link rel="alternate" type="application/rss+xml" title="八尺妖剑 RSS" href="https://ilikexff.cn/rss.xml">
+        
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script>
+        function doRenderMath() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false},
+                {left: "\\begin{equation}", right: "\\end{equation}", display: true},
+                {left: "\\begin{align}", right: "\\end{align}", display: true},
+                {left: "\\begin{alignat}", right: "\\end{alignat}", display: true},
+                {left: "\\begin{gather}", right: "\\end{gather}", display: true},
+                {left: "\\begin{CD}", right: "\\end{CD}", display: true},
+                {left: "\\[", right: "\\]", display: true}
+                ]
+            });
+        }
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+        onload="doRenderMath()"></script>
+
+      </head>
+  <body id="top" class="sticky-footer"><div id="page-wrapper">
+<header id="header" class="section">
+  <section class="container grid-xl">
+    <nav class="navbar">
+      <section class="navbar-section">
+        
+<a class="site-logo" href="https:&#x2F;&#x2F;ilikexff.cn">
+  
+  <div class="col-mx-auto">
+    <figure style="margin: 8px">
+      <img class="img-responsive"
+           style="max-height: 45px"
+           alt="frontmatter image"
+           src="https://ilikexff.cn/./logo.svg">
+    </figure>
+  </div>
+  
+</a>
+
+      </section><!-- ./home button -->
+
+      <section class="navbar-center hide-md"></section>
+
+      <section class="navbar-section">
+        <nav class="dropmenu animated hide-md">
+
+<ul><li>
+        <a href="https://ilikexff.cn/tags">标签</a>
+    </li><li>
+        <a href="https://ilikexff.cn/categories">分类</a>
+    </li><li>
+        <a href="https://ilikexff.cn/about">关于</a>
+    </li></ul>
+
+
+          </nav>
+      </section><!-- ./desktop-menu -->
+    </nav>
+  </section><!-- ./container -->
+</header>
+
+
+<div class="mobile-menu">
+  <div class="button_container" id="toggle" onclick="openOverlay()">
+    <span class="top"></span>
+    <span class="middle"></span>
+    <span class="bottom"></span>
+  </div>
+</div><!--./mobile-menu-->
+
+
+<section id="start"><section id="body-wrapper" class="section">
+          <section class="container grid-xl">
+<div id="breadcrumbs" itemtype="http://schema.org/BreadcrumbList" class="hide-sm">
+  
+    
+    <span><a href="https:&#x2F;&#x2F;ilikexff.cn&#x2F;">Home</a></span>
+  
+    <span><a href="https:&#x2F;&#x2F;ilikexff.cn&#x2F;redis-bi-zhi-bi-hui&#x2F;">Redis必知必会</a></span>
+</div>
+<div class="columns">
+              <div id="item" class="column col-8 col-md-12 extra-spacing">
+<div class="card">
+  
+
+    <div class="card-header">
+      <div class="card-title" style="margin-top: .25rem;"><div>
+          <h1 class="post-title">Redis必知必会</h1>
+          
+    <div class="post-meta" style="display: inline-flex">
+        <span class="blog-date" style="display: inline-flex;">
+          <i class="gg-calendar" style="margin-right: 5px;"></i><time datetime="2023.06.15">
+          2023.06.15
+          </time></span><span class="post-author" style="margin-left: 5px; display: inline-flex;">
+          - 
+    慕予
+        </span></div>
+
+        </div></div>
+    </div><!--./card-header-->
+
+    <div class="card-body">
+      
+        <h3 id="geng-xin-ri-zhi-tada">更新日志🎉<a class="zola-anchor" href="#geng-xin-ri-zhi-tada" aria-label="Anchor link for: geng-xin-ri-zhi-tada">🔗</a></h3>
+<p>2022-10-06</p>
+<blockquote>
+<p>Redis持久化</p>
+<ul>
+<li>RDB持久化</li>
+<li>AOF持久化</li>
+<li>调整目录结构</li>
+</ul>
+</blockquote>
+<p>2022-09-01</p>
+<blockquote>
+<p>本次更新没有内容，就是调整一下目录结构。</p>
+</blockquote>
+<p>2022-06-04 🎉</p>
+<blockquote>
+<ul>
+<li>新增 <code>Redis</code>管理命令:trollface:</li>
+<li>新增 <code>Redis</code>底层实现机制:trollface:</li>
+<li>新增配套脑图:trollface:</li>
+<li>修正已知错别字词和问题描述:trollface:</li>
+</ul>
+</blockquote>
+<p>2022-08-03🎉</p>
+<blockquote>
+<ul>
+<li>修正已知错别字词句:trollface:</li>
+<li>调整文章部分内容的格式:trollface:</li>
+</ul>
+</blockquote>
+<p>2022-8-19🎉</p>
+<blockquote>
+<ul>
+<li>新增Redis高级数据结构和功能部分内容</li>
+<li>Bitmap</li>
+<li>HyperLogLog</li>
+<li>GEO</li>
+<li>事务、Lua脚本</li>
+<li>发布订阅、Stream</li>
+<li>Pipeline流水线</li>
+<li>Redis模块</li>
+<li>校对/修复文章内容</li>
+</ul>
+</blockquote>
+<hr />
+<hr />
+<h2 id="redisjian-ji-ru-men">Redis简洁入门<a class="zola-anchor" href="#redisjian-ji-ru-men" aria-label="Anchor link for: redisjian-ji-ru-men">🔗</a></h2>
+<blockquote>
+<p>关于 <code>Redis</code>本身的一些语法、命令的使用。</p>
+</blockquote>
+<h3 id="jian-jie">简介<a class="zola-anchor" href="#jian-jie" aria-label="Anchor link for: jian-jie">🔗</a></h3>
+<blockquote>
+<p><code>Redis</code>是一款基于键值对的 <code>NoSQL</code>数据库，它的值支持多种数据结构，比如，字符串，哈希，列表，集合，有序集合(<code>sorted sets</code>)等。</p>
+</blockquote>
+<blockquote>
+<p><code>Redis</code>将所有的数据都存放在内存中，所以它的读写性能方面堪称秀儿。同时，它还可以将内存中的数据以快照或日志的形式保存在硬盘上，以保证数据的安全性。</p>
+</blockquote>
+<blockquote>
+<p><code>Redis</code>典型的应用场景包括：缓存、排行榜、计数器、社交网络、消息队列等等。</p>
+</blockquote>
+<p><strong>传送门：</strong></p>
+<p><a class="" href="https://redis.io/">官网</a></p>
+<p><a class="" href="https://github.com/microsoftarchive/redis/releases">Windows版本下载</a></p>
+<h3 id="an-zhuang-shi-yong-windowsban-ben-yan-shi">安装使用(Windows版本演示)<a class="zola-anchor" href="#an-zhuang-shi-yong-windowsban-ben-yan-shi" aria-label="Anchor link for: an-zhuang-shi-yong-windowsban-ben-yan-shi">🔗</a></h3>
+<ul>
+<li>下载 <code>msi</code>文件，点击安装，一路 <code>next</code>即可。</li>
+<li>上一步完事之后将其添加到环境变量。</li>
+<li>上一步完事之后打开黑窗口。</li>
+<li>输入 <code>redis-cli</code>回车。</li>
+<li>如出现下图信息，表示安装成功并且服务以及启动。</li>
+</ul>
+<p><img src="https://b3logfile.com/file/2022/08/solo-fetchupload-15718680738493394672-9be9d203.png" alt="" loading="lazy" decoding="async" /></p>
+<hr />
+<h3 id="">简单使用<a class="zola-anchor" href="#" aria-label="Anchor link for: ">🔗</a></h3>
+<h4 id="-1">换库<a class="zola-anchor" href="#-1" aria-label="Anchor link for: -1">🔗</a></h4>
+<blockquote>
+<p>默认内置了16个库(0-15)</p>
+<p>切库命令：<code>select [索引]</code></p>
+</blockquote>
+<blockquote>
+<p>命令</p>
+</blockquote>
+<pre data-lang="shell" style="background-color:#002b36;color:#839496;" class="language-shell "><code class="language-shell" data-lang="shell"><span>select 1
+</span></code></pre>
+<h4 id="-2">刷新<a class="zola-anchor" href="#-2" aria-label="Anchor link for: -2">🔗</a></h4>
+<blockquote>
+<p>如果不需要之前的操作数据，执行 <code>flushdb</code>可以将其刷掉。</p>
+<p>命令</p>
+<pre data-lang="shell" style="background-color:#002b36;color:#839496;" class="language-shell "><code class="language-shell" data-lang="shell"><span>flushdb
+</span></code></pre>
+</blockquote>
+<h4 id="-3">字符串<a class="zola-anchor" href="#-3" aria-label="Anchor link for: -3">🔗</a></h4>
+<ul>
+<li>存</li>
+</ul>
+<blockquote>
+<p>以键值对的形式存储字符串形式的数据，如果需要存储以’-‘连接的字符串，用冒号【:】分隔。</p>
+<p>示例：存储键为text-count，值为1的字符串。</p>
+<pre data-lang="shell" style="background-color:#002b36;color:#839496;" class="language-shell "><code class="language-shell" data-lang="shell"><span>set test:count 1
+</span></code></pre>
+</blockquote>
+<ul>
+<li>取</li>
+</ul>
+<blockquote>
+<p>获取存储的字符串数据也很简单，一条 <code>get</code>命令即可。</p>
+<p>示例：取到 <code>key</code>为 <code>test:count</code>的 <code>value</code>。</p>
+<pre data-lang="shell" style="background-color:#002b36;color:#839496;" class="language-shell "><code class="language-shell" data-lang="shell"><span>get test:count
+</span></code></pre>
+<p>返回:</p>
+<pre data-lang="shell" style="background-color:#002b36;color:#839496;" class="language-shell "><code class="language-shell" data-lang="shell"><span>&quot;1&quot;
+</span></code></pre>
+</blockquote>
+<ul>
+<li>改</li>
+</ul>
+<blockquote>
+<p><code>redis</code>支持对存储的字符串数据进行一些基本的修改操作。</p>
+<p>示例:将如上字符串<strong>加一、减一</strong>。</p>
+<pre data-lang="shell" style="background-color:#002b36;color:#839496;" class="language-shell "><code class="language-shell" data-lang="shell"><span>#加一
+</span><span>incr test:count
+</span><span>#返回
+</span><span>2
+</span><span>#---------------------
+</span><span>#减一
+</span><span>decr test:count
+</span><span>#返回
+</span><span>1
+</span></code></pre>
+</blockquote>
+<hr />
+<h4 id="-4">哈希<a class="zola-anchor" href="#-4" aria-label="Anchor link for: -4">🔗</a></h4>
+<ul>
+<li>存</li>
+</ul>
+<blockquote>
+<p>存储哈希的命令：<code>hset</code></p>
+<p>由于哈希值本身也是kv的形式，所以需要两次进行key_value的输入。</p>
+<p>示例：存于一个id为1,用户名为 <code>Tisox</code>的用户数据，名为【test-user】。</p>
+<pre data-lang="shell" style="background-color:#002b36;color:#839496;" class="language-shell "><code class="language-shell" data-lang="shell"><span># 存入用户id
+</span><span>hset test:user id 1
+</span><span>#提示：表示操作成功的提示
+</span><span>(integer) 1
+</span><span>#存入用户名
+</span><span>hset test:username Tisox
+</span><span>#提示
+</span><span>(integer) 1
+</span><span>#------------------------------
+</span></code></pre>
+</blockquote>
+<ul>
+<li>取</li>
+</ul>
+<blockquote>
+<p>和字符串存取类似，哈希的取值命令为 <code>hget</code></p>
+<p>示例：对上述存入的test-user信息进行读取。</p>
+<pre data-lang="shell" style="background-color:#002b36;color:#839496;" class="language-shell "><code class="language-shell" data-lang="shell"><span>#取id
+</span><span>hget test:user id
+</span><span>#返回
+</span><span>&quot;1&quot;
+</span><span>#-----------------------------------
+</span><span>#取用户名
+</span><span>hget test:user username
+</span><span># 返回
+</span><span>&quot;Tisox&quot;
+</span></code></pre>
+</blockquote>
+<hr />
+<h4 id="-5">列表<a class="zola-anchor" href="#-5" aria-label="Anchor link for: -5">🔗</a></h4>
+<blockquote>
+<p><code>redis</code>里的列表比较特殊，它存储数据的方式可以从左右两边进行，可以视为一个横向的容器。</p>
+<p>容器的左右两边都可以进行存取操作。并且列表是有序可重复的。</p>
+</blockquote>
+<ul>
+<li>存</li>
+</ul>
+<blockquote>
+<p>从左边存入：101 102 103</p>
+<pre data-lang="shell" style="background-color:#002b36;color:#839496;" class="language-shell "><code class="language-shell" data-lang="shell"><span># 从左边存入101 102 103
+</span><span>lpush test:ids 101 102 103
+</span><span># 提示
+</span><span>(integer) 3
+</span><span># 查看其长度
+</span><span>llen test:ids
+</span><span># 返回
+</span><span>(integer) 3
+</span></code></pre>
+</blockquote>
+<ul>
+<li>查</li>
+</ul>
+<blockquote>
+<p>列表支持不同的方式进行查看</p>
+<pre data-lang="shell" style="background-color:#002b36;color:#839496;" class="language-shell "><code class="language-shell" data-lang="shell"><span># 按索引查看
+</span><span>lindex test:ids 0
+</span><span># 返回
+</span><span>&quot;103&quot;
+</span><span>lindex test:ids 2
+</span><span># 返回
+</span><span>&quot;101&quot;
+</span><span># 按范围查看
+</span><span>lrange test:ids 0 2
+</span><span># 返回
+</span><span>1) &quot;103&quot;
+</span><span>2) &quot;102&quot;
+</span><span>3) &quot;101&quot;
+</span></code></pre>
+</blockquote>
+<ul>
+<li>取</li>
+</ul>
+<blockquote>
+<p>由于列表的特性，其取值也可以看作是队列或者栈的出队、出栈等操作。</p>
+<pre data-lang="shell" style="background-color:#002b36;color:#839496;" class="language-shell "><code class="language-shell" data-lang="shell"><span># 从右侧弹出一个值
+</span><span>lpop test:ids 
+</span><span>#返回
+</span><span>&quot;101&quot;
+</span><span>lpop test:ids 
+</span><span>#返回
+</span><span>&quot;102&quot;
+</span></code></pre>
+</blockquote>
+<hr />
+<h4 id="-6">集合<a class="zola-anchor" href="#-6" aria-label="Anchor link for: -6">🔗</a></h4>
+<blockquote>
+<p>集合(sets)，无序且不重复。</p>
+</blockquote>
+<ul>
+<li>存</li>
+</ul>
+<blockquote>
+<p>往集合中存入一个key为test-language ，值为 <code>Java</code>,<code>C++</code>,<code>Python</code>的数据。</p>
+<pre data-lang="shell" style="background-color:#002b36;color:#839496;" class="language-shell "><code class="language-shell" data-lang="shell"><span># 存入
+</span><span>add  test:language Java C++ Python
+</span><span># 提示
+</span><span>(integer) 3
+</span><span># -----------------------------------
+</span><span># 统计集合中有多少个元素
+</span><span>scard test:language
+</span><span># 返回 5
+</span><span>#------------------------------------
+</span><span># 从集合中随机弹出一个元素:应用场景：【抽奖业务】
+</span><span>spop test:language 
+</span><span># 返回
+</span><span>&quot;Java&quot;
+</span><span>spop test:language 
+</span><span># 返回
+</span><span>&quot;Python&quot;
+</span></code></pre>
+</blockquote>
+<ul>
+<li>查</li>
+</ul>
+<blockquote>
+<p>查看集合中的元素</p>
+<pre data-lang="shell" style="background-color:#002b36;color:#839496;" class="language-shell "><code class="language-shell" data-lang="shell"><span># 查看当前集合中的剩余元素
+</span><span>smembers test:language
+</span><span># 返回
+</span><span>&quot;C++&quot; # 因为上面已经随机弹出了另外两个数据，所以就剩下了&quot;Python&quot;
+</span></code></pre>
+</blockquote>
+<hr />
+<h4 id="-7">有序集合(sorted sets)<a class="zola-anchor" href="#-7" aria-label="Anchor link for: -7">🔗</a></h4>
+<blockquote>
+<p>给每一个存入的值附加一个分数，按照该分数进行排序的集合。</p>
+</blockquote>
+<ul>
+<li>存</li>
+</ul>
+<blockquote>
+<p>添加学生数据</p>
+<pre data-lang="shell" style="background-color:#002b36;color:#839496;" class="language-shell "><code class="language-shell" data-lang="shell"><span># 添加学生以及其分数
+</span><span>zadd test:students 10 aaa 20 bbb 30 ccc 40 ddd 50 eee
+</span><span># 提示
+</span><span>(integer) 5
+</span><span># 统计集合元素个数
+</span><span>zcard test:students
+</span><span># 返回
+</span><span>(integer) 5
+</span><span># 查询某个值的分数
+</span><span>zscore test :students ccc
+</span><span># 返回
+</span><span>&quot;30&quot;
+</span><span># 返回目的按照分数排行(0、1、2、3、4.....)
+</span><span>zrank test:students ccc
+</span><span># 返回
+</span><span>2
+</span><span># 按照排序，取0-2大小的值
+</span><span>zrange test:students 0 2
+</span><span># 返回
+</span><span>1) &quot;aaa&quot;
+</span><span>2) &quot;bbb&quot;
+</span><span>3) &quot;ccc&quot;
+</span></code></pre>
+</blockquote>
+<hr />
+<h4 id="-8">全局命令<a class="zola-anchor" href="#-8" aria-label="Anchor link for: -8">🔗</a></h4>
+<blockquote>
+<p>字面意思，这些命令针对全局生效。</p>
+</blockquote>
+<pre data-lang="shell" style="background-color:#002b36;color:#839496;" class="language-shell "><code class="language-shell" data-lang="shell"><span># keys *
+</span><span>keys *
+</span><span># 返回
+</span><span>1) &quot;test:user&quot;
+</span><span>2) &quot;test:language&quot;
+</span><span>3) &quot;text:count&quot;
+</span><span>4) &quot;test:ids&quot;
+</span><span>5) &quot;test:students&quot;
+</span><span># ----------------------------------
+</span><span># keys test*
+</span><span>keys test*
+</span><span># 返回
+</span><span>1) &quot;test:user&quot;
+</span><span>2) &quot;test:language&quot;
+</span><span>3) &quot;text:count&quot;
+</span><span>4) &quot;test:ids&quot;
+</span><span>5) &quot;test:students&quot;
+</span><span># ------------------------------------
+</span><span># 查看类型
+</span><span>type test:user
+</span><span># 返回
+</span><span>hash
+</span><span># 查看某个key是否存在
+</span><span>exists test:user
+</span><span># 返回
+</span><span>1 #表示存在
+</span><span># 输出key
+</span><span>del test:user
+</span><span># ---------------------------------------
+</span><span># 设置有效期：秒为单位，过期自动删除
+</span><span>expire test:students 10
+</span></code></pre>
+<h2 id="redis">管理 <code>Redis</code><a class="zola-anchor" href="#redis" aria-label="Anchor link for: redis">🔗</a></h2>
+<p>前面所有的命令都是基于key的基础上进行的，那么又怎样取管理和操作这些key呢？</p>
+<p>以下是一些用来管理 <code>key</code>的常用命令：这里只作一个列举，不会全部进行演示。</p>
+<pre data-lang="shell" style="background-color:#002b36;color:#839496;" class="language-shell "><code class="language-shell" data-lang="shell"><span># 选择库
+</span><span>select index
+</span></code></pre>
+<blockquote>
+<p>index为redis库的索引，共有0-15个索引16个库，默认启用第一个库，索引为0。</p>
+</blockquote>
+<pre data-lang="shell" style="background-color:#002b36;color:#839496;" class="language-shell "><code class="language-shell" data-lang="shell"><span># 查看全部的key
+</span><span>keys *
+</span><span># 通过通配符进行匹配查看
+</span><span># 查看所有key中以my开头的key
+</span><span>keys my*
+</span></code></pre>
+<blockquote>
+<p>注意，如果数据量很大的情况下，一般不建议直接使用 <code>keys*</code>进行查看，该操作的时间复杂度是O(N)，的，数据量太大可能会导致阻塞崩溃。</p>
+</blockquote>
+<pre data-lang="shell" style="background-color:#002b36;color:#839496;" class="language-shell "><code class="language-shell" data-lang="shell"><span># 查看当前库中有多少key
+</span><span>dbsize
+</span></code></pre>
+<pre data-lang="shell" style="background-color:#002b36;color:#839496;" class="language-shell "><code class="language-shell" data-lang="shell"><span># 清理库中的key
+</span><span>flushdb
+</span></code></pre>
+<blockquote>
+<p>这是一个危险且强大的命令，如果使用不当，可能造成将所有的key全部删除，是不可逆的操作，在使用时应该三思。</p>
+</blockquote>
+<pre data-lang="shell" style="background-color:#002b36;color:#839496;" class="language-shell "><code class="language-shell" data-lang="shell"><span># 查看key的数据类型
+</span><span>type key
+</span></code></pre>
+<pre data-lang="shell" style="background-color:#002b36;color:#839496;" class="language-shell "><code class="language-shell" data-lang="shell"><span># 判断某个key是否存在
+</span><span>exists key
+</span></code></pre>
+<pre data-lang="shell" style="background-color:#002b36;color:#839496;" class="language-shell "><code class="language-shell" data-lang="shell"><span># 随机返回一个key
+</span><span>randomkey
+</span></code></pre>
+<pre data-lang="shell" style="background-color:#002b36;color:#839496;" class="language-shell "><code class="language-shell" data-lang="shell"><span># 给key重命名
+</span><span>rename key newkey
+</span></code></pre>
+<blockquote>
+<p>建议在使用时结合 <code>nx</code>参数使用。</p>
+</blockquote>
+<pre data-lang="shell" style="background-color:#002b36;color:#839496;" class="language-shell "><code class="language-shell" data-lang="shell"><span># 删除一个或者多个key
+</span><span>del key1 key2 .....
+</span><span># 或者
+</span><span>unlink key1 key2 ....
+</span></code></pre>
+<blockquote>
+<p><code>del</code>带阻塞，<code>unlink</code>则没有。</p>
+</blockquote>
+<pre data-lang="shell" style="background-color:#002b36;color:#839496;" class="language-shell "><code class="language-shell" data-lang="shell"><span># 渐进式遍历key
+</span><span># 基础用法，跟一个整数作为游标，表示从何处开始遍历
+</span><span>scan 0
+</span><span># 进阶用法
+</span><span>scan 0 match counter* count 10
+</span></code></pre>
+<blockquote>
+<p><code>counter*</code>表示匹配的规则，所有以该字符开头的key,</p>
+<p><code>count</code>后的数值表示每轮遍历的数量。</p>
+</blockquote>
+<blockquote>
+<p>为了方便演示 <code>scan</code>的用法，我们需要有一定数量的key。可以使用 <code>redis</code>自带的压力测试工具来生成这些测试数据。</p>
+<p>这个工具存在于 <code>/usr/bin/redisbenmark</code>。</p>
+</blockquote>
+<pre data-lang="shell" style="background-color:#002b36;color:#839496;" class="language-shell "><code class="language-shell" data-lang="shell"><span># redisbenchmark的使用命令
+</span><span>redis-benchmark -c 5 -n 100 -r 1000 -a reids密码
+</span></code></pre>
+<blockquote>
+<p>上面的命令中：</p>
+<p><code>5</code>表示启动的客户端数量</p>
+<p><code>100</code>表示请求数量</p>
+<p><code>1000</code>表示插入的数据量</p>
+<p><code>密码</code>表示你登录redis客户端的密码</p>
+</blockquote>
+<p><img src="https://b3logfile.com/file/2022/08/solo-fetchupload-8142905571278033607-e14b7bcc.png" alt="" loading="lazy" decoding="async" /></p>
+<p><em>以上就是 <code>管理redis</code>部分的全部内容</em></p>
+<hr />
+<h2 id="-9">Redis底层实现机制<a class="zola-anchor" href="#-9" aria-label="Anchor link for: -9">🔗</a></h2>
+<h3 id="-10">Redis的对象体系<a class="zola-anchor" href="#-10" aria-label="Anchor link for: -10">🔗</a></h3>
+<h4 id="-11">类型与编码<a class="zola-anchor" href="#-11" aria-label="Anchor link for: -11">🔗</a></h4>
+<p>在redis中，每一种数据类型的底层都是由一种或者多种编码进行实现的，具体如下：</p>
+<ul>
+<li>String</li>
+</ul>
+<blockquote>
+<p>int</p>
+<p>embstr</p>
+<p>raw</p>
+</blockquote>
+<ul>
+<li>list</li>
+</ul>
+<blockquote>
+<p>ziplist</p>
+<p>linkedlist</p>
+<p>quicklist</p>
+</blockquote>
+<ul>
+<li>hash</li>
+</ul>
+<blockquote>
+<p>ziplist</p>
+<p>hashtable</p>
+</blockquote>
+<ul>
+<li>set</li>
+</ul>
+<blockquote>
+<p>intset</p>
+<p>hashtable</p>
+</blockquote>
+<ul>
+<li>zset</li>
+</ul>
+<blockquote>
+<p>ziplist</p>
+<p>skiplist</p>
+</blockquote>
+<p>可以看到，某一种编码可以同时应用在不同的数据类型的实现中。</p>
+<p><img src="https://images.waer.ltd/img/Redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.png" alt="" loading="lazy" decoding="async" /></p>
+<h4 id="-12">查看类型编码<a class="zola-anchor" href="#-12" aria-label="Anchor link for: -12">🔗</a></h4>
+<p>在前面有提到过一个命令：</p>
+<pre data-lang="shell" style="background-color:#002b36;color:#839496;" class="language-shell "><code class="language-shell" data-lang="shell"><span>type key
+</span></code></pre>
+<p>这是用来查看某个key的数据类型，这里的类型即指的是上面诸如 <code>String,hash,set....</code>。而不能查看他们对应源码实现上所用的数据编码。可以通过下面的命令查看：</p>
+<pre data-lang="shell" style="background-color:#002b36;color:#839496;" class="language-shell "><code class="language-shell" data-lang="shell"><span>object encoding key
+</span></code></pre>
+<p><img src="https://b3logfile.com/file/2022/08/solo-fetchupload-4741955633716788992-17fef530.png" alt="" loading="lazy" decoding="async" /></p>
+<h4 id="-13">源码结构查看<a class="zola-anchor" href="#-13" aria-label="Anchor link for: -13">🔗</a></h4>
+<p>具体的源码会在下一节中进行展开，这里介绍redis源码的结构。</p>
+<table><thead><tr><th>数据结构</th><th>数据类型</th><th>数据库</th><th>服务端与客户端</th><th>其他</th></tr></thead><tbody>
+<tr><td>动态字符串sds.c</td><td>对象object.c</td><td>数据库db.c</td><td>事件驱动ae.c,ae_epoll.c</td><td>主从复制replication.c</td></tr>
+<tr><td>压缩列表ziplist.c</td><td>字符串t_string.c</td><td>持久化rdb.c,aof.c</td><td>网络连接anet.c,networking.c</td><td>哨兵sentinel.c</td></tr>
+<tr><td>快速列表quicklist.c</td><td>列表t_list.c</td><td></td><td>服务端server.c</td><td>集群cluster.c</td></tr>
+<tr><td>整数集合intset.c</td><td>哈希t_hash.c</td><td></td><td>客户端redis-cli.c</td><td>其他类型hyperloglog.c,geo.c</td></tr>
+<tr><td>字典dict.c</td><td>集合t_set.c</td><td></td><td></td><td></td></tr>
+<tr><td></td><td>有序集合t_zset.c</td><td></td><td></td><td></td></tr>
+</tbody></table>
+<h3 id="-14">简单动态字符串<a class="zola-anchor" href="#-14" aria-label="Anchor link for: -14">🔗</a></h3>
+<h4 id="-15">概述<a class="zola-anchor" href="#-15" aria-label="Anchor link for: -15">🔗</a></h4>
+<blockquote>
+<p>简单动态字符串(SDS)，是 <code>Simple Dynamic String</code>的缩写，是 <code>Redis</code>内部自定义实现的一种数据类型。在 <code>Redis</code>数据库内部，包含字符串的键值对在底层都是由 <code>SDS</code>实现的，它还被用于缓冲区的实现，如 <code>AOF</code>缓冲区、客户端的输入缓冲区。</p>
+</blockquote>
+<pre data-lang="shell" style="background-color:#002b36;color:#839496;" class="language-shell "><code class="language-shell" data-lang="shell"><span>set text &quot;hello world&quot;
+</span><span>rpush names &quot;john&quot; &quot;lucy&quot; &quot;tony&quot;
+</span><span>sadd users &quot;liubei&quot; &quot;guanyu&quot; &quot;zhangfei&quot;
+</span></code></pre>
+<blockquote>
+<p>诸如上面的类型，底层实现都用到了SDS.</p>
+</blockquote>
+<p>学过或者了解过C语言的都知道，C语言它是有字符串这种数据类型的，那为什么 <code>Redis</code>不是直接使用原生的字符串类型，而是自己自定义呢？</p>
+<ul>
+<li>C语言中，其实并没有实现意义上的字符串类型，而是将单个字符串储在 <code>char</code>类型的数组中，进而来表示字符串。</li>
+<li>C语言用空字符 <code>\0</code>来标记字符串的结束，空字符串不是数字0，它的 <code>ASCII</code>码值为0；</li>
+</ul>
+<p>从上面的信息中，总结了以下几点原因，导致不能直接使用原生字符串，而是需要自定义。</p>
+<p><img src="https://images.waer.ltd/img/Redis%E4%B8%AD%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E4%BD%BF%E7%94%A8%E5%8E%9F%E7%94%9F%E5%AD%97%E7%AC%A6%E4%B8%B2.png" alt="" loading="lazy" decoding="async" /></p>
+<ul>
+<li>获取长度的复杂度高：</li>
+</ul>
+<blockquote>
+<p>C字符串的实现中是不记自身长度的，想要获取字符串的长度就必须遍历整个字符串来统计，这种方式复杂度为 <code>O(n)</code>，但要知道，在 <code>Redis</code>中，获取字符串的长度是一个操作频繁的需求，因此为了提升性能，必须降低操作的复杂度。</p>
+</blockquote>
+<ul>
+<li>内存分配十分频繁：</li>
+</ul>
+<blockquote>
+<p>几乎每次修改C字符串，程序就要对保存的这个字符串的数组重新分配一次内存空间。</p>
+</blockquote>
+<ul>
+<li>不能保证二进制安全：</li>
+</ul>
+<blockquote>
+<p>因为C字符串以空字符串结尾，所以不适合保存二进制数据(内部可能携带空字符串)。</p>
+</blockquote>
+<h4 id="-16">源码实现<a class="zola-anchor" href="#-16" aria-label="Anchor link for: -16">🔗</a></h4>
+<blockquote>
+<p>对源码这里不作深入的研究，只作了解。</p>
+</blockquote>
+<blockquote>
+<p>鉴于几个比较典型的版本来分别看一下他们在 <code>SDS</code>的实现的源码中是怎样的逻辑。</p>
+</blockquote>
+<ul>
+<li><code>Redis3.2之前的是实现</code></li>
+</ul>
+<blockquote>
+<p>下面是v3.0中对sds结构的自定义实现源码：这是sds的头文件sds.h，具体的实现逻辑在sds.c中。</p>
+</blockquote>
+<pre data-lang="c" style="background-color:#002b36;color:#839496;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#586e75;">/*sds.h*/
+</span><span style="color:#268bd2;">struct </span><span style="color:#b58900;">sdshdr </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#586e75;">//已使用的字节数量
+</span><span>    </span><span style="color:#268bd2;">unsigned int</span><span> len;
+</span><span>    </span><span style="color:#586e75;">//未使用的字节数量
+</span><span>    </span><span style="color:#268bd2;">unsigned int</span><span> free;
+</span><span>    </span><span style="color:#586e75;">//保存字符串的数组
+</span><span>    </span><span style="color:#268bd2;">char</span><span> buf</span><span style="color:#268bd2;">[]</span><span>;
+</span><span style="color:#657b83;">}</span><span>;
+</span></code></pre>
+<pre style="background-color:#002b36;color:#839496;"><code><span>上面代码的意思大致是这样的，默认会开辟一个buf[]字符数组来存储需要的字符串，该字符数组的长度为
+</span></code></pre>
+<p><code>len</code>的长度加上空闲的空间长度 <code>free</code>。<code>len</code>用来实时存储并记录当前已使用掉的字符空间，它可以实时的返回字符串的长度，从而可以将获取长度这个操作的复杂度降到常数的 <code>O(1)</code>级别。</p>
+<pre style="background-color:#002b36;color:#839496;"><code><span>而
+</span></code></pre>
+<p><code>free</code>的作用相当于一个预留空间，这部分空间未必是一开始就能全部用上的，可能会在用户修改字符串数量之后用上，通过这种<strong>空间预分配和惰性空间</strong>释放修改字符串时所需的内存分配次数。</p>
+<pre style="background-color:#002b36;color:#839496;"><code><span>此外，SDS不会对buf中的数据作任何的限制，因为它采用len属性来判定字符串是否结束，它依然以空字符(
+</span></code></pre>
+<p><code>\0</code>)结尾，这样其内部可以方便的重用一部分C字符串库中的函数。</p>
+<p><strong>预分配</strong></p>
+<blockquote>
+<p>用于优化增长操作，即不仅为其分配存放字符串所需的空间，还会为其分配一定大小的额外空间，如果修改后的SDS长度小于 <code>1MB</code>,则分配的未使用空间与 <code>len</code>相同，否则分配的未使用空间为 <code>1MB</code>。</p>
+</blockquote>
+<p><strong>惰性释放</strong></p>
+<blockquote>
+<p>用来优化缩短操作，当检测到SDS缩短时，程序不会立即重新分配内存，而是使用 <code>free</code>属性记录这些字节。也就是将缩短后空余出来的空间加到 <code>free</code>中，以备下一次增长时使用。</p>
+</blockquote>
+<p><strong>不足之处</strong></p>
+<p>在该版本的源码实现中，除了具备上述优点之外，也是有不足之处的，比如 <code>len</code>，<code>free</code>，都是无符号int类型,他们在C语言中一般占用4个字节的空间，但对于较短的字符串来说，这免不了造成了一定空间的浪费。</p>
+<p>为什么会这么说，一个 <code>len</code>不过4个字节，加上 <code>free</code>也不过8个字节，这么就浪费空间了呢？别忘了，在 <code>Redis</code>核心中，它的数据一般都是存在内存中的，内存对它来说确实值得 <code>斤斤计较</code>,再者，<code>SDS</code>实现的数据类型在整个的 <code>Redis</code>数据结构中占用的比例是相当大的，当数量达到一定量级，浪费的空间可不是几个字节能搞定的。</p>
+<p>附<a class="" href="https://github.com/redis/redis/tree/3.0/src">redis3.0源码地址</a></p>
+<p>上面提到了这种方案的一些弊端，那么在后续的版本中，自然也得到了优化，毕竟写出 <code>Redis</code>的那些大佬可不是盖的，我们能想到的，他们自然也想到了。所以下面是优化后的版本，也就是在 <code>v3.2</code>中相同部分的实现源码。</p>
+<pre data-lang="c" style="background-color:#002b36;color:#839496;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#586e75;">/* Note: sdshdr5 is never used, we just access the flags byte directly.
+</span><span style="color:#586e75;"> * However is here to document the layout of type 5 SDS strings. */
+</span><span style="color:#268bd2;">struct </span><span style="color:#93a1a1;">__attribute__ </span><span style="color:#657b83;">((</span><span>__packed__</span><span style="color:#657b83;">)) </span><span style="color:#b58900;">sdshdr5 </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#268bd2;">unsigned char</span><span> flags; </span><span style="color:#586e75;">/* 3 lsb of type, and 5 msb of string length */
+</span><span>    </span><span style="color:#268bd2;">char</span><span> buf</span><span style="color:#268bd2;">[]</span><span>;
+</span><span style="color:#657b83;">}</span><span>;
+</span><span style="color:#268bd2;">struct </span><span style="color:#93a1a1;">__attribute__ </span><span style="color:#657b83;">((</span><span>__packed__</span><span style="color:#657b83;">)) </span><span style="color:#b58900;">sdshdr8 </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">uint8_t</span><span> len; </span><span style="color:#586e75;">/* used */
+</span><span>    </span><span style="color:#859900;">uint8_t</span><span> alloc; </span><span style="color:#586e75;">/* excluding the header and null terminator */
+</span><span>    </span><span style="color:#268bd2;">unsigned char</span><span> flags; </span><span style="color:#586e75;">/* 3 lsb of type, 5 unused bits */
+</span><span>    </span><span style="color:#268bd2;">char</span><span> buf</span><span style="color:#268bd2;">[]</span><span>;
+</span><span style="color:#657b83;">}</span><span>;
+</span><span style="color:#268bd2;">struct </span><span style="color:#93a1a1;">__attribute__ </span><span style="color:#657b83;">((</span><span>__packed__</span><span style="color:#657b83;">)) </span><span style="color:#b58900;">sdshdr16 </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">uint16_t</span><span> len; </span><span style="color:#586e75;">/* used */
+</span><span>    </span><span style="color:#859900;">uint16_t</span><span> alloc; </span><span style="color:#586e75;">/* excluding the header and null terminator */
+</span><span>    </span><span style="color:#268bd2;">unsigned char</span><span> flags; </span><span style="color:#586e75;">/* 3 lsb of type, 5 unused bits */
+</span><span>    </span><span style="color:#268bd2;">char</span><span> buf</span><span style="color:#268bd2;">[]</span><span>;
+</span><span style="color:#657b83;">}</span><span>;
+</span><span style="color:#268bd2;">struct </span><span style="color:#93a1a1;">__attribute__ </span><span style="color:#657b83;">((</span><span>__packed__</span><span style="color:#657b83;">)) </span><span style="color:#b58900;">sdshdr32 </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">uint32_t</span><span> len; </span><span style="color:#586e75;">/* used */
+</span><span>    </span><span style="color:#859900;">uint32_t</span><span> alloc; </span><span style="color:#586e75;">/* excluding the header and null terminator */
+</span><span>    </span><span style="color:#268bd2;">unsigned char</span><span> flags; </span><span style="color:#586e75;">/* 3 lsb of type, 5 unused bits */
+</span><span>    </span><span style="color:#268bd2;">char</span><span> buf</span><span style="color:#268bd2;">[]</span><span>;
+</span><span style="color:#657b83;">}</span><span>;
+</span><span style="color:#268bd2;">struct </span><span style="color:#93a1a1;">__attribute__ </span><span style="color:#657b83;">((</span><span>__packed__</span><span style="color:#657b83;">)) </span><span style="color:#b58900;">sdshdr64 </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">uint64_t</span><span> len; </span><span style="color:#586e75;">/* used */
+</span><span>    </span><span style="color:#859900;">uint64_t</span><span> alloc; </span><span style="color:#586e75;">/* excluding the header and null terminator */
+</span><span>    </span><span style="color:#268bd2;">unsigned char</span><span> flags; </span><span style="color:#586e75;">/* 3 lsb of type, 5 unused bits */
+</span><span>    </span><span style="color:#268bd2;">char</span><span> buf</span><span style="color:#268bd2;">[]</span><span>;
+</span><span style="color:#657b83;">}</span><span>;
+</span></code></pre>
+<p>主要的优化方向：</p>
+<blockquote>
+<p>通过字符串长度，将其分为5种类型，分别为1字节、2字节、4字节、8字节、小于1字节。</p>
+</blockquote>
+<pre data-lang="c" style="background-color:#002b36;color:#839496;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#268bd2;">struct </span><span style="color:#93a1a1;">__attribute__ </span><span style="color:#657b83;">((</span><span>__packed__</span><span style="color:#657b83;">)) </span><span style="color:#b58900;">sdshdr8 </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">uint8_t</span><span> len; </span><span style="color:#586e75;">//使用的字节数量
+</span><span>    </span><span style="color:#859900;">uint8_t</span><span> alloc; </span><span style="color:#586e75;">//全部的字节数量
+</span><span>    </span><span style="color:#268bd2;">unsigned char</span><span> flags; </span><span style="color:#586e75;">//低3位存储类型，高5位预留
+</span><span>    </span><span style="color:#268bd2;">char</span><span> buf</span><span style="color:#268bd2;">[]</span><span>; </span><span style="color:#586e75;">//存放实际的内容
+</span><span style="color:#657b83;">}</span><span>;
+</span></code></pre>
+<p>在 <code>v3.2</code>版本的优化中，针对每一个长度定义了不同的结构体处理，还新增了一个 <code>char</code> 类型的 <code>flag</code>属性。这个属性是用来标记数据类型的，属性占1个字节(8位)，其中3位用来标记类型，剩余的5位作为预留空间待用。</p>
+<p>==在处理小于1字节的情况上，它的结构体是定义如下==：</p>
+<pre data-lang="c" style="background-color:#002b36;color:#839496;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#268bd2;">struct </span><span style="color:#93a1a1;">__attribute__ </span><span style="color:#657b83;">((</span><span>__packed__</span><span style="color:#657b83;">)) </span><span style="color:#b58900;">sdshdr5 </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#268bd2;">unsigned char</span><span> flags; </span><span style="color:#586e75;">//低3位存储类型，高5位存储长度
+</span><span>    </span><span style="color:#268bd2;">char</span><span> buf</span><span style="color:#268bd2;">[]</span><span>;</span><span style="color:#586e75;">//存放实际的内容
+</span><span style="color:#657b83;">}</span><span>;
+</span></code></pre>
+<p>==注意到==，这里去掉了 <code>len</code>和 <code>alloc</code>属性不代表它不存储长度，而是将长度和类型标记合二为一。既然存储的长度小于1字节，那么在8位长度中，用前3位来标记数据类型，后5位存储长度是足够的，因此没必要开辟额外的属性。这样的作法更有效的利用空间。</p>
+<p>在每一个结构体的定义中有这样一段修饰符：</p>
+<pre data-lang="c" style="background-color:#002b36;color:#839496;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#93a1a1;">__attribute__ </span><span style="color:#657b83;">((</span><span>__packed__</span><span style="color:#657b83;">))
+</span></code></pre>
+<p>这是用来将结构体中内存的分配规则指定为==按照1字节来对齐==，如此可以进一步的节约内存。而在默认不作处理的情况下，它对结构体内存的分配规则是按照其中各个属性的字节最小公倍数来对齐的，相对比较浪费。</p>
+<p>附<a class="" href="https://github.com/redis/redis/tree/3.2">Redis3.2源码地址</a></p>
+<hr />
+<h3 id="-17">整数集合<a class="zola-anchor" href="#-17" aria-label="Anchor link for: -17">🔗</a></h3>
+<p><img src="https://images.waer.ltd/img/%E6%95%B4%E6%95%B0%E9%9B%86%E5%90%88%E5%8E%9F%E7%90%86.png" alt="" loading="lazy" decoding="async" /></p>
+<h4 id="-18">概述<a class="zola-anchor" href="#-18" aria-label="Anchor link for: -18">🔗</a></h4>
+<blockquote>
+<p>整数集合(intset)是一个有序的、存储整型数据的结构；其中的元素按照值由小到大的顺序排列。</p>
+<p>它可以保存 <code>int16_t,int32_t,int64_t</code>类型的整数值，在存储数据时，整数集合可以保证内部不出现重复数据。</p>
+</blockquote>
+<h4 id="-19">源码实现<a class="zola-anchor" href="#-19" aria-label="Anchor link for: -19">🔗</a></h4>
+<p>在 <code>Redis</code>中并没有大范围的使用到整数集合这样的编码，只有当一个set只包含整数元素，并且这个set的元素数量不多时，<code>Redis</code>才会使用整数集合作为set的底层实现。这个的数量是可以通过配置文件进行配置的。</p>
+<p><strong>集合的升级与降级</strong></p>
+<ul>
+<li>升级</li>
+</ul>
+<blockquote>
+<p>当添加新的元素，<strong>其类型比现有元素类型都长时</strong>，集合需要先升级再添加。</p>
+<ul>
+<li>根据新元素的类型，扩展集合底层数组空间，并为新元素分配空间。</li>
+<li>将现有元素都转成与新元素相同的类型，并将其存储到正确的位置上。</li>
+<li>将新元素添加到数组之内。</li>
+</ul>
+</blockquote>
+<ul>
+<li>降级</li>
+</ul>
+<blockquote>
+<p>整数集合不支持降级，一旦对数组进行了升级，编码就会一直保持升级的状态。</p>
+</blockquote>
+<ul>
+<li>
+<p>升级的优点:</p>
+<blockquote>
+<p>让一个整数数组同时支持 <code>int16_t,int32_t,int64_t</code>,最简单的方法是使用 <code>int64_t</code>,但这样显然浪费内存空间，而升级操作可以尽量的节约内存的使用。</p>
+</blockquote>
+</li>
+<li>
+<p>升级的缺点：</p>
+<blockquote>
+<p>每次向集合中添加数据都可能会引起升级，而每次升级都需要对底层数组中所有的元素进行**类型转换，<strong>所以向集合中添加新元素的时间</strong>复杂度是O(n)**的。</p>
+</blockquote>
+</li>
+</ul>
+<p>下面是 <code>v3.2</code>版本中对该结构的定义；</p>
+<pre data-lang="c" style="background-color:#002b36;color:#839496;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#268bd2;">typedef struct</span><span> intset </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#859900;">uint32_t</span><span> encoding;</span><span style="color:#586e75;">//编码类型
+</span><span>    </span><span style="color:#859900;">uint32_t</span><span> length;</span><span style="color:#586e75;">//元素数量
+</span><span>    </span><span style="color:#859900;">int8_t</span><span> contents</span><span style="color:#268bd2;">[]</span><span>;</span><span style="color:#586e75;">//元素数组
+</span><span style="color:#657b83;">} </span><span style="color:#b58900;">intset</span><span>;
+</span></code></pre>
+<p>注意其中的元素数组的类型虽然声明是 <code>int8_t</code>的，但实际上不是说只能存 <code>int8_t</code>类型的元素，具体的，在后面的源码中，对它作了一些设计。</p>
+<p>在 <code>intset.c</code>中：</p>
+<pre data-lang="c" style="background-color:#002b36;color:#839496;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#859900;">*</span><span> INTSET_ENC_INT16 </span><span style="color:#657b83;">&lt;</span><span> INTSET_ENC_INT32 </span><span style="color:#657b83;">&lt;</span><span> INTSET_ENC_INT64. </span><span style="background-color:#6e2e32;color:#839496;">*/</span><span>
+</span><span style="color:#cb4b16;">#define </span><span style="color:#b58900;">INTSET_ENC_INT16 </span><span style="color:#657b83;">(</span><span style="color:#859900;">sizeof</span><span style="color:#657b83;">(</span><span style="color:#859900;">int16_t</span><span style="color:#657b83;">))
+</span><span style="color:#cb4b16;">#define </span><span style="color:#b58900;">INTSET_ENC_INT32 </span><span style="color:#657b83;">(</span><span style="color:#859900;">sizeof</span><span style="color:#657b83;">(</span><span style="color:#859900;">int32_t</span><span style="color:#657b83;">))
+</span><span style="color:#cb4b16;">#define </span><span style="color:#b58900;">INTSET_ENC_INT64 </span><span style="color:#657b83;">(</span><span style="color:#859900;">sizeof</span><span style="color:#657b83;">(</span><span style="color:#859900;">int64_t</span><span style="color:#657b83;">))
+</span></code></pre>
+<p>也就是说 <code>contents</code>数组的实际类型取决于 <code>encoding</code>属性的值。</p>
+<blockquote>
+<ol>
+<li>encoding=INTSET_ENC_INT16-&gt;contents存储int16_t类型的值。</li>
+<li>encoding=INTSET_ENC_INT32-&gt;contents存储int32_t类型的值。</li>
+<li>encoding=INTSET_ENC_INT64-&gt;contents存储int64_t类型的值。</li>
+</ol>
+</blockquote>
+<p>上面的常量定义可以在 <code>intset.c</code>中找到。</p>
+<p>附<a class="" href="https://github.com/redis/redis/blob/3.2/src/intset.c">Redis3.2版本源码地址</a></p>
+<hr />
+<h3 id="-20">字典<a class="zola-anchor" href="#-20" aria-label="Anchor link for: -20">🔗</a></h3>
+<p><img src="https://images.waer.ltd/img/%E5%AD%97%E5%85%B8.png" alt="" loading="lazy" decoding="async" /></p>
+<blockquote>
+<p>字典又称散列表，是一种用来<strong>存储键值对</strong>的数据结构。C语言没有内置这种数据结构，所以 <code>Redis</code>构建了自己的字典规范。</p>
+<p>字典在 <code>Redis</code>中的应用广泛，redis数据库底层就是采用它实现的，字典也是集合，哈希类型的底层实现之一；redis的哨兵模式，就是以字典存储所有的主从节点的。</p>
+</blockquote>
+<h4 id="-21">字典的实现<a class="zola-anchor" href="#-21" aria-label="Anchor link for: -21">🔗</a></h4>
+<p><code>Redis</code>字典实现主要涉及三个结构体：字典、哈希表、哈希表节点。其中，每一个哈希表节点保持一个键值对，每一个哈希表由多个哈希表节点构成，而字典则是对哈希表的进一步封装。看一下哈希表在 <code>dict.h</code>中的定义源码：</p>
+<p><strong>dict</strong></p>
+<pre data-lang="c" style="background-color:#002b36;color:#839496;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#268bd2;">typedef struct</span><span> dict </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#586e75;">//字典类型，内置若干特定的操作函数
+</span><span>    dictType </span><span style="color:#859900;">*</span><span>type;
+</span><span>    </span><span style="color:#586e75;">//该字典特有的私有数据
+</span><span>    </span><span style="color:#268bd2;">void </span><span style="color:#859900;">*</span><span>privdata;
+</span><span>    </span><span style="color:#586e75;">//哈希表数组，固定长度为2
+</span><span>    dictht ht</span><span style="color:#268bd2;">[</span><span style="color:#6c71c4;">2</span><span style="color:#268bd2;">]</span><span>;
+</span><span>    </span><span style="color:#586e75;">//rehash标识，存储rehash的偏移量，默认-1
+</span><span>    </span><span style="color:#268bd2;">long</span><span> rehashidx; 
+</span><span>    </span><span style="color:#586e75;">//记录绑定在此字典上，正在运行的迭代器数量
+</span><span>    </span><span style="color:#268bd2;">int</span><span> iterators; 
+</span><span style="color:#657b83;">} </span><span style="color:#b58900;">dict</span><span>;
+</span></code></pre>
+<p><strong>dictht</strong></p>
+<pre data-lang="c" style="background-color:#002b36;color:#839496;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#268bd2;">typedef struct</span><span> dictht </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#586e75;">//节点数组
+</span><span>    dictEntry </span><span style="color:#859900;">**</span><span>table;
+</span><span>    </span><span style="color:#586e75;">//数组大小
+</span><span>    </span><span style="color:#268bd2;">unsigned long</span><span> size;
+</span><span>    </span><span style="color:#586e75;">//掩码(size-1)
+</span><span>    </span><span style="color:#268bd2;">unsigned long</span><span> sizemask;
+</span><span>    </span><span style="color:#586e75;">//已用节点数量
+</span><span>    </span><span style="color:#268bd2;">unsigned long</span><span> used;
+</span><span style="color:#657b83;">} </span><span style="color:#b58900;">dictht</span><span>;
+</span></code></pre>
+<p><strong>dictEntry</strong></p>
+<pre data-lang="c" style="background-color:#002b36;color:#839496;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#268bd2;">typedef struct</span><span> dictEntry </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#586e75;">//键
+</span><span>    </span><span style="color:#268bd2;">void </span><span style="color:#859900;">*</span><span>key;
+</span><span>    </span><span style="color:#268bd2;">union </span><span style="color:#657b83;">{
+</span><span>        </span><span style="color:#268bd2;">void </span><span style="color:#859900;">*</span><span>val;
+</span><span>        </span><span style="color:#859900;">uint64_t</span><span> u64;
+</span><span>        </span><span style="color:#859900;">int64_t</span><span> s64;
+</span><span>        </span><span style="color:#268bd2;">double</span><span> d;
+</span><span>    </span><span style="color:#657b83;">}</span><span> v;</span><span style="color:#586e75;">//值
+</span><span>    </span><span style="color:#586e75;">//下一节点
+</span><span>    </span><span style="color:#268bd2;">struct</span><span> dictEntry </span><span style="color:#859900;">*</span><span>next;
+</span><span style="color:#657b83;">} </span><span style="color:#b58900;">dictEntry</span><span>;
+</span></code></pre>
+<p>大致的结构关系：</p>
+<p><img src="https://b3logfile.com/file/2022/08/solo-fetchupload-15490133664593073653-aae3b9b9.png" alt="" loading="lazy" decoding="async" /></p>
+<h4 id="-22">哈希算法<a class="zola-anchor" href="#-22" aria-label="Anchor link for: -22">🔗</a></h4>
+<blockquote>
+<p>关于哈希算法的具体逻辑其实和语言无关，核心思想是类似的。</p>
+</blockquote>
+<p>向字典中添加新的键值对时，程序需要先根据键来计算出对应的一个哈希值，再根据哈希值计算出索引值，最后将此键值对封装在哈希表节点中后，放到节点数组的指定索引上，关键步骤参考如下代码:</p>
+<pre data-lang="c" style="background-color:#002b36;color:#839496;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#586e75;">// 使用哈希函数计算键的哈希值
+</span><span>hash</span><span style="color:#657b83;">=</span><span>dict-&gt;type-&gt;</span><span style="color:#b58900;">hashFunction</span><span style="color:#657b83;">(</span><span>key</span><span style="color:#657b83;">)</span><span>;
+</span><span style="color:#586e75;">//使用哈希值和掩码，计算索引值
+</span><span style="color:#586e75;">//等价于哈希值和哈希表容量取余，使用位运算提高效率
+</span><span>index </span><span style="color:#657b83;">=</span><span>hash </span><span style="color:#859900;">&amp;</span><span> dict-&gt;ht</span><span style="color:#268bd2;">[</span><span>x</span><span style="color:#268bd2;">]</span><span>.</span><span style="color:#268bd2;">sizemask</span><span>;
+</span></code></pre>
+<blockquote>
+<p>上面只是一个大体的逻辑关系，具体的源码实现可以参考<a class="" href="https://github.com/redis/redis/blob/3.2/src/dict.c">dict.c源码</a></p>
+</blockquote>
+<p><strong>键冲突问题</strong></p>
+<blockquote>
+<ol>
+<li>当多个键被分配到了节点数组的同一个索引上时，则这些键发生冲突(哈希冲突)。</li>
+<li>为了解决哈希冲突，<code>Redis</code>采用链表来解决冲突，即使用next指针将这些节点链接起来，形成单向链表。</li>
+<li><code>Redis</code>的哈希表中没有设计表尾指针，每次添加新节点时都是将新节点插入到表头的位置，而非表尾追加。</li>
+</ol>
+</blockquote>
+<h4 id="-23">ReHASH<a class="zola-anchor" href="#-23" aria-label="Anchor link for: -23">🔗</a></h4>
+<blockquote>
+<p>在 <code>Redis</code>中，哈希表的扩容和缩容是通过rehash实现的，执行 <code>rehash</code>的大致步骤如下：</p>
+</blockquote>
+<ol>
+<li>为字典的 <code>ht[1]</code>哈希表分配内存空间。
+<ol>
+<li>如果是执行扩容操作，则 <code>ht[1]</code>的大小为第一个大于等于 <code>ht[0].used*2</code>的$2^{n}$</li>
+<li>如果执行的是缩容操作，则 <code>ht[1]</code>的大小为第一个小于等于 <code>ht[0].used</code>的$2^{n}$</li>
+</ol>
+</li>
+<li>将存储在 <code>ht[0]</code>中的数据迁移到 <code>ht[1]</code>上。
+<ol>
+<li>重新计算键的哈希和索引，然后将键值对放置到 <code>ht[1]</code>哈希表的指定位置上。</li>
+</ol>
+</li>
+<li>将字典的 <code>ht[1]</code>哈希表晋升为默认哈希表
+<ol>
+<li>迁移完成后，清空 <code>ht[0]</code>，再交换 <code>ht[0]</code>和 <code>ht[1]</code>的值，为下一次 <code>REHASH</code>做准备。</li>
+</ol>
+</li>
+</ol>
+<p>触发rehash的条件：</p>
+<blockquote>
+<ol>
+<li>服务器目前没有执行 <code>bgsave</code>或者 <code>bgrewriteof</code>命令，并且哈希表的负载因子大于1；</li>
+<li>服务器正在执行上述两个命令，且哈希表的负载因子大于等于5</li>
+</ol>
+</blockquote>
+<p>只要满足上面两个条件之一，就会触发rehash。</p>
+<p>其中，负载因子的计算公式：$load_factor=\frac{ht[0].used}{ht[0].size}$</p>
+<p>另外，当哈希表的负载因子小于0.1时，程序会自动开始对哈希表执行收缩操作。</p>
+<p><strong>rehash的详细步骤</strong></p>
+<p>为了避免rehash对服务器性能造成影响，rehash操作不是一次性完成，而是渐进式的分为多次进行。详细过程如下：</p>
+<ol>
+<li>为 <code>ht[1]</code>分配空间，让字典同时持有 <code>ht[0]</code>和 <code>ht[1]</code>两个哈希表。</li>
+<li>将字典中的索引计数器 <code>rehashidx</code>设置为0,表示将开始 <code>rehash</code>操作。</li>
+<li>在 <code>rehash</code>期间，每次对字典执行添加、删除、修改、查找等操作时，程序除了执行指定的操作之外，还会顺带将 <code>ht[0]</code>中位于 <code>rehashidx</code>上所有的键值对迁移到 <code>ht[1]</code>中，再将 <code>rehashidx</code>的值加一。</li>
+<li>随着字典不断被访问，最终在某个时刻，<code>ht[0]</code>上所有的键值对都被迁移到 <code>ht[1]</code>上，此时程序将 <code>rehashidx</code>属性值设置为-1，标识 <code>rehash</code>操作完成。</li>
+</ol>
+<p><strong>rehash期间的访问规则</strong></p>
+<blockquote>
+<p>在rehash期间啊，字典会同时持有两个哈希表，此时的访问将按照下面的规则进行处理：</p>
+</blockquote>
+<ol>
+<li>新添加的键值对，一律被保存在 <code>ht[1]</code>中；</li>
+<li>其他诸如删除、修改、查找等操作会同时在两个哈希表上进行，即程序会先尝试在 <code>ht[0]</code>中访问要操作的数据，如果不存在则添加到 <code>ht[1]</code>中访问，再对访问到的数据做相应的处理。</li>
+</ol>
+<p><img src="https://images.waer.ltd/img/%E5%AD%97%E5%85%B8%E4%B8%8Erehash.png" alt="" loading="lazy" decoding="async" /></p>
+<hr />
+<h3 id="-24">链表<a class="zola-anchor" href="#-24" aria-label="Anchor link for: -24">🔗</a></h3>
+<blockquote>
+<p>链表(<code>LinkedList</code>)是一种有序的数据结构，且增删效率较高，同样，C语言中也是没有内置该种数据结构的， 所以 <code>Redis</code>构建了自己的链表实现。</p>
+</blockquote>
+<p>链表在 <code>Redis</code>中应用广泛：</p>
+<blockquote>
+<ul>
+<li>作为列表的底层实现之一；</li>
+<li>发布与订阅、慢查询、监视器等功能也用到了链表；</li>
+<li><code>Redis</code>服务器采用链表保存多个客户端的状态信息；</li>
+<li><code>Redis</code>客户端输出缓冲区是在链表的基础上实现的；</li>
+</ul>
+</blockquote>
+<h4 id="-25">链表的结构实现<a class="zola-anchor" href="#-25" aria-label="Anchor link for: -25">🔗</a></h4>
+<blockquote>
+<p>链表的实现主要涉及两个结构体，定义如下，下面的源码也可以在 <code>adlist.h</code>中找到：</p>
+</blockquote>
+<pre data-lang="c" style="background-color:#002b36;color:#839496;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#268bd2;">typedef struct</span><span> listNode </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#586e75;">//前驱节点
+</span><span>    </span><span style="color:#268bd2;">struct</span><span> listNode </span><span style="color:#859900;">*</span><span>prev;
+</span><span>    </span><span style="color:#586e75;">//后继节点
+</span><span>    </span><span style="color:#268bd2;">struct</span><span> listNode </span><span style="color:#859900;">*</span><span>next;
+</span><span>    </span><span style="color:#586e75;">//节点的值
+</span><span>    </span><span style="color:#268bd2;">void </span><span style="color:#859900;">*</span><span>value;
+</span><span style="color:#657b83;">} </span><span style="color:#b58900;">listNode</span><span>;
+</span></code></pre>
+<pre data-lang="c" style="background-color:#002b36;color:#839496;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#268bd2;">typedef struct</span><span> list </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#586e75;">//头结点
+</span><span>    listNode </span><span style="color:#859900;">*</span><span>head;
+</span><span>    </span><span style="color:#586e75;">//尾节点
+</span><span>    listNode </span><span style="color:#859900;">*</span><span>tail;
+</span><span>    </span><span style="color:#586e75;">//复制节点
+</span><span>    </span><span style="color:#268bd2;">void </span><span style="color:#859900;">*</span><span style="color:#657b83;">(</span><span style="color:#859900;">*</span><span>dup</span><span style="color:#657b83;">)(</span><span style="color:#268bd2;">void </span><span style="color:#859900;">*</span><span>ptr</span><span style="color:#657b83;">)</span><span>;
+</span><span>    </span><span style="color:#586e75;">//释放节点
+</span><span>    </span><span style="color:#268bd2;">void </span><span style="color:#657b83;">(</span><span style="color:#859900;">*</span><span>free</span><span style="color:#657b83;">)(</span><span style="color:#268bd2;">void </span><span style="color:#859900;">*</span><span>ptr</span><span style="color:#657b83;">)</span><span>;
+</span><span>    </span><span style="color:#586e75;">//比较节点的值
+</span><span>    </span><span style="color:#268bd2;">int </span><span style="color:#657b83;">(</span><span style="color:#859900;">*</span><span>match</span><span style="color:#657b83;">)(</span><span style="color:#268bd2;">void </span><span style="color:#859900;">*</span><span>ptr, </span><span style="color:#268bd2;">void </span><span style="color:#859900;">*</span><span>key</span><span style="color:#657b83;">)</span><span>;
+</span><span>    </span><span style="color:#586e75;">//节点数量
+</span><span>    </span><span style="color:#268bd2;">unsigned long</span><span> len;
+</span><span style="color:#657b83;">} </span><span style="color:#b58900;">list</span><span>;
+</span></code></pre>
+<p>链表(双端链表)也算是比较基础的一种数据结构类型了，这里不再赘述。</p>
+<hr />
+<h3 id="-26">压缩列表<a class="zola-anchor" href="#-26" aria-label="Anchor link for: -26">🔗</a></h3>
+<blockquote>
+<p>压缩列表(ziplist)，是 <code>Redis</code>为了节约内存而设计的一种线性数据结构，它是由一系列具有特殊编码的连续内存块构成；一个压缩列表可以包含任意多个节点，每个节点可以保存一个字节数组或者一个整数值。</p>
+</blockquote>
+<p>在 <code>Redis</code>中，列表、哈希、有序集合都直接或者间接的使用了压缩列表。</p>
+<h4 id="-27">压缩列表的实现<a class="zola-anchor" href="#-27" aria-label="Anchor link for: -27">🔗</a></h4>
+<p>压缩列表相对来说，是一种比较复杂的结构，下面是它的结构示意图：</p>
+<p><img src="https://b3logfile.com/file/2022/08/solo-fetchupload-3542764156159951676-8655c71b.png" alt="" loading="lazy" decoding="async" /></p>
+<p><strong>组成说明：</strong></p>
+<p><img src="https://b3logfile.com/file/2022/08/solo-fetchupload-13068101954839675270-3be5f3c0.png" alt="" loading="lazy" decoding="async" /></p>
+<p><strong>节点构成</strong></p>
+<p><img src="https://b3logfile.com/file/2022/08/solo-fetchupload-2328242434026149105-73b41d3b.png" alt="" loading="lazy" decoding="async" /></p>
+<p><strong>previous_entry_length</strong></p>
+<p>该属性以字节为单位，记录当前节点的前一节点的长度，其自身占据1字节或5字节：</p>
+<ol>
+<li>如果前一节点的长度小于254字节，则“pel”属性的长度为1字节，前一节点的长度就保存</li>
+</ol>
+<p>在这一个字节内；</p>
+<ol start="2">
+<li>如果前一节点的长度达到254字节，则“pel”属性的长度为5字节，其中第一个字节被设置</li>
+</ol>
+<p>为0xFE，之后的四个字节用来保存前一节点的长度；</p>
+<p>基于“pel”属性，程序便可以通过指针运算，根据当前节点的起始地址计算出前一节点的起始</p>
+<p>地址，从而实现从表尾向表头的遍历操作。</p>
+<p>content属性负责保存节点的值（字节数组或整数），其类型和长度则由encoding属性决定。</p>
+<p><img src="https://b3logfile.com/file/2022/08/solo-fetchupload-12147610790668578545-357227d7.png" alt="" loading="lazy" decoding="async" /></p>
+<h4 id="-28">压缩列表的连锁更新<a class="zola-anchor" href="#-28" aria-label="Anchor link for: -28">🔗</a></h4>
+<ul>
+<li>
+<p>添加引起的连锁更新</p>
+<ul>
+<li>e1~en节点长度介于250-253字节之间。</li>
+<li>将一个长度大于等于254字节的节点new添加到表头</li>
+</ul>
+<p><img src="https://b3logfile.com/file/2022/08/solo-fetchupload-1708813867418129375-24240af5.png" alt="" loading="lazy" decoding="async" /></p>
+</li>
+<li>
+<p>删除引起的连锁更新</p>
+<ul>
+<li>e1~en节点的长度均介于250字节~253字节之间；</li>
+<li>big节点长度大于等于254，small节点长度小于254，将small节点删除；</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://b3logfile.com/file/2022/08/solo-fetchupload-18257202356962324488-edea3371.png" alt="" loading="lazy" decoding="async" /></p>
+<h4 id="-29">连锁更新的影响<a class="zola-anchor" href="#-29" aria-label="Anchor link for: -29">🔗</a></h4>
+<ul>
+<li>最坏情况下，连锁更新需要对压缩列表执行N次空间的重新分配</li>
+<li>每次分配的最坏情况复杂度为 <code>O(N)</code>,所以连锁更新的最坏复杂度为$O(N^{2})$</li>
+</ul>
+<blockquote>
+<p>连锁更新出现的概率很低，压缩列表中需要恰好有多个连续的，长度介于250-253字节的节点；适当控制节点的数量可以消除这种影响，即便出现连锁更新，对性能也不会造成任何影响。</p>
+</blockquote>
+<p><img src="https://images.waer.ltd/img/%E5%8E%8B%E7%BC%A9%E5%88%97%E8%A1%A8.png" alt="" loading="lazy" decoding="async" /></p>
+<hr />
+<h3 id="-30">快速列表<a class="zola-anchor" href="#-30" aria-label="Anchor link for: -30">🔗</a></h3>
+<h4 id="-31">概述<a class="zola-anchor" href="#-31" aria-label="Anchor link for: -31">🔗</a></h4>
+<blockquote>
+<p>快速列表(quicklist)是 <code>Redis3.2</code>新引入的数据结构，该结构是链表和压缩列表的结合；</p>
+<p>快速列表中的每个节点是一个压缩列表，这种设计能够在时间效率和空间效率之间实现较好的折中。</p>
+</blockquote>
+<p>在 <code>v3.2</code>之前，列表类型是采用压缩列表以及双向链表实现的，但 <code>v3.2</code>开始，改用了快速列表作为底层的唯一实现。</p>
+<h4 id="-32">快速列表的实现<a class="zola-anchor" href="#-32" aria-label="Anchor link for: -32">🔗</a></h4>
+<blockquote>
+<p>下面的结构定义源码在 <code>quicklist.h</code>中可以找到。</p>
+</blockquote>
+<pre data-lang="c" style="background-color:#002b36;color:#839496;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#268bd2;">typedef struct</span><span> quicklistNode </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#586e75;">//前驱节点
+</span><span>    </span><span style="color:#268bd2;">struct</span><span> quicklistNode </span><span style="color:#859900;">*</span><span>prev;
+</span><span>    </span><span style="color:#586e75;">//后继节点
+</span><span>    </span><span style="color:#268bd2;">struct</span><span> quicklistNode </span><span style="color:#859900;">*</span><span>next;
+</span><span>    </span><span style="color:#586e75;">//ziplist
+</span><span>    </span><span style="color:#268bd2;">unsigned char </span><span style="color:#859900;">*</span><span>zl;
+</span><span>    </span><span style="color:#586e75;">//ziplist的字节数量
+</span><span>    </span><span style="color:#268bd2;">unsigned int</span><span> sz;  
+</span><span>    </span><span style="color:#586e75;">//ziplist的元素个数
+</span><span>    </span><span style="color:#268bd2;">unsigned int</span><span> count </span><span style="color:#859900;">: </span><span style="color:#6c71c4;">16</span><span>;
+</span><span>   </span><span style="color:#586e75;">//编码方式(RAW==1,LZF==2)
+</span><span>    </span><span style="color:#268bd2;">unsigned int</span><span> encoding </span><span style="color:#859900;">: </span><span style="color:#6c71c4;">2</span><span>;  
+</span><span>    </span><span style="color:#586e75;">//容器类型(NONE==1 or ZIPLIST==2)
+</span><span>    </span><span style="color:#268bd2;">unsigned int</span><span> container </span><span style="color:#859900;">: </span><span style="color:#6c71c4;">2</span><span>; 
+</span><span>    </span><span style="color:#586e75;">//该节点是否被压缩
+</span><span>    </span><span style="color:#268bd2;">unsigned int</span><span> recompress </span><span style="color:#859900;">: </span><span style="color:#6c71c4;">1</span><span>; 
+</span><span>    </span><span style="color:#586e75;">//用于测试期间的验证
+</span><span>    </span><span style="color:#268bd2;">unsigned int</span><span> attempted_compress </span><span style="color:#859900;">: </span><span style="color:#6c71c4;">1</span><span>;
+</span><span>    </span><span style="color:#586e75;">//预留字段
+</span><span>    </span><span style="color:#268bd2;">unsigned int</span><span> extra </span><span style="color:#859900;">: </span><span style="color:#6c71c4;">10</span><span>; 
+</span><span style="color:#657b83;">} </span><span style="color:#b58900;">quicklistNode</span><span>;
+</span></code></pre>
+<pre data-lang="c" style="background-color:#002b36;color:#839496;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#268bd2;">typedef struct</span><span> quicklist </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#586e75;">//头结点
+</span><span>    quicklistNode </span><span style="color:#859900;">*</span><span>head;
+</span><span>    </span><span style="color:#586e75;">//尾节点
+</span><span>    quicklistNode </span><span style="color:#859900;">*</span><span>tail;
+</span><span>    </span><span style="color:#586e75;">//压缩列表的元素总数
+</span><span>    </span><span style="color:#268bd2;">unsigned long</span><span> count;
+</span><span>    </span><span style="color:#586e75;">//快速列表的节点个数
+</span><span>    </span><span style="color:#268bd2;">unsigned int</span><span> len;  
+</span><span>    </span><span style="color:#586e75;">//单个节点的填充因子
+</span><span>    </span><span style="color:#268bd2;">int</span><span> fill </span><span style="color:#859900;">: </span><span style="color:#6c71c4;">16</span><span>;      
+</span><span>    </span><span style="color:#586e75;">//不参与压缩的节点个数
+</span><span>    </span><span style="color:#268bd2;">unsigned int</span><span> compress </span><span style="color:#859900;">: </span><span style="color:#6c71c4;">16</span><span>; </span><span style="color:#586e75;">/* depth of end nodes not to compress;0=off */
+</span><span style="color:#657b83;">} </span><span style="color:#b58900;">quicklist</span><span>;
+</span></code></pre>
+<p>简单的说，快速列表是由一个带有头尾节点等属性构成的列表，列表每一个元素又是一条双向链表构成，双向链表的每一个元素再由一个个的压缩列表组成。</p>
+<h4 id="-33">压缩数据的机制<a class="zola-anchor" href="#-33" aria-label="Anchor link for: -33">🔗</a></h4>
+<p>为了进一步降低 <code>ziplist</code>占用的内存空间，<code>Redis</code>允许采用 <code>LZF</code>算法对 <code>ziplist</code>进行压缩。该算法的基本思想是，如果数据与前面出现重复的，记录重复位置以及长度，否则直接记录原始数据，压缩后的数据分为多个片段，每个片段包括解释字段和数据字段两个部分，其中数据字段可能不存在。</p>
+<p><img src="https://b3logfile.com/file/2022/08/solo-fetchupload-6465232837391552858-14f3dbc8.png" alt="" loading="lazy" decoding="async" /></p>
+<hr />
+<h3 id="-34">跳跃表<a class="zola-anchor" href="#-34" aria-label="Anchor link for: -34">🔗</a></h3>
+<h4 id="-35">概述<a class="zola-anchor" href="#-35" aria-label="Anchor link for: -35">🔗</a></h4>
+<blockquote>
+<p>有序集合的底层可以采用数组、链表、平衡树等结构来实现。数组不便于元素的插入和删除，链表的查询效率低平衡树/红黑树的效率高但是实现复杂；</p>
+<p><code>Redis</code>采用跳跃表(skiplist)来作为有序集合的一种实现方案，跳跃表的查询复杂度平均为$O(log^{N})$,效率堪比红黑树，实现上却比红黑树简单很多。</p>
+</blockquote>
+<h4 id="-36">跳跃表的实现<a class="zola-anchor" href="#-36" aria-label="Anchor link for: -36">🔗</a></h4>
+<p>提到跳跃表之前，先看一下普通链表，链表的插入、删除复杂度为$O(1)$,而查找的复杂度为$O(N)$;明显查找的效率成本是比较高的，特别是在数据量很大的情况下。</p>
+<p><img src="https://b3logfile.com/file/2022/08/solo-fetchupload-9381234620865177275-6fe7e6df.png" alt="image-20220419171135748" loading="lazy" decoding="async" /></p>
+<blockquote>
+<p>比如在上面的这条链表中查找值为60的节点，就需要遍历前面5个节点，这也是就效率拉跨的原因。</p>
+</blockquote>
+<p>而跳跃表的实现原理就是从链表中选取一部分的节点，组成一个新的链表，并以此作为原始链表的一级索引。</p>
+<p>再从一级索引中选取部分节点组成一个新链表作为原始链表的二级索引，以此递归。</p>
+<p><img src="https://b3logfile.com/file/2022/08/solo-fetchupload-14360181100709264284-f94fa7c6.png" alt="" loading="lazy" decoding="async" /></p>
+<blockquote>
+<p>有了这个结构之后，我们在查找某个节点元素的时候，就会由原来的遍历几乎所有节点变成遍历部分节点甚至无需遍历，直接根据索引定位元素，这样的操作效率会高很多。</p>
+<p>就上图来说，同样是查找60这个节点，在链表中需要遍历前面5个节点，而在跳跃表中只需要三次。</p>
+</blockquote>
+<p>跳跃表中查找元素会优先从高层开始查找，若 <code>next</code>节点值大于目标值，或 <code>next</code>指针指向 <code>null</code>，则从当前节点下降一层继续往后找。比如 <code>L2-&gt;L1-&gt;L0</code></p>
+<p>跳跃表的实现主要涉及两个结构体：<code>zskiplist</code>,<code>zskiplistNode</code>,在 <code>v3.0</code>版本之前，他们被定义在 <code>redis.h</code>中，该版本之后，被改为在 <code>server.h</code>中。</p>
+<pre data-lang="c" style="background-color:#002b36;color:#839496;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#268bd2;">typedef struct</span><span> zskiplistNode </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#586e75;">// 节点数据
+</span><span>    sds ele;
+</span><span>    </span><span style="color:#586e75;">// 节点分值
+</span><span>    </span><span style="color:#268bd2;">double</span><span> score;
+</span><span>    </span><span style="color:#586e75;">// 后退指针
+</span><span>    </span><span style="color:#268bd2;">struct</span><span> zskiplistNode </span><span style="color:#859900;">*</span><span>backward;
+</span><span>    </span><span style="color:#586e75;">// 层级数组（各节点不一样）
+</span><span>    </span><span style="color:#268bd2;">struct</span><span> zskiplistLevel </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#586e75;">// 前进指针
+</span><span>    </span><span style="color:#268bd2;">struct</span><span> zskiplistNode </span><span style="color:#859900;">*</span><span>forward;
+</span><span>    </span><span style="color:#586e75;">// 跨度（节点间的距离，用于计算排名）
+</span><span>    </span><span style="color:#268bd2;">unsigned long</span><span> span;
+</span><span>    </span><span style="color:#657b83;">}</span><span> level</span><span style="color:#268bd2;">[]</span><span>;
+</span><span style="color:#657b83;">} </span><span style="color:#b58900;">zskiplistNode</span><span>;
+</span></code></pre>
+<pre data-lang="c" style="background-color:#002b36;color:#839496;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#268bd2;">typedef struct</span><span> zskiplist </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#586e75;">// 表头指针、表尾指针
+</span><span>    </span><span style="color:#268bd2;">struct</span><span> zskiplistNode </span><span style="color:#859900;">*</span><span>header, </span><span style="color:#859900;">*</span><span>tail;
+</span><span>    </span><span style="color:#586e75;">// 跳跃表的长度（除表头之外的节点总数）
+</span><span>    </span><span style="color:#268bd2;">unsigned long</span><span> length;
+</span><span>    </span><span style="color:#586e75;">// 跳跃表的高度（除表头之外的最高层数）
+</span><span>    </span><span style="color:#268bd2;">int</span><span> level;
+</span><span style="color:#657b83;">} </span><span style="color:#b58900;">zskiplist</span><span>;
+</span></code></pre>
+<p>可以借助下面的结构图来理解。</p>
+<p><img src="https://b3logfile.com/file/2022/08/solo-fetchupload-1267573584945415792-d266d494.png" alt="" loading="lazy" decoding="async" /></p>
+<blockquote>
+<ol>
+<li>节点层高的范围是[1,ZSKIP_MAXLEVEL]，在Redis 6中层高的最大值为32；</li>
+<li>头节点是特殊节点，它的层高为32，不存储数据和分值，也不计入跳跃表的总长度和高度；</li>
+<li>创建节点时，程序会生成一个[1,32)之间的随机值作为该节点的层高，<strong>并且生成算法符合幂次定律，</strong></li>
+</ol>
+<p><strong>即越大的数出现的概率越小。</strong></p>
+</blockquote>
+<h4 id="-37">小结<a class="zola-anchor" href="#-37" aria-label="Anchor link for: -37">🔗</a></h4>
+<ol>
+<li>跳跃表由多层构成，它的每一层都是一个有序链表，数据依次递增；</li>
+<li>跳跃表有一个头节点，它是一个32层的结构，内部不存储实际数据；</li>
+<li>跳跃表包含有头尾指针，分别指向跳跃表的第一个和最后一个节点；</li>
+<li>除头节点外，层数最多的节点的层高为跳跃表的高度；</li>
+<li>除头节点外，一个元素在上层有序链表中出现，则它一定能够会在下层有序链表中出现；</li>
+<li>跳跃表每层的最后一个节点指向NULL；</li>
+<li>最底层的有序链表包含所有的节点，最底层的节点个数为跳跃表的长度；</li>
+<li>每个节点包含一个后退指针，头节点和第一个节点指向NULL，其他节点指向最底层的前一节点。</li>
+</ol>
+<hr />
+<h3 id="-38">Redis对象的底层实现<a class="zola-anchor" href="#-38" aria-label="Anchor link for: -38">🔗</a></h3>
+<h4 id="-39">概述<a class="zola-anchor" href="#-39" aria-label="Anchor link for: -39">🔗</a></h4>
+<blockquote>
+<ol>
+<li><code>Redis</code>数据库中的键值对用对象来表示，键是一个对象，值也是一个对象,使用了 <code>redisObject</code>结构来表示一个对象，该结构的源码如下：</li>
+</ol>
+</blockquote>
+<pre data-lang="c" style="background-color:#002b36;color:#839496;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#586e75;">// redis.h, server.h
+</span><span style="color:#268bd2;">typedef struct</span><span> redisObject </span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#268bd2;">unsigned</span><span> type</span><span style="color:#859900;">:</span><span style="color:#6c71c4;">4</span><span>; </span><span style="color:#586e75;">// 对象类型
+</span><span>    </span><span style="color:#268bd2;">unsigned</span><span> encoding</span><span style="color:#859900;">:</span><span style="color:#6c71c4;">4</span><span>; </span><span style="color:#586e75;">// 对象编码
+</span><span>    </span><span style="color:#268bd2;">unsigned</span><span> lru</span><span style="color:#859900;">:</span><span>LRU_BITS; </span><span style="color:#586e75;">// 访问时间
+</span><span>    </span><span style="color:#268bd2;">int</span><span> refcount; </span><span style="color:#586e75;">// 引用计数
+</span><span>    </span><span style="color:#268bd2;">void </span><span style="color:#859900;">*</span><span>ptr; </span><span style="color:#586e75;">// 指向底层数据结构
+</span><span style="color:#657b83;">} </span><span style="color:#b58900;">robj</span><span>;
+</span></code></pre>
+<h4 id="-40">对象的类型<a class="zola-anchor" href="#-40" aria-label="Anchor link for: -40">🔗</a></h4>
+<p><img src="https://b3logfile.com/file/2022/08/solo-fetchupload-15214922292377603851-a4f92b5e.png" alt="" loading="lazy" decoding="async" /></p>
+<h4 id="-41">对象的编码<a class="zola-anchor" href="#-41" aria-label="Anchor link for: -41">🔗</a></h4>
+<p><img src="https://b3logfile.com/file/2022/08/solo-fetchupload-17167900588883492109-69a0901e.png" alt="" loading="lazy" decoding="async" /></p>
+<h4 id="-42">对象的访问时间<a class="zola-anchor" href="#-42" aria-label="Anchor link for: -42">🔗</a></h4>
+<ol>
+<li><code>lru</code>属性用于记录对象最后一次被程序访问的时间，可用来实现缓存淘汰策略；</li>
+<li><code>OBJECT IDLETIME</code>命令可以打印出某个键的空闲时间，该事件由 <code>lru</code>计算而来。</li>
+</ol>
+<blockquote>
+<p>OBJECT IDELTIME命令的实现是比较特殊的，通过该命令访问键时，不会修改其 <code>lru</code>属性。</p>
+</blockquote>
+<h4 id="-43">对象的引用计数<a class="zola-anchor" href="#-43" aria-label="Anchor link for: -43">🔗</a></h4>
+<p><code>refcount</code>属性用于记录对象的引用次数：</p>
+<ul>
+<li>在创建一个新对象时，引用计数的值会被初始化为1</li>
+<li>当对象被一个新程序使用时，它的引用计数值为加1</li>
+<li>当对象不再被某个程序使用时，它的引用计数会减1</li>
+<li>当对象的引用计数值变为0时，它所占用的内存空间将会被释放。</li>
+</ul>
+<p>对象的引用计数可用于实现对象的内存回收以及对象共享功能。</p>
+<blockquote>
+<p><code>Redis</code>会在初始化服务器时，创建一万个字符串对象，这些对象包含了从0到9999的所有整数值。当服务器需要用到值为0到9999的字符串对象时，就会使用这些共享对象，而不是创建新的对象。</p>
+</blockquote>
+<hr />
+<h3 id="-44">Redis对象的类型与编码<a class="zola-anchor" href="#-44" aria-label="Anchor link for: -44">🔗</a></h3>
+<h4 id="-45">字符串<a class="zola-anchor" href="#-45" aria-label="Anchor link for: -45">🔗</a></h4>
+<p><img src="https://b3logfile.com/file/2022/08/solo-fetchupload-7364565992217828706-8d503093.png" alt="" loading="lazy" decoding="async" /></p>
+<ul>
+<li><code>embstr</code>和 <code>raw</code>编码都采用 <code>SDS</code>来存储字符串。</li>
+<li><code>raw</code>编码会调用2次内存分配函数，分配两块内存空间，分别存储 <code>redisObject</code>和 <code>SDS</code>结构。</li>
+<li><code>embstr</code>编码只调用1次内存分配，分配一块内存空间，连续存储 <code>redisObject</code>和 <code>SDS</code>结构。</li>
+<li>浮点数在 <code>redis</code>中也是作为字符串来存储的，在需要的时候，程序会将字符串值直接转换回浮点数。</li>
+<li><code>redis</code>没有为 <code>embstr</code>编码的字符串提供修改函数，所以该编码的字符串实际是只读的，对 <code>embstr</code>编码的字符串执行修改时，程序会将字符串从 <code>embstr</code>转换为 <code>raw</code>，再执行修改操作。</li>
+</ul>
+<p><img src="https://images.waer.ltd/img/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%BC%96%E7%A0%81%E4%B8%8E%E5%AE%9E%E7%8E%B0.png" alt="" loading="lazy" decoding="async" /></p>
+<h4 id="-46">哈希<a class="zola-anchor" href="#-46" aria-label="Anchor link for: -46">🔗</a></h4>
+<ul>
+<li>
+<p>哈希对象的编码可以是 <code>zipllist</code>或者 <code>hashtable</code>；</p>
+</li>
+<li>
+<p>同时满足下面条件时，哈希对象采用 <code>ziplist</code>编码，否则采用 <code>hashtable</code>编码。</p>
+<ul>
+<li>哈希对象保存的所有键值对中的键和值，其字符串长度都小于64字节。</li>
+<li>哈希对象保存的键值对数量小于512个。</li>
+</ul>
+</li>
+<li>
+<p>可以在 <code>redis</code>配置文件中通过下面的配置修改上述的触发条件。</p>
+<pre data-lang="shell" style="background-color:#002b36;color:#839496;" class="language-shell "><code class="language-shell" data-lang="shell"><span>hash-max-ziplist-value
+</span><span>hash-max-ziplist-entries
+</span></code></pre>
+<p><strong>ziplist编码采用压缩列表作为底层实现，hashtable编码采用字典作为底层实现。</strong></p>
+</li>
+</ul>
+<p><img src="https://images.waer.ltd/img/%E5%93%88%E5%B8%8C%E7%BB%93%E6%9E%84%E4%B8%8E%E7%BC%96%E7%A0%81.png" alt="" loading="lazy" decoding="async" /></p>
+<h4 id="-47">列表<a class="zola-anchor" href="#-47" aria-label="Anchor link for: -47">🔗</a></h4>
+<blockquote>
+<p>在3.2版本之前，列表对象的编码可以是 <code>ziplist</code>或者 <code>linkedlist</code>；在同时满足下列条件时，列表对象采用 <code>ziplist</code>编码实现，否则采用 <code>linkedlist</code>编码。</p>
+</blockquote>
+<ul>
+<li>列表对象保存的所有字符串元素长度都小于64字节。</li>
+<li>列表对象保存的元素数量小于512个。</li>
+</ul>
+<blockquote>
+<p>同样可以在 <code>redis</code>配置文件中通过下面的配置修改上述的触发条件</p>
+</blockquote>
+<pre data-lang="shell" style="background-color:#002b36;color:#839496;" class="language-shell "><code class="language-shell" data-lang="shell"><span>hash-max-ziplist-value
+</span><span>hash-max-ziplist-entries
+</span></code></pre>
+<blockquote>
+<p>从3.2开始，列表对象的编码升级为 <code>quicklist</code>；</p>
+</blockquote>
+<p><strong>ziplist、linkedlist、quicklist编码分别采用压缩列表、双端链表、快速列表作为底层实现</strong></p>
+<p><img src="https://images.waer.ltd/img/%E5%88%97%E8%A1%A8%E7%BB%93%E6%9E%84%E4%B8%8E%E7%BC%96%E7%A0%81.png" alt="" loading="lazy" decoding="async" /></p>
+<h4 id="-48">集合<a class="zola-anchor" href="#-48" aria-label="Anchor link for: -48">🔗</a></h4>
+<blockquote>
+<p>集合对象的编码可以是 <code>intset</code>或者 <code>hashtable</code>；</p>
+<p>同时满足下面条件时，集合对象采用 <code>intset</code>编码，否则采用 <code>hashtable</code>编码；</p>
+</blockquote>
+<ul>
+<li>集合对象保存的元素都是整数值。</li>
+<li>集合对象保存的元素不超过512个。</li>
+</ul>
+<blockquote>
+<p>可以通过修改 <code>set-max-intset-entries</code>选项改变上述条件。</p>
+</blockquote>
+<p><strong>intset编码采用整数集合作为底层实现，hashtable编码采用字典作为底层实现，字典的键存储字符串，字典的值全部为NULL</strong></p>
+<h4 id="-49">有序集合<a class="zola-anchor" href="#-49" aria-label="Anchor link for: -49">🔗</a></h4>
+<blockquote>
+<p>有序集合对象的编码可以时 <code>ziplist</code>或者 <code>skipllist</code>；</p>
+<p>同时满足下面条件时使用 <code>ziplist</code>编码，否则使用 <code>skiplist</code>编码。</p>
+</blockquote>
+<ul>
+<li>有序集合保存的元素数量不超过128个。</li>
+<li>有序集合保存的所有元素的成员长度都小于64字节。</li>
+</ul>
+<blockquote>
+<p>可以通过修改 <code>zset-max-ziplist-entries,zset-max-ziplist-value</code>改变上述条件。</p>
+</blockquote>
+<p><strong>ziplist编码底层采用压缩列表实现，skiplist底层采用zset结构实现</strong></p>
+<pre data-lang="c" style="background-color:#002b36;color:#839496;" class="language-c "><code class="language-c" data-lang="c"><span>typeof </span><span style="color:#268bd2;">struct</span><span> zset</span><span style="color:#657b83;">{
+</span><span>    </span><span style="color:#586e75;">//字典，保存了从成员到分值的映射关系
+</span><span>    dict </span><span style="color:#859900;">*</span><span>dict;
+</span><span>    </span><span style="color:#586e75;">//跳跃表，按分值由小到大保存所有集合元素
+</span><span>    zskiplist </span><span style="color:#859900;">*</span><span>zsl;
+</span><span style="color:#657b83;">}</span><span>zset;
+</span></code></pre>
+<p><img src="https://images.waer.ltd/img/%E9%9B%86%E5%90%88.png" alt="" loading="lazy" decoding="async" /></p>
+<h3 id="-50">Redis的线程模型<a class="zola-anchor" href="#-50" aria-label="Anchor link for: -50">🔗</a></h3>
+<h4 id="-51">单线程的redis<a class="zola-anchor" href="#-51" aria-label="Anchor link for: -51">🔗</a></h4>
+<p><code>redis</code>是单线程的，主要是指 <code>redis</code>的网络IO和键值对读写是由一个线程来完成的。</p>
+<p>而 <code>redis</code>的其他功能，比如持久化、异步删除、集群数据同步等，则是依赖其他线程来执行的。</p>
+<p>所以说关于 <code>redis</code>是单线程这个问题不能一口咬定，需要了解它背后的原因。</p>
+<blockquote>
+<p>除了redis之外，像Nginx、Node.js也是单线程的，但他们也都是高性能的服务器。</p>
+</blockquote>
+<h4 id="-52">为什么采用单线程<a class="zola-anchor" href="#-52" aria-label="Anchor link for: -52">🔗</a></h4>
+<ul>
+<li>单线程的优势：
+<ul>
+<li>单线程可以简化数据结构和算法的实现。</li>
+<li>对于服务器端程序来说，线程切换和锁通常是性能杀手，而单线程避免了线程切换和竞争所产生的消耗。</li>
+</ul>
+</li>
+<li>单线程的劣势：
+<ul>
+<li>如果某个命令执行时间过长，会造成其他命令的阻塞，对于redis这种高性能的服务器来说这是致命的。</li>
+</ul>
+</li>
+</ul>
+<p><code>redis</code>的大部分操作是在内存上完成的，这是它实现高性能的一个重要原因，其次，它还采用了IO多路复用的机制，使得它在网络IO操作中能并发的处理大量的客户端请求，实现高吞吐率。</p>
+<p><strong>redis单线程IO模型示意图</strong></p>
+<p><img src="https://b3logfile.com/file/2022/08/solo-fetchupload-3366639650907358298-92951f51.png" alt="" loading="lazy" decoding="async" /></p>
+<blockquote>
+<p>由图可知，它的单线程主要是指在<strong>文件事件分派器</strong>这部分的实现上。</p>
+</blockquote>
+<p><img src="https://images.waer.ltd/img/Redis%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B.png" alt="" loading="lazy" decoding="async" /></p>
+<hr />
+<h2 id="-53">高级数据结构和功能<a class="zola-anchor" href="#-53" aria-label="Anchor link for: -53">🔗</a></h2>
+<h3 id="-54">Bitmap<a class="zola-anchor" href="#-54" aria-label="Anchor link for: -54">🔗</a></h3>
+<p><img src="https://images.waer.ltd/img/Bitmap%E4%BD%8D%E5%9B%BE.png" alt="" loading="lazy" decoding="async" /></p>
+<h4 id="-55">基本概念<a class="zola-anchor" href="#-55" aria-label="Anchor link for: -55">🔗</a></h4>
+<ul>
+<li><code>Bitmap</code>本身不是一种数据类型，它实际上就是前面学过的字符串，但他可以对字符串进行按位的操作。</li>
+<li><code>redis</code>为<code>Bitmap</code>单独提供了一套命令，所以使用<code>Bitmap</code>与使用普通字符串的方式不同。</li>
+<li><strong>可以把</strong><code>Bitmap</code>看作是一个以位为单位的数组，数组的每个单元只能存储0和1，数组的下标叫做偏移量。</li>
+</ul>
+<p><img src="https://images.waer.ltd/img/20220422160439.png" alt="" loading="lazy" decoding="async" /></p>
+<p><strong>当用户执行命令尝试对一个</strong><code>bitmap</code>进行设置的时候，如果该<code>bitmap</code>不存在，或者大小不满足用户想要执行的设置操作，<code>redis</code>则会对被设置的<code>bitmap</code>进行扩展，使得<code>bitmap</code>可以满足用户的设置需求。</p>
+<p><code>redis</code>对<code>bitmap</code>的扩展操作是以字节为单位进行的，所以扩展后的位图包含的二进制数量可能会比用户需要的稍微多一些，并且在扩展<code>bitmap</code>的同时，<code>redis</code>还会将所有为未被设置的二进制的值初始化为0。</p>
+<h4 id="-56">常用命令<a class="zola-anchor" href="#-56" aria-label="Anchor link for: -56">🔗</a></h4>
+<ul>
+<li><strong>setbit命令</strong></li>
+</ul>
+<blockquote>
+<p><strong>给bit设置键值对，注意bit是按位操作的，设置的时候是通过索引将指定位设置为1或者0.</strong></p>
+</blockquote>
+<pre style="background-color:#002b36;color:#839496;"><code><span># 假设我们将下面的数据的末位都设置为1
+</span><span>00000001 00000001 00000001 00000001
+</span><span>setbit bitmap1 7 1
+</span><span>setbit bitmap1 15 1
+</span><span>setbit bitmap1 23 1
+</span><span>setbit bitmap1 31 1
+</span></code></pre>
+<blockquote>
+<p><strong>一个字节等于8位。</strong></p>
+</blockquote>
+<p><img src="https://b3logfile.com/file/2022/08/solo-fetchupload-6349124328389551436-f51bd740.png" alt="image-20220422162449303" loading="lazy" decoding="async" /></p>
+<ul>
+<li><strong>getbit命令</strong></li>
+</ul>
+<blockquote>
+<p><strong>一般情况下，有set，自然有get,该命令用来获取指定索引处的值。</strong></p>
+</blockquote>
+<pre style="background-color:#002b36;color:#839496;"><code><span># 获取索引为 7 15 4的值
+</span><span>getbit bitmap1 7
+</span><span>getbit bitmap1 15
+</span><span>getbit bitmap1 4
+</span></code></pre>
+<p><img src="https://b3logfile.com/file/2022/08/solo-fetchupload-2268966638942972624-e0ecbe62.png" alt="image-20220422162836255" loading="lazy" decoding="async" /></p>
+<ul>
+<li><strong>bitcount命令</strong></li>
+</ul>
+<blockquote>
+<p><strong>用来统计指定key上1的个数，也可以统计指定的范围。</strong></p>
+</blockquote>
+<pre style="background-color:#002b36;color:#839496;"><code><span># 统计bitmap1上1的个数
+</span><span>bitcount bitmap1
+</span><span># 统计bitmap1上 0到1位置的1的个数，
+</span><span>bitcount bitmap1 0 1
+</span><span># 统计bitmap1上倒数第一和第2个字节上1的个数
+</span><span>bitcount bitmap1 -2 -1
+</span></code></pre>
+<p><img src="https://b3logfile.com/file/2022/08/solo-fetchupload-16060851603572119256-1e672969.png" alt="image-20220422164018148" loading="lazy" decoding="async" /></p>
+<blockquote>
+<p><strong>解释一下，这里的索引指是以字节为单位的，某个字节上值为1的位的个数。而不是每个字节位的索引。</strong></p>
+</blockquote>
+<ul>
+<li><strong>bitpos命令</strong></li>
+</ul>
+<blockquote>
+<p><strong>返回字符串中设置为 1 或 0 的第一位的位置。注意是第一个位置。</strong></p>
+</blockquote>
+<pre style="background-color:#002b36;color:#839496;"><code><span>BITPOS key bit [ start [ end [ BYTE | BIT]]]
+</span><span># 返回整个bitmap1上值位为1的索引位置。
+</span><span>bitpos bitmap1 1
+</span><span># 返回bitmap1上1到3范围内位值为1的位置
+</span><span># 比如00000001 00000001 00000001 00000001中以字节为单位的索引分别是0 1 2 3
+</span><span>bitpos bitmap1 1 1 3
+</span><span># 上面命令返回00000001 00000001 00000001中首个出现1的位置，那就是字节单位为1-3中位为单位索引的第15也即是第二个00000001中1的索引位置，即15
+</span></code></pre>
+<p><img src="https://b3logfile.com/file/2022/08/solo-fetchupload-12834835531903324739-c2d239cf.png" alt="image-20220422164647801" loading="lazy" decoding="async" /></p>
+<ul>
+<li><strong>bitop命令</strong></li>
+</ul>
+<blockquote>
+<p><strong>在多个键（包含字符串值）之间进行位操作，并将结果存储在目标键中。</strong></p>
+</blockquote>
+<pre style="background-color:#002b36;color:#839496;"><code><span>BITOP operation destkey key [key ...]
+</span><span># 将bitmap1和bitmap2进行或运算之后的结果存储在bitmap3中。
+</span><span>bitop or bitmap3 bitmap1 bitmap2
+</span></code></pre>
+<blockquote>
+<p><strong>bitmap1: 00000001 00000001 00000001 00000001</strong></p>
+<p><strong>bitmap2: 10000000 10000000 10000000 10000000</strong></p>
+<p><strong>结果:</strong>		<strong>10000001 10000001  10000001 10000001</strong></p>
+</blockquote>
+<p><img src="https://b3logfile.com/file/2022/08/solo-fetchupload-5166212872315137887-0648b8fc.png" alt="image-20220422170805331" loading="lazy" decoding="async" /></p>
+<blockquote>
+<p><strong>其他如按位与，非，异或可以去官方文档查看。</strong></p>
+</blockquote>
+<h4 id="-57">应用场景据举例<a class="zola-anchor" href="#-57" aria-label="Anchor link for: -57">🔗</a></h4>
+<ul>
+<li><strong>记录用户一年的签到数据：</strong>
+<ul>
+<li><strong>示例：user:9527:2022-&gt;00101101 10010001 ……..</strong></li>
+<li><strong>说明：从第一天开始，以天数为索引记录，0表示未签，1表示已签，记录一年的数据只需要368位(64字节)即可。</strong></li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="-58">HyperLogLog<a class="zola-anchor" href="#-58" aria-label="Anchor link for: -58">🔗</a></h3>
+<p><img src="https://images.waer.ltd/img/HyperLogLog.png" alt="" loading="lazy" decoding="async" /></p>
+<h4 id="-59">简介<a class="zola-anchor" href="#-59" aria-label="Anchor link for: -59">🔗</a></h4>
+<p><strong>同样，它也不是新的数据类型，本质还是字符串类型。</strong></p>
+<p><code>HyperLogLog</code>是一个专门为了计算集合的基数而创建的概率算法，其优点在于它十分的节约内存空间；</p>
+<p><strong>只需要</strong><code>12KB</code>的内存就可以对**2^{64}**个元素进行计数，其标准误差为<code>0.81%</code>。</p>
+<h4 id="-60">常用命令<a class="zola-anchor" href="#-60" aria-label="Anchor link for: -60">🔗</a></h4>
+<ul>
+<li><strong>pfadd命令</strong></li>
+</ul>
+<blockquote>
+<p>PFADD key [element [element …]]</p>
+<p><strong>向指定key中添加一个或者多个元素。</strong></p>
+</blockquote>
+<pre style="background-color:#002b36;color:#839496;"><code><span># 向hlll 中添加1  2 3
+</span><span>pfadd hlll 1 2 3
+</span></code></pre>
+<ul>
+<li><strong>pfcount命令</strong></li>
+</ul>
+<p>PFCOUNT key [key …]</p>
+<blockquote>
+<p><strong>返回指定key中元素的统计个数，如果key不存在返回0.注意返回的结果是去重后的计数。</strong></p>
+</blockquote>
+<pre style="background-color:#002b36;color:#839496;"><code><span># 统计key为hlll的基数
+</span><span>pfcount hlll
+</span></code></pre>
+<ul>
+<li><strong>pfmerge命令</strong></li>
+</ul>
+<blockquote>
+<p>PFMERGE destkey sourcekey [sourcekey …]</p>
+<p><strong>将多个key值合并到指定的key中。</strong></p>
+</blockquote>
+<p><img src="https://images.waer.ltd/img/20220423173316.png" alt="" loading="lazy" decoding="async" /></p>
+<h4 id="-61">HyperLogLog的使用场景<a class="zola-anchor" href="#-61" aria-label="Anchor link for: -61">🔗</a></h4>
+<p><strong>统计网站的独立访客（UV）：</strong></p>
+<p><strong>示例：uv:20200101 -&gt; 1.1.1.101, 1.1.1.102, 1.1.1.103, 1.1.1.102, 1.1.1.103, …</strong></p>
+<p><strong>说明：每当用户来访时，都通过HLL记录他的IP，可以统计出每个数据集的基数，也可以对多个数据集进行合并！</strong></p>
+<p><strong>使用set集合也可以实现同样的功能，但在内存的使用率上却不是一个等级的。</strong></p>
+<blockquote>
+<p><strong>假设网站每天的UV为1000万。</strong></p>
+</blockquote>
+<p><img src="https://images.waer.ltd/img/20220423151729.png" alt="" loading="lazy" decoding="async" /></p>
+<blockquote>
+<p><strong>通过上表不难感受到，当时间达到一定程度时，对空间的需求差别是非常大的。</strong></p>
+</blockquote>
+<h3 id="-62">GEO<a class="zola-anchor" href="#-62" aria-label="Anchor link for: -62">🔗</a></h3>
+<p><img src="https://images.waer.ltd/img/GEO.png" alt="" loading="lazy" decoding="async" /></p>
+<h4 id="-63">概述<a class="zola-anchor" href="#-63" aria-label="Anchor link for: -63">🔗</a></h4>
+<ul>
+<li><code>GEO</code>是<code>redis</code>在<code>3.2</code>版本中新增的功能，该功能允许用户将经纬度格式的地理坐标存储到redis中，并对这些坐标执行基于距离的计算以及范围查找等功能。</li>
+<li><code>redis</code>为<code>GEO</code>功能提供了一系列的命令，通过这些命令可以实现：
+<ul>
+<li><strong>将位置的名称以及他们的经纬度存储到集合中。</strong></li>
+<li><strong>根据给定的位置名称，从位置集合中抽取与之对应的经纬度。</strong></li>
+<li><strong>计算两个位置之间的直线距离。</strong></li>
+<li><strong>根据给定的经纬度或者位置，找出以该位置为中心，指定半径范围内的其他位置。</strong></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>GEO不是一种新的数据类型，它的本质其实还是有序集合。通过GEO命令存储地理数据时，redis会将经纬度转换成一个geohash值，并以该值为分数，以位置名称为成员，将数据存入一个有序集合中。</strong></p>
+</blockquote>
+<h4 id="-64">常用命令<a class="zola-anchor" href="#-64" aria-label="Anchor link for: -64">🔗</a></h4>
+<p><strong>约定</strong></p>
+<blockquote>
+<p><strong>为了方便演示，下面的地理坐标均为浙江省杭州市的真实经纬度数据，演示将使用这些准备好的数据进行。</strong></p>
+</blockquote>
+<pre style="background-color:#002b36;color:#839496;"><code><span># 杭州西湖
+</span><span>120.12199 30.226122 xihu
+</span><span># 余杭区
+</span><span>119.987408 30.275946 yuhang
+</span><span># 临安区
+</span><span>119.719616 30.24036 linan
+</span><span># 萧山区
+</span><span>120.263439 30.184583 xiaoshan
+</span><span># 临平区
+</span><span>120.300518 30.422897 linping
+</span><span># 柯桥区
+</span><span>120.300518 30.413423 keqiao
+</span></code></pre>
+<p><strong>坐标数据可以去这里获取</strong><a class="" href="https://www.bejson.com/convert/map/">地理经纬度查询</a></p>
+<ul>
+<li><strong>geoadd命令</strong></li>
+</ul>
+<blockquote>
+<p>GEOADD key [ NX | XX] [CH] longitude latitude member [ longitude latitude member …]</p>
+<p><strong>向集合中添加一个或多个经纬度地理数据。</strong></p>
+</blockquote>
+<pre style="background-color:#002b36;color:#839496;"><code><span># 以杭州为key，将上述几个坐标添加到集合中。
+</span><span>geoadd hangzhou 经度 纬度 对应的地名
+</span></code></pre>
+<p><img src="https://images.waer.ltd/img/20220424163814.png" alt="" loading="lazy" decoding="async" /></p>
+<ul>
+<li><strong>geopos命令</strong></li>
+</ul>
+<blockquote>
+<p>GEOPOS key member [member …]</p>
+<p><strong>返回指定key的地名的经纬度数据。</strong></p>
+</blockquote>
+<pre style="background-color:#002b36;color:#839496;"><code><span># 返回上述地理位置的全部经纬度数据
+</span><span>geopos hangzhou xihu yuhang linan xiaoshan linping keqiao
+</span></code></pre>
+<p><img src="https://images.waer.ltd/img/20220424164644.png" alt="" loading="lazy" decoding="async" /></p>
+<ul>
+<li><strong>geodist命令</strong></li>
+</ul>
+<blockquote>
+<p>GEODIST key member1 member2 [ M | KM | FT | MI]</p>
+<p><strong>返回两个地名之间的距离，可以指定距离的单位。可以指定距离单位米、千米、英里、英尺</strong></p>
+</blockquote>
+<pre style="background-color:#002b36;color:#839496;"><code><span># 返回西湖到萧山之间的距离,默认单位为米
+</span><span>geodist hangzhou xihu xiaoshan
+</span></code></pre>
+<p><img src="https://images.waer.ltd/img/20220424170009.png" alt="" loading="lazy" decoding="async" /></p>
+<ul>
+<li><strong>georadius命令</strong></li>
+</ul>
+<blockquote>
+<p>GEORADIUS key longitude latitude radius M | KM | FT | MI [WITHCOORD] [WITHDIST] [WITHHASH] [ COUNT count [ANY]] [ ASC | DESC] [STORE key] [STOREDIST key]</p>
+<p><strong>返回指定位置半径范围内的地名。</strong></p>
+</blockquote>
+<pre style="background-color:#002b36;color:#839496;"><code><span># 返回西湖200千米半径范围内的其他地名
+</span><span>georadius hangzhou 120.12199 30.226122 200 km 
+</span><span># 指定返回值中携带对应地名的经纬度数据
+</span><span>georadius hangzhou 120.12199 30.226122 200 km  withcoord 
+</span><span># 指定返回值中携带对应地名的经纬度数据并限定返回的数据条数为3
+</span><span>georadius hangzhou 120.12199 30.226122 200 km  withcoord count 3
+</span></code></pre>
+<p><img src="https://images.waer.ltd/img/20220424171403.png" alt="" loading="lazy" decoding="async" /></p>
+<p><img src="https://images.waer.ltd/img/20220424171417.png" alt="" loading="lazy" decoding="async" /></p>
+<p><img src="https://images.waer.ltd/img/20220424171912.png" alt="" loading="lazy" decoding="async" /></p>
+<ul>
+<li><strong>georadiusbymember命令</strong></li>
+</ul>
+<blockquote>
+<p>GEORADIUSBYMEMBER key member radius M | KM | FT | MI [WITHCOORD] [WITHDIST] [WITHHASH] [ COUNT count [ANY]] [ ASC | DESC] [STORE key] [STOREDIST key]</p>
+<p><strong>命令和上一个命令的作用是一样的，不过这是通过指定地名进行返回，而上一个命令是通过指定经纬度返回。</strong></p>
+</blockquote>
+<p><img src="https://images.waer.ltd/img/20220424172326.png" alt="" loading="lazy" decoding="async" /></p>
+<ul>
+<li><strong>geohash命令</strong></li>
+</ul>
+<blockquote>
+<p>GEOHASH key member [member …]</p>
+<p><strong>返回指定位置的地理经纬度的哈希值。</strong></p>
+</blockquote>
+<p><img src="https://images.waer.ltd/img/20220424172502.png" alt="" loading="lazy" decoding="async" /></p>
+<p><strong>既然geo的本质是有序集合，那么使用有序集合的命令也可以操作geo数据。</strong></p>
+<p><img src="https://images.waer.ltd/img/20220424172926.png" alt="" loading="lazy" decoding="async" /></p>
+<hr />
+<h3 id="-65">发布订阅<a class="zola-anchor" href="#-65" aria-label="Anchor link for: -65">🔗</a></h3>
+<p><img src="https://images.waer.ltd/img/%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85.png" alt="" loading="lazy" decoding="async" /></p>
+<h4 id="-66">概述<a class="zola-anchor" href="#-66" aria-label="Anchor link for: -66">🔗</a></h4>
+<p><code>redis</code>提供了基于<strong>发布/订阅</strong>模式的消息机制，此模式下，消息的发布者和订阅者不直接通信，发布者只是将消息发布到指定的频道上，而订阅该频道的每个客户端都可以接收到这个消息；</p>
+<p><strong>当客户端新订阅某个频道时，它无法接收该频道之前的消息，因为</strong><code>redis</code>不会对发布的消息进行持久化。</p>
+<h4 id="-67">常用命令<a class="zola-anchor" href="#-67" aria-label="Anchor link for: -67">🔗</a></h4>
+<blockquote>
+<p><strong>为了方便演示，我将同时打开多个(3个)</strong><code>redis</code>客户端，将当前的客户端作为发布者，其他三个客户端作为订阅者，演示发布/订阅的基本使用。</p>
+</blockquote>
+<ul>
+<li><strong>publish命令</strong></li>
+</ul>
+<blockquote>
+<p>PUBLISH channel message</p>
+<p><strong>发布者用来发布一个消息，会自动创建消息的主题。</strong></p>
+</blockquote>
+<pre style="background-color:#002b36;color:#839496;"><code><span># 在Java的新闻主题中发布一条消息
+</span><span>publish news:java &quot;hello java&quot;
+</span><span># 在js的新闻主题中发布一条消息
+</span><span>publish news:js &quot;javascript&quot;
+</span></code></pre>
+<p><img src="https://images.waer.ltd/img/20220424194249.png" alt="" loading="lazy" decoding="async" /></p>
+<ul>
+<li><strong>subscribe命令</strong></li>
+</ul>
+<blockquote>
+<p>SUBSCRIBE pattern [ pattern …]</p>
+<p><strong>用在订阅端订阅发布者的内容，完成订阅之后会自动进入阻塞状态，等待接收发布者发布的消息。</strong></p>
+</blockquote>
+<pre style="background-color:#002b36;color:#839496;"><code><span># 在客户端1中订阅上面发布的Java主题消息。
+</span><span>subscribe news:java
+</span><span># 在客户端2中订阅上面发布的js主题消息。
+</span><span>subscribe news:java
+</span></code></pre>
+<p><img src="https://images.waer.ltd/img/20220424195046.png" alt="" loading="lazy" decoding="async" /></p>
+<p><strong>接下来我们在发布者客户端发一条消息试试。</strong></p>
+<pre style="background-color:#002b36;color:#839496;"><code><span>publish news:java &quot;This is java&quot;
+</span></code></pre>
+<blockquote>
+<p><strong>可以看到，当我发布成功之后，有订阅的两个客户端会收到消息提示。</strong></p>
+</blockquote>
+<p><img src="https://images.waer.ltd/img/20220424195232.png" alt="" loading="lazy" decoding="async" /></p>
+<p><img src="https://images.waer.ltd/img/20220424195349.png" alt="" loading="lazy" decoding="async" /></p>
+<blockquote>
+<p><strong>在订阅者中的</strong><code>(Integer) 1</code>代表该客户端的订阅数。而在发布者中这代表收到该条发布消息的客户端数量。</p>
+</blockquote>
+<ul>
+<li><strong>psubscribe命令</strong></li>
+</ul>
+<blockquote>
+<p>PSUBSCRIBE pattern [ pattern …]</p>
+<p><strong>和上一个命令类似，也是用在客户端订阅中，不同的是，该命令支持模式匹配订阅，可以通过通配符的形式同时订阅多个主题的消息。</strong></p>
+</blockquote>
+<pre style="background-color:#002b36;color:#839496;"><code><span># 在客户端3中通过模式匹配同时订阅前面的两个主题(java和js)主题
+</span><span>psubscribe news:*
+</span></code></pre>
+<p><img src="https://images.waer.ltd/img/20220424200155.png" alt="" loading="lazy" decoding="async" /></p>
+<p><strong>此时我们通过发布者客户端发布的消息在客户端3中都能收到。</strong></p>
+<p><img src="https://images.waer.ltd/img/20220424200317.png" alt="" loading="lazy" decoding="async" /></p>
+<ul>
+<li><strong>pubsub命令</strong></li>
+</ul>
+<blockquote>
+<p>PUBSUB CHANNELS [pattern]</p>
+<p><strong>返回主题列表。</strong></p>
+</blockquote>
+<pre style="background-color:#002b36;color:#839496;"><code><span># 看看与news相关的订阅有哪些。
+</span><span>pubsub channels newws*
+</span><span># numsub 参数，返回指定主题被订阅数（非模式订阅）
+</span><span># numpat 参数 返回指定主题被订阅数，模式订阅
+</span></code></pre>
+<p><img src="https://images.waer.ltd/img/20220424203814.png" alt="" loading="lazy" decoding="async" /></p>
+<ul>
+<li><strong>unsubscribe命令</strong></li>
+</ul>
+<blockquote>
+<p>UNSUBSCRIBE [channel [channel …]]</p>
+<p><strong>取消订阅。该命令某些客户端中无法生效。</strong></p>
+</blockquote>
+<pre style="background-color:#002b36;color:#839496;"><code><span># 取消订阅news:js
+</span><span>unsubscribe news:js
+</span></code></pre>
+<h4 id="-68">应用场景<a class="zola-anchor" href="#-68" aria-label="Anchor link for: -68">🔗</a></h4>
+<ul>
+<li><strong>广播系统</strong>
+<ul>
+<li><strong>用户订阅某项服务，当该服务的作者发布内容时，这些订阅的用户可以得到即时的消息通知。</strong></li>
+</ul>
+</li>
+<li><strong>消息队列</strong>
+<ul>
+<li><strong>可以用于多个业务/系统之间的通信，如A系统处理了某项业务，可以通过发布消息的方式通知B系统。</strong></li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="-69">Stream(1)<a class="zola-anchor" href="#-69" aria-label="Anchor link for: -69">🔗</a></h3>
+<p><img src="https://images.waer.ltd/img/Redis%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97.png" alt="" loading="lazy" decoding="async" /></p>
+<h4 id="-70">概述<a class="zola-anchor" href="#-70" aria-label="Anchor link for: -70">🔗</a></h4>
+<blockquote>
+<p><strong>Stream是Redis 5.0新增加的数据类型，它是一个功能强大的、支持多播的、可持久化的消息队列。</strong></p>
+</blockquote>
+<p><img src="https://images.waer.ltd/img/20220425181450.png" alt="" loading="lazy" decoding="async" /></p>
+<blockquote>
+<p><strong>在Stream出现之前，redis中可以用来实现消息队列的方式主要有：</strong></p>
+</blockquote>
+<ol>
+<li><strong>列表</strong>
+<ol>
+<li><strong>优点：可以快速的将新消息追到列表的尾部并且支持阻塞模式。</strong></li>
+<li><strong>缺点：如果要查找包含指定数据的元素，或者进行范围查找，需要遍历整个列表。</strong></li>
+</ol>
+</li>
+<li><strong>有序集合</strong>
+<ol>
+<li><strong>优点：可以有效的进行范围查找，适合实现延时队列。</strong></li>
+<li><strong>缺点：不支持阻塞模式。</strong></li>
+</ol>
+</li>
+<li><strong>发布订阅：</strong>
+<ol>
+<li><strong>优点：可以将消息发送给多个客户端，并且支持阻塞模式。</strong></li>
+<li><strong>缺点：发送即忘的策略会导致离线的客户端丢失消息，所以无法实现可靠的消息队列。</strong></li>
+</ol>
+</li>
+</ol>
+<h4 id="-71">Stream的特征<a class="zola-anchor" href="#-71" aria-label="Anchor link for: -71">🔗</a></h4>
+<ul>
+<li><code>Stream</code>是一个消息链表，它将所有加入的消息都串接起来，每个消息都有一个唯一的ID</li>
+<li><code>Stream</code>中的消息可以持久化，<code>Redis</code>重启之后消息不会丢失。</li>
+<li><code>Stream</code>可以挂载多个消费组，每个消费都有一个游标，用于标识当前消费组的消费进度。</li>
+<li><code>Stream</code>中消费组的状态是独立的，互相不影受响，即同一流内的消息会被多个消费组共享。</li>
+<li><strong>消费组可以挂载多个消费者，这些消费者之间是竞争关系，任意消费者处理了消息都会使得游标向后移动。</strong></li>
+<li><strong>消费者内部有个状态变量</strong><code>PEL</code>(<code>Pending Entries List</code>),它记录了当前已被客户端读取的消息。</li>
+</ul>
+<h4 id="-72">常用命令<a class="zola-anchor" href="#-72" aria-label="Anchor link for: -72">🔗</a></h4>
+<blockquote>
+<p><strong>演示之前，先开启多个客户端，方便演示生产者/消费者模式。</strong></p>
+</blockquote>
+<ul>
+<li><strong>xadd命令</strong></li>
+</ul>
+<blockquote>
+<p>XADD key [NOMKSTREAM] [ MAXLEN | MINID [ = | ~] threshold [LIMIT count]] * | id field value [ field value …]</p>
+<p><strong>往Stream流里添加一条或者多条消息。</strong></p>
+</blockquote>
+<pre style="background-color:#002b36;color:#839496;"><code><span># 向流中写入用户信息。
+</span><span>xadd mystream * name lisi age 23 .....
+</span><span># 这里的*代表该消息的ID我使用系统自己生成的ID，它的格式是：时间戳-序号
+</span></code></pre>
+<p><img src="https://images.waer.ltd/img/20220426144858.png" alt="" loading="lazy" decoding="async" /></p>
+<ul>
+<li><strong>xlen命令</strong></li>
+</ul>
+<blockquote>
+<p>XLEN key</p>
+<p><strong>返回指定流中的消息数。若指定的key不存在返回0</strong></p>
+</blockquote>
+<p><img src="https://images.waer.ltd/img/20220426145448.png" alt="" loading="lazy" decoding="async" /></p>
+<ul>
+<li><strong>xrange命令</strong></li>
+</ul>
+<blockquote>
+<p>XRANGE key start end [COUNT count]</p>
+<p>XREVRANGE key end start [COUNT count]</p>
+<p><strong>返回指定范围内的消息数据。默认是由小到大的顺序。</strong></p>
+</blockquote>
+<pre style="background-color:#002b36;color:#839496;"><code><span># 查看刚刚添加的所有消息数据
+</span><span>xrange mystream - + 
+</span><span># - ,+ 用来指定开始到结束的范围内的全部数据。
+</span><span># 也可以使用count 参数限定返回结果的条数。
+</span><span># XREVRANGE 则是倒序返回，用法一样。
+</span></code></pre>
+<p><img src="https://images.waer.ltd/img/20220426150502.png" alt="" loading="lazy" decoding="async" /></p>
+<p><img src="https://images.waer.ltd/img/20220426150748.png" alt="" loading="lazy" decoding="async" /></p>
+<ul>
+<li><strong>xdel命令</strong></li>
+</ul>
+<blockquote>
+<p>XDEL key id [id …]</p>
+<p><strong>删除指定节点消息，通过ID指定。</strong></p>
+</blockquote>
+<p><img src="https://images.waer.ltd/img/20220426151112.png" alt="" loading="lazy" decoding="async" /></p>
+<ul>
+<li><strong>xtrim命令</strong></li>
+</ul>
+<blockquote>
+<p>XTRIM key MAXLEN | MINID [ = | ~] threshold [LIMIT count]</p>
+<p><strong>修剪消息流，指定删除超出某个范围之外的数据。</strong></p>
+</blockquote>
+<pre style="background-color:#002b36;color:#839496;"><code><span># 保留5个以内的数据，表示超出5个的都被删除
+</span><span>xtrim mystream maxlen 5
+</span><span># 新添加的消息会被追到尾部，同时检查如果数量大于5的部分将会被删除
+</span><span>xadd mystream maxlen 5 * name lisi age 99
+</span></code></pre>
+<blockquote>
+<p><strong>下面切到另一个客户端，演示消费者命令。</strong></p>
+</blockquote>
+<ul>
+<li><strong>xread命令</strong></li>
+</ul>
+<blockquote>
+<p>XREAD [COUNT count] [BLOCK milliseconds] STREAMS key [key …] id [id …]</p>
+<p><strong>消费指定一个或者多个流中消息数据。</strong></p>
+</blockquote>
+<pre style="background-color:#002b36;color:#839496;"><code><span>xread streams mystream 0-0
+</span><span># streams表示同时消费多个流
+</span><span># 0-0表示从每个消息流的起始位置开始消费
+</span><span># 你也可以根据实际需求消费指定数量的消息
+</span><span># 以阻塞模式进行消费
+</span><span>xread block 10000 count 3 streams mystream 0-0
+</span><span># 上面的命令如果再次执行消费的话，ID不能再使用0-0开始，而是之前命令返回的最后一条消息的ID
+</span><span># 以此类推，如果后面没有消息可以继续消费，该方法会进入指定时间内的阻塞状态。超时退出，否则如果生产者有数据，则会立即消费
+</span><span>xread block 10000 count 3 streams mystream $
+</span><span># 上面的命令只会消费指定流中新增的消息，之前的消息不会被消费
+</span></code></pre>
+<p><img src="https://images.waer.ltd/img/20220426152427.png" alt="" loading="lazy" decoding="async" /></p>
+<p><img src="https://images.waer.ltd/img/20220426152628.png" alt="" loading="lazy" decoding="async" /></p>
+<p><strong>以上就是生产者和单个消费者模式的全部演示内容，其余内容将在后半部分进行演示。</strong></p>
+<h3 id="-73">Stream(2)<a class="zola-anchor" href="#-73" aria-label="Anchor link for: -73">🔗</a></h3>
+<h4 id="-74">消费组<a class="zola-anchor" href="#-74" aria-label="Anchor link for: -74">🔗</a></h4>
+<blockquote>
+<p><strong>演示以消费组的方式进行消费。</strong></p>
+</blockquote>
+<ul>
+<li><strong>xgroup create 命令</strong></li>
+</ul>
+<blockquote>
+<p>XGROUP CREATE key groupname id | $ [MKSTREAM] [ENTRIESREAD entries_read]</p>
+<p><strong>创建消费组。</strong></p>
+</blockquote>
+<pre style="background-color:#002b36;color:#839496;"><code><span># 创建消费组g1，消费mystrean流中的消息，从头开始消费
+</span><span>xgroup create mystream g1 0
+</span><span># 创建消费组g2，消费mystrean流中的消息，从尾开始消费
+</span><span>xgroup create mystream g1 $
+</span></code></pre>
+<ul>
+<li><strong>xinfo stream命令</strong></li>
+</ul>
+<blockquote>
+<p>XINFO STREAM key [FULL [COUNT count]]</p>
+<p><strong>返回指定流的具体信息。</strong></p>
+</blockquote>
+<p><img src="https://images.waer.ltd/img/20220426155038.png" alt="" loading="lazy" decoding="async" /></p>
+<ul>
+<li><strong>xinfo groups 命令</strong></li>
+</ul>
+<blockquote>
+<p><strong>返回指定流中消费组的信息。</strong></p>
+</blockquote>
+<p><img src="https://images.waer.ltd/img/20220426155234.png" alt="" loading="lazy" decoding="async" /></p>
+<ul>
+<li><strong>xinfo consumers命令</strong></li>
+</ul>
+<blockquote>
+<p><strong>返回指定流中消费组中消费者的信息。</strong></p>
+</blockquote>
+<ul>
+<li><strong>xpending命令</strong></li>
+</ul>
+<blockquote>
+<p>XPENDING key group [ [IDLE min-idle-time] start end count [consumer]]</p>
+<p><strong>查看指定消费组中待处理的消息。</strong></p>
+</blockquote>
+<p><img src="https://images.waer.ltd/img/20220426155657.png" alt="" loading="lazy" decoding="async" /></p>
+<blockquote>
+<p><strong>以上命令全部在生产者客户端使用。</strong></p>
+</blockquote>
+<ul>
+<li><strong>xreadgroup命令</strong></li>
+</ul>
+<blockquote>
+<p>XREADGROUP GROUP group consumer [COUNT count] [BLOCK milliseconds] [NOACK] STREAMS key [key …] id [id …]</p>
+<p><strong>以消费组的模式进行消费。</strong></p>
+</blockquote>
+<pre style="background-color:#002b36;color:#839496;"><code><span># c1表示组g1中的一个消费者&gt;表示从指定流中的头部开始消费
+</span><span>xreadgroup group g1 c1 count 1 block 10000 streams mystream &gt;
+</span></code></pre>
+<p><img src="https://images.waer.ltd/img/20220426160528.png" alt="" loading="lazy" decoding="async" /></p>
+<p><strong>关于消费者2的方式是类似的，不过它只能消费尾部的消息，在阻塞时间内，我们可以在生产者端发送一条消息，消费者会自动消费。</strong></p>
+<h3 id="-75">Pipeline<a class="zola-anchor" href="#-75" aria-label="Anchor link for: -75">🔗</a></h3>
+<h4 id="-76">概述<a class="zola-anchor" href="#-76" aria-label="Anchor link for: -76">🔗</a></h4>
+<p><code>Redis</code>客户端执行一条命令分为四个步骤：发送命令、命令排队、命令执行、返回结果。</p>
+<p><strong>其中第一步和第四步称为</strong><code>Round Trip Time(RTT)</code>,即往返时间。</p>
+<ul>
+<li><code>redis</code>提供了批量操作命令（如mget,mset等），可以有效的节约RTT。</li>
+<li><strong>但大部分命令是不支持批量的，若要执行N次这样的命令，则需要消耗N次RTT。</strong></li>
+</ul>
+<p><strong>为了改善上面的问题，使用Pipeline（流水线），它可以有效的减少RTT。</strong></p>
+<ul>
+<li><strong>流水线允许客户端把任意多条</strong><code>redis</code>命令打包在一起，然后一次性的将他们发送给服务器。</li>
+<li><strong>服务器会将流水线包含的所有的命令处理之后，一次性的将他们的执行结果返回给客户端。</strong></li>
+</ul>
+<p><img src="https://images.waer.ltd/img/20220426171137.png" alt="" loading="lazy" decoding="async" /></p>
+<p><strong>Pipeline和批量命令的对比</strong></p>
+<ul>
+<li><strong>批量命令是原子性的，而流水线不支持。</strong></li>
+<li><strong>批量命令是一个命令对应多个key,流水线则支持多个命令。</strong></li>
+<li><strong>批量命令是redis服务端支持的，而流水线需要服务端和客户端共同支持。</strong></li>
+</ul>
+<blockquote>
+<p><strong>每次封装的流水线命令不宜过多，否则会增加客户端的等待时间，也会造成一定的网络阻塞。</strong></p>
+<p><strong>建议将一次打包的大量命令拆分为多个流水线来实现。</strong></p>
+</blockquote>
+<h4 id="-77">基本演示<a class="zola-anchor" href="#-77" aria-label="Anchor link for: -77">🔗</a></h4>
+<blockquote>
+<p><strong>演示一条简单的流水线命令。</strong></p>
+</blockquote>
+<pre style="background-color:#002b36;color:#839496;"><code><span>echo -en &#39;*3\r\ns3\r\nset\r\ns5\r\ncount\r\ns3\r\n100\r\n*2\r\ns4\r\nincr\r\ns5\r\ncount\r\n&#39; | redis-cli --piple -a 密码
+</span><span># 就是将key为ncount的值设置为100并自增1
+</span></code></pre>
+<blockquote>
+<p><strong>注意该命令不能在客户端登录状态下执行，必须退出该状态执行之后再登录查看执行结果。</strong></p>
+</blockquote>
+<hr />
+<h3 id="-78">事务<a class="zola-anchor" href="#-78" aria-label="Anchor link for: -78">🔗</a></h3>
+<p><img src="https://images.waer.ltd/img/%E4%BA%8B%E5%8A%A1.png" alt="" loading="lazy" decoding="async" /></p>
+<h4 id="-79">概述<a class="zola-anchor" href="#-79" aria-label="Anchor link for: -79">🔗</a></h4>
+<p><code>Redis</code>提供了简单的事务功能，该功能主要由<code>multi</code>和<code>exec</code>命令实现：</p>
+<blockquote>
+<ul>
+<li><code>multi</code>命令代表事务的开始，<code>exec</code>命令代表事务的结束，他们之间按顺序执行。</li>
+<li><strong>当客户端执行</strong><code>multi</code>命令之后，他就进入了事务模式，这时用户输入所有命令会按顺序放入一个事务队列中。</li>
+<li><strong>当客户端执行</strong><code>exec</code>命令之后，它才开始执行当前事务，执行成功后它会按照命令入队顺序返回各个命令执行的结果。</li>
+<li><strong>若要取消事务，使用</strong><code>discard</code>代替<code>exec</code>命令即可，它会清空事务队列中已有的命令，并让客户端退出事务模式。</li>
+</ul>
+</blockquote>
+<p><strong>为什么说</strong><code>Redis</code>提供是简单事务功能？</p>
+<blockquote>
+<ol>
+<li><strong>redis事务不支持回滚。</strong></li>
+<li><strong>redis事务总是支持</strong><code>ACID</code>(原子性、一致性、隔离性、持久性)中的<code>ACI</code>特性，当它运行在特定的持久化模式下时，也支持<code>D</code>特性。</li>
+</ol>
+</blockquote>
+<h4 id="-80">带乐观锁的事务<a class="zola-anchor" href="#-80" aria-label="Anchor link for: -80">🔗</a></h4>
+<p><strong>很多时候，要确保事务中的数据没有被其他客户端修改才执行该事务。</strong></p>
+<ul>
+<li><code>Redis</code>提供了<code>watch</code>命令来解决这类问题，这是一种乐观锁的机制。</li>
+<li><strong>客户端通过</strong><code>watch</code>命令，要求服务器对一个或多个key进行监视，如果在客户端执行事务之前，这些key发生了变化，则服务器将拒绝执行客户端提交的事务，并向它返回一个空值。</li>
+</ul>
+<h4 id="-81">命令演示<a class="zola-anchor" href="#-81" aria-label="Anchor link for: -81">🔗</a></h4>
+<p><img src="https://b3logfile.com/file/2022/08/solo-fetchupload-3243124093778569358-85ba9d91.png" alt="image-20220426192238792" loading="lazy" decoding="async" /></p>
+<hr />
+<h3 id="-82">Lua脚本<a class="zola-anchor" href="#-82" aria-label="Anchor link for: -82">🔗</a></h3>
+<h4 id="-83">概述<a class="zola-anchor" href="#-83" aria-label="Anchor link for: -83">🔗</a></h4>
+<p><strong>Lua语言是在1993年由巴西一个大学研究小组发明的，其设计的目标是作为嵌入式持续移植到其他应用程序，由C语言实现，虽然简单小巧，但是功能强大，很多应用都选择它作为脚本语言，尤其是在游戏领域。</strong></p>
+<p><a class="" href="https://www.lua.org">Lua官网</a></p>
+<blockquote>
+<p><strong>redis从2.6版本开始引入了Lua脚本，很方便的对redis服务器的功能进行了扩展：</strong></p>
+<ul>
+<li><strong>redis服务器内置了Lua解释器，可以直接使用Lua脚本。</strong></li>
+<li><strong>Lua脚本可以直接调用redis命令，并使用Lua语言及其内置的函数处理命令的结果。</strong></li>
+<li><strong>redis服务器在执行Lua脚本的过程中，不会执行其他客户端发送的命令或者脚本，执行过程是原子性的。</strong></li>
+</ul>
+</blockquote>
+<h4 id="-84">使用介绍<a class="zola-anchor" href="#-84" aria-label="Anchor link for: -84">🔗</a></h4>
+<p><code>EVAL script numkeys key [key ...] arg [arg ...]</code></p>
+<ol>
+<li>**script参数用于传递脚本本身； **</li>
+<li>**numkeys参数用于指定脚本需要处理的键的数量； **</li>
+<li>**参数key可以是任意多个，用来指定被脚本处理的键，在脚本中通过KEYS数组来访问这些参数key； **</li>
+<li><strong>参数arg可以是任意多个，用来指定传递给脚本的附加参数，在脚本中通过ARGV数组来访问这些参数arg。</strong></li>
+</ol>
+<p><code>SCRIPT LOAD script</code></p>
+<p><code>EVEALSHA sha1 numkeys key [key….] arg [arg…]</code></p>
+<ol>
+<li><strong>SCRIPT LOAD命令用来将指定的脚本解释器存在服务器上，并返回对应的SHA1校验和。</strong></li>
+<li><strong>EVEALSHA命令用来执行已被缓存的脚本，它后面的sha1参数是脚本对应的SHA1校验和。</strong></li>
+</ol>
+<blockquote>
+<p><strong>在Lua脚本中执行Redis命令(command-命令名称，省略号-命令参数): redis.call(command, …), redis.pcall(command, …) 二者唯一的区别是对错误的处理方式不同，前者在命令出错时会返回一个错误， 后者会将错误封装起来，返回一个表示错误的Lua表格。</strong></p>
+</blockquote>
+<h4 id="-85">管理脚本<a class="zola-anchor" href="#-85" aria-label="Anchor link for: -85">🔗</a></h4>
+<pre style="background-color:#002b36;color:#839496;"><code><span># 将指定的脚本缓存到redis服务器上。
+</span><span>SCRIPT LOAD script
+</span><span># 检查校验和对应的脚本是否存在于redis服务器中。
+</span><span>SCRIPT EXISTS sha1 [sha1....]
+</span><span># 移除所有已缓存的脚本
+</span><span>SCRIPT FLUSH
+</span><span># 强制停止正在运行的脚本
+</span><span>SCRIPT KILL
+</span></code></pre>
+<ul>
+<li>
+<p><strong>lua-time-limit配置</strong></p>
+<blockquote>
+<p><strong>该配置项定义了Lua脚本不受限制运行的时长，其默认值为5000； 2. 当脚本的运行时间超过该值时，向服务器发送请求的客户端将得到一个 错误的回复，提示用户可以使用SCRIPT KILL或SHUTDOWN NOSAVE 命令来终止脚本或者直接关闭服务器。</strong></p>
+</blockquote>
+</li>
+<li>
+<p><strong>SCRIPT KILL命令执行后</strong></p>
+<blockquote>
+<ol>
+<li>**如果正在运行的Lua脚本尚未执行过任何写命令，则服务器终止该脚本， 回到正常状态，继续处理客户端的请求； **</li>
+<li><strong>如果正在运行的Lua脚本已经执行过写命令，服务器不会直接终止脚本 并回到正常状态，这种情况下，用户只能通过SHUTDOWN NOSAVE命令， 在不持久化的情况下关闭服务器。</strong></li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<h4 id="-86">脚本使用<a class="zola-anchor" href="#-86" aria-label="Anchor link for: -86">🔗</a></h4>
+<blockquote>
+<p><strong>演示一些简单的Lua脚本命令。</strong></p>
+</blockquote>
+<pre style="background-color:#002b36;color:#839496;"><code><span># 打印一个字符串。
+</span><span>eval &#39;return &quot;Hello Lua!&quot;&#39; 0
+</span><span># 向redis中添加一个set类型的键值对 Hello:Lua
+</span><span>eval &#39;redis.call(&quot;set&quot;,KEYS[1],ARGV[1])&#39; 1 Hello Lua
+</span></code></pre>
+<blockquote>
+<p><strong>命令中，我们通过</strong><code>redis.call()</code>来接收redis命令。“set”表示存入一个字符串，键值对的具体内容通过参数的形式传入，而不是写死。</p>
+<p><strong>所以后的</strong><code>KEYS[1],ARGV[1]</code>代表从后面<code>Hello Lua</code>分别取第一个值就是对应的key和value的值，Lua索引从1开始。</p>
+</blockquote>
+<p><img src="https://images.waer.ltd/img/20220428154547.png" alt="" loading="lazy" decoding="async" /></p>
+<pre style="background-color:#002b36;color:#839496;"><code><span># 使用for循环向set集合中512个添加数据
+</span><span>eval &#39;for i=1,512 do redis.call(&quot;sadd&quot;,KEYS[1],i) end&#39; 1 test:set:1
+</span></code></pre>
+<p><img src="https://images.waer.ltd/img/20220428160030.png" alt="" loading="lazy" decoding="async" /></p>
+<pre style="background-color:#002b36;color:#839496;"><code><span># 缓存脚本
+</span><span>script load &#39;for i=1,512 do redis.call(&quot;sadd&quot;,KEYS[1],i) end&#39;
+</span><span># 加载脚本
+</span><span>evalsha &quot;f1b96e57574c72649eda263530f0ae2215313f67&quot; 1 test:set:2
+</span><span># 检查脚本是否存在
+</span><span>script exists &quot;f1b96e57574c72649eda263530f0ae2215313f67&quot;
+</span><span># 删除脚本
+</span><span>script flush
+</span></code></pre>
+<p><img src="https://images.waer.ltd/img/20220428163743.png" alt="" loading="lazy" decoding="async" /></p>
+<hr />
+<h3 id="-87">模块<a class="zola-anchor" href="#-87" aria-label="Anchor link for: -87">🔗</a></h3>
+<h4 id="-88">概述<a class="zola-anchor" href="#-88" aria-label="Anchor link for: -88">🔗</a></h4>
+<p><code>Redis</code>提供了流水线、事务、Lua脚本，用于扩展redis服务器的功能，但这些功能都有一定的缺陷；</p>
+<ul>
+<li><strong>这些扩展方式都必须基于现有的数据结构或功能来实现，无法支持用户自定义的数据结构。</strong></li>
+<li><strong>他们在编程方面都比较复杂，比如涉及</strong><code>watch</code>的命令就很容易出错，而Lua脚本又需要熟悉Lua语法。</li>
+<li><strong>无论是事务还是Lua脚本，在性能方面都会有一些损耗，对于哪些性能敏感的用户来说无法满足。</strong></li>
+</ul>
+<blockquote>
+<p><strong>redis在4.0增加了“模块”这个功能，它允许开发者通过redis开放的一簇API，基于C语言（能与C交互的语言）在redis之上构建任意复杂的、全新的数据结构和功能。</strong></p>
+<p><strong>对于开发者，redis为他们提供了一个可以按需扩展redis的机会，对于普通用户，有了大量的第三方定制功能可以拿来使用，他们可以将redis应用在更多领域。</strong></p>
+</blockquote>
+<h4 id="-89">使用模块<a class="zola-anchor" href="#-89" aria-label="Anchor link for: -89">🔗</a></h4>
+<ul>
+<li><strong>开发模块：</strong></li>
+</ul>
+<p><strong>官方API手册:</strong><a class="" href="https://redis.io/topics/modules-api-ref">https://redis.io/topics/modules-api-ref</a></p>
+<ul>
+<li><strong>编译模块</strong>
+<strong>不同模块的编译方式各有不同，大部分会在文档中做出详细的说明；</strong></li>
+<li><strong>载入模块</strong></li>
+</ul>
+<pre style="background-color:#002b36;color:#839496;"><code><span># 配置文件
+</span><span>loadmodule /path/to/mymodule.so
+</span><span># 启动命令
+</span><span>redis-server loadmodule /path/to/mymodule.so
+</span><span># redsi命令
+</span><span>module load /path/to/mymodule.so
+</span></code></pre>
+<h2 id="-90">Redis整合大全<a class="zola-anchor" href="#-90" aria-label="Anchor link for: -90">🔗</a></h2>
+<blockquote>
+<p>主要记录各种第三方与 <code>Redis</code>的整合使用。</p>
+</blockquote>
+<h3 id="-91">Spring整合Redis<a class="zola-anchor" href="#-91" aria-label="Anchor link for: -91">🔗</a></h3>
+<blockquote>
+<p><code>spring</code>对 <code>redis</code>进行了比较完善的整合，使用方式也比较简单，主要分为三步。</p>
+</blockquote>
+<ul>
+<li>引入依赖</li>
+</ul>
+<pre data-lang="xml" style="background-color:#002b36;color:#839496;" class="language-xml "><code class="language-xml" data-lang="xml"><span style="color:#586e75;">&lt;!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-redis --&gt;
+</span><span style="color:#586e75;">&lt;</span><span style="color:#268bd2;">dependency</span><span style="color:#586e75;">&gt;
+</span><span>    </span><span style="color:#586e75;">&lt;</span><span style="color:#268bd2;">groupId</span><span style="color:#586e75;">&gt;</span><span>org.springframework.boot</span><span style="color:#586e75;">&lt;/</span><span style="color:#268bd2;">groupId</span><span style="color:#586e75;">&gt;
+</span><span>    </span><span style="color:#586e75;">&lt;</span><span style="color:#268bd2;">artifactId</span><span style="color:#586e75;">&gt;</span><span>spring-boot-starter-data-redis</span><span style="color:#586e75;">&lt;/</span><span style="color:#268bd2;">artifactId</span><span style="color:#586e75;">&gt;
+</span><span>    </span><span style="color:#586e75;">&lt;</span><span style="color:#268bd2;">version</span><span style="color:#586e75;">&gt;</span><span>2.6.3</span><span style="color:#586e75;">&lt;/</span><span style="color:#268bd2;">version</span><span style="color:#586e75;">&gt;
+</span><span style="color:#586e75;">&lt;/</span><span style="color:#268bd2;">dependency</span><span style="color:#586e75;">&gt;
+</span></code></pre>
+<ul>
+<li>
+<p>配置 <code>Redis</code></p>
+<ul>
+<li>
+<p>配置数据量参数</p>
+<ul>
+<li>
+<p>以 <code>application.properties</code>配置文件为例</p>
+</li>
+<li><pre data-lang="properties" style="background-color:#002b36;color:#839496;" class="language-properties "><code class="language-properties" data-lang="properties"><span style="color:#586e75;"># 配置Redis：RedisProperties类
+</span><span style="color:#b58900;">spring.redis.database</span><span>=</span><span style="color:#2aa198;">11
+</span><span style="color:#b58900;">spring.redis.host</span><span>=</span><span style="color:#2aa198;">localhost
+</span><span style="color:#b58900;">spring.redis.port </span><span>= </span><span style="color:#2aa198;">6379
+</span></code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>编写配置类、构造 <code>RedisTemplate</code></p>
+<ul>
+<li><pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#586e75;">/**
+</span><span style="color:#586e75;"> * </span><span style="color:#859900;">@author</span><span style="color:#586e75;">: Tisox
+</span><span style="color:#586e75;"> * @date: 2022/1/28 10:08
+</span><span style="color:#586e75;"> * @description: 编写redis配置类
+</span><span style="color:#586e75;"> * @blog:www.waer.ltd
+</span><span style="color:#586e75;"> */
+</span><span>@</span><span style="color:#268bd2;">Configuration
+</span><span style="color:#93a1a1;">public </span><span style="color:#268bd2;">class </span><span style="color:#b58900;">RedisConfig </span><span style="color:#657b83;">{
+</span><span>
+</span><span>    @</span><span style="color:#268bd2;">Bean
+</span><span>    </span><span style="color:#93a1a1;">public </span><span style="color:#859900;">RedisTemplate</span><span>&lt;</span><span style="color:#859900;">String</span><span>,</span><span style="color:#859900;">Object</span><span>&gt; </span><span style="color:#b58900;">redisTemplate</span><span style="color:#657b83;">(</span><span style="color:#859900;">RedisConnectionFactory </span><span style="color:#268bd2;">factory</span><span style="color:#657b83;">){
+</span><span>        </span><span style="color:#586e75;">/*实例化*/
+</span><span>        </span><span style="color:#859900;">RedisTemplate</span><span>&lt;</span><span style="color:#859900;">String</span><span>,</span><span style="color:#859900;">Object</span><span>&gt; template </span><span style="color:#657b83;">= </span><span style="color:#859900;">new RedisTemplate</span><span>&lt;&gt;</span><span style="color:#657b83;">()</span><span>;
+</span><span>        template.</span><span style="color:#b58900;">setConnectionFactory</span><span style="color:#657b83;">(</span><span>factory</span><span style="color:#657b83;">)</span><span>;
+</span><span>        </span><span style="color:#586e75;">/*设置key的序列化方式*/
+</span><span>        template.</span><span style="color:#b58900;">setKeySerializer</span><span style="color:#657b83;">(</span><span style="color:#859900;">RedisSerializer</span><span>.</span><span style="color:#b58900;">string</span><span style="color:#657b83;">())</span><span>;
+</span><span>        </span><span style="color:#586e75;">/*设置value的序列化方式*/
+</span><span>        template.</span><span style="color:#b58900;">setValueSerializer</span><span style="color:#657b83;">(</span><span style="color:#859900;">RedisSerializer</span><span>.</span><span style="color:#b58900;">json</span><span style="color:#657b83;">())</span><span>;
+</span><span>        </span><span style="color:#586e75;">/*设置哈希的key的序列化方式*/
+</span><span>        template.</span><span style="color:#b58900;">setHashKeySerializer</span><span style="color:#657b83;">(</span><span style="color:#859900;">RedisSerializer</span><span>.</span><span style="color:#b58900;">string</span><span style="color:#657b83;">())</span><span>;
+</span><span>        </span><span style="color:#586e75;">/*设置哈希的value的序列化方式*/
+</span><span>        template.</span><span style="color:#b58900;">setHashValueSerializer</span><span style="color:#657b83;">(</span><span style="color:#859900;">RedisSerializer</span><span>.</span><span style="color:#b58900;">json</span><span style="color:#657b83;">())</span><span>;
+</span><span>        template.</span><span style="color:#b58900;">afterPropertiesSet</span><span style="color:#657b83;">()</span><span>;
+</span><span>        </span><span style="color:#859900;">return</span><span> template;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span style="color:#657b83;">}
+</span></code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>访问 <code>Redis</code></p>
+<ul>
+<li><code>redisTemplate.opsForValue()</code></li>
+<li><code>redisTemplate.opsForHash()</code></li>
+<li><code>redisTemplate.opsForList()</code></li>
+<li><code>redisTemplate.opsForSet()</code></li>
+<li><code>redisTemplate.opsForZset()</code></li>
+</ul>
+</li>
+<li>
+<p>官方文档</p>
+</li>
+</ul>
+<p><a class="" href="https://spring.io/projects/spring-data-redis">SpringDataRedis</a></p>
+<p><img src="https://b3logfile.com/file/2022/08/solo-fetchupload-18189869574447350559-029b1e56.png" alt="" loading="lazy" decoding="async" /></p>
+<ul>
+<li>演示demo</li>
+</ul>
+<pre data-lang="java" style="background-color:#002b36;color:#839496;" class="language-java "><code class="language-java" data-lang="java"><span style="color:#586e75;">/**
+</span><span style="color:#586e75;"> * </span><span style="color:#859900;">@author</span><span style="color:#586e75;">: Tisox
+</span><span style="color:#586e75;"> * @date: 2022/1/28 10:16
+</span><span style="color:#586e75;"> * @description: spring整合redis使用测试demo
+</span><span style="color:#586e75;"> * @blog:www.waer.ltd
+</span><span style="color:#586e75;"> */
+</span><span>@</span><span style="color:#268bd2;">Slf4j
+</span><span>@</span><span style="color:#268bd2;">RunWith</span><span style="color:#657b83;">(</span><span style="color:#859900;">SpringRunner</span><span>.</span><span style="color:#d33682;">class</span><span style="color:#657b83;">)
+</span><span>@</span><span style="color:#268bd2;">SpringBootTest
+</span><span>@</span><span style="color:#268bd2;">ContextConfiguration</span><span style="color:#657b83;">(</span><span style="color:#268bd2;">classes </span><span style="color:#657b83;">= </span><span style="color:#859900;">CommunityApplication</span><span>.</span><span style="color:#d33682;">class</span><span style="color:#657b83;">)
+</span><span style="color:#93a1a1;">public </span><span style="color:#268bd2;">class </span><span style="color:#b58900;">RedisTests </span><span style="color:#657b83;">{
+</span><span>    @</span><span style="color:#268bd2;">Autowired
+</span><span>    </span><span style="color:#93a1a1;">private </span><span style="color:#859900;">RedisTemplate </span><span>redisTemplate;
+</span><span style="color:#586e75;">//----------------------字符串--------------------------------------------------------
+</span><span>    @</span><span style="color:#268bd2;">Test
+</span><span>    </span><span style="color:#93a1a1;">public </span><span style="color:#268bd2;">void </span><span style="color:#b58900;">testStrings</span><span style="color:#657b83;">(){
+</span><span>        </span><span style="color:#859900;">String</span><span> redisKey  </span><span style="color:#657b83;">= </span><span>&quot;</span><span style="color:#2aa198;">test:count</span><span>&quot;;
+</span><span>        </span><span style="color:#586e75;">/*存*/
+</span><span>        redisTemplate.</span><span style="color:#b58900;">opsForValue</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">set</span><span style="color:#657b83;">(</span><span>redisKey,</span><span style="color:#6c71c4;">1</span><span style="color:#657b83;">)</span><span>;
+</span><span>        </span><span style="color:#586e75;">/*取*/
+</span><span>        </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>redisTemplate.</span><span style="color:#b58900;">opsForValue</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">get</span><span style="color:#657b83;">(</span><span>redisKey</span><span style="color:#657b83;">))</span><span>;
+</span><span>        </span><span style="color:#586e75;">/*加*/
+</span><span>        </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>redisTemplate.</span><span style="color:#b58900;">opsForValue</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">increment</span><span style="color:#657b83;">(</span><span>redisKey</span><span style="color:#657b83;">))</span><span>;
+</span><span>        </span><span style="color:#586e75;">/*减*/
+</span><span>        </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>redisTemplate.</span><span style="color:#b58900;">opsForValue</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">decrement</span><span style="color:#657b83;">(</span><span>redisKey</span><span style="color:#657b83;">))</span><span>;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span>  
+</span><span style="color:#586e75;">//执行结果：
+</span><span>    </span><span style="color:#586e75;">//1
+</span><span>    </span><span style="color:#586e75;">//2
+</span><span style="color:#586e75;">//---------------------------哈希-------------------------------------------------------
+</span><span>       @</span><span style="color:#268bd2;">Test
+</span><span>    </span><span style="color:#93a1a1;">public </span><span style="color:#268bd2;">void </span><span style="color:#b58900;">testHashTests</span><span style="color:#657b83;">(){
+</span><span>        </span><span style="color:#859900;">String</span><span> redisKey </span><span style="color:#657b83;">= </span><span>&quot;</span><span style="color:#2aa198;">test:user</span><span>&quot;;
+</span><span>        </span><span style="color:#586e75;">/*存*/
+</span><span>        redisTemplate.</span><span style="color:#b58900;">opsForHash</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">put</span><span style="color:#657b83;">(</span><span>redisKey,&quot;</span><span style="color:#2aa198;">id</span><span>&quot;,</span><span style="color:#6c71c4;">1</span><span style="color:#657b83;">)</span><span>;
+</span><span>        redisTemplate.</span><span style="color:#b58900;">opsForHash</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">put</span><span style="color:#657b83;">(</span><span>redisKey,&quot;</span><span style="color:#2aa198;">username</span><span>&quot;,&quot;</span><span style="color:#2aa198;">Tisox</span><span>&quot;</span><span style="color:#657b83;">)</span><span>;
+</span><span>        </span><span style="color:#586e75;">/*取*/
+</span><span>        </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>redisTemplate.</span><span style="color:#b58900;">opsForHash</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">get</span><span style="color:#657b83;">(</span><span>redisKey,&quot;</span><span style="color:#2aa198;">id</span><span>&quot;</span><span style="color:#657b83;">))</span><span>;
+</span><span>        </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>redisTemplate.</span><span style="color:#b58900;">opsForHash</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">get</span><span style="color:#657b83;">(</span><span>redisKey,&quot;</span><span style="color:#2aa198;">username</span><span>&quot;</span><span style="color:#657b83;">))</span><span>;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span>    </span><span style="color:#586e75;">//执行结果：
+</span><span>    </span><span style="color:#586e75;">//1
+</span><span>    </span><span style="color:#586e75;">//Tisox
+</span><span style="color:#586e75;">//----------------------------列表--------------------------------------------------------
+</span><span>        @</span><span style="color:#268bd2;">Test
+</span><span>    </span><span style="color:#93a1a1;">public </span><span style="color:#268bd2;">void </span><span style="color:#b58900;">testLists</span><span style="color:#657b83;">(){
+</span><span>        </span><span style="color:#859900;">String</span><span> redisKey</span><span style="color:#657b83;">=</span><span>&quot;</span><span style="color:#2aa198;">test:ids</span><span>&quot;;
+</span><span>
+</span><span>        </span><span style="color:#586e75;">/*存*/
+</span><span>        redisTemplate.</span><span style="color:#b58900;">opsForList</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">leftPush</span><span style="color:#657b83;">(</span><span>redisKey,</span><span style="color:#6c71c4;">101</span><span style="color:#657b83;">)</span><span>;
+</span><span>        redisTemplate.</span><span style="color:#b58900;">opsForList</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">leftPush</span><span style="color:#657b83;">(</span><span>redisKey,</span><span style="color:#6c71c4;">102</span><span style="color:#657b83;">)</span><span>;
+</span><span>        redisTemplate.</span><span style="color:#b58900;">opsForList</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">leftPush</span><span style="color:#657b83;">(</span><span>redisKey,</span><span style="color:#6c71c4;">103</span><span style="color:#657b83;">)</span><span>;
+</span><span>        </span><span style="color:#586e75;">/*取*/
+</span><span>        </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>redisTemplate.</span><span style="color:#b58900;">opsForList</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">size</span><span style="color:#657b83;">(</span><span>redisKey</span><span style="color:#657b83;">))</span><span>;
+</span><span>        </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span> redisTemplate.</span><span style="color:#b58900;">opsForList</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">index</span><span style="color:#657b83;">(</span><span>redisKey,</span><span style="color:#6c71c4;">0</span><span style="color:#657b83;">))</span><span>;
+</span><span>        </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>redisTemplate.</span><span style="color:#b58900;">opsForList</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">range</span><span style="color:#657b83;">(</span><span>redisKey,</span><span style="color:#6c71c4;">0</span><span>,</span><span style="color:#6c71c4;">2</span><span style="color:#657b83;">))</span><span>;
+</span><span>        </span><span style="color:#586e75;">/*pop*/
+</span><span>        </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>redisTemplate.</span><span style="color:#b58900;">opsForList</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">leftPop</span><span style="color:#657b83;">(</span><span>redisKey</span><span style="color:#657b83;">))</span><span>;
+</span><span>        </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>redisTemplate.</span><span style="color:#b58900;">opsForList</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">leftPop</span><span style="color:#657b83;">(</span><span>redisKey</span><span style="color:#657b83;">))</span><span>;
+</span><span>        </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>redisTemplate.</span><span style="color:#b58900;">opsForList</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">leftPop</span><span style="color:#657b83;">(</span><span>redisKey</span><span style="color:#657b83;">))</span><span>;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span>    </span><span style="color:#586e75;">//执行结果
+</span><span>    </span><span style="color:#586e75;">//3
+</span><span>    </span><span style="color:#586e75;">//103
+</span><span>    </span><span style="color:#586e75;">//[103, 102, 101]
+</span><span>    </span><span style="color:#586e75;">//103
+</span><span>    </span><span style="color:#586e75;">//102
+</span><span>    </span><span style="color:#586e75;">//101
+</span><span style="color:#586e75;">//-----------------------集合-------------------------------------------------------------
+</span><span>      @</span><span style="color:#268bd2;">Test
+</span><span>    </span><span style="color:#93a1a1;">public </span><span style="color:#268bd2;">void </span><span style="color:#b58900;">testSetson</span><span style="color:#657b83;">(){
+</span><span>        </span><span style="color:#859900;">String</span><span> redisKey</span><span style="color:#657b83;">=</span><span>&quot;</span><span style="color:#2aa198;">test:language</span><span>&quot;;
+</span><span>        </span><span style="color:#586e75;">/*存*/
+</span><span>        redisTemplate.</span><span style="color:#b58900;">opsForSet</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">add</span><span style="color:#657b83;">(</span><span>redisKey,&quot;</span><span style="color:#2aa198;">java</span><span>&quot;,&quot;</span><span style="color:#2aa198;">C++</span><span>&quot;,&quot;</span><span style="color:#2aa198;">python</span><span>&quot;,&quot;</span><span style="color:#2aa198;">甲骨文</span><span>&quot;</span><span style="color:#657b83;">)</span><span>;
+</span><span>
+</span><span>        </span><span style="color:#586e75;">/*取*/
+</span><span>        </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>redisTemplate.</span><span style="color:#b58900;">opsForSet</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">size</span><span style="color:#657b83;">(</span><span>redisKey</span><span style="color:#657b83;">))</span><span>;
+</span><span>        </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>redisTemplate.</span><span style="color:#b58900;">opsForSet</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">pop</span><span style="color:#657b83;">(</span><span>redisKey</span><span style="color:#657b83;">))</span><span>;
+</span><span>        </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>redisTemplate.</span><span style="color:#b58900;">opsForSet</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">members</span><span style="color:#657b83;">(</span><span>redisKey</span><span style="color:#657b83;">))</span><span>;
+</span><span>  
+</span><span>    </span><span style="color:#657b83;">}
+</span><span>    </span><span style="color:#586e75;">//执行结果
+</span><span>    </span><span style="color:#586e75;">//4
+</span><span>    </span><span style="color:#586e75;">//python
+</span><span>    </span><span style="color:#586e75;">//[甲骨文, C++, java]
+</span><span>  
+</span><span style="color:#586e75;">//------------------------有序集合--------------------------------------------------------
+</span><span>  
+</span><span>    @</span><span style="color:#268bd2;">Test
+</span><span>    </span><span style="color:#93a1a1;">public </span><span style="color:#268bd2;">void </span><span style="color:#b58900;">testSortedSets</span><span style="color:#657b83;">(){
+</span><span>        </span><span style="color:#859900;">String</span><span> redisKey</span><span style="color:#657b83;">=</span><span>&quot;</span><span style="color:#2aa198;">test:students</span><span>&quot;;
+</span><span>        </span><span style="color:#586e75;">/*存*/
+</span><span>        redisTemplate.</span><span style="color:#b58900;">opsForZSet</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">add</span><span style="color:#657b83;">(</span><span>redisKey,&quot;</span><span style="color:#2aa198;">王萌萌</span><span>&quot;,</span><span style="color:#6c71c4;">80</span><span style="color:#657b83;">)</span><span>;
+</span><span>        redisTemplate.</span><span style="color:#b58900;">opsForZSet</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">add</span><span style="color:#657b83;">(</span><span>redisKey,&quot;</span><span style="color:#2aa198;">赵诗倩</span><span>&quot;,</span><span style="color:#6c71c4;">90</span><span style="color:#657b83;">)</span><span>;
+</span><span>        redisTemplate.</span><span style="color:#b58900;">opsForZSet</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">add</span><span style="color:#657b83;">(</span><span>redisKey,&quot;</span><span style="color:#2aa198;">肖鹤云</span><span>&quot;,</span><span style="color:#6c71c4;">78</span><span style="color:#657b83;">)</span><span>;
+</span><span>        redisTemplate.</span><span style="color:#b58900;">opsForZSet</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">add</span><span style="color:#657b83;">(</span><span>redisKey,&quot;</span><span style="color:#2aa198;">张成</span><span>&quot;,</span><span style="color:#6c71c4;">100</span><span style="color:#657b83;">)</span><span>;
+</span><span>        redisTemplate.</span><span style="color:#b58900;">opsForZSet</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">add</span><span style="color:#657b83;">(</span><span>redisKey,&quot;</span><span style="color:#2aa198;">陶映红</span><span>&quot;,</span><span style="color:#6c71c4;">60</span><span style="color:#657b83;">)</span><span>;
+</span><span>
+</span><span>        </span><span style="color:#586e75;">/*取*/
+</span><span>        </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>redisTemplate.</span><span style="color:#b58900;">opsForZSet</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">zCard</span><span style="color:#657b83;">(</span><span>redisKey</span><span style="color:#657b83;">))</span><span>;
+</span><span>        </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>redisTemplate.</span><span style="color:#b58900;">opsForZSet</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">score</span><span style="color:#657b83;">(</span><span>redisKey,&quot;</span><span style="color:#2aa198;">肖鹤云</span><span>&quot;</span><span style="color:#657b83;">))</span><span>;
+</span><span>        </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>redisTemplate.</span><span style="color:#b58900;">opsForZSet</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">reverseRank</span><span style="color:#657b83;">(</span><span>redisKey,&quot;</span><span style="color:#2aa198;">李诗情</span><span>&quot;</span><span style="color:#657b83;">))</span><span>;
+</span><span>        </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>redisTemplate.</span><span style="color:#b58900;">opsForZSet</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">range</span><span style="color:#657b83;">(</span><span>redisKey,</span><span style="color:#6c71c4;">0</span><span>,</span><span style="color:#6c71c4;">3</span><span style="color:#657b83;">))</span><span>;
+</span><span>        </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>redisTemplate.</span><span style="color:#b58900;">opsForZSet</span><span style="color:#657b83;">()</span><span>.</span><span style="color:#b58900;">removeRange</span><span style="color:#657b83;">(</span><span>redisKey,</span><span style="color:#6c71c4;">0</span><span>,</span><span style="color:#6c71c4;">3</span><span style="color:#657b83;">))</span><span>;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span>    </span><span style="color:#586e75;">//执行结果
+</span><span>    </span><span style="color:#586e75;">//5
+</span><span>    </span><span style="color:#586e75;">//78.0
+</span><span>    </span><span style="color:#586e75;">//1
+</span><span>    </span><span style="color:#586e75;">//[陶映红, 肖鹤云, 王萌萌, 李诗情]
+</span><span>    </span><span style="color:#586e75;">//4
+</span><span style="color:#586e75;">//---------------------------------全局命令--------------------------------------------
+</span><span>      @</span><span style="color:#268bd2;">Test
+</span><span>    </span><span style="color:#93a1a1;">public </span><span style="color:#268bd2;">void </span><span style="color:#b58900;">testKeys</span><span style="color:#657b83;">(){
+</span><span>        redisTemplate.</span><span style="color:#b58900;">delete</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">test:user</span><span>&quot;</span><span style="color:#657b83;">)</span><span>;
+</span><span>        </span><span style="color:#859900;">System</span><span>.out.</span><span style="color:#b58900;">println</span><span style="color:#657b83;">(</span><span>redisTemplate.</span><span style="color:#b58900;">hasKey</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">test:user</span><span>&quot;</span><span style="color:#657b83;">))</span><span>;
+</span><span>
+</span><span>        </span><span style="color:#586e75;">/*设置过期时间：10秒*/
+</span><span>        redisTemplate.</span><span style="color:#b58900;">expire</span><span style="color:#657b83;">(</span><span>&quot;</span><span style="color:#2aa198;">test:students</span><span>&quot;,</span><span style="color:#6c71c4;">10</span><span>, </span><span style="color:#859900;">TimeUnit</span><span>.</span><span style="color:#cb4b16;">SECONDS</span><span style="color:#657b83;">)</span><span>;
+</span><span>    </span><span style="color:#657b83;">}
+</span><span>    </span><span style="color:#586e75;">//执行结果:自测
+</span><span style="color:#657b83;">}
+</span></code></pre>
+<hr />
+<h2 id="-92">持久化与复制<a class="zola-anchor" href="#-92" aria-label="Anchor link for: -92">🔗</a></h2>
+<h3 id="-93">RDB持久化<a class="zola-anchor" href="#-93" aria-label="Anchor link for: -93">🔗</a></h3>
+<p><img src="https://images.waer.ltd/img/RDB%E6%8C%81%E4%B9%85%E5%8C%96.png" alt="" loading="lazy" decoding="async" /></p>
+<h4 id="-94">概述<a class="zola-anchor" href="#-94" aria-label="Anchor link for: -94">🔗</a></h4>
+<p><code>RDB(Redis Database)</code>是redis默认采用的持久化方式，它以快照的形式将进程数据持久化到硬盘中；<code>RDB</code>会创建一个经过压缩的二进制文件，文件以<code>.rdb</code>结尾。内部存储各个数据库的键值对数据等信息，它的触发方式有两种：</p>
+<ul>
+<li>手动触发:通过SAVE或BGSAVE命令触发RDB持久化操作，创建<code>.rdb</code>文件。</li>
+<li>自动触发：通过配置选项，让服务器在满足条件时自动执行BGSAVE命令。</li>
+</ul>
+<h4 id="-95">命令<a class="zola-anchor" href="#-95" aria-label="Anchor link for: -95">🔗</a></h4>
+<ul>
+<li>
+<p>SAVE命令</p>
+<blockquote>
+<p>要求服务器以同步方式创建一个记录了当前所有数据库数据的<code>.rdb</code>文件。在SAVE命令执行期间，redis服务器将会阻塞，直到<code>.rdb</code>文件创建完毕为止。</p>
+</blockquote>
+</li>
+<li>
+<p>BGSAVE命令</p>
+<blockquote>
+<p>该命令是异步版本的SAVE命令，它会使用redis服务器进程的子进程创建一个<code>.rdb</code>文件。该命令在创建子进程时会存在短暂的阻塞，之后服务器便可以继续处理其他客户端的请求。</p>
+<p><em>BGSAVE命令是对SAVE阻塞问题做的优化，redis内部所有涉及RBD的操作都采用BGSAVE的方式，而SAVE命令已经废弃。</em></p>
+</blockquote>
+</li>
+</ul>
+<h4 id="-96">配置选项<a class="zola-anchor" href="#-96" aria-label="Anchor link for: -96">🔗</a></h4>
+<pre data-lang="shell" style="background-color:#002b36;color:#839496;" class="language-shell "><code class="language-shell" data-lang="shell"><span>save&lt;seconds&gt; &lt;changes&gt;
+</span></code></pre>
+<ul>
+<li>如果服务器在<code>seconds</code>秒内，对数据库总共执行了<code>changes</code>次修改，则自动执行一次BGSAVE命令；</li>
+<li>可以同时配置多个save选项，当给定选项中的<strong>任意一个条件满足时</strong>，则自动执行一次BGSAVE命令；</li>
+</ul>
+<blockquote>
+<p>为了避免同时使用多个触发条件而导致服务器过于频繁地执行BGSAVE，redis服务器在每次成功创建.rdb文件之后，负责将自动触发BGSAVE命令的时间计数器以及修改计数器清零并重新计数，无论这个<code>.rdb</code>文件是由自动触发的BGSAVE创建还是由用户执行SAVE或BGSAVE命令创建，都是如此。</p>
+</blockquote>
+<h4 id="-97">流程原理<a class="zola-anchor" href="#-97" aria-label="Anchor link for: -97">🔗</a></h4>
+<ul>
+<li>BGSAVE的流程</li>
+</ul>
+<p><img src="https://images.waer.ltd/img/20220430112532.png" alt="" loading="lazy" decoding="async" /></p>
+<ol>
+<li>若父进程存在正在执行的子进程，直接返回；</li>
+<li>fork操作执行过程中，父进程进入阻塞状态；</li>
+<li>fork完成之后，父进程继续响应其他命令；</li>
+<li>创建<code>.rdb</code>文件，并存储父进程内存中的数据；</li>
+<li>父进程得到通知，以新文件替换旧的<code>.rdb</code>文件；</li>
+</ol>
+<ul>
+<li>
+<p>BGSAVE的原理</p>
+<p><img src="https://images.waer.ltd/img/20220430113006.png" alt="" loading="lazy" decoding="async" /></p>
+</li>
+</ul>
+<p><code>COW(Copy On Write)</code></p>
+<p>在<code>Linux</code>系统中，可以通过<code>glibc</code>中的<code>fork</code>函数创建一个子进程，该进程和父进程完全相同，并且共享父进程的内存空间。</p>
+<p>当父进程中任意进程需要修改内存中的数据时，会将对应的<code>page</code>进行复制，然后对副本进行修改操作。</p>
+<h4 id="-98">RDB优缺点<a class="zola-anchor" href="#-98" aria-label="Anchor link for: -98">🔗</a></h4>
+<ul>
+<li>
+<p>优点：</p>
+<ul>
+<li>RDB生成紧凑压缩的二进制文件，体积小，使用该文件恢复数据的速度非常快；</li>
+</ul>
+</li>
+<li>
+<p>缺点：</p>
+<ul>
+<li>BGSAVE每次运行都要执行fork操作创建子进程，属于重量级操作，不宜频繁执行，所以RDB持久化没办法做到实时的持久化。</li>
+</ul>
+</li>
+</ul>
+<h4 id="-99">操作演示<a class="zola-anchor" href="#-99" aria-label="Anchor link for: -99">🔗</a></h4>
+<ul>
+<li>删除已有的持久化文件</li>
+</ul>
+<blockquote>
+<p>找到dump.rdb文件并删除。</p>
+</blockquote>
+<p><img src="https://images.waer.ltd/img/20220430142042.png" alt="" loading="lazy" decoding="async" /></p>
+<p>打开redis.conf文件，如下，可以看到，当900秒内有一次改动或者300秒内10次改动以及60秒内的1000次改动都会触发RDB。</p>
+<p><img src="https://images.waer.ltd/img/20220430142259.png" alt="" loading="lazy" decoding="async" /></p>
+<p>向服务器中随便存点数据之后输入save，手动触发持久化。</p>
+<p><img src="https://images.waer.ltd/img/20220430142717.png" alt="" loading="lazy" decoding="async" /></p>
+<p>再查看dumpp.rdb:</p>
+<pre data-lang="shell" style="background-color:#002b36;color:#839496;" class="language-shell "><code class="language-shell" data-lang="shell"><span>od -c dump.rdb
+</span></code></pre>
+<p><img src="https://images.waer.ltd/img/20220430143400.png" alt="" loading="lazy" decoding="async" /></p>
+<h3 id="-100">RDB文件结构<a class="zola-anchor" href="#-100" aria-label="Anchor link for: -100">🔗</a></h3>
+<h4 id="-101">文件结构<a class="zola-anchor" href="#-101" aria-label="Anchor link for: -101">🔗</a></h4>
+<p><img src="https://images.waer.ltd/img/20220430145736.png" alt="" loading="lazy" decoding="async" /></p>
+<ul>
+<li>标识符的内容为<code>REDIS</code>五个字符，redis服务器在尝试载入RDB文件的时候，可以通过这个标识符快速的判断该文件是否为真正的RDB文件；</li>
+<li>版本号是一个字符串格式的数字，长度为4个字符串，目前最新的RDB文件版本为第9版，因此RDB文件的版本号将为字符串“0009”。</li>
+<li>版本附加信息记录了生成RDB文件的redis服务器及其所在的平台信息，比如服务器的版本号，宿主及其的架构、创建RDB文件时的时间等。</li>
+<li>数据库记录了redis服务器存储的所有数据库数据，当服务器包含多个数据库数据时，各个数据库的数据将按照数据库号码从小到大排列。</li>
+<li>如果redis服务器启用了复制功能，那么服务器将在RDB文件中的Lua脚本缓存部分保存所有已被缓存的Lua脚本；</li>
+<li>EOF用于标识RDB正文内容的末尾，它的实际值为二进制值<code>0xFF</code>,当redis服务器读取到这个EOF时，就知道正文部分已经全部读取完毕了；</li>
+<li>CRC64校验和是一个无符号的64位整数，redis服务器在读入RDB文件时会通过这个校验和来检查RDB文件是否有出错或者损坏的情况出现。</li>
+</ul>
+<h4 id="-102">载入RDB文件<a class="zola-anchor" href="#-102" aria-label="Anchor link for: -102">🔗</a></h4>
+<ol>
+<li>检查文件开头的标识符是否为<code>REDIS</code>,如果是则继续后面的操作，否则抛出错误并终止载入操作。</li>
+<li>检查RDB文件的版本号，以此来判断当前redis服务器能否读取这一版本号的RDB文件。</li>
+<li>根据文件中记录的设备附加信息，执行相应的操作和设置。</li>
+<li>检查文件的数据库数据是否为空，若不为空则执行下面的操作：
+<ol>
+<li>根据文件记录的数据库号码，切换至正确的数据库。</li>
+<li>根据文件记录的键值对总数量以及带有过期时间的键值对数量，设置数据库底层数据结构；</li>
+<li>逐个载入文件记录的所有的键值对数据，并在数据库中重建这些键值对。</li>
+</ol>
+</li>
+<li>如果服务器启用了复制功能，则将之前缓存的Lua脚本重新载入缓存中。</li>
+<li>遇到EOF标识，确认RDB正文已全部读取完毕，</li>
+<li>载入RCR64校验和，把它与载入数据期间计算出来的CRC64校验和进行对比，以此判断被载入的数据是否完好无损。</li>
+<li>RDB文件载入完毕，服务器开始接受客户端的请求。</li>
+</ol>
+<hr />
+<h3 id="-103">AOF持久化<a class="zola-anchor" href="#-103" aria-label="Anchor link for: -103">🔗</a></h3>
+<p><img src="https://images.waer.ltd/img/AOF%E6%8C%81%E4%B9%85%E5%8C%96-m1.png" alt="" loading="lazy" decoding="async" /></p>
+<h4 id="-104">概述<a class="zola-anchor" href="#-104" aria-label="Anchor link for: -104">🔗</a></h4>
+<p>AOF(Append Only File)，解决了数据持久化的实时性，是目前redis持久化的主流方式；它以独立日志的方式，记录每次写入命令、重启时再重新执行AOF中的命令来恢复数据。AOF的工作流程包括：</p>
+<ul>
+<li>写入命令(append)</li>
+<li>同步命令(sync)</li>
+<li>文件重写(rewrite)</li>
+<li>重启加载(load)</li>
+</ul>
+<p><img src="https://images.waer.ltd/img/20220430155018.png" alt="" loading="lazy" decoding="async" /></p>
+<p>AOF默认不开启，需要修改配置项来启用它：</p>
+<pre data-lang="shell" style="background-color:#002b36;color:#839496;" class="language-shell "><code class="language-shell" data-lang="shell"><span>appendonly yes # 启用AOF 
+</span><span>appendfilename &quot;appendonly.aof&quot; # 设置文件名
+</span></code></pre>
+<p>AOF以文本协议格式写入命令，这种格式在前面的内容中提到过。</p>
+<p><strong>为什么采用这种格式？</strong></p>
+<blockquote>
+<ul>
+<li>文本协议具有很好的兼容性；</li>
+<li>直接采用文本协议格式，可以避免二次处理的开销；</li>
+<li>文本协议具有可读性，方便直接修改和处理；</li>
+</ul>
+</blockquote>
+<h4 id="-105">文件同步<a class="zola-anchor" href="#-105" aria-label="Anchor link for: -105">🔗</a></h4>
+<p>为了提高程序的写入性能，现代操作系统会把针对硬盘的多次写入操作优化为一次：</p>
+<ul>
+<li>当程序调用<code>write</code>对文件写入时，系统不会直接把数据写入硬盘，而是先将数据写入内存的缓冲区中。</li>
+<li>当达到特定的时间周期或缓冲区写满时，系统才会执行<code>flush</code>操作，将缓冲区数据冲洗到硬盘中；</li>
+</ul>
+<p>这种优化机制虽然提高了性能，但也给程序的写入操作带来了不确定性：</p>
+<ul>
+<li>对于<code>AOF</code>这样的持久化功能来说，冲洗机制将直接影响<code>AOF</code>持久化的安全性；</li>
+<li>为了消除上述机制的不确定性。<code>redis</code>向用户提供了<code>appendfsync</code>选项，来控制系统冲洗<code>AOF</code>的频率；、</li>
+<li><code>Linux</code>的<code>glibc</code>提供了<code>fsync</code>函数，可以将指定的文件强制性的从缓冲区刷到硬盘，上述的选项也是基于该函数实现。</li>
+</ul>
+<p><img src="https://images.waer.ltd/img/20220430160947.png" alt="" loading="lazy" decoding="async" /></p>
+<h4 id="-106">操作演示<a class="zola-anchor" href="#-106" aria-label="Anchor link for: -106">🔗</a></h4>
+<ul>
+<li>redis.conf配置文件</li>
+</ul>
+<p><img src="https://images.waer.ltd/img/20220430153938.png" alt="" loading="lazy" decoding="async" /></p>
+<p>将<code>appendonly</code>置为yes,下面的文件名不需要改动。</p>
+<ul>
+<li>
+<p>重启服务</p>
+<pre data-lang="shell" style="background-color:#002b36;color:#839496;" class="language-shell "><code class="language-shell" data-lang="shell"><span>redis-server /root/6379/redis.conf
+</span></code></pre>
+</li>
+</ul>
+<p><img src="https://images.waer.ltd/img/20220430154223.png" alt="" loading="lazy" decoding="async" /></p>
+<ul>
+<li>往redis中存入一些数据之后查看该文件的内容：</li>
+</ul>
+<p><img src="https://images.waer.ltd/img/20220430154454.png" alt="" loading="lazy" decoding="async" /></p>
+<h4 id="-107">AOF的优缺点<a class="zola-anchor" href="#-107" aria-label="Anchor link for: -107">🔗</a></h4>
+<ul>
+<li>优点：
+<ul>
+<li>与<code>RDB</code>持久化可能丢失大量的数据相比，<code>AOF</code>持久化的安全性要高很多。</li>
+<li>通过使用<code>everysec</code>选项，用户可以将数据丢失的时间窗口限制在<code>1</code>秒内；</li>
+</ul>
+</li>
+<li>缺点：
+<ul>
+<li><code>AOF</code>文件存储的时协议文本，它的体积要比二进制格式的<code>.rdb</code>文件大很多；</li>
+<li><code>AOF</code>需要通过执行<code>AOF</code>文件中的命令来恢复数据，其恢复的速度也比<code>RDB</code>慢很多。</li>
+<li><code>AOF</code>在进行重写时也需要创建子进程，在数据库体积较大时，将会占用大量的资源，会导致服务器的短暂阻塞。</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="-108">AOF的重写机制<a class="zola-anchor" href="#-108" aria-label="Anchor link for: -108">🔗</a></h3>
+<h4 id="-109">概述<a class="zola-anchor" href="#-109" aria-label="Anchor link for: -109">🔗</a></h4>
+<p>随着写入操作的不断进行，<code>AOF</code>文件内会包含越来越多的冗余命令：</p>
+<ul>
+<li>已经超时的数据；</li>
+<li>已经删除的数据；</li>
+<li>多次经过修改的数据；</li>
+</ul>
+<p>冗余命令不仅增加了<code>AOF</code>文件的体积，也会严重影响到恢复数据的速度；</p>
+<ul>
+<li>为了减少冗余命令，从而提高恢复数据的速度，<code>redis</code>提供了<code>AOF</code>重写的功能；</li>
+<li>该功能可以生成一个全新的<code>AOF</code>文件，并让文件只包含恢复当前数据库数据所需的尽可能少的命令；</li>
+</ul>
+<h4 id="-110">触发方式<a class="zola-anchor" href="#-110" aria-label="Anchor link for: -110">🔗</a></h4>
+<ul>
+<li>手动触发</li>
+</ul>
+<pre data-lang="shell" style="background-color:#002b36;color:#839496;" class="language-shell "><code class="language-shell" data-lang="shell"><span>BGREWRITEAOF
+</span></code></pre>
+<ul>
+<li>自动触发</li>
+</ul>
+<pre data-lang="shell" style="background-color:#002b36;color:#839496;" class="language-shell "><code class="language-shell" data-lang="shell"><span># 设置触发AOF重写所需的最小文件体积，即当AOF文件体积达到该值时，触发AOF重写；
+</span><span>auto-aof-rewrite-min-size &lt;value&gt;
+</span><span># 设置AOF重写所需的文件增长比例，即当AOF文件体积比上次重写后的体积增长一倍时，触发AOF重写；
+</span><span>auto-aof-rewrite-percentage &lt;value&gt;
+</span></code></pre>
+<h4 id="-111">AOF重写的流程<a class="zola-anchor" href="#-111" aria-label="Anchor link for: -111">🔗</a></h4>
+<ol>
+<li>执行<code>AOF</code>重写
+<ol>
+<li>若正在执行<code>AOF</code>重写，则直接返回；</li>
+<li>若正在执行<code>BGSAVE</code>操作，则延迟到<code>BGSAVE</code>完成后再执行；</li>
+</ol>
+</li>
+<li>执行<code>fork</code>操作创建子进程；</li>
+<li>继续响应请求;
+<ol>
+<li>将新的写入命令存到<code>aof_buf</code>中，进而同步到硬盘，保持原有的逻辑；</li>
+<li>将新的写入命令存到<code>rewrite_buf</code>，防止重写操作遗漏这些数据；</li>
+</ol>
+</li>
+<li>写入新的<code>AOF</code>文件；</li>
+<li>启用新的<code>AOF</code>文件：
+<ol>
+<li>发信号给父进程，父进程更新统计信息；</li>
+<li>将<code>rewrite_buf</code>中的数据刷入到新的<code>AOF</code>文件；</li>
+<li>使用新的<code>AOF</code>文件替换旧的文件，完成<code>AOF</code>重写；</li>
+</ol>
+</li>
+</ol>
+<p><img src="https://images.waer.ltd/img/AOF.png" alt="" loading="lazy" decoding="async" /></p>
+<h4 id="-112">重启加载<a class="zola-anchor" href="#-112" aria-label="Anchor link for: -112">🔗</a></h4>
+<p><img src="https://images.waer.ltd/img/20220430170634.png" alt="" loading="lazy" decoding="async" /></p>
+<h2 id="-113">Redis踩坑宝典<a class="zola-anchor" href="#-113" aria-label="Anchor link for: -113">🔗</a></h2>
+<blockquote>
+<p>记录在 <code>Redis</code>使用过程中遇到了一些问题、踩过的坑。</p>
+</blockquote>
+<h2 id="-114">Redis面试技能<a class="zola-anchor" href="#-114" aria-label="Anchor link for: -114">🔗</a></h2>
+<blockquote>
+<p>搜集整理关于 <code>Redis</code>的面试题目、面试技巧。</p>
+</blockquote>
+<h2 id="-115">Redis使用技巧<a class="zola-anchor" href="#-115" aria-label="Anchor link for: -115">🔗</a></h2>
+<blockquote>
+<p>总结一些 <code>Redis</code>方面的使用技巧、方法。</p>
+</blockquote>
+
+      
+    </div><!--./card-body-->
+
+    <div class="card-footer">
+      <div class="columns">
+        <div class="column col-9 col-sm-7">
+          <div class="taxonomies text-left">
+            
+
+    
+          </div>
+        </div><!--./col-6-->
+        
+        </div><!--./columns-->
+    </div><!--./card-footer-->
+</div><!--./card-->
+</div>
+              <div id="sidebar" class="column col-4 col-md-12">
+                <div class="sidebar-content">
+                  
+                  
+<div class="sidebar-widget">
+  <div class="tile">
+    <div class="tile-icon">
+      <figure class="avatar avatar-xl">
+        <img src="https://ilikexff.cn/avatar.png" alt="author avatar image">
+      </figure>
+    </div>
+    <div class="tile-content">
+      <p class="tile-title" style="font-weight: 600;">慕予</p>
+      <p class="tile-subtitle">热爱编程，专注于技术分享和学习</p>
+    </div>
+</div><!--./tile-->
+</div>
+
+                  
+                  
+<div class="sidebar-widget">
+  欢迎来到<strong>八尺妖剑</strong>！这里分享技术文章和编程心得。
+</div><!-- end text widget -->
+
+                  
+
+                  
+<div class="sidebar-widget syndicate">
+<h4>Feed</h4>
+<a class="btn" href="/rss.xml">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-rss-fill" viewBox="0 0 16 16">
+  <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm1.5 2.5c5.523 0 10 4.477 10 10a1 1 0 1 1-2 0 8 8 0 0 0-8-8 1 1 0 0 1 0-2zm0 4a6 6 0 0 1 6 6 1 1 0 1 1-2 0 4 4 0 0 0-4-4 1 1 0 0 1 0-2zm.5 7a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+</svg>
+<span>RSS</span>
+</a>
+</div>
+
+                  </div><!--./sidebar-content-->
+              </div>
+            </div>
+            
+          </section>
+        </section></section>
+<section class="container grid-xl">
+<ul class="pagination paginator">
+  
+  
+</ul>
+</section>
+</div><!-- ./page-wrapper -->
+
+    
+<div class="mobile-container">
+        <div class="overlay" id="overlay">
+            <div style="padding: 1rem;">
+              
+<a class="site-logo" href="https:&#x2F;&#x2F;ilikexff.cn">
+  
+  <div class="col-mx-auto">
+    <figure style="margin: 8px">
+      <img class="img-responsive"
+           style="max-height: 45px"
+           alt="frontmatter image"
+           src="https://ilikexff.cn/./logo.svg">
+    </figure>
+  </div>
+  
+</a>
+
+            </div>
+            <nav class="overlay-menu">
+              
+
+<ul class="tree treemenu treemenu-root"><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/tags">标签</a>
+    </li><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/categories">分类</a>
+    </li><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/about">关于</a>
+    </li></ul>
+
+
+              </nav>
+        </div>
+    </div>
+
+<script type="text/javascript">
+  var overlay = document.getElementById('overlay');
+  var toggle = document.getElementById('toggle');
+
+  function openOverlay(){
+      // Open overlay
+      if (overlay.classList.contains("open")) {
+          overlay.classList.remove("open");
+      }
+      else {
+          overlay.classList.add("open");
+      }
+
+      // Button transition
+      if (toggle.classList.contains("active")) {
+          toggle.classList.remove("active");
+      }
+      else {
+          toggle.classList.add("active");
+      }
+    }
+</script>
+
+<section id="footer" class="bg-gray">
+  <div class="container grid-xl">
+    
+
+
+    <div class="columns">
+      
+      <div class="column col-6 col-lg-12 col-mx-auto" style="text-align: center;">
+        简单是效率的灵魂 | 黔ICP备2021010295号
+      </div>
+      
+      <div class="column col-6 col-lg-12 col-mx-auto" style="text-align: center;">
+        Made by <a href="https://github.com/gicrisf/">gicrisf</a> -
+        <strong>Zhuia</strong>&nbsp;<a href="https://github.com/gicrisf/zhuia">source code</a>
+        is licensed under <a href="http://opensource.org/licenses/mit-license.php" target="_blank">MIT</a>.
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>
