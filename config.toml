@@ -84,8 +84,11 @@ read_more_prompt = "阅读更多"
 read_post_prompt = "阅读文章"
 
 # 菜单配置
-logo_image = "./logo.svg"
+logo_image = "./assets/logo.png"
 hamburger_menu = true
+
+# 网站图标配置
+favicon = "./assets/bachiico.ico"
 
 # 主菜单项
 main_menu = [
