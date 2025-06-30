@@ -126,51 +126,190 @@ code {
 }
 
 /* ========================================
-   Header 和导航 - 协调的白色设计
+   Header 和导航 - Telegram 风格美化
    ======================================== */
 
-/* 头部容器 */
-header, .navbar, .header {
-    background: var(--tg-bg-header) !important;
+/* 头部容器 - 针对 zhuia 主题结构 */
+header#header.section {
+    background: var(--tg-bg-primary) !important;
     background-image: none !important;
     border-bottom: 1px solid var(--tg-divider) !important;
-    padding: 20px 0 !important;
-    margin: 0 !important;
-    box-shadow: var(--tg-shadow-light) !important;
+    padding: 40px 0 !important;
+    margin: 0 0 32px 0 !important;
+    box-shadow: var(--tg-shadow) !important;
     border-radius: 0 !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 100 !important;
+    min-height: 100px !important;
 }
 
-/* 导航链接 */
-header a, .navbar a, .nav-link {
+/* 导航栏容器 */
+.navbar {
+    background: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+/* 头部内容容器 - 针对 zhuia 主题 */
+header .container {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    padding: 0 20px !important;
+}
+
+/* 导航栏部分 */
+.navbar-section {
+    display: flex !important;
+    align-items: center !important;
+}
+
+/* 网站标题/Logo - 针对 zhuia 的 site-logo */
+.site-logo {
+    color: var(--tg-primary) !important;
+    font-weight: 700 !important;
+    font-size: 2.2rem !important;
+    margin: 0 !important;
+    text-decoration: none !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 16px !important;
+    letter-spacing: -0.5px !important;
+}
+
+.site-logo:hover {
+    color: var(--tg-primary-dark) !important;
+    text-decoration: none !important;
+}
+
+.site-logo span {
+    color: var(--tg-primary) !important;
+    font-weight: 700 !important;
+    font-size: 2.2rem !important;
+}
+
+/* Logo 图片 */
+.site-logo img {
+    width: 45px !important;
+    height: 45px !important;
+    border-radius: 50% !important;
+    border: 2px solid var(--tg-primary-lighter) !important;
+}
+
+/* 导航菜单容器 - dropmenu */
+.dropmenu {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+
+.dropmenu ul {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* 导航链接 - 针对 zhuia 主题 */
+.dropmenu ul li a {
     color: var(--tg-text-primary) !important;
     font-weight: 500 !important;
     text-decoration: none !important;
-    padding: 8px 16px !important;
-    border-radius: var(--tg-radius-small) !important;
+    padding: 14px 24px !important;
+    border-radius: var(--tg-radius) !important;
     transition: all 0.2s ease !important;
-    margin: 0 4px !important;
+    margin: 0 6px !important;
+    position: relative !important;
+    font-size: 1.1rem !important;
+    min-height: 48px !important;
+    display: flex !important;
+    align-items: center !important;
 }
 
-header a:hover, .navbar a:hover, .nav-link:hover {
+.dropmenu ul li a:hover {
     background-color: var(--tg-primary-lighter) !important;
     color: var(--tg-primary) !important;
-    transform: none !important;
+    transform: translateY(-1px) !important;
+    box-shadow: var(--tg-shadow-light) !important;
 }
 
-/* 网站标题 */
-.site-title, .navbar-brand, h1.title {
-    color: var(--tg-primary) !important;
-    font-weight: 600 !important;
-    font-size: 1.5rem !important;
-    margin: 0 !important;
+/* 当前页面链接高亮 */
+.dropmenu ul li a.active {
+    background-color: var(--tg-primary) !important;
+    color: var(--tg-text-light) !important;
 }
 
-/* 菜单按钮 */
-.navbar-burger, .menu-toggle {
+/* 移动端菜单按钮 */
+.navbar-burger, .menu-toggle, .hamburger {
     color: var(--tg-text-primary) !important;
-    border: 1px solid var(--tg-border) !important;
+    border: 2px solid var(--tg-border) !important;
     background: var(--tg-bg-primary) !important;
-    border-radius: var(--tg-radius-small) !important;
+    border-radius: var(--tg-radius) !important;
+    padding: 8px !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    display: none !important;
+}
+
+.navbar-burger:hover, .menu-toggle:hover, .hamburger:hover {
+    border-color: var(--tg-primary) !important;
+    background-color: var(--tg-primary-lighter) !important;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    header, .navbar {
+        padding: 24px 0 !important;
+        min-height: 80px !important;
+    }
+
+    header .container, .navbar .container {
+        padding: 0 16px !important;
+    }
+
+    .site-title, .navbar-brand, .logo {
+        font-size: 1.8rem !important;
+    }
+
+    .navbar-burger, .menu-toggle, .hamburger {
+        display: block !important;
+        padding: 12px !important;
+        min-height: 44px !important;
+        min-width: 44px !important;
+    }
+
+    .navbar-menu, .nav-menu {
+        display: none !important;
+        position: absolute !important;
+        top: 100% !important;
+        left: 0 !important;
+        right: 0 !important;
+        background: var(--tg-bg-primary) !important;
+        border-top: 1px solid var(--tg-divider) !important;
+        box-shadow: var(--tg-shadow) !important;
+        flex-direction: column !important;
+        padding: 20px !important;
+        gap: 12px !important;
+    }
+
+    .navbar-menu.is-active, .nav-menu.is-active {
+        display: flex !important;
+    }
+
+    .navbar-menu a, .nav-menu a {
+        width: 100% !important;
+        text-align: center !important;
+        padding: 16px 20px !important;
+        font-size: 1.1rem !important;
+        min-height: 52px !important;
+    }
 }
 
 /* 文章卡片 - 消息气泡风格 */
