@@ -75,6 +75,433 @@ body {
     }
 }
 
+/* 暗色模式样式 - 使用data-theme属性 */
+html[data-theme="dark"] {
+    color-scheme: dark;
+}
+
+html[data-theme="dark"] body {
+    color: #e2e8f0;
+}
+
+html[data-theme="dark"] .content,
+html[data-theme="dark"] .main-content,
+html[data-theme="dark"] main,
+html[data-theme="dark"] .section {
+    background: rgba(15, 23, 42, 0.8) !important;
+    color: #e2e8f0;
+}
+
+html[data-theme="dark"] article,
+html[data-theme="dark"] .post {
+    background-color: rgba(15, 23, 42, 0.9) !important;
+    color: #e2e8f0;
+}
+
+html[data-theme="dark"] .sidebar,
+html[data-theme="dark"] .sidebar-content {
+    background: rgba(15, 23, 42, 0.85) !important;
+    color: #e2e8f0;
+}
+
+html[data-theme="dark"] .sidebar > div,
+html[data-theme="dark"] .sidebar-content > div {
+    background: rgba(15, 23, 42, 0.7) !important;
+}
+
+html[data-theme="dark"] .hero,
+html[data-theme="dark"] .hero-body,
+html[data-theme="dark"] .section,
+html[data-theme="dark"] .footer,
+html[data-theme="dark"] .card,
+html[data-theme="dark"] .box,
+html[data-theme="dark"] .notification,
+html[data-theme="dark"] .message {
+    background: rgba(15, 23, 42, 0.85) !important;
+    color: #e2e8f0;
+}
+
+html[data-theme="dark"] .card,
+html[data-theme="dark"] .box,
+html[data-theme="dark"] .panel {
+    background: rgba(15, 23, 42, 0.9) !important;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+html[data-theme="dark"] .site-logo {
+    color: #e2e8f0 !important;
+}
+
+html[data-theme="dark"] .dropmenu ul li a {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+html[data-theme="dark"] .dropmenu ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.15) !important;
+    color: #ffffff !important;
+}
+
+/* 暗色模式下的header样式 */
+html[data-theme="dark"] header#header.section {
+    background: transparent !important;
+}
+
+html[data-theme="dark"] .navbar {
+    background: rgba(15, 23, 42, 0.9) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+html[data-theme="dark"] .site-logo {
+    color: #e2e8f0 !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+html[data-theme="dark"] .site-logo:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+}
+
+html[data-theme="dark"] .site-logo img {
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* 暗色模式下处理所有可能的灰白色元素 */
+html[data-theme="dark"] .container,
+html[data-theme="dark"] .grid-xl,
+html[data-theme="dark"] .columns,
+html[data-theme="dark"] .column {
+    background: transparent !important;
+}
+
+html[data-theme="dark"] hr,
+html[data-theme="dark"] .divider,
+html[data-theme="dark"] .separator {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+html[data-theme="dark"] .tile,
+html[data-theme="dark"] .media,
+html[data-theme="dark"] .level {
+    background: rgba(15, 23, 42, 0.8) !important;
+}
+
+html[data-theme="dark"] .navbar-menu,
+html[data-theme="dark"] .nav-menu {
+    background: rgba(15, 23, 42, 0.95) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* 确保所有包装器在暗色模式下透明 */
+html[data-theme="dark"] #body-wrapper,
+html[data-theme="dark"] .body-wrapper,
+html[data-theme="dark"] .wrapper,
+html[data-theme="dark"] .main-wrapper,
+html[data-theme="dark"] .page-wrapper,
+html[data-theme="dark"] .site-wrapper,
+html[data-theme="dark"] .layout-wrapper {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+/* 暗色模式下的文章列表和内容区域 */
+html[data-theme="dark"] .post-list,
+html[data-theme="dark"] .article-list,
+html[data-theme="dark"] .content-wrapper,
+html[data-theme="dark"] .main-content-wrapper {
+    background: transparent !important;
+}
+
+html[data-theme="dark"] .post-item,
+html[data-theme="dark"] .article-item {
+    background: rgba(15, 23, 42, 0.8) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* 暗色模式下的边框和分隔线 */
+html[data-theme="dark"] *[class*="border"],
+html[data-theme="dark"] *[class*="divider"],
+html[data-theme="dark"] .has-border {
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* 暗色模式下的表格 */
+html[data-theme="dark"] table,
+html[data-theme="dark"] .table {
+    background: rgba(15, 23, 42, 0.8) !important;
+    color: #e2e8f0 !important;
+}
+
+html[data-theme="dark"] table th,
+html[data-theme="dark"] table td,
+html[data-theme="dark"] .table th,
+html[data-theme="dark"] .table td {
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    background: transparent !important;
+}
+
+/* 暗色模式下的代码块 */
+html[data-theme="dark"] pre,
+html[data-theme="dark"] code {
+    background: rgba(0, 0, 0, 0.3) !important;
+    color: #e2e8f0 !important;
+}
+
+/* 暗色模式下的文章标题和链接 */
+html[data-theme="dark"] .post-title,
+html[data-theme="dark"] .article-title,
+html[data-theme="dark"] h1,
+html[data-theme="dark"] h2,
+html[data-theme="dark"] h3,
+html[data-theme="dark"] h4,
+html[data-theme="dark"] h5,
+html[data-theme="dark"] h6 {
+    background: transparent !important;
+    color: #e2e8f0 !important;
+}
+
+html[data-theme="dark"] .post-title a,
+html[data-theme="dark"] .article-title a,
+html[data-theme="dark"] h1 a,
+html[data-theme="dark"] h2 a,
+html[data-theme="dark"] h3 a,
+html[data-theme="dark"] h4 a,
+html[data-theme="dark"] h5 a,
+html[data-theme="dark"] h6 a {
+    background: transparent !important;
+    color: #e2e8f0 !important;
+    text-decoration: none !important;
+}
+
+html[data-theme="dark"] .post-title a:hover,
+html[data-theme="dark"] .article-title a:hover,
+html[data-theme="dark"] h1 a:hover,
+html[data-theme="dark"] h2 a:hover,
+html[data-theme="dark"] h3 a:hover,
+html[data-theme="dark"] h4 a:hover,
+html[data-theme="dark"] h5 a:hover,
+html[data-theme="dark"] h6 a:hover {
+    color: #60a5fa !important;
+    background: transparent !important;
+}
+
+/* 暗色模式下的文章元信息 */
+html[data-theme="dark"] .post-meta,
+html[data-theme="dark"] .article-meta,
+html[data-theme="dark"] .meta {
+    background: transparent !important;
+    color: rgba(226, 232, 240, 0.7) !important;
+}
+
+/* 暗色模式下的链接 */
+html[data-theme="dark"] a {
+    color: #60a5fa !important;
+}
+
+html[data-theme="dark"] a:hover {
+    color: #93c5fd !important;
+}
+
+/* 暗色模式下强制所有可能的白色背景元素透明 - 使用更强的选择器 */
+html[data-theme="dark"] * {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+/* 暗色模式下需要保留背景的元素 */
+html[data-theme="dark"] .navbar,
+html[data-theme="dark"] .content,
+html[data-theme="dark"] .main-content,
+html[data-theme="dark"] main,
+html[data-theme="dark"] .section,
+html[data-theme="dark"] article,
+html[data-theme="dark"] .post,
+html[data-theme="dark"] .sidebar,
+html[data-theme="dark"] .sidebar-content,
+html[data-theme="dark"] .card,
+html[data-theme="dark"] .box,
+html[data-theme="dark"] .panel {
+    background: rgba(15, 23, 42, 0.8) !important;
+    background-color: rgba(15, 23, 42, 0.8) !important;
+}
+
+/* 暗色模式下的文字颜色 */
+html[data-theme="dark"] * {
+    color: #e2e8f0 !important;
+}
+
+/* 暗色模式下的链接颜色 */
+html[data-theme="dark"] a {
+    color: #60a5fa !important;
+}
+
+html[data-theme="dark"] a:hover {
+    color: #93c5fd !important;
+}
+
+/* 暗色模式下强制覆盖所有hover背景效果 */
+html[data-theme="dark"] *:hover {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+/* 暗色模式下需要保留hover背景的元素 */
+html[data-theme="dark"] .navbar:hover,
+html[data-theme="dark"] .dropmenu ul li a:hover,
+html[data-theme="dark"] .site-logo:hover,
+html[data-theme="dark"] .theme-switch:hover .theme-switch-slider,
+html[data-theme="dark"] .theme-switch:hover .theme-switch-handle {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* 暗色模式下的文章hover效果 - 只保留变换，移除背景 */
+html[data-theme="dark"] article:hover,
+html[data-theme="dark"] .post:hover,
+html[data-theme="dark"] .card:hover,
+html[data-theme="dark"] .box:hover {
+    background: rgba(15, 23, 42, 0.8) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* 暗色模式下禁用链接的白色滑动效果 */
+html[data-theme="dark"] a::before {
+    display: none !important;
+}
+
+html[data-theme="dark"] a:hover::before {
+    display: none !important;
+}
+
+/* ========================================
+   暗色模式切换
+   ======================================== */
+
+/* 暗色模式根元素 */
+html {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+html[data-theme="dark"] {
+    background-color: #0f172a !important;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px) !important;
+}
+
+/* 暗色模式滑动切换按钮 */
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    margin-left: 8px;
+}
+
+.theme-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.theme-switch-checkbox {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+}
+
+.theme-switch-slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, #87CEEB 0%, #98D8E8 100%);
+    border-radius: 30px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    box-shadow:
+        inset 0 2px 4px rgba(0, 0, 0, 0.1),
+        0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.theme-switch-handle {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 24px;
+    height: 24px;
+    background: #ffffff;
+    border-radius: 50%;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.2),
+        0 1px 3px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.sun-icon, .moon-icon {
+    position: absolute;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    color: #FFA500;
+}
+
+.sun-icon {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+}
+
+.moon-icon {
+    opacity: 0;
+    transform: rotate(180deg) scale(0.7);
+    color: #4A5568;
+}
+
+/* 暗色模式状态 */
+.theme-switch-checkbox:checked + .theme-switch-slider {
+    background: linear-gradient(135deg, #2D3748 0%, #1A202C 100%);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.theme-switch-checkbox:checked + .theme-switch-slider .theme-switch-handle {
+    transform: translateX(30px);
+    background: #2D3748;
+}
+
+.theme-switch-checkbox:checked + .theme-switch-slider .sun-icon {
+    opacity: 0;
+    transform: rotate(-180deg) scale(0.7);
+}
+
+.theme-switch-checkbox:checked + .theme-switch-slider .moon-icon {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+    color: #E2E8F0;
+}
+
+/* 悬停效果 */
+.theme-switch:hover .theme-switch-slider {
+    transform: translateY(-1px);
+    box-shadow:
+        inset 0 2px 4px rgba(0, 0, 0, 0.1),
+        0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.theme-switch:hover .theme-switch-handle {
+    box-shadow:
+        0 4px 8px rgba(0, 0, 0, 0.25),
+        0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* 焦点状态 */
+.theme-switch-checkbox:focus + .theme-switch-slider {
+    outline: 2px solid rgba(59, 130, 246, 0.5);
+    outline-offset: 2px;
+}
+
 /* ========================================
    页面过渡动画和交互动画
    ======================================== */
@@ -832,6 +1259,32 @@ header .container .navbar {
         min-height: 36px !important;
         min-width: 36px !important;
         border-radius: 18px !important;
+    }
+
+    /* 移动端主题切换按钮 */
+    .theme-switch {
+        width: 50px !important;
+        height: 26px !important;
+    }
+
+    .theme-switch-handle {
+        width: 20px !important;
+        height: 20px !important;
+        top: 1px !important;
+        left: 1px !important;
+    }
+
+    .theme-switch-checkbox:checked + .theme-switch-slider .theme-switch-handle {
+        transform: translateX(24px) !important;
+    }
+
+    .sun-icon, .moon-icon {
+        width: 12px !important;
+        height: 12px !important;
+    }
+
+    .dropmenu {
+        display: none !important;
     }
 
     .dropmenu {

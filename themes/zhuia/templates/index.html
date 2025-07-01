@@ -54,6 +54,11 @@
         {{ head::katex() }}
       {% endif %}
     {%- endblock math -%}
+
+    {%- block theme_toggle -%}
+        <!-- 暗色模式切换脚本 -->
+        <script src="{{ get_url(path="theme-toggle.js") }}" defer></script>
+    {%- endblock theme_toggle -%}
   </head>
   <body id="top" class="sticky-footer">
     {%- if config.extra.grid_size -%}
