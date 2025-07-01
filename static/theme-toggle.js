@@ -36,38 +36,38 @@
         // 设置主题
         setTheme(theme, animate = true) {
             const html = document.documentElement;
-            const toggleBtn = document.getElementById('theme-toggle-btn');
+            const toggleCheckbox = document.getElementById('theme-toggle-checkbox');
 
             if (animate) {
                 // 添加过渡动画
-                html.style.transition = 'all 0.3s ease';
-                document.body.style.transition = 'all 0.3s ease';
-                
+                html.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+                document.body.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+
                 // 动画结束后移除过渡
                 setTimeout(() => {
                     html.style.transition = '';
                     document.body.style.transition = '';
-                }, 300);
+                }, 400);
             }
 
             if (theme === 'dark') {
                 html.setAttribute('data-theme', 'dark');
-                if (toggleBtn) {
-                    toggleBtn.setAttribute('aria-label', '切换到浅色模式');
+                if (toggleCheckbox) {
+                    toggleCheckbox.checked = true;
                 }
             } else {
                 html.removeAttribute('data-theme');
-                if (toggleBtn) {
-                    toggleBtn.setAttribute('aria-label', '切换到暗色模式');
+                if (toggleCheckbox) {
+                    toggleCheckbox.checked = false;
                 }
             }
 
             // 保存到本地存储
             localStorage.setItem('theme', theme);
-            
+
             // 触发自定义事件
-            window.dispatchEvent(new CustomEvent('themechange', { 
-                detail: { theme } 
+            window.dispatchEvent(new CustomEvent('themechange', {
+                detail: { theme }
             }));
         }
 
@@ -81,9 +81,9 @@
         // 绑定事件
         bindEvents() {
             // 切换按钮点击事件
-            const toggleBtn = document.getElementById('theme-toggle-btn');
-            if (toggleBtn) {
-                toggleBtn.addEventListener('click', () => {
+            const toggleCheckbox = document.getElementById('theme-toggle-checkbox');
+            if (toggleCheckbox) {
+                toggleCheckbox.addEventListener('change', () => {
                     this.toggleTheme();
                 });
             }

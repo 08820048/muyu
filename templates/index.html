@@ -111,7 +111,7 @@
             {% else %}
             <div id="item" class="blog-listing">
             {%- block content -%}
-              {{ lists::list_pages() }}
+              {{ lists::list_pages(pages=paginator.pages) }}
             {%- endblock content -%}
             </div>
             {%- endif -%}{# sidebar active? #}

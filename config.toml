@@ -90,12 +90,8 @@ hamburger_menu = true
 # 网站图标配置
 favicon = "./assets/bachiico.ico"
 
-# 主菜单项
-main_menu = [
-    {url="/tags/", name="标签"},
-    {url="/categories/", name="分类"},
-    {url="/about/", name="关于"},
-]
+# 主菜单项 - 已移除，使用打字效果替代
+main_menu = []
 
 # 页脚标语（包含备案信息）
 footer_tagline = "简单是效率的灵魂 | 黔ICP备2021010295号"
@@ -113,7 +109,7 @@ social_links = [
 # 侧边栏配置
 [extra.sidebar]
 # 启用/禁用侧边栏
-active = true
+active = false
 
 # 侧边栏文本片段
 text_snippet = "欢迎来到<strong>八尺妖剑</strong>！这里分享技术文章和编程心得。"
