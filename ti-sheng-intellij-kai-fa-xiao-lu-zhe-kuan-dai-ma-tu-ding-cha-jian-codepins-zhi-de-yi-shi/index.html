@@ -66,21 +66,16 @@
 
       </section><!-- ./home button -->
 
-      <section class="navbar-center hide-md"></section>
+      <!-- 中间打字效果区域 -->
+      <section class="navbar-center">
+        <div class="typing-effect">
+          <span id="typing-text"></span>
+          <span class="typing-cursor">|</span>
+        </div>
+      </section>
 
       <section class="navbar-section">
-        <nav class="dropmenu animated hide-md">
-
-<ul><li>
-        <a href="https://ilikexff.cn/tags">标签</a>
-    </li><li>
-        <a href="https://ilikexff.cn/categories">分类</a>
-    </li><li>
-        <a href="https://ilikexff.cn/about">关于</a>
-    </li></ul>
-
-
-          <!-- 暗色模式滑动切换按钮 -->
+        <nav class="dropmenu animated hide-md"><!-- 暗色模式滑动切换按钮 -->
           <div class="theme-toggle">
             <label class="theme-switch" for="theme-toggle-checkbox">
               <input type="checkbox" id="theme-toggle-checkbox" class="theme-switch-checkbox">
@@ -150,6 +145,45 @@
                 initTheme();
               }
 
+              // 打字效果
+              function initTypingEffect() {
+                const text = "简单是效率的灵魂";
+                const typingElement = document.getElementById('typing-text');
+                const cursor = document.querySelector('.typing-cursor');
+
+                if (!typingElement) return;
+
+                let index = 0;
+                let isDeleting = false;
+
+                function typeWriter() {
+                  if (!isDeleting && index < text.length) {
+                    // 打字阶段
+                    typingElement.textContent = text.substring(0, index + 1);
+                    index++;
+                    setTimeout(typeWriter, 150); // 打字速度
+                  } else if (!isDeleting && index === text.length) {
+                    // 完成打字，等待一段时间后开始删除
+                    setTimeout(() => {
+                      isDeleting = true;
+                      typeWriter();
+                    }, 2000); // 停留时间
+                  } else if (isDeleting && index > 0) {
+                    // 删除阶段
+                    typingElement.textContent = text.substring(0, index - 1);
+                    index--;
+                    setTimeout(typeWriter, 100); // 删除速度
+                  } else if (isDeleting && index === 0) {
+                    // 删除完成，重新开始
+                    isDeleting = false;
+                    setTimeout(typeWriter, 500); // 重新开始前的等待时间
+                  }
+                }
+
+                // 开始打字效果
+                setTimeout(typeWriter, 1000); // 初始延迟
+              }
+
               // 绑定事件
               document.addEventListener('DOMContentLoaded', function() {
                 const checkbox = document.getElementById('theme-toggle-checkbox');
@@ -164,6 +198,9 @@
                     toggleTheme();
                   }
                 });
+
+                // 初始化打字效果
+                initTypingEffect();
               });
             })();
           </script>
@@ -192,8 +229,8 @@
   
     <span><a href="https:&#x2F;&#x2F;ilikexff.cn&#x2F;ti-sheng-intellij-kai-fa-xiao-lu-zhe-kuan-dai-ma-tu-ding-cha-jian-codepins-zhi-de-yi-shi&#x2F;">提升 IntelliJ 开发效率？这款代码图钉插件 CodePins 值得一试</a></span>
 </div>
-<div class="columns">
-              <div id="item" class="column col-8 col-md-12 extra-spacing">
+
+            <div id="item" class="blog-listing">
 <div class="card">
   
 
@@ -331,36 +368,6 @@ CodePins 拥有简洁现代的界面设计，支持 IntelliJ IDEA 的浅色和�
     </div><!--./card-footer-->
 </div><!--./card-->
 </div>
-              <div id="sidebar" class="column col-4 col-md-12">
-                <div class="sidebar-content">
-                  
-                  
-<div class="sidebar-widget">
-  <div class="tile">
-    <div class="tile-icon">
-      <figure class="avatar avatar-xl">
-        <img src="https://ilikexff.cn/avatar.png" alt="author avatar image">
-      </figure>
-    </div>
-    <div class="tile-content">
-      <p class="tile-title" style="font-weight: 600;">八尺妖剑</p>
-      <p class="tile-subtitle">热爱编程，专注于技术分享和学习</p>
-    </div>
-</div><!--./tile-->
-</div>
-
-                  
-                  
-<div class="sidebar-widget">
-  欢迎来到<strong>八尺妖剑</strong>！这里分享技术文章和编程心得。
-</div><!-- end text widget -->
-
-                  
-
-                  </div><!--./sidebar-content-->
-              </div>
-            </div>
-            
           </section>
         </section></section>
 <section class="container grid-xl">
@@ -391,20 +398,6 @@ CodePins 拥有简洁现代的界面设计，支持 IntelliJ IDEA 的浅色和�
 
             </div>
             <nav class="overlay-menu">
-              
-
-<ul class="tree treemenu treemenu-root"><li class="tree-empty">
-      <span class="toggler"></span>
-      <a href="https://ilikexff.cn/tags">标签</a>
-    </li><li class="tree-empty">
-      <span class="toggler"></span>
-      <a href="https://ilikexff.cn/categories">分类</a>
-    </li><li class="tree-empty">
-      <span class="toggler"></span>
-      <a href="https://ilikexff.cn/about">关于</a>
-    </li></ul>
-
-
               </nav>
         </div>
     </div>
