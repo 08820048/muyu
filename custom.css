@@ -3,6 +3,79 @@
    ======================================== */
 
 /* ========================================
+   全屏网格背景
+   ======================================== */
+
+/* 全屏网格背景 */
+html {
+    background-color: #f8fafc !important;
+    background-image:
+        linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px) !important;
+    background-size: 30px 30px !important;
+    background-attachment: fixed !important;
+    animation: gridMove 25s linear infinite !important;
+    min-height: 100vh !important;
+}
+
+body {
+    background: transparent !important;
+    min-height: 100vh !important;
+}
+
+/* 确保主要包装器透明 */
+#body-wrapper, .body-wrapper, .wrapper, .main-wrapper {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+/* 网格动画效果 */
+@keyframes gridMove {
+    0% {
+        background-position: 0 0, 0 0;
+    }
+    100% {
+        background-position: 30px 30px, 30px 30px;
+    }
+}
+
+/* 深色模式下的网格背景 */
+@media (prefers-color-scheme: dark) {
+    html {
+        background-color: #0f172a !important;
+        background-image:
+            linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px) !important;
+    }
+
+    /* 深色模式下的半透明背景 */
+    .content, .main-content, main, .section {
+        background: rgba(15, 23, 42, 0.8) !important;
+    }
+
+    article, .post {
+        background-color: rgba(15, 23, 42, 0.9) !important;
+    }
+
+    .sidebar, .sidebar-content {
+        background: rgba(15, 23, 42, 0.85) !important;
+    }
+
+    .sidebar > div, .sidebar-content > div {
+        background: rgba(15, 23, 42, 0.7) !important;
+    }
+
+    .hero, .hero-body, .section, .footer,
+    .card, .box, .notification, .message {
+        background: rgba(15, 23, 42, 0.85) !important;
+    }
+
+    .card, .box, .panel {
+        background: rgba(15, 23, 42, 0.9) !important;
+    }
+}
+
+/* ========================================
    页面过渡动画和交互动画
    ======================================== */
 
@@ -389,10 +462,18 @@ blockquote:hover {
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
-    background: var(--tg-bg-secondary) !important;
+    background: transparent !important;
     background-image: none !important;
     background-attachment: fixed !important;
     color: var(--tg-text-primary) !important;
+}
+
+/* 强制所有可能的包装器透明 */
+#body-wrapper, .body-wrapper, .wrapper, .main-wrapper,
+.page-wrapper, .site-wrapper, .layout-wrapper {
+    background: transparent !important;
+    background-color: transparent !important;
+    background-image: none !important;
     line-height: 1.6 !important;
     margin: 0 !important;
     padding: 0 !important;
@@ -459,7 +540,7 @@ code {
 
 /* 主要内容区域 */
 .content, .main-content, main, .section {
-    background: var(--tg-bg-primary) !important;
+    background: rgba(255, 255, 255, 0.8) !important;
     background-image: none !important;
     padding: 32px !important;
     margin: 24px 0 !important;
@@ -799,7 +880,7 @@ header .container .navbar {
 
 /* 文章卡片 - 消息气泡风格 */
 article, .post {
-    background-color: var(--tg-bg-primary) !important;
+    background-color: rgba(255, 255, 255, 0.9) !important;
     border-radius: var(--tg-radius-large) !important;
     padding: 20px 24px !important;
     margin: 16px 0 !important;
@@ -835,7 +916,7 @@ h1, h2, h3 {
    ======================================== */
 
 .sidebar, .sidebar-content {
-    background: var(--tg-bg-primary) !important;
+    background: rgba(255, 255, 255, 0.85) !important;
     background-image: none !important;
     border-radius: var(--tg-radius-large) !important;
     padding: 0 !important;
@@ -847,7 +928,7 @@ h1, h2, h3 {
 
 /* 侧边栏内的每个模块 */
 .sidebar > div, .sidebar-content > div {
-    background: var(--tg-bg-primary) !important;
+    background: rgba(255, 255, 255, 0.7) !important;
     padding: 24px !important;
     margin: 0 !important;
     border-bottom: 1px solid var(--tg-border-light) !important;
@@ -1082,9 +1163,9 @@ th {
    ======================================== */
 
 /* 强制移除所有渐变和背景图 */
-.hero, .hero-body, .section, .navbar, .footer,
+.hero, .hero-body, .section, .footer,
 .card, .box, .notification, .message {
-    background: var(--tg-bg-primary) !important;
+    background: rgba(255, 255, 255, 0.85) !important;
     background-image: none !important;
     background-gradient: none !important;
     background-attachment: scroll !important;
@@ -1092,7 +1173,7 @@ th {
 
 /* 统一所有卡片样式 */
 .card, .box, .panel {
-    background: var(--tg-bg-primary) !important;
+    background: rgba(255, 255, 255, 0.9) !important;
     border: 1px solid var(--tg-border-light) !important;
     border-radius: var(--tg-radius-large) !important;
     box-shadow: var(--tg-shadow) !important;
