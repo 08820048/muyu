@@ -1017,12 +1017,33 @@ blockquote:hover {
     box-sizing: border-box;
 }
 
+/* 确保html和body使用正确的背景色 - 白天模式 */
+html {
+    background: var(--tg-bg-primary) !important;
+    background-image: none !important;
+    background-color: #ffffff !important;
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
-    background: transparent !important;
+    background: var(--tg-bg-primary) !important;
     background-image: none !important;
+    background-color: #ffffff !important;
     background-attachment: fixed !important;
     color: var(--tg-text-primary) !important;
+}
+
+/* 强制白天模式的背景 - 覆盖任何可能的暗色设置 */
+html:not([data-theme="dark"]) {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
+}
+
+html:not([data-theme="dark"]) body {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
 }
 
 /* 强制所有可能的包装器透明 */
