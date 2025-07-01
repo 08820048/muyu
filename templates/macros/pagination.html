@@ -1,5 +1,5 @@
 {% macro paginate(grid_size) %}
-<section class="container {{ grid_size }}">
+<div class="pagination-wrapper">
 <ul class="pagination paginator">
   {% if paginator.previous %}
   <li class="page-item page-prev">
@@ -18,5 +18,5 @@
   </li>
   {% endif %}
 </ul>
-</section>
+</div>
 {% endmacro paginate %}

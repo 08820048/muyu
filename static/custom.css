@@ -239,11 +239,23 @@ html[data-theme="dark"] .table td {
     background: transparent !important;
 }
 
-/* 暗色模式下的代码块 */
-html[data-theme="dark"] pre,
-html[data-theme="dark"] code {
+/* 暗色模式下的代码块 - 保留语法高亮 */
+html[data-theme="dark"] pre {
+    background: rgba(0, 0, 0, 0.4) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+html[data-theme="dark"] code:not(pre code) {
     background: rgba(0, 0, 0, 0.3) !important;
     color: #e2e8f0 !important;
+    padding: 2px 6px !important;
+    border-radius: 4px !important;
+}
+
+/* 暗色模式下不要覆盖语法高亮的颜色 */
+html[data-theme="dark"] pre code {
+    background: transparent !important;
+    /* 不设置color，让语法高亮主题自己处理 */
 }
 
 /* 暗色模式下的文章标题和链接 */
@@ -307,12 +319,12 @@ html[data-theme="dark"] * {
     background-color: transparent !important;
 }
 
-/* 暗色模式下需要保留背景的元素 */
-html[data-theme="dark"] .navbar,
-html[data-theme="dark"] .content,
-html[data-theme="dark"] .main-content,
-html[data-theme="dark"] main,
-html[data-theme="dark"] .section,
+/* 暗色模式下需要保留背景的元素 - 统一透明度 */
+html[data-theme="dark"] .navbar {
+    background: rgba(15, 23, 42, 0.9) !important;
+    background-color: rgba(15, 23, 42, 0.9) !important;
+}
+
 html[data-theme="dark"] article,
 html[data-theme="dark"] .post,
 html[data-theme="dark"] .sidebar,
@@ -320,12 +332,31 @@ html[data-theme="dark"] .sidebar-content,
 html[data-theme="dark"] .card,
 html[data-theme="dark"] .box,
 html[data-theme="dark"] .panel {
-    background: rgba(15, 23, 42, 0.8) !important;
-    background-color: rgba(15, 23, 42, 0.8) !important;
+    background: rgba(15, 23, 42, 0.6) !important;
+    background-color: rgba(15, 23, 42, 0.6) !important;
 }
 
-/* 暗色模式下的文字颜色 */
-html[data-theme="dark"] * {
+html[data-theme="dark"] .content,
+html[data-theme="dark"] .main-content,
+html[data-theme="dark"] main,
+html[data-theme="dark"] .section {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+/* 暗色模式下的文字颜色 - 排除代码高亮 */
+html[data-theme="dark"] *:not(pre):not(pre *) {
+    color: #e2e8f0 !important;
+}
+
+html[data-theme="dark"] p,
+html[data-theme="dark"] div:not(pre),
+html[data-theme="dark"] span:not(pre span),
+html[data-theme="dark"] h1, html[data-theme="dark"] h2, html[data-theme="dark"] h3,
+html[data-theme="dark"] h4, html[data-theme="dark"] h5, html[data-theme="dark"] h6,
+html[data-theme="dark"] li:not(pre li),
+html[data-theme="dark"] td:not(pre td),
+html[data-theme="dark"] th:not(pre th) {
     color: #e2e8f0 !important;
 }
 
@@ -336,6 +367,57 @@ html[data-theme="dark"] a {
 
 html[data-theme="dark"] a:hover {
     color: #93c5fd !important;
+}
+
+/* 暗色模式下的分页样式 */
+html[data-theme="dark"] .pagination a,
+html[data-theme="dark"] .pagination span {
+    color: #e2e8f0 !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+html[data-theme="dark"] .pagination span.current,
+html[data-theme="dark"] .pagination .current {
+    background: #60a5fa !important;
+    color: #1e293b !important;
+    border-color: #60a5fa !important;
+    box-shadow: 0 2px 8px rgba(96, 165, 250, 0.3) !important;
+}
+
+html[data-theme="dark"] .pagination a:hover {
+    background: rgba(96, 165, 250, 0.1) !important;
+    color: #60a5fa !important;
+    border-color: #60a5fa !important;
+    box-shadow: 0 4px 12px rgba(96, 165, 250, 0.2) !important;
+}
+
+/* 暗色模式下的圆形箭头分页 */
+html[data-theme="dark"] .pagination .page-item a {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #e2e8f0 !important;
+}
+
+html[data-theme="dark"] .pagination .page-item a:hover {
+    background: #60a5fa !important;
+    color: #1e293b !important;
+    box-shadow: 0 4px 12px rgba(96, 165, 250, 0.4) !important;
+}
+
+html[data-theme="dark"] .pagination .page-item.disabled a {
+    background: rgba(255, 255, 255, 0.05) !important;
+    color: rgba(226, 232, 240, 0.3) !important;
+}
+
+/* 暗色模式下的RSS链接样式 */
+html[data-theme="dark"] .rss-link {
+    background: #60a5fa !important;
+    color: #1e293b !important;
+}
+
+html[data-theme="dark"] .rss-link:hover {
+    background: #3b82f6 !important;
+    color: #1e293b !important;
+    box-shadow: 0 4px 12px rgba(96, 165, 250, 0.4) !important;
 }
 
 /* 暗色模式下强制覆盖所有hover背景效果 */
@@ -500,6 +582,64 @@ html[data-theme="dark"] {
 .theme-switch-checkbox:focus + .theme-switch-slider {
     outline: 2px solid rgba(59, 130, 246, 0.5);
     outline-offset: 2px;
+}
+
+/* ========================================
+   Header 打字效果
+   ======================================== */
+
+/* 打字效果容器 */
+.typing-effect {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.7);
+    letter-spacing: 0.5px;
+    min-height: 30px;
+}
+
+/* 打字文本 */
+#typing-text {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 500;
+}
+
+/* 打字光标 */
+.typing-cursor {
+    display: inline-block;
+    margin-left: 2px;
+    font-weight: 300;
+    animation: blink 1s infinite;
+    color: var(--tg-primary, #0088cc);
+}
+
+/* 光标闪烁动画 */
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+/* 暗色模式下的打字效果 */
+html[data-theme="dark"] .typing-effect {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+html[data-theme="dark"] .typing-cursor {
+    color: #60a5fa;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .typing-effect {
+        font-size: 0.95rem;
+        min-height: 26px;
+    }
+
+    .navbar-center {
+        display: none !important;
+    }
 }
 
 /* ========================================
@@ -751,17 +891,7 @@ blockquote:hover {
     box-shadow: -5px 0 15px rgba(0, 136, 204, 0.1);
 }
 
-/* 分页按钮动画 */
-.pagination a, .pagination span {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-}
-
-.pagination a:hover {
-    transform: translateY(-2px) scale(1.1);
-    box-shadow: 0 8px 16px rgba(0, 136, 204, 0.3);
-}
+/* 分页按钮动画 - 已移至主分页样式区域 */
 
 /* 侧边栏模块动画 */
 .sidebar > div, .sidebar-content > div {
@@ -965,15 +1095,15 @@ code {
     box-shadow: none !important;
 }
 
-/* 主要内容区域 */
+/* 主要内容区域 - 统一透明背景 */
 .content, .main-content, main, .section {
-    background: rgba(255, 255, 255, 0.8) !important;
+    background: transparent !important;
     background-image: none !important;
     padding: 32px !important;
     margin: 24px 0 !important;
-    border-radius: var(--tg-radius-large) !important;
-    box-shadow: var(--tg-shadow) !important;
-    border: 1px solid var(--tg-border-light) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
 }
 
 /* ========================================
@@ -1331,9 +1461,9 @@ header .container .navbar {
     }
 }
 
-/* 文章卡片 - 消息气泡风格 */
+/* 文章卡片 - 统一半透明背景 */
 article, .post {
-    background-color: rgba(255, 255, 255, 0.9) !important;
+    background-color: rgba(255, 255, 255, 0.6) !important;
     border-radius: var(--tg-radius-large) !important;
     padding: 20px 24px !important;
     margin: 16px 0 !important;
@@ -1369,19 +1499,19 @@ h1, h2, h3 {
    ======================================== */
 
 .sidebar, .sidebar-content {
-    background: rgba(255, 255, 255, 0.85) !important;
+    background: transparent !important;
     background-image: none !important;
-    border-radius: var(--tg-radius-large) !important;
+    border-radius: 0 !important;
     padding: 0 !important;
     margin: 24px 0 !important;
-    box-shadow: var(--tg-shadow) !important;
-    border: 1px solid var(--tg-border-light) !important;
-    overflow: hidden !important;
+    box-shadow: none !important;
+    border: none !important;
+    overflow: visible !important;
 }
 
 /* 侧边栏内的每个模块 */
 .sidebar > div, .sidebar-content > div {
-    background: rgba(255, 255, 255, 0.7) !important;
+    background: transparent !important;
     padding: 24px !important;
     margin: 0 !important;
     border-bottom: 1px solid var(--tg-border-light) !important;
@@ -1527,27 +1657,79 @@ h1, h2, h3 {
     transform: translateY(-1px) !important;
 }
 
-/* 分页 - Telegram 风格 */
+/* 分页 - 极简圆形箭头风格 - 强制右对齐 */
+ul.pagination.paginator,
+.pagination.paginator,
 .pagination {
     display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+    margin: 40px 0 !important;
+    padding: 0 20px !important; /* 与主容器的padding保持一致 */
+    background: transparent !important;
+    border: none !important;
+    gap: 12px !important;
+    list-style: none !important;
+    text-align: right !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* 隐藏页码数字和其他元素 */
+.pagination .page-item:not(.page-prev):not(.page-next) {
+    display: none !important;
+}
+
+/* 分页按钮基础样式 */
+.pagination .page-item {
+    list-style: none !important;
+    margin: 0 !important;
+}
+
+.pagination .page-item a {
+    display: flex !important;
+    align-items: center !important;
     justify-content: center !important;
-    margin: 24px 0 !important;
-}
-
-.pagination a, .pagination span {
-    background-color: var(--tg-bg-primary) !important;
-    color: var(--tg-primary) !important;
-    padding: 10px 16px !important;
-    margin: 0 4px !important;
-    border-radius: var(--tg-radius) !important;
+    width: auto !important; /* 改为自动宽度 */
+    height: auto !important; /* 改为自动高度 */
+    border-radius: 0 !important; /* 去掉圆角 */
+    background: transparent !important; /* 去掉背景 */
+    color: var(--tg-text-primary) !important;
     text-decoration: none !important;
-    border: 1px solid var(--tg-border) !important;
-    transition: all 0.2s ease !important;
+    border: none !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    font-size: 24px !important; /* 增大箭头字体 */
+    font-weight: normal !important;
+    padding: 8px !important; /* 添加少量padding便于点击 */
+    position: relative !important;
 }
 
-.pagination a:hover {
-    background-color: var(--tg-primary) !important;
-    color: white !important;
+/* 隐藏文字，保留箭头图标 */
+.pagination .page-item .page-item-subtitle {
+    display: none !important;
+}
+
+/* 显示并美化箭头图标 */
+.pagination .page-item .button__icon {
+    display: block !important;
+    font-size: 20px !important;
+    line-height: 1 !important;
+    color: inherit !important;
+}
+
+/* 悬停效果 - 纯箭头样式 */
+.pagination .page-item a:hover {
+    background: transparent !important; /* 保持透明背景 */
+    color: var(--tg-primary) !important; /* 改变箭头颜色 */
+    transform: translateY(-2px) scale(1.2) !important; /* 稍微放大 */
+    box-shadow: none !important; /* 去掉阴影 */
+}
+
+/* 禁用状态 */
+.pagination .page-item.disabled a {
+    opacity: 0.3 !important;
+    pointer-events: none !important;
+    background: transparent !important; /* 保持透明背景 */
 }
 
 /* ========================================
@@ -1570,6 +1752,164 @@ footer, .footer {
 footer a, .footer a {
     color: var(--tg-primary) !important;
     text-decoration: none !important;
+}
+
+/* Footer中的RSS链接样式 */
+.rss-link {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 8px 16px !important;
+    background: var(--tg-primary) !important;
+    color: white !important;
+    border-radius: 20px !important;
+    text-decoration: none !important;
+    font-weight: 500 !important;
+    transition: all 0.3s ease !important;
+    font-size: 0.9rem !important;
+}
+
+.rss-link:hover {
+    background: var(--tg-primary-dark) !important;
+    color: white !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(0, 136, 204, 0.3) !important;
+}
+
+.rss-link svg {
+    width: 16px !important;
+    height: 16px !important;
+}
+
+/* ========================================
+   强制分页右对齐 - 最高优先级覆盖
+   ======================================== */
+
+/* 使用最强的选择器强制右对齐 */
+body .pagination,
+html body .pagination,
+* .pagination,
+div .pagination,
+section .pagination {
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+    width: 100% !important;
+    padding: 40px 20px 40px 0 !important; /* 右侧padding与主容器一致 */
+    margin: 0 !important;
+    text-align: right !important;
+    box-sizing: border-box !important;
+}
+
+/* 确保分页项目也右对齐 */
+body .pagination .page-item,
+html body .pagination .page-item {
+    margin-left: 12px !important;
+    margin-right: 0 !important;
+}
+
+/* 强制覆盖翻页按钮容器样式 - 使用最高优先级选择器 */
+html body section.container.grid-md:has(.pagination),
+html body section.container.grid-lg:has(.pagination),
+html body section.container.grid-xl:has(.pagination),
+html body section.container:has(.pagination) {
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    padding: 0 20px !important;
+    box-sizing: border-box !important;
+}
+
+/* 强制翻页按钮与文章列表右侧完全对齐 */
+html body section.container.grid-md .pagination,
+html body section.container.grid-lg .pagination,
+html body section.container.grid-xl .pagination,
+html body section.container .pagination {
+    padding: 40px 0 !important; /* 移除左右padding，让按钮与容器边缘对齐 */
+    margin: 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* 响应式设计 - 移动端对齐 */
+@media (max-width: 768px) {
+    html body section.container.grid-md:has(.pagination),
+    html body section.container.grid-lg:has(.pagination),
+    html body section.container.grid-xl:has(.pagination),
+    html body section.container:has(.pagination) {
+        padding: 0 16px !important;
+    }
+
+    html body section.container.grid-md .pagination,
+    html body section.container.grid-lg .pagination,
+    html body section.container.grid-xl .pagination,
+    html body section.container .pagination {
+        padding: 40px 0 !important;
+    }
+}
+
+/* 终极解决方案：直接计算翻页按钮位置 */
+html body section.container .pagination {
+    position: relative !important;
+    right: 0 !important;
+    margin-right: 0 !important;
+    padding-right: 0 !important;
+}
+
+/* 确保翻页按钮右对齐到容器边缘 */
+html body section.container .pagination .page-item:last-child {
+    margin-right: 0 !important;
+}
+
+/* 如果还是不行，使用transform强制对齐 */
+html body section.container .pagination {
+    transform: translateX(0) !important;
+}
+
+/* 终极暴力解决方案 - 直接用margin负值调整 */
+html body section.container .pagination {
+    margin-right: -20px !important; /* 抵消容器的右padding */
+    padding-right: 20px !important; /* 保持按钮不贴边 */
+}
+
+/* 移动端也要调整 */
+@media (max-width: 768px) {
+    html body section.container .pagination {
+        margin-right: -16px !important; /* 抵消移动端容器的右padding */
+        padding-right: 16px !important; /* 保持按钮不贴边 */
+    }
+}
+
+/* ========================================
+   新的翻页wrapper样式 - 精确对齐
+   ======================================== */
+
+.pagination-wrapper {
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    padding: 0 20px !important;
+    box-sizing: border-box !important;
+    position: relative !important;
+}
+
+.pagination-wrapper .pagination {
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+    margin: 40px 0 !important;
+    padding: 0 !important; /* 完全移除padding */
+    background: transparent !important;
+    border: none !important;
+    gap: 12px !important;
+    list-style: none !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .pagination-wrapper {
+        padding: 0 16px !important;
+    }
 }
 
 footer a:hover, .footer a:hover {
@@ -1616,9 +1956,9 @@ th {
    ======================================== */
 
 /* 强制移除所有渐变和背景图 */
-.hero, .hero-body, .section, .footer,
+.hero, .hero-body, .footer,
 .card, .box, .notification, .message {
-    background: rgba(255, 255, 255, 0.85) !important;
+    background: rgba(255, 255, 255, 0.6) !important;
     background-image: none !important;
     background-gradient: none !important;
     background-attachment: scroll !important;
@@ -1626,7 +1966,7 @@ th {
 
 /* 统一所有卡片样式 */
 .card, .box, .panel {
-    background: rgba(255, 255, 255, 0.9) !important;
+    background: rgba(255, 255, 255, 0.6) !important;
     border: 1px solid var(--tg-border-light) !important;
     border-radius: var(--tg-radius-large) !important;
     box-shadow: var(--tg-shadow) !important;
