@@ -1017,32 +1017,40 @@ blockquote:hover {
     box-sizing: border-box;
 }
 
-/* 确保html和body使用正确的背景色 - 白天模式 */
+/* 确保html和body使用正确的背景色 - 白天模式（保留网格背景） */
 html {
-    background: var(--tg-bg-primary) !important;
-    background-image: none !important;
-    background-color: #ffffff !important;
+    /* 保持原有的网格背景设置 */
+    background-color: #f8fafc !important;
+    background-image:
+        linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px) !important;
+    background-size: 30px 30px !important;
+    background-attachment: fixed !important;
+    animation: gridMove 25s linear infinite !important;
+    min-height: 100vh !important;
 }
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
-    background: var(--tg-bg-primary) !important;
+    background: transparent !important;
     background-image: none !important;
-    background-color: #ffffff !important;
     background-attachment: fixed !important;
     color: var(--tg-text-primary) !important;
 }
 
-/* 强制白天模式的背景 - 覆盖任何可能的暗色设置 */
+/* 强制白天模式的网格背景 - 覆盖任何可能的暗色设置 */
 html:not([data-theme="dark"]) {
-    background: #ffffff !important;
-    background-color: #ffffff !important;
-    background-image: none !important;
+    background-color: #f8fafc !important;
+    background-image:
+        linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px) !important;
+    background-size: 30px 30px !important;
+    background-attachment: fixed !important;
+    animation: gridMove 25s linear infinite !important;
 }
 
 html:not([data-theme="dark"]) body {
-    background: #ffffff !important;
-    background-color: #ffffff !important;
+    background: transparent !important;
     background-image: none !important;
 }
 
