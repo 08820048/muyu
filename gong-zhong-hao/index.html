@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="zh" data-theme="light" dir="ltr">
+  <head>
+    <title>告别丑陋排版！这款免费工具让你的公众号文章瞬间高大上 - 八尺妖剑</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="简单是效率的灵魂"/>
+
+    <meta property="og:title" content="八尺妖剑 -&nbsp;告别丑陋排版！这款免费工具让你的公众号文章瞬间高大上" />
+    <meta property="og:type" content="website"/><meta property="og:url" content="https:&#x2F;&#x2F;ilikexff.cn&#x2F;gong-zhong-hao&#x2F;"/><meta property="og:description" content="简单是效率的灵魂"/>
+
+
+    <meta name="twitter:card" content="summary">
+
+
+    <link rel="stylesheet" href="https://ilikexff.cn/spectre/spectre.css">
+    <link rel="stylesheet" href="https://ilikexff.cn/theme.css"><link rel="stylesheet" href="https://ilikexff.cn/custom.css">
+    
+<link rel="shortcut icon" href="https://ilikexff.cn/./assets/bachiico.ico" type="image/x-icon" />
+        
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script>
+        function doRenderMath() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false},
+                {left: "\\begin{equation}", right: "\\end{equation}", display: true},
+                {left: "\\begin{align}", right: "\\end{align}", display: true},
+                {left: "\\begin{alignat}", right: "\\end{alignat}", display: true},
+                {left: "\\begin{gather}", right: "\\end{gather}", display: true},
+                {left: "\\begin{CD}", right: "\\end{CD}", display: true},
+                {left: "\\[", right: "\\]", display: true}
+                ]
+            });
+        }
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+        onload="doRenderMath()"></script>
+
+      </head>
+  <body id="top" class="sticky-footer"><div id="page-wrapper">
+<header id="header" class="section">
+  <section class="container grid-xl">
+    <nav class="navbar">
+      <section class="navbar-section">
+        
+<a class="site-logo" href="https:&#x2F;&#x2F;ilikexff.cn">
+  
+  <div class="col-mx-auto">
+    <figure style="margin: 8px">
+      <img class="img-responsive"
+           style="max-height: 45px"
+           alt="frontmatter image"
+           src="https://ilikexff.cn/./assets/logo.png">
+    </figure>
+  </div>
+  
+</a>
+
+      </section><!-- ./home button -->
+
+      <!-- 中间打字效果区域 -->
+      <section class="navbar-center">
+        <div class="typing-effect">
+          <span id="typing-text"></span>
+          <span class="typing-cursor">|</span>
+        </div>
+      </section>
+
+      <section class="navbar-section">
+        <nav class="dropmenu animated hide-md"><!-- 暗色模式滑动切换按钮 -->
+          <div class="theme-toggle">
+            <label class="theme-switch" for="theme-toggle-checkbox">
+              <input type="checkbox" id="theme-toggle-checkbox" class="theme-switch-checkbox">
+              <div class="theme-switch-slider">
+                <div class="theme-switch-handle">
+                  <svg class="sun-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                  </svg>
+                  <svg class="moon-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                  </svg>
+                </div>
+              </div>
+            </label>
+          </div>
+
+          <!-- 暗色模式切换脚本 -->
+          <script>
+            (function() {
+              'use strict';
+
+              // 主题管理
+              function initTheme() {
+                const savedTheme = localStorage.getItem('theme');
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+                setTheme(theme, false);
+              }
+
+              function setTheme(theme, animate = true) {
+                const html = document.documentElement;
+                const checkbox = document.getElementById('theme-toggle-checkbox');
+
+                if (animate) {
+                  html.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+                  setTimeout(() => { html.style.transition = ''; }, 400);
+                }
+
+                if (theme === 'dark') {
+                  html.setAttribute('data-theme', 'dark');
+                  if (checkbox) checkbox.checked = true;
+                } else {
+                  html.removeAttribute('data-theme');
+                  if (checkbox) checkbox.checked = false;
+                }
+
+                localStorage.setItem('theme', theme);
+              }
+
+              function toggleTheme() {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+              }
+
+              // 初始化
+              if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initTheme);
+              } else {
+                initTheme();
+              }
+
+              // 打字效果
+              function initTypingEffect() {
+                const text = "简单是效率的灵魂";
+                const typingElement = document.getElementById('typing-text');
+                const cursor = document.querySelector('.typing-cursor');
+
+                if (!typingElement) return;
+
+                let index = 0;
+                let isDeleting = false;
+
+                function typeWriter() {
+                  if (!isDeleting && index < text.length) {
+                    // 打字阶段
+                    typingElement.textContent = text.substring(0, index + 1);
+                    index++;
+                    setTimeout(typeWriter, 150); // 打字速度
+                  } else if (!isDeleting && index === text.length) {
+                    // 完成打字，等待一段时间后开始删除
+                    setTimeout(() => {
+                      isDeleting = true;
+                      typeWriter();
+                    }, 2000); // 停留时间
+                  } else if (isDeleting && index > 0) {
+                    // 删除阶段
+                    typingElement.textContent = text.substring(0, index - 1);
+                    index--;
+                    setTimeout(typeWriter, 100); // 删除速度
+                  } else if (isDeleting && index === 0) {
+                    // 删除完成，重新开始
+                    isDeleting = false;
+                    setTimeout(typeWriter, 500); // 重新开始前的等待时间
+                  }
+                }
+
+                // 开始打字效果
+                setTimeout(typeWriter, 1000); // 初始延迟
+              }
+
+              // 绑定事件
+              document.addEventListener('DOMContentLoaded', function() {
+                const checkbox = document.getElementById('theme-toggle-checkbox');
+                if (checkbox) {
+                  checkbox.addEventListener('change', toggleTheme);
+                }
+
+                // 键盘快捷键
+                document.addEventListener('keydown', function(e) {
+                  if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'D') {
+                    e.preventDefault();
+                    toggleTheme();
+                  }
+                });
+
+                // 初始化打字效果
+                initTypingEffect();
+              });
+            })();
+          </script>
+        </nav>
+      </section><!-- ./desktop-menu -->
+    </nav>
+  </section><!-- ./container -->
+</header>
+
+
+<div class="mobile-menu">
+  <div class="button_container" id="toggle" onclick="openOverlay()">
+    <span class="top"></span>
+    <span class="middle"></span>
+    <span class="bottom"></span>
+  </div>
+</div><!--./mobile-menu-->
+
+
+<section id="start"><section id="body-wrapper" class="section">
+          <section class="container grid-xl">
+<div id="breadcrumbs" itemtype="http://schema.org/BreadcrumbList" class="hide-sm">
+  
+    
+    <span><a href="https:&#x2F;&#x2F;ilikexff.cn&#x2F;">Home</a></span>
+  
+    <span><a href="https:&#x2F;&#x2F;ilikexff.cn&#x2F;gong-zhong-hao&#x2F;">告别丑陋排版！这款免费工具让你的公众号文章瞬间高大上</a></span>
+</div>
+
+            <div id="item" class="blog-listing">
+<div class="card">
+  
+
+    <div class="card-header">
+      <div class="card-title" style="margin-top: .25rem;"><div>
+          <h1 class="post-title">告别丑陋排版！这款免费工具让你的公众号文章瞬间高大上</h1>
+          
+    <div class="post-meta" style="display: inline-flex">
+        <span class="blog-date" style="display: inline-flex;">
+          <i class="gg-calendar" style="margin-right: 5px;"></i><time datetime="2023.06.15">
+          2023.06.15
+          </time></span><span class="post-author" style="margin-left: 5px; display: inline-flex;">
+          - 
+    八尺妖剑
+        </span></div>
+
+        </div></div>
+    </div><!--./card-header-->
+
+    <div class="card-body">
+      
+        <blockquote>
+<p><strong>一键美化，专业排版，让每一篇文章都成为视觉盛宴</strong></p>
+</blockquote>
+<h2 id="memo-xie-zai-qian-mian">📝 写在前面<a class="zola-anchor" href="#memo-xie-zai-qian-mian" aria-label="Anchor link for: memo-xie-zai-qian-mian">🔗</a></h2>
+<blockquote>
+<p>你是否还在为公众号文章的排版而头疼？<br />
+你是否羡慕那些排版精美、阅读体验极佳的爆款文章？<br />
+你是否想要一个简单易用、功能强大的排版工具？</p>
+<p>今天，我要为大家推荐一款<strong>完全免费</strong>的公众号排版神器——<strong>0703 公众号推文美化助手 v1.0.0</strong>！</p>
+</blockquote>
+<p>我在做公众号的初期，也是使用公众号编辑器的原生功能编辑排版文章，结果发布之后发现异常的难看，后面也了解并用过一些同类型的公众号排版美化平台。但要么是需要登录注册，有的需要收费，有的甚至引导你关注各种平台才会让使用，并且效果很一般，重点是，这些大部分平台并不支持纯文本的美化功能，这对于不会 markdown 的用户来说还是有些门槛的，markdown 语法对于程序员来说可能是手拿把掐的东西，但其实大部分的公众号运营者并不知道他的存在。</p>
+<p>这就导致了手动排版出来的内容混乱丑陋，没有吸引力。于是我决定自己做一款类似的工具，所以，0703 诞生了。</p>
+<p><img src="https://images.waer.ltd/notes/202507041925551.png" alt="screenshot_3x_postspark_2025-07-04_19-23-45" /></p>
+<p><img src="https://images.waer.ltd/notes/202507041848752.png" alt="image-20250704184821465" /></p>
+<h2 id="sparkles-wei-shi-yao-xuan-ze-zhe-kuan-gong-ju">✨ 为什么选择这款工具？<a class="zola-anchor" href="#sparkles-wei-shi-yao-xuan-ze-zhe-kuan-gong-ju" aria-label="Anchor link for: sparkles-wei-shi-yao-xuan-ze-zhe-kuan-gong-ju">🔗</a></h2>
+<h3 id="dart-zhuan-wei-gong-zhong-hao-you-hua">🎯 <strong>专为公众号优化</strong><a class="zola-anchor" href="#dart-zhuan-wei-gong-zhong-hao-you-hua" aria-label="Anchor link for: dart-zhuan-wei-gong-zhong-hao-you-hua">🔗</a></h3>
+<ul>
+<li>完美适配微信公众号编辑器</li>
+<li>一键复制，无缝粘贴</li>
+<li>保持原有格式不变形</li>
+<li>零调整，粘贴即可用</li>
+</ul>
+<h3 id="waning-crescen-xian-dai-hua-she-ji-ti-yan">🌙 <strong>现代化设计体验</strong><a class="zola-anchor" href="#waning-crescen-xian-dai-hua-she-ji-ti-yan" aria-label="Anchor link for: waning-crescen-xian-dai-hua-she-ji-ti-yan">🔗</a></h3>
+<ul>
+<li>支持暗色/亮色模式切换</li>
+<li>实时预览效果</li>
+<li>分屏编辑，所见即所得</li>
+</ul>
+<h3 id="robot-face-ai-zhi-neng-zhuan-huan">🤖 <strong>AI 智能转换</strong><a class="zola-anchor" href="#robot-face-ai-zhi-neng-zhuan-huan" aria-label="Anchor link for: robot-face-ai-zhi-neng-zhuan-huan">🔗</a></h3>
+<ul>
+<li>考虑到可能存在一部分公众号运营者不知道或者不了解 markdown 的语法，因此，0703 专门针对这个问题做了优化，集成 DeepSeek AI 引擎智能转换，不懂 markdown 也没关系，你只需要提供写好的推文文本，一键即可完成文本到 markdown 得转换。</li>
+<li>该工具完全免费，<strong>无需登录</strong>，<strong>无需收费</strong>、<strong>关注公众号</strong>等各类操作，打开即用。</li>
+<li>考虑到成本控制，AI 转换功能每日限制 3 次，对于普通的个人公众号管理者来说，绰绰有余了。</li>
+</ul>
+<h2 id="he-xin-gong-neng-xiang-jie">🛠️ 核心功能详解<a class="zola-anchor" href="#he-xin-gong-neng-xiang-jie" aria-label="Anchor link for: he-xin-gong-neng-xiang-jie">🔗</a></h2>
+<h3 id="1-markdown-bian-ji-qi">1. <strong>Markdown 编辑器</strong><a class="zola-anchor" href="#1-markdown-bian-ji-qi" aria-label="Anchor link for: 1-markdown-bian-ji-qi">🔗</a></h3>
+<p>支持完整的 Markdown 语法，包括：</p>
+<ul>
+<li>标题层级（H1-H6）</li>
+<li>粗体、斜体、删除线</li>
+<li>有序/无序列表</li>
+<li>引用块、代码块</li>
+<li>链接、图片</li>
+<li>表格、分割线</li>
+</ul>
+<h3 id="2-duo-zhu-ti-yang-shi">2. <strong>多主题样式</strong><a class="zola-anchor" href="#2-duo-zhu-ti-yang-shi" aria-label="Anchor link for: 2-duo-zhu-ti-yang-shi">🔗</a></h3>
+<p>内置多套精美主题：</p>
+<p>当前版本已支持主题如下：</p>
+<ul>
+<li>雪月风华</li>
+</ul>
+<p><img src="https://images.waer.ltd/notes/202507041852056.png" alt="image-20250704185253981" /></p>
+<ul>
+<li>星辰大海</li>
+</ul>
+<p><img src="https://images.waer.ltd/notes/202507041854656.png" alt="image-20250704185453583" /></p>
+<ul>
+<li>天秀鹰文</li>
+</ul>
+<p><img src="https://images.waer.ltd/notes/202507041854071.png" alt="image-20250704185436995" /></p>
+<ul>
+<li>火焰心情</li>
+</ul>
+<p><img src="https://images.waer.ltd/notes/202507041855343.png" alt="image-20250704185519282" /></p>
+<ul>
+<li>绿叶清泉</li>
+</ul>
+<p><img src="https://images.waer.ltd/notes/202507041855353.png" alt="image-20250704185539283" /></p>
+<ul>
+<li>墨香书韵</li>
+</ul>
+<p><img src="https://images.waer.ltd/notes/202507041855804.png" alt="image-20250704185555727" /></p>
+<ul>
+<li>紫霞仙境</li>
+</ul>
+<p><img src="https://images.waer.ltd/notes/202507041856542.png" alt="image-20250704185612452" /></p>
+<ul>
+<li>金秋时节</li>
+</ul>
+<p><img src="https://images.waer.ltd/notes/202507041856227.png" alt="image-20250704185627162" /></p>
+<ul>
+<li>暗夜简约</li>
+</ul>
+<p><img src="https://images.waer.ltd/notes/202507041856307.png" alt="image-20250704185654226" /></p>
+<blockquote>
+<p>后续会陆续更新更多丰富的主题风格。</p>
+</blockquote>
+<h3 id="3-shi-shi-yu-lan">3. <strong>实时预览</strong><a class="zola-anchor" href="#3-shi-shi-yu-lan" aria-label="Anchor link for: 3-shi-shi-yu-lan">🔗</a></h3>
+<ul>
+<li>左侧编辑，右侧预览</li>
+<li>支持纯编辑/纯预览/分屏模式</li>
+<li>实时同步，即时反馈</li>
+</ul>
+<h3 id="4-yi-jian-fu-zhi">4. <strong>一键复制</strong><a class="zola-anchor" href="#4-yi-jian-fu-zhi" aria-label="Anchor link for: 4-yi-jian-fu-zhi">🔗</a></h3>
+<ul>
+<li>智能复制功能</li>
+<li>自动适配亮色模式</li>
+<li>完美兼容公众号编辑器</li>
+</ul>
+<h3 id="5-feng-fu-de-kuai-jie-gong-neng">5. 丰富的快捷功能<a class="zola-anchor" href="#5-feng-fu-de-kuai-jie-gong-neng" aria-label="Anchor link for: 5-feng-fu-de-kuai-jie-gong-neng">🔗</a></h3>
+<ul>
+<li>支持一键上传 markdown 源文件，自动解析，你要做的只是选择你喜欢的主题，实时预览效果，一键复制到公众号平台即可使用。</li>
+<li>支持导出 HTML 和 markdown 格式文件，提供更多的选择。</li>
+<li>提供默认的效果展示内容，选择导入即可预览各种主题效果。</li>
+</ul>
+<h2 id="dart-xiao-guo-dui-bi">🎯 效果对比<a class="zola-anchor" href="#dart-xiao-guo-dui-bi" aria-label="Anchor link for: dart-xiao-guo-dui-bi">🔗</a></h2>
+<blockquote>
+<p>下面截图都是通过 0703 美化之后一键复制粘贴到公众号中的实际效果，所见即所得。</p>
+</blockquote>
+<p><img src="https://images.waer.ltd/notes/202507041902570.png" alt="" /></p>
+<p><img src="https://images.waer.ltd/notes/202507041903281.png" alt="image-20250704190312221" /></p>
+<p>更多效果欢迎在线体验。</p>
+<h2 id="rocket-kuai-su-shang-shou-zhi-nan">🚀 快速上手指南<a class="zola-anchor" href="#rocket-kuai-su-shang-shou-zhi-nan" aria-label="Anchor link for: rocket-kuai-su-shang-shou-zhi-nan">🔗</a></h2>
+<h3 id="step-1-fang-wen-gong-ju">Step 1: 访问工具<a class="zola-anchor" href="#step-1-fang-wen-gong-ju" aria-label="Anchor link for: step-1-fang-wen-gong-ju">🔗</a></h3>
+<p>打开浏览器，访问：<code>https://0703.ilikexff.cn</code></p>
+<h3 id="step-2-xuan-ze-bian-ji-mo-shi">Step 2: 选择编辑模式<a class="zola-anchor" href="#step-2-xuan-ze-bian-ji-mo-shi" aria-label="Anchor link for: step-2-xuan-ze-bian-ji-mo-shi">🔗</a></h3>
+<ul>
+<li><strong>分屏模式</strong>：左侧编辑，右侧预览</li>
+<li><strong>编辑模式</strong>：专注写作</li>
+<li><strong>预览模式</strong>：查看效果</li>
+</ul>
+<h3 id="step-3-kai-shi-chuang-zuo">Step 3: 开始创作<a class="zola-anchor" href="#step-3-kai-shi-chuang-zuo" aria-label="Anchor link for: step-3-kai-shi-chuang-zuo">🔗</a></h3>
+<ol>
+<li>在左侧编辑器输入 Markdown 内容</li>
+<li>右侧实时预览效果</li>
+<li>选择合适的主题样式</li>
+</ol>
+<h3 id="step-4-yi-jian-fu-zhi">Step 4: 一键复制<a class="zola-anchor" href="#step-4-yi-jian-fu-zhi" aria-label="Anchor link for: step-4-yi-jian-fu-zhi">🔗</a></h3>
+<ol>
+<li>点击“复制到公众号“按钮</li>
+<li>自动使用亮色模式样式</li>
+<li>粘贴到公众号编辑器</li>
+</ol>
+<h3 id="step-5-fa-bu-wen-zhang">Step 5: 发布文章<a class="zola-anchor" href="#step-5-fa-bu-wen-zhang" aria-label="Anchor link for: step-5-fa-bu-wen-zhang">🔗</a></h3>
+<p>在公众号后台完成最终调整并发布</p>
+<hr />
+<h2 id="tada-yong-hu-fan-kui">🎉 用户反馈<a class="zola-anchor" href="#tada-yong-hu-fan-kui" aria-label="Anchor link for: tada-yong-hu-fan-kui">🔗</a></h2>
+<blockquote>
+<p><strong>@新媒体运营小王</strong>：<br />
+“用了这个工具后，我的文章排版效率提升了300%！特别是AI转换功能，太实用了！”</p>
+</blockquote>
+<blockquote>
+<p><strong>@技术博主老李</strong>：<br />
+“作为程序员，我最喜欢Markdown语法支持，写技术文档特别方便，代码展示效果也很棒！”</p>
+</blockquote>
+<blockquote>
+<p><strong>@内容创作者小美</strong>：<br />
+“暗色模式真的很贴心，晚上写文章不伤眼，而且界面设计很现代化！”</p>
+</blockquote>
+<h2 id="telephone-receiver-lian-xi-wo-men">📞 联系我们<a class="zola-anchor" href="#telephone-receiver-lian-xi-wo-men" aria-label="Anchor link for: telephone-receiver-lian-xi-wo-men">🔗</a></h2>
+<p>如果你在使用过程中遇到任何问题，或者有好的建议，欢迎联系我们：</p>
+<ul>
+<li>🌐 <strong>官网</strong>：https://0703.ilikexff.cn</li>
+<li>📧 <strong>邮箱</strong>：ilikexff@gmail.com</li>
+<li>💬 <strong>QQ</strong>：2217021563</li>
+</ul>
+<h2 id="dart-jie-yu">🎯 结语<a class="zola-anchor" href="#dart-jie-yu" aria-label="Anchor link for: dart-jie-yu">🔗</a></h2>
+<p>在这个内容为王的时代，好的排版就是你文章的“颜值“。<strong>0703 公众号推文美化助手</strong>不仅仅是一个工具，更是你内容创作路上的得力助手。</p>
+<p><strong>现在就开始使用吧！让你的每一篇文章都成为视觉盛宴！</strong></p>
+<hr />
+<p><em>本文由 0703 公众号推文美化助手 v1.0.0 排版制作</em><br />
+<em>工具地址：https://0703.ilikexff.cn</em></p>
+
+      
+    </div><!--./card-body-->
+
+    <div class="card-footer">
+      <div class="columns">
+        <div class="column col-9 col-sm-7">
+          <div class="taxonomies text-left">
+            
+
+    
+          </div>
+        </div><!--./col-6-->
+        
+        </div><!--./columns-->
+    </div><!--./card-footer-->
+</div><!--./card-->
+</div>
+          </section>
+        </section></section>
+<section class="container grid-xl">
+<ul class="pagination paginator">
+  
+  
+</ul>
+</section>
+</div><!-- ./page-wrapper -->
+
+    
+<div class="mobile-container">
+        <div class="overlay" id="overlay">
+            <div style="padding: 1rem;">
+              
+<a class="site-logo" href="https:&#x2F;&#x2F;ilikexff.cn">
+  
+  <div class="col-mx-auto">
+    <figure style="margin: 8px">
+      <img class="img-responsive"
+           style="max-height: 45px"
+           alt="frontmatter image"
+           src="https://ilikexff.cn/./assets/logo.png">
+    </figure>
+  </div>
+  
+</a>
+
+            </div>
+            <nav class="overlay-menu">
+              </nav>
+        </div>
+    </div>
+
+<script type="text/javascript">
+  var overlay = document.getElementById('overlay');
+  var toggle = document.getElementById('toggle');
+
+  function openOverlay(){
+      // Open overlay
+      if (overlay.classList.contains("open")) {
+          overlay.classList.remove("open");
+      }
+      else {
+          overlay.classList.add("open");
+      }
+
+      // Button transition
+      if (toggle.classList.contains("active")) {
+          toggle.classList.remove("active");
+      }
+      else {
+          toggle.classList.add("active");
+      }
+    }
+</script>
+
+<section id="footer" class="bg-gray">
+  <div class="container grid-xl">
+    
+
+
+    <div class="columns">
+      
+      <div class="column col-8 col-lg-12 col-mx-auto" style="text-align: center;">
+        简单是效率的灵魂 | <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">黔ICP备2021010295号</a>
+      </div>
+      
+      
+    </div>
+  </div>
+</section>
+</body>
+</html>
