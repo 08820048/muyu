@@ -66,16 +66,19 @@
 
       </section><!-- ./home button -->
 
-      <!-- 中间打字效果区域 -->
-      <section class="navbar-center">
-        <div class="typing-effect">
-          <span id="typing-text"></span>
-          <span class="typing-cursor">|</span>
-        </div>
-      </section>
+      <section class="navbar-center hide-md"></section>
 
       <section class="navbar-section">
-        <nav class="dropmenu animated hide-md"><!-- 暗色模式滑动切换按钮 -->
+        <nav class="dropmenu animated hide-md">
+
+<ul><li>
+        <a href="https://ilikexff.cn">首页</a>
+    </li><li>
+        <a href="https://ilikexff.cn/dongxi">东西</a>
+    </li></ul>
+
+
+          <!-- 暗色模式滑动切换按钮 -->
           <div class="theme-toggle">
             <label class="theme-switch" for="theme-toggle-checkbox">
               <input type="checkbox" id="theme-toggle-checkbox" class="theme-switch-checkbox">
@@ -145,44 +148,7 @@
                 initTheme();
               }
 
-              // 打字效果
-              function initTypingEffect() {
-                const text = "简单是效率的灵魂";
-                const typingElement = document.getElementById('typing-text');
-                const cursor = document.querySelector('.typing-cursor');
 
-                if (!typingElement) return;
-
-                let index = 0;
-                let isDeleting = false;
-
-                function typeWriter() {
-                  if (!isDeleting && index < text.length) {
-                    // 打字阶段
-                    typingElement.textContent = text.substring(0, index + 1);
-                    index++;
-                    setTimeout(typeWriter, 150); // 打字速度
-                  } else if (!isDeleting && index === text.length) {
-                    // 完成打字，等待一段时间后开始删除
-                    setTimeout(() => {
-                      isDeleting = true;
-                      typeWriter();
-                    }, 2000); // 停留时间
-                  } else if (isDeleting && index > 0) {
-                    // 删除阶段
-                    typingElement.textContent = text.substring(0, index - 1);
-                    index--;
-                    setTimeout(typeWriter, 100); // 删除速度
-                  } else if (isDeleting && index === 0) {
-                    // 删除完成，重新开始
-                    isDeleting = false;
-                    setTimeout(typeWriter, 500); // 重新开始前的等待时间
-                  }
-                }
-
-                // 开始打字效果
-                setTimeout(typeWriter, 1000); // 初始延迟
-              }
 
               // 绑定事件
               document.addEventListener('DOMContentLoaded', function() {
@@ -199,8 +165,7 @@
                   }
                 });
 
-                // 初始化打字效果
-                initTypingEffect();
+
               });
             })();
           </script>
@@ -425,6 +390,17 @@
 
             </div>
             <nav class="overlay-menu">
+              
+
+<ul class="tree treemenu treemenu-root"><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn">首页</a>
+    </li><li class="tree-empty">
+      <span class="toggler"></span>
+      <a href="https://ilikexff.cn/dongxi">东西</a>
+    </li></ul>
+
+
               </nav>
         </div>
     </div>
