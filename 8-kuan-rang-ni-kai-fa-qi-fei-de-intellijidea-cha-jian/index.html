@@ -379,15 +379,143 @@ AiXCoder 是一款非常强大的智能化代码提示补全工具，一个很�
     
 
 
+    
+    <!-- 访问统计信息 -->
+    <div class="visit-stats" style="text-align: center; margin-bottom: 1rem; color: #666; font-size: 0.9rem;">
+      <span id="visit-today">今日访问 0</span> · 
+      <span id="visit-total">总访问 0</span> · 
+      <span id="site-runtime">运行 0 天</span>
+    </div>
+    
     <div class="columns">
       
       <div class="column col-8 col-lg-12 col-mx-auto" style="text-align: center;">
-        简单是效率的灵魂 | <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">黔ICP备2021010295号</a>
+        黔ICP备2021010295号
       </div>
       
       
     </div>
   </div>
+  
+  <!-- 访问统计JavaScript -->
+  <script>
+    (function() {
+      // 网站开始运行日期
+      const startDate = new Date('2025-01-01');
+      
+      // 计算运行天数
+      function calculateRuntime() {
+        const now = new Date();
+        const diffTime = Math.abs(now - startDate);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        return diffDays;
+      }
+      
+      // 获取今日日期字符串
+      function getTodayKey() {
+        const today = new Date();
+        return today.getFullYear() + '-' + 
+               String(today.getMonth() + 1).padStart(2, '0') + '-' + 
+               String(today.getDate()).padStart(2, '0');
+      }
+      
+      // 生成简单的浏览器指纹（用于区分不同访问者）
+      function getBrowserFingerprint() {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        ctx.textBaseline = 'top';
+        ctx.font = '14px Arial';
+        ctx.fillText('Browser fingerprint', 2, 2);
+        
+        const fingerprint = [
+          navigator.userAgent,
+          navigator.language,
+          screen.width + 'x' + screen.height,
+          new Date().getTimezoneOffset(),
+          canvas.toDataURL()
+        ].join('|');
+        
+        // 生成简单的hash
+        let hash = 0;
+        for (let i = 0; i < fingerprint.length; i++) {
+          const char = fingerprint.charCodeAt(i);
+          hash = ((hash << 5) - hash) + char;
+          hash = hash & hash; // Convert to 32-bit integer
+        }
+        return Math.abs(hash).toString(36);
+      }
+      
+      // 初始化访问统计
+      function initVisitStats() {
+        const todayKey = getTodayKey();
+        const fingerprint = getBrowserFingerprint();
+        const storageKey = 'visit_' + fingerprint;
+        
+        // 获取当前访问者的访问记录
+        const visitRecord = JSON.parse(localStorage.getItem(storageKey) || '{}');
+        const hasVisitedToday = visitRecord.lastVisitDate === todayKey;
+        const hasVisitedEver = !!visitRecord.firstVisitDate;
+        
+        // 获取全局统计数据
+        let globalStats = JSON.parse(localStorage.getItem('globalVisitStats') || '{}');
+        let todayCount = globalStats.todayCount || 0;
+        let totalCount = globalStats.totalCount || 10516;
+        let todayVisitors = globalStats.todayVisitors || new Set();
+        let allVisitors = globalStats.allVisitors || new Set();
+        
+        // 如果是新的一天，重置今日数据
+        if (globalStats.lastResetDate !== todayKey) {
+          todayCount = 0;
+          todayVisitors = new Set();
+          globalStats.lastResetDate = todayKey;
+        }
+        
+        // 只有当天第一次访问时才增加今日计数
+        if (!hasVisitedToday) {
+          todayCount++;
+          todayVisitors.add(fingerprint);
+          visitRecord.lastVisitDate = todayKey;
+        }
+        
+        // 只有第一次访问网站时才增加总计数
+        if (!hasVisitedEver) {
+          totalCount++;
+          allVisitors.add(fingerprint);
+          visitRecord.firstVisitDate = todayKey;
+        }
+        
+        // 保存数据
+        globalStats.todayCount = todayCount;
+        globalStats.totalCount = totalCount;
+        globalStats.todayVisitors = Array.from(todayVisitors);
+        globalStats.allVisitors = Array.from(allVisitors);
+        
+        localStorage.setItem(storageKey, JSON.stringify(visitRecord));
+        localStorage.setItem('globalVisitStats', JSON.stringify(globalStats));
+        
+        // 更新显示
+        updateStatsDisplay(todayCount, totalCount, calculateRuntime());
+      }
+      
+      // 更新统计显示
+      function updateStatsDisplay(todayCount, totalCount, runtime) {
+        const todayElement = document.getElementById('visit-today');
+        const totalElement = document.getElementById('visit-total');
+        const runtimeElement = document.getElementById('site-runtime');
+        
+        if (todayElement) todayElement.textContent = `今日访问 ${todayCount}`;
+        if (totalElement) totalElement.textContent = `总访问 ${totalCount}`;
+        if (runtimeElement) runtimeElement.textContent = `运行 ${runtime} 天`;
+      }
+      
+      // 页面加载完成后初始化
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initVisitStats);
+      } else {
+        initVisitStats();
+      }
+    })();
+  </script>
 </section>
 </body>
 </html>
