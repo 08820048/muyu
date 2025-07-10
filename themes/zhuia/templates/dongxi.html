@@ -1,0 +1,126 @@
+{% extends "index.html" -%}
+
+{%- block title %}
+    <title>{{ section.title }} - {{ config.title }}</title>
+{%- endblock title -%}
+
+{%- block css -%}
+    {{ super() }}
+    <style>
+      .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin: 2rem 0;
+      }
+      
+      .product-card {
+        background: var(--bg-color-secondary, #f8f9fa);
+        border: 1px solid var(--border-color, #e9ecef);
+        border-radius: 8px;
+        padding: 1.5rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      
+      .product-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        border-color: var(--primary-color, #007bff);
+      }
+      
+      .product-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--primary-color, #007bff);
+      }
+      
+      .product-link {
+        color: var(--link-color, #007bff);
+        text-decoration: none;
+        font-size: 0.9rem;
+        word-break: break-all;
+        display: block;
+        margin-bottom: 0.75rem;
+      }
+      
+      .product-link:hover {
+        text-decoration: underline;
+      }
+      
+      .product-description {
+        color: var(--text-color-secondary, #6c757d);
+        line-height: 1.5;
+        font-size: 0.95rem;
+      }
+      
+      .page-header {
+        text-align: center;
+        margin: 2rem 0 3rem 0;
+      }
+      
+      .page-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: var(--primary-color, #007bff);
+      }
+      
+      .page-subtitle {
+        font-size: 1.1rem;
+        color: var(--text-color-secondary, #6c757d);
+        max-width: 600px;
+        margin: 0 auto;
+      }
+    </style>
+{%- endblock css -%}
+
+{%- block content -%}
+    <div class="page-header">
+      <h1 class="page-title">{{ section.title }}</h1>
+      <p class="page-subtitle">这里展示我开发和维护的一些产品和项目</p>
+    </div>
+    
+    <div class="product-grid">
+      <div class="product-card">
+        <h3 class="product-title">公众号排版美化工具</h3>
+        <a href="https://0703.ilikexff.cn/" target="_blank" class="product-link">
+          https://0703.ilikexff.cn/
+        </a>
+        <p class="product-description">
+          免费、轻量、开箱即用的公众号排版美化工具。帮助内容创作者快速美化文章排版，提升阅读体验。
+        </p>
+      </div>
+      
+      <div class="product-card">
+        <h3 class="product-title">漂流瓶</h3>
+        <a href="https://plp.ilikexff.cn/" target="_blank" class="product-link">
+          https://plp.ilikexff.cn/
+        </a>
+        <p class="product-description">
+          一个匿名在线漂流瓶网页，无需登录即可打捞和丢漂流瓶。让你的想法随海浪漂流，与陌生人分享心情。
+        </p>
+      </div>
+      
+      <div class="product-card">
+        <h3 class="product-title">在线推理交流平台</h3>
+        <a href="https://hherring.cn/" target="_blank" class="product-link">
+          https://hherring.cn/
+        </a>
+        <p class="product-description">
+          一个现代、智能的在线推理交流平台。为推理爱好者提供交流讨论的空间，探索逻辑思维的乐趣。
+        </p>
+      </div>
+      
+      <div class="product-card">
+        <h3 class="product-title">CodePins 代码书签插件</h3>
+        <a href="https://plugins.jetbrains.com/plugin/27300-codepins--code-bookmarks/" target="_blank" class="product-link">
+          JetBrains 插件市场
+        </a>
+        <p class="product-description">
+          现代化智能代码书签管理插件，支持 IDEA 全家桶。提供统一的界面风格，让代码导航更加高效便捷。
+        </p>
+      </div>
+    </div>
+{%- endblock content -%}
