@@ -1,6 +1,6 @@
 # 站点基础配置
 base_url = "https://ilikexff.cn"    # 站点基础URL（必须配置）
-title = "八尺妖剑"                      # 站点标题
+title = "八尺妖剑 v2.0"                      # 站点标题
 description = ""            # 站点描述
 default_language = "zh"             # 默认语言（用于订阅源）
 theme = "zhuia"                     # 使用的主题名称
