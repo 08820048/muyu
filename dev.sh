@@ -10,4 +10,4 @@ echo ""
 echo "按 Ctrl+C 停止服务器"
 echo ""
 
-zola serve --interface 0.0.0.0 --port 1111 --base-url http://127.0.0.1:1111
+zola serve --interface 0.0.0.0 --port 1111
