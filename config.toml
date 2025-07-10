@@ -1,7 +1,7 @@
 # 站点基础配置
 base_url = "https://ilikexff.cn"    # 站点基础URL（必须配置）
 title = "八尺妖剑"                      # 站点标题
-description = "简单是效率的灵魂"            # 站点描述
+description = ""            # 站点描述
 default_language = "zh"             # 默认语言（用于订阅源）
 theme = "zhuia"                     # 使用的主题名称
 output_dir = "public"               # 输出目录（默认public）
@@ -90,11 +90,14 @@ hamburger_menu = true
 # 网站图标配置
 favicon = "./assets/bachiico.ico"
 
-# 主菜单项 - 已移除，使用打字效果替代
-main_menu = []
+# 主菜单项
+main_menu = [
+    {url = "/", name = "首页"},
+    {url = "/dongxi/", name = "东西"},
+]
 
 # 页脚标语（包含备案信息）
-footer_tagline = "简单是效率的灵魂 | 黔ICP备2021010295号"
+footer_tagline = "黔ICP备2021010295号"
 
 # 启用自定义 CSS
 custom_css = true
